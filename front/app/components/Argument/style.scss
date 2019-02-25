@@ -1,0 +1,35 @@
+@import "../../styles/theme.scss";
+
+.icon {
+	margin: 0rem;
+}
+
+.card {
+	margin-bottom: 0.5rem;
+	text-align: left;
+}
+
+.arg-header-title {
+	font-weight: 400;
+}
+
+.arg-lvl {
+	.level-right {
+		width: 5rem;
+	}
+	.level-left {
+		width: calc(100% - 5rem);
+	}
+}
+
+.input {
+	margin-bottom: 0.4rem;
+}
+
+.textarea {
+	margin-bottom: 0.4rem;
+}
+
+.control {
+	float: right;
+}

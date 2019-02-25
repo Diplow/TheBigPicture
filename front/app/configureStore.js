@@ -5,6 +5,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
@@ -14,8 +15,8 @@ export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [sagaMiddleware, routerMiddleware(history)];
-
+  // 3. thunkMiddleware: for async actions based on AJAX requests
+  const middlewares = [sagaMiddleware, routerMiddleware(history), thunk];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
@@ -29,7 +30,7 @@ export default function configureStore(initialState = {}, history) {
     : compose;
   /* eslint-enable */
 
-  const store = createStore(createReducer(), fromJS(initialState), composeEnhancers(...enhancers));
+  const store = createStore(createReducer(), fromJS(initialState), applyMiddleware(...middlewares));
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
