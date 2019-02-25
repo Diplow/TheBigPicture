@@ -1,17 +1,16 @@
 
 from django.db.models import CharField
-
 from back.models.element import ArguableElement
 from back.models.element import ArguableElementSerializer
 
 
-class Information(ArguableElement):
-	source = CharField(max_length=150)
+class Resource(ArguableElement):
+	source = CharField(max_length=150, blank=True)
 
 
-class InformationSerializer(ArguableElementSerializer):
+class ResourceSerializer(ArguableElementSerializer):
 
 	class Meta:
-		model = Information
+		model = Resource
 		fields = "__all__"
 		read_only_fields = ("_type",)

@@ -4,8 +4,12 @@ from back.models import ArgumentSerializer
 
 
 class ArgumentViewSet(ModelViewSet):
-    """
-    API endpoint that allows arguments to be viewed or edited.
-    """
-    queryset = Argument.objects.all()
-    serializer_class = ArgumentSerializer
+	serializer_class = ArgumentSerializer
+	queryset = Argument.objects.all()
+
+	def get_queryset(self):
+		queryset = self.queryset
+		element = self.request.query_params.get('element', None)
+		if element is not None:
+			queryset = queryset.filter(obj=element)
+		return queryset

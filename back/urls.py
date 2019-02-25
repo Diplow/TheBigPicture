@@ -1,11 +1,11 @@
 from django.urls import include, path
 from rest_framework import routers
+from django.views.decorators.csrf import csrf_exempt
+
 from views.users import UserViewSet, GroupViewSet
 from views.elements import ElementViewSet
 from views.arguments import ArgumentViewSet
-from views.information import InformationViewSet
-from views.problems import ProblemViewSet
-from views.solutions import SolutionViewSet
+from views.resources import ResourceViewSet
 from views.bigpictures import BigPictureViewSet
 
 
@@ -14,9 +14,7 @@ router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'elements', ElementViewSet)
 router.register(r'arguments', ArgumentViewSet)
-router.register(r'information', InformationViewSet)
-router.register(r'problems', ProblemViewSet)
-router.register(r'solutions', SolutionViewSet)
+router.register(r'resources', ResourceViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
 
 # Wire up our API using automatic URL routing.

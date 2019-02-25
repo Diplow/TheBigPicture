@@ -1,15 +1,17 @@
 from django.db.models import ManyToManyField
+from django.db.models import URLField
+from django.db.models import CharField
 
 from back.models.element import ArguableElement
 from back.models.element import ArguableElementSerializer
-from back.models.basics.problem import Problem
-from back.models.basics.information import Information
+from back.models.basics.resource import Resource
 
 
 class BigPicture(ArguableElement):
-	problems = ManyToManyField(Problem, related_name="bigpictures")
-	information = ManyToManyField(Information, related_name="bigpictures")
-	bigpictures = ManyToManyField("self")
+	resources = ManyToManyField(Resource, blank=True, related_name="bigpictures")
+	bigpictures = ManyToManyField("self", blank=True)
+	hashtags = CharField(max_length=200)
+	img = URLField(blank=True)
 
 
 class BigPictureSerializer(ArguableElementSerializer):
