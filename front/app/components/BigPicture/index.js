@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import ReactMarkdown from 'react-markdown'
 import React, { PropTypes } from 'react'
 import {} from '../../actions/index'
 import {} from '../../constants'
@@ -31,7 +32,7 @@ class BigPictureContentLook extends React.Component {
           </a>
         </div>
         <div className="content">
-          {this.props.data.body}
+          <ReactMarkdown source={this.props.data.body} />
         </div>
         <Hashtags data={this.props.data.hashtags} />
         <div className={"modal" + (this.state.createModal ? " is-active" : "")}>
