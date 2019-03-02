@@ -9,7 +9,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import globalReducer from 'containers/App/reducer';
 import bigpicturesReducer from './bigpictures'
 import argumentsReducer from './arguments'
-import resourcesReducer from './resources'
 
 /*
  * routeReducer
@@ -48,7 +47,6 @@ export default function createReducer(injectedReducers) {
     global: globalReducer,
     bigpictures: bigpicturesReducer,
     args: argumentsReducer,
-    resources: resourcesReducer,
     ...injectedReducers,
   });
 }

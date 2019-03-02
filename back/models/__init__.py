@@ -1,3 +1,3 @@
-from back.models.user import UserSerializer
-from back.models.element import ArguableElement, ArguableElementSerializer
-from back.models.basics import *
+
+from back.models.bigpicture import BigPicture
+from back.models.argument import Argument

@@ -12,7 +12,8 @@ class NewResourceLook extends React.Component {
     super(props);
     const {
       addResource,
-      bigPicture
+      bigPicture,
+      bigpicture
     } = this.props;
   }
 
@@ -20,8 +21,7 @@ class NewResourceLook extends React.Component {
     return {
       title: document.getElementById("NewResourceTitle").value,
       body: document.getElementById("NewResourceContent").value,
-      bigpictures: [this.props.bigPicture],
-      source: ""
+      resourceFor: this.props.bigpicture.id
     }
   }
 
@@ -49,8 +49,10 @@ class NewResourceLook extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-    return {}
+const mapStateToProps = (state, ownProps) => {
+    return {
+      "bigpicture": ownProps.bigPicture == 0 ? null : state.get("bigpictures").filter(elt => elt.id == ownProps.bigPicture)[0]
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

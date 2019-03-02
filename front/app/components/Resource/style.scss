@@ -1,7 +1,5 @@
-.tile.is-child {
-	margin: 0.2rem!important;
-}
+@import "../../styles/theme.scss";
 
-.resource-tile {
-	text-align: left; 
+.card.is-info {
+	background-color: lighten(desaturate($info, 20%), 10%);
 }

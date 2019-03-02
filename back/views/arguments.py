@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from back.models import Argument
-from back.models import ArgumentSerializer
+from back.serializers import ArgumentSerializer
 
 
 class ArgumentViewSet(ModelViewSet):
@@ -11,5 +11,5 @@ class ArgumentViewSet(ModelViewSet):
 		queryset = self.queryset
 		element = self.request.query_params.get('element', None)
 		if element is not None:
-			queryset = queryset.filter(obj=element)
+			queryset = queryset.filter(bigPicture=element)
 		return queryset

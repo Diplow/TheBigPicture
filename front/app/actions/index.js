@@ -1,167 +1,142 @@
 import {
-  ADD_ARGUMENT,
-  ADD_BIG_PICTURE,
-  ADD_RESOURCE,
-  DELETE_ARGUMENT,
-  DELETE_BIG_PICTURE } from "../constants"
+  addArgument,
+  addBigPicture,
+  addResource,
+  addResourceToBigPicture,
+  removeArgument,
+  removeBigPicture,
+  removeResource } from "./basics"
+
+const SERVER_ADDR = "http://localhost:8000/"
+
+const getCookie = (name) => {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
 
 
-export const addBigPicture = (bigpicture) => {
+const buildRequest = (body, method) => {
+  const csrftoken = getCookie('csrftoken');
   return {
-    type: ADD_BIG_PICTURE,
-    bigpicture
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRFTOKEN': csrftoken,
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    credentials: 'include',
+    body: JSON.stringify(body),
+    method
   }
 }
 
-export const addArgument = (argument) => {
-  return {
-    type: ADD_ARGUMENT,
-    arg: argument
-  }
+const deleteItem = (dispatch, itemId, itemAPI, action) => {
+  const host = SERVER_ADDR + itemAPI + "/" + itemId + "/?format=json";
+  fetch(host, buildRequest({}, "DELETE"))
+    .then(res => {
+      if (res.status == 204)
+        dispatch(action(itemId))
+    })
 }
 
-export const addResource = (resource) => {
-  return {
-    type: ADD_RESOURCE,
-    resource
-  }
+const getItem = (dispatch, itemId, itemAPI, action) => {
+  const host = SERVER_ADDR + itemAPI + "/" + itemId + "?format=json";
+  fetch(host)
+    .then(res => res.json())
+    .then(item => { dispatch(action(item)) })
+}
+
+const sendItem = (dispatch, item, itemAPI, action, options, method, next) => {
+  const host = SERVER_ADDR + itemAPI + options
+  return fetch(host, buildRequest(item, method))
+    .then(res => res.json())
+    .then(res => { dispatch(action(res)); return res; })
+    .then(next)
+}
+
+const getCollection = (dispatch, api, action, options) => {
+  const host = SERVER_ADDR + api + options;
+  fetch(host)
+    .then(res => res.json())
+    .then(res => {
+      for(let i=0; i < res["results"].length; ++i) {
+        dispatch(action(res["results"][i]));
+      }
+      return res;
+    })
 }
 
 export const postArgument = (argument) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/arguments/"
-    fetch(host, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          body: argument.content,
-          obj: argument.target,
-          title: argument.title,
-          nature: argument.nature
-        })
-      })
-    .then(res => res.json())
-    .then(res => {
-      dispatch({
-        type: ADD_ARGUMENT,
-        arg: res
-      })
-    })
+    sendItem(dispatch, argument, "arguments", addArgument, "/", "POST")
+  }
+}
+
+
+export const patchBigPicture = (bigPicture) => {
+  return (dispatch) => {
+    sendItem(dispatch, bigPicture, "bigpictures", addBigPicture, "/" + bigPicture.id + "/", "PATCH")
   }
 }
 
 export const postResource = (resource) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/resources/"
-    console.log("POST RESOURCE, ", resource.bigpictures)
-    fetch(host, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        body: resource.body,
-        title: resource.title,
-        bigpictures: resource.bigpictures
-      })
-    })
-    .then(res => res.json())
-    .then(res => {
-      res.bigpictures = resource.bigpictures;
-      dispatch({
-        type: ADD_RESOURCE,
-        resource: res
-      })
-    })
+    const next = (res) => {
+      dispatch(getBigPicture(resource.resourceFor))
+    }
+    // the API is the same for resources and bigpictures since it is the same kind of object
+    sendItem(dispatch, resource, "bigpictures", addResource, "/?format=json", "POST", next)
   }
 }
 
 export const getBigPictures = () => {
   return (dispatch) => {
-    const host = "http://localhost:8000/bigpictures/?format=json";
-    fetch(host)
-      .then(res => res.json())
-      .then(res => {
-        for(let i=0; i < res["results"].length; ++i)
-          dispatch(addBigPicture(res["results"][i]));
-      })
+    getCollection(dispatch, "bigpictures", addBigPicture, "/?format=json")
   }
 }
 
 export const getArguments = (bigpictureId) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/arguments/?element=" + bigpictureId;
-    fetch(host)
-      .then(res => res.json())
-      .then(res => {
-        for(let i=0; i < res["results"].length; ++i)
-          dispatch(addArgument(res["results"][i]));
-      })
+    getCollection(dispatch, "arguments", addArgument, "/?element=" + bigpictureId)
   }
 }
 
 export const getResources = (bigpictureId) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/resources/?element=" + bigpictureId;
-    fetch(host)
-      .then(res => res.json())
-      .then(res => {
-        for(let i=0; i < res["results"].length; ++i)
-          dispatch(addResource(res["results"][i]));
-      })
+    getCollection(dispatch, "bigpictures", addResource, "/?element=" + bigpictureId)
   }
 }
 
 export const getBigPicture = (id) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/bigpictures/" + id + "?format=json";
-    fetch(host)
-      .then(res => res.json())
-      .then(res => {
-        dispatch(addBigPicture(res));
-      })
+    getItem(dispatch, id, "bigpictures", addBigPicture)
   }
 }
 
 export const deleteBigPicture = (id) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/bigpictures/" + id + "/?format=json";
-    fetch(host, {
-        method: 'DELETE',
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-    .then(res => {
-      if (res.status == 204) {
-        dispatch({
-          type: DELETE_BIG_PICTURE,
-          id
-        })
-      }
-    })
+    deleteItem(dispatch, id, "bigpictures", removeBigPicture)
   }
 }
 
-
 export const deleteArgument = (id) => {
   return (dispatch) => {
-    const host = "http://localhost:8000/arguments/" + id + "/?format=json";
-    fetch(host, {
-        method: 'DELETE',
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-    .then(res => {
-      if (res.status == 204) {
-        dispatch({
-          type: DELETE_ARGUMENT,
-          id
-        })
-      }
-    })
+    deleteItem(dispatch, id, "arguments", removeArgument)
+  }
+}
+
+export const deleteResource = (id) => {
+  return (dispatch) => {
+    deleteItem(dispatch, id, "bigpictures", removeResource)
   }
 }

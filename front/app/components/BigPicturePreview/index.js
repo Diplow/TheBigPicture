@@ -29,7 +29,7 @@ class BigPicturePreviewLook extends React.Component {
     return (
 	  <div className="bp-container media container">
       <div className="card">
-        <header className="card-header level">
+        <header className="card-header level preview-item-level">
             <div className="level-left">
               <div className="container">
                 <p
@@ -52,7 +52,7 @@ class BigPicturePreviewLook extends React.Component {
                 href="#"
                 className="level-item"
                 onClick={() => {this.props.deleteBigPicture(this.props.data.id)}}>
-                <span className="icon is-small"><i className="fas fa-times"></i></span>
+                <span className="icon is-small"><i className="fas fa-trash"></i></span>
               </a>
             </div>
         </header>

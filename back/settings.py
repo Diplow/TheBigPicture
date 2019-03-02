@@ -25,7 +25,7 @@ SECRET_KEY = 'fqjeg=occ=b6z)l24q91birk3at4+cl57-ro1z3-2-9bx(&oel'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -58,7 +58,12 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost:3000'
+)
 
 ROOT_URLCONF = 'back.urls'
 

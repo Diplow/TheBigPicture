@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import {} from '../../actions/index'
+import { deleteResource } from '../../actions/index'
 import {} from '../../constants'
 import NewResource from '../Resource/new'
 import "./style.scss"
@@ -14,11 +14,20 @@ class ResourceLook extends React.Component {
     const {
       resourceId,
       bigpicture,
-      resource
+      resource,
+      deleteResource
     } = this.props;
+
+    this.state = {
+      showDetails: true
+    }
+
+    this.toggleDetails = this.toggleDetails.bind(this)
   }
 
-
+  toggleDetails() {
+    this.setState({"showDetails": !this.state.showDetails})
+  }
 
   render() {
     if (this.props.resourceId == 0) {
@@ -26,12 +35,44 @@ class ResourceLook extends React.Component {
     }
     else {
       return (
-          <article className="resource-tile tile is-child is-12 notification is-success">
-            <p className="title is-size-5">{this.props.resource.title}</p>
-            <div className="content">
-              {this.props.resource.body}
+        <div className="card is-info">
+          <header className="card-header level preview-item-level is-mobile arg-lvl">
+            <div className="level-left">
+              <div className="container">
+                <p
+                  className="card-header-title arg-header-title"
+                  onClick={this.toggleDetails}>
+                  {this.props.resource.title}
+                </p>
+              </div>
             </div>
-          </article>
+            <div className="level-right">
+              <Link 
+                className="level-item is-shrink"
+                to={"/bigpicture/" + this.props.resource.id}>
+                <span className="icon arg-buttons is-small"><i className="fas fa-search"></i></span>
+              </Link>
+              <a href="#" className="level-item">
+                <span className="icon arg-buttons is-small"><i className="fas fa-star"></i></span>
+              </a>
+              <a
+                href="#"
+                className="level-item"
+                onClick={() => {this.props.deleteResource(this.props.resource.id)}}>
+                <span className="icon arg-buttons is-small"><i className="fas fa-trash"></i></span>
+              </a>
+            </div>
+          </header>
+          {
+            this.state.showDetails ? (
+              <div className="card-content">
+                <div className="content is-small">
+                  {this.props.resource.body}
+                </div>
+              </div>
+            ) : null
+          }
+        </div>
       )
     }
   }
@@ -39,12 +80,13 @@ class ResourceLook extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    "resource": state.get("resources").filter(elt => elt.id == ownProps.resourceId)[0]
+    "resource": state.get("bigpictures").filter(elt => elt.id == ownProps.resourceId)[0]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    "deleteResource": (id) => { dispatch(deleteResource(id)) }
   }
 }
 

@@ -11,19 +11,20 @@ class NewArgumentLook extends React.Component {
   constructor(props) {
     super(props);
     const {
-      pro,
       target,
       addArgument
     } = this.props;
+    this.state = {
+      nature: PRO_ARGUMENT
+    }
   }
 
   computeArgument() {
-    const prefix = (this.props.pro ? "pro" : "con")
     return {
-      title: document.getElementById(prefix + "NewArgumentTitle").value,
-      content: document.getElementById(prefix + "NewArgumentContent").value,
-      target: this.props.target,
-      nature: this.props.pro ? PRO_ARGUMENT : CON_ARGUMENT
+      title: document.getElementById("NewArgumentTitle").value,
+      body: document.getElementById("NewArgumentContent").value,
+      bigPicture: this.props.target,
+      nature: this.state.nature
     }
   }
 
@@ -31,20 +32,38 @@ class NewArgumentLook extends React.Component {
     return (
       <div>
         <input
-          id={(this.props.pro ? "pro" : "con") + "NewArgumentTitle"}
+          id="NewArgumentTitle"
           className="input"
           type="text"
           placeholder="Titre de l'argument" />
         <textarea
-          id={(this.props.pro ? "pro" : "con") + "NewArgumentContent"}
+          id="NewArgumentContent"
           className="textarea"
-          placeholder={"Contenu " + (this.props.pro ? "pour" : "contre")} /> 
-        <div className="control">
-          <button
-            className="button is-dark"
-            onClick={() => {this.props.addArgument(this.computeArgument())}}>
-            Publier
-          </button>
+          placeholder="Contenu" />
+        <div className="level">
+          <div className="level-left">
+            <div className="buttons has-addons">
+              <span
+                className={"button " + (this.state.nature == PRO_ARGUMENT ? "is-selected is-success" : "")}
+                onClick={() => this.setState({...this.state, nature: PRO_ARGUMENT})}>
+                Pour
+              </span>
+              <span
+                className={"button " + (this.state.nature == CON_ARGUMENT ? "is-selected is-danger" : "")}
+                onClick={() => this.setState({...this.state, nature: CON_ARGUMENT})}>
+                Contre
+              </span>
+            </div>
+          </div>
+          <div className="level-right">
+            <div className="control">
+              <button
+                className="button is-dark"
+                onClick={() => {this.props.addArgument(this.computeArgument())}}>
+                Publier
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 	  )
