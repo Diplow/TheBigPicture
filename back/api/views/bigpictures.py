@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from back.models import BigPicture
-from back.serializers import BigPictureSerializer
+from api.models import BigPicture
+from api.serializers import BigPictureSerializer
 
 
 class BigPictureViewSet(ModelViewSet):

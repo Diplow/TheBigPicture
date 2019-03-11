@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./back
+    command: gunicorn api.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./back/:/opt/vuedensemble/back/
+      - static_volume:/opt/vuedensemble/back/static
+    expose:
+      - 8000
+    environment:
+      - SECRET_KEY='fqjeg=occ=b6z)l24q91birk3at4+cl57-ro1z3-2-9bx(&oel'
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=postgres
+      - SQL_USER=postgres
+      - SQL_PASSWORD=postgres
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10.5-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+
+
+  front:
+    build: ./front
+    command: npm start 0.0.0.0:3000
+    volumes:
+      - ./front:/opt/vuedensemble/front/
+    expose:
+      - 3000
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/opt/vuedensemble/back/static
+    ports:
+      - 80:80
+    depends_on:
+      - web
+      - front
+
+volumes:
+  static_volume:
+  pg_data:
+    external: true

@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from back.models import Argument
-from back.serializers import ArgumentSerializer
+from api.models import Argument
+from api.serializers import ArgumentSerializer
 
 
 class ArgumentViewSet(ModelViewSet):

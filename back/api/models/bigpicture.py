@@ -9,6 +9,7 @@ class BigPicture(Model):
 	body = TextField()
 	resourceFor = ForeignKey("self", blank=True, null=True, on_delete=False, related_name="resources")
 	hashtags = CharField(max_length=200, blank=True)
+	app_label = "tbp"
 
 
 	def __unicode__(self):

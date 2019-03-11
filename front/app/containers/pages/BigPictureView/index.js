@@ -57,9 +57,13 @@ class BigPictureViewLook extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  const bigpictures = state.get("bigpictures").filter(bp => bp.id == ownProps.match.params.id)
+  const bpId = ownProps.match.params.id
+  const hash = ownProps.location.hash
+  const bigPictures = state.get("bigpictures").filter(bp => bp.id == bpId)
+  const previews = state.get("bigpictures").filter(bp => bp.id == parseInt(hash.substr(1, hash.length)))
   return {
-    "bigPicture": bigpictures.length == 1 ? bigpictures[0] : null
+    "bigPicture": bigPictures.length == 1 ? bigPictures[0] : null,
+    "preview": previews.length == 1 ? previews[0] : null
   }
 }
 

@@ -7,7 +7,7 @@ import {
   removeBigPicture,
   removeResource } from "./basics"
 
-const SERVER_ADDR = "http://localhost:8000/"
+const SERVER_ADDR = "http://localhost:1337/api/"
 
 const getCookie = (name) => {
   var cookieValue = null;

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { deleteResource } from '../../actions/index'
 import {} from '../../constants'
@@ -67,7 +68,7 @@ class ResourceLook extends React.Component {
             this.state.showDetails ? (
               <div className="card-content">
                 <div className="content is-small">
-                  {this.props.resource.body}
+                  <ReactMarkdown source={this.props.resource.body} />
                 </div>
               </div>
             ) : null

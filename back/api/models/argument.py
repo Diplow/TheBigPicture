@@ -2,7 +2,7 @@
 from django.db.models import IntegerField
 from django.db.models import ForeignKey
 
-from back.models.bigpicture import BigPicture
+from api.models.bigpicture import BigPicture
 
 
 class Argument(BigPicture):

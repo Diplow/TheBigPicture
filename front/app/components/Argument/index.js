@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { deleteArgument } from '../../actions/index'
 import { PRO_ARGUMENT, CON_ARGUMENT } from '../../constants'
@@ -61,7 +62,7 @@ class ArgumentLook extends React.Component {
           this.state.showDetails ? (
             <div className="card-content">
               <div className="content is-small">
-                {this.props.data.body}
+                <ReactMarkdown source={this.props.data.body} />
               </div>
             </div>
           ) : null

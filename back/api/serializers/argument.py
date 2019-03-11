@@ -1,6 +1,6 @@
 
-from back.serializers.bigpicture import BigPictureSerializer
-from back.models import Argument
+from api.serializers.bigpicture import BigPictureSerializer
+from api.models import Argument
 
 
 class ArgumentSerializer(BigPictureSerializer):

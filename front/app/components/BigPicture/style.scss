@@ -1,3 +1,5 @@
+@import "../../styles/theme.scss";
+
 #NewBigPictureTitle {
 	border-color: grey;
 }
@@ -14,4 +16,5 @@
 	margin: 0;
 	padding: 0.5rem 0;
 	font-weight: bold;
+	color: $dark;
 }

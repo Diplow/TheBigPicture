@@ -1,7 +1,7 @@
 
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import PrimaryKeyRelatedField
-from back.models import BigPicture
+from api.models import BigPicture
 
 
 class BigPictureSerializer(ModelSerializer):
