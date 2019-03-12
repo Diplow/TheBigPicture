@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # set work directory
-WORKDIR /opt/tbp/back
+WORKDIR /opt/vuedensemble/back
 
 
 # install psycopg2
@@ -19,11 +19,11 @@ RUN apk update \
 # install dependencies
 RUN pip install --upgrade pip
 RUN pip install pipenv
-COPY ./Pipfile /opt/tbp/back
+COPY ./Pipfile /opt/vuedensemble/back
 RUN pipenv install --skip-lock --system --dev
 
 # copy project
-COPY . /opt/tbp/back
+COPY . /opt/vuedensemble/back
 
 # run entrypoint.sh
-ENTRYPOINT ["/opt/tbp/back/entrypoint.sh"]
+ENTRYPOINT ["/opt/vuedensemble/back/entrypoint.sh"]

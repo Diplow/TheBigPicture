@@ -2,11 +2,15 @@
 
 
 .navbar.tbp-navbar {
-	background-color: $primary-3;
+	background-color: #D2DDC3;
 }
 
 .navbar-item {
-	font-weight: bold;
+    font-weight: bold;
+}
+
+.navbar-item.tbp-logo img {
+    max-height: 3.5rem;
 }
 
 .github-icon {
@@ -16,3 +20,8 @@
 .twitter-icon {
 	color: #55acee;
 }
+
+.discord-icon {
+	color: #8C9EFF;
+}
+

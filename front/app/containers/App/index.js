@@ -8,7 +8,7 @@ import NavBar from '../../components/NavBar/index'
 
 const App = () => (
   <div>
-  	<NavBar />
+    <NavBar />
     <Route path="/bigpicture/:id" component={BigPictureView} />
     <Route path="/home" component={Home}/>
   </div>
