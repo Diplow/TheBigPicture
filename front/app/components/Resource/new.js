@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { postResource } from '../../actions/index'
-import {} from '../../constants'
+import * as cst from '../../constants'
 import "./style.scss"
 
 
@@ -11,9 +11,8 @@ class NewResourceLook extends React.Component {
   constructor(props) {
     super(props);
     const {
-      addResource,
       bigPicture,
-      bigpicture
+      addResource
     } = this.props;
   }
 
@@ -21,7 +20,7 @@ class NewResourceLook extends React.Component {
     return {
       title: document.getElementById("NewResourceTitle").value,
       body: document.getElementById("NewResourceContent").value,
-      resourceFor: this.props.bigpicture.id
+      resourceFor: this.props.bigPicture.id
     }
   }
 
@@ -30,12 +29,12 @@ class NewResourceLook extends React.Component {
       <div>
         <input
           id="NewResourceTitle"
-          className="input"
+          className="input tbp-modal"
           type="text"
           placeholder="Titre de la ressource" />
         <textarea
           id="NewResourceContent"
-          className="textarea"
+          className="textarea tbp-modal"
           placeholder="Contenu de la ressource" /> 
         <div className="control">
           <button
@@ -50,9 +49,7 @@ class NewResourceLook extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return {
-      "bigpicture": ownProps.bigPicture == 0 ? null : state.get("bigpictures").filter(elt => elt.id == ownProps.bigPicture)[0]
-    }
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {

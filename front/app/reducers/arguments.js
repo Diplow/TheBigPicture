@@ -11,7 +11,7 @@ const args = (state = [], action) => {
           id: arg.id,
           title: arg.title,
           body: arg.body,
-          bigPicture: arg.bigPicture,
+          resourceFor: arg.resourceFor,
           nature: arg.nature
         }
       ]

@@ -1,18 +1,17 @@
 
-import {
-  ADD_BIG_PICTURE,
-  ADD_ARGUMENT,
-  ADD_RESOURCE,
-  DELETE_BIG_PICTURE,
-  DELETE_ARGUMENT,
-  DELETE_RESOURCE } from "../constants"
+import * as cst from "../constants"
 
 const bigpictures = (state = [], action) => {
   switch (action.type) {
-    case ADD_RESOURCE:
-    case ADD_ARGUMENT:
-    case ADD_BIG_PICTURE:
+    case cst.ADD_ARGUMENT:
+      action.bigpicture.isArg = true
+    case cst.ADD_RESOURCE:
+    case cst.ADD_BIG_PICTURE:
       const bp = action.bigpicture;
+      const alreadyInBP = state.filter(element => element.id == bp.id)
+      const current = alreadyInBP.length == 1 ? alreadyInBP[0] : null
+      if (action.bigpicture.isArg == undefined && current != null)
+        action.bigpicture.isArg = current.isArg
       return [
         ...state.filter(element => element.id != bp.id),
         {
@@ -22,12 +21,15 @@ const bigpictures = (state = [], action) => {
           img: bp.img,
           hashtags: bp.hashtags,
           resources: bp.resources,
-          isResource: bp.isResource != undefined ? bp.isResource : []
+          isResource: bp.isResource != undefined ? bp.isResource : [],
+          resourceFor: bp.resourceFor,
+          author: bp.author,
+          isArg: action.bigpicture.isArg != undefined ? action.bigpicture.isArg : false
         }
       ]
-    case DELETE_RESOURCE:
-    case DELETE_ARGUMENT:
-    case DELETE_BIG_PICTURE:
+    case cst.DELETE_RESOURCE:
+    case cst.DELETE_ARGUMENT:
+    case cst.DELETE_BIG_PICTURE:
       return state.filter(element => element.id != action.id)
     default:
       return state

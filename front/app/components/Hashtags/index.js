@@ -17,9 +17,9 @@ class HashtagsLook extends React.Component {
     return (
    	  <nav className="breadcrumb hashtags has-dot-separator is-small" aria-label="breadcrumbs">
         <ul>
-        {this.props.data.split(" ").map(elt => (
+        {(this.props.data !== undefined) ? this.props.data.split(" ").map(elt => (
           <li key={elt}><a href="#" className="level-item hashtag is-narrow">{elt}</a></li>
-        ))}
+        )) : null}
         </ul>
       </nav>
 	)

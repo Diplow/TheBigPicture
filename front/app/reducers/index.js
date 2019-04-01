@@ -9,6 +9,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import globalReducer from 'containers/App/reducer';
 import bigpicturesReducer from './bigpictures'
 import argumentsReducer from './arguments'
+import userReducer from './user'
+import modalsReducer from './modals'
 
 /*
  * routeReducer
@@ -47,6 +49,8 @@ export default function createReducer(injectedReducers) {
     global: globalReducer,
     bigpictures: bigpicturesReducer,
     args: argumentsReducer,
+    user: userReducer,
+    modals: modalsReducer,
     ...injectedReducers,
   });
 }

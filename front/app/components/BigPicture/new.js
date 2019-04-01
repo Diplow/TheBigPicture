@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { patchBigPicture } from '../../actions/index'
+import { patchBigPicture, postBigPicture } from '../../actions/index'
 import {} from '../../constants'
 import "./style.scss"
 
@@ -11,23 +11,33 @@ class NewBigPictureLook extends React.Component {
   constructor(props) {
     super(props);
     const {
-      data
+      bigPicture
     } = this.props;
+
+    this.computeBigPicture = this.computeBigPicture.bind(this)
   }
 
   componentDidMount() {
-    document.getElementById("NewBigPictureTitle").value = this.props.data.title
-    document.getElementById("NewBigPictureContent").value = this.props.data.body
-    document.getElementById("NewBigPictureHashtags").value = this.props.data.hashtags
+    if (this.props.bigPicture != null) {
+      document.getElementById("NewBigPictureTitle").value = this.props.bigPicture.title
+      document.getElementById("NewBigPictureContent").value = this.props.bigPicture.body
+      document.getElementById("NewBigPictureHashtags").value = this.props.bigPicture.hashtags
+    }
   }
 
   computeBigPicture() {
-    return {
-      id: this.props.data.id,
+    let res = {
       title: document.getElementById("NewBigPictureTitle").value,
       body: document.getElementById("NewBigPictureContent").value,
       hashtags: document.getElementById("NewBigPictureHashtags").value,
-      resourceFor: this.props.data.resourceFor
+    }
+    if (this.props.bigPicture == undefined) { // Create big picture
+      this.props.createBigPicture(res)
+    }
+    else { // Edit big picture
+      res.id = this.props.bigPicture.id
+      res.resourceFor = this.props.bigPicture.resourceFor
+      this.props.editBigPicture(res)
     }
   }
 
@@ -37,19 +47,19 @@ class NewBigPictureLook extends React.Component {
         <p className="subtitle-modal">Titre</p>
         <input
           id="NewBigPictureTitle"
-          className="input"
+          className="input tbp-modal"
           type="text"
           placeholder="Titre de la vue" />
         <p className="subtitle-modal">Mots-clé</p>
         <input
           id="NewBigPictureHashtags"
-          className="input"
+          className="input tbp-modal"
           type="text"
           placeholder="Mots-clé de la vue" />
         <p className="subtitle-modal">Contenu</p>
         <textarea
           id="NewBigPictureContent"
-          className="textarea"
+          className="textarea tbp-modal"
           placeholder="Contenu" />
         <div className="level">
           <div className="level-left" />
@@ -57,7 +67,7 @@ class NewBigPictureLook extends React.Component {
             <div className="control">
               <button
                 className="button is-dark"
-                onClick={() => {this.props.editBigPicture(this.computeBigPicture())}}>
+                onClick={this.computeBigPicture}>
                 Publier
               </button>
             </div>
@@ -69,12 +79,13 @@ class NewBigPictureLook extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {}
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    "editBigPicture": (bigPicture) => { dispatch(patchBigPicture(bigPicture)) }
+    "editBigPicture": (bigPicture) => { dispatch(patchBigPicture(bigPicture)) },
+    "createBigPicture": (bigPicture) => { dispatch(postBigPicture(bigPicture)) }
   }
 }
 

@@ -2,8 +2,8 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import Home from '../pages/Home/index'
-import BigPictureView from '../pages/BigPictureView/index'
-import NavBar from '../../components/NavBar/index'
+import BigPictureView from '../pages/BigPictureView'
+import NavBar from '../../components/NavBar'
 
 
 const App = () => (

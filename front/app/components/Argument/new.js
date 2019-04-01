@@ -23,7 +23,7 @@ class NewArgumentLook extends React.Component {
     return {
       title: document.getElementById("NewArgumentTitle").value,
       body: document.getElementById("NewArgumentContent").value,
-      bigPicture: this.props.target,
+      resourceFor: this.props.target.id,
       nature: this.state.nature
     }
   }
@@ -33,12 +33,12 @@ class NewArgumentLook extends React.Component {
       <div>
         <input
           id="NewArgumentTitle"
-          className="input"
+          className="input tbp-modal"
           type="text"
           placeholder="Titre de l'argument" />
         <textarea
           id="NewArgumentContent"
-          className="textarea"
+          className="textarea tbp-modal"
           placeholder="Contenu" />
         <div className="level">
           <div className="level-left">

@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
-import { getBigPicture, getArguments, getResources } from '../../../actions/index'
-import {} from '../../../constants'
-import BigPictureViewHeader from '../../../components/BigPictureViewHeader'
-import ResourceList from '../../../components/ResourceList'
-import ArgumentList from '../../../components/ArgumentList'
+import { setBigPicture, getBigPicture, getArguments, getResources } from '../../../actions/index'
+import * as cst from '../../../constants'
+import ResourceList from '../../../components/Resource/list'
+import ArgumentList from '../../../components/Argument/list'
 import BigPicture from '../../../components/BigPicture'
+import BigPictureModal from '../../../components/BigPicture/modal'
+import ArgumentModal from '../../../components/Argument/modal'
+import ResourceModal from '../../../components/Resource/modal'
 import "./style.scss"
 
 
@@ -16,62 +18,49 @@ class BigPictureViewLook extends React.Component {
     const {
       match,
       bigPicture,
-      getBigPicture,
-      getArguments,
-      getResources
+      bigPictureId,
+      setBigPicture
     } = this.props;
   }
 
   componentDidMount() {
-    const bpId = this.props.match.params.id;
-    this.props.getBigPicture(bpId);
-    this.props.getArguments(bpId);
-    this.props.getResources(bpId);
+    this.props.setBigPicture(this.props.match.params.id)
   }
 
   render() {
-    return (
-      <div>
-      {
-        this.props.bigPicture !== null ? (
+    if (this.props.bigPicture !== null) {
+      return (   
+        <div className="container tbp-section">
           <div key={this.props.bigPicture.id}>
-            <BigPictureViewHeader bigPicture={this.props.bigPicture} />
-            <section className="section bp-body">
-              <div className="bp-body-container">
-                <div className="columns">
-                  <div className="column is-8">
-                    <BigPicture data={this.props.bigPicture} />
-                    <ResourceList bigPicture={this.props.bigPicture} />
-                  </div>
-                  <ArgumentList bigPicture={this.props.bigPicture} />
-                </div>
-              </div>
-            </section>
+            <BigPicture data={this.props.bigPicture} />
+            <ResourceList title="Ressources" bigPicture={this.props.bigPicture} />
+            <ArgumentList title="Raisons" bigPicture={this.props.bigPicture} />
           </div>
-        ) : <div/>
-      }
-      </div>
-    )
+          <BigPictureModal bigPicture={this.props.bigPicture}/>
+          <ArgumentModal bigPicture={this.props.bigPicture}/>
+          <ResourceModal bigPicture={this.props.bigPicture}/>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div/>
+      )
+    } 
   }
 }
 
 
 const mapStateToProps = (state, ownProps) => {
-  const bpId = ownProps.match.params.id
-  const hash = ownProps.location.hash
-  const bigPictures = state.get("bigpictures").filter(bp => bp.id == bpId)
-  const previews = state.get("bigpictures").filter(bp => bp.id == parseInt(hash.substr(1, hash.length)))
+  const currentElts = state.get("bigpictures").filter(elt => elt.id == ownProps.match.params.id)
   return {
-    "bigPicture": bigPictures.length == 1 ? bigPictures[0] : null,
-    "preview": previews.length == 1 ? previews[0] : null
+    "bigPicture": currentElts.length == 1 ? currentElts[0] : null
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    "getBigPicture": (id) => { dispatch(getBigPicture(id)) },
-    "getArguments": (bigpictureId) => { dispatch(getArguments(bigpictureId)) },
-    "getResources": (bigpictureId) => { dispatch(getResources(bigpictureId)) }
+    "setBigPicture": (id) => { dispatch(setBigPicture(id)) }
   }
 }
 

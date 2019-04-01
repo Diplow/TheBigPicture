@@ -1,20 +1,56 @@
 @import "../../styles/theme.scss";
 
-#NewBigPictureTitle {
-	border-color: grey;
-}
-
-#NewBigPictureHashtags {
-	border-color: grey;
-}
-
-#NewBigPictureContent {
-	border-color: grey;
-}
-
 .subtitle-modal {
 	margin: 0;
 	padding: 0.5rem 0;
 	font-weight: bold;
 	color: $dark;
+}
+
+.card-header {
+	padding-top: 0.5rem;
+	padding-left: 1rem;
+	padding-bottom: 0.1rem;
+	margin-bottom: 0.1rem;
+}
+
+.card-content {
+	padding-top: 0;
+	padding-left: 2rem;
+	padding-bottom: 0.6rem;
+}
+
+.icon {
+	margin: 0.3rem;
+	.bp-preview-icon {
+		color: black;
+		:hover {
+			color: grey;
+		}
+	}
+}
+
+.title-button {
+	margin-left: 1rem;
+}
+
+.bplist-title.title.level-item {
+	text-align: left;
+	float: left;
+	margin-bottom: 0;
+	max-width: 95%;
+}
+
+.level.preview-item-level {
+	padding: 0 0.8rem;
+	min-height: 4rem;
+
+	.level-left {
+		max-width: 100%;
+		flex-shrink: 1;
+	}
+}
+
+.arglist-level.level {
+	padding-bottom: 0rem;
 }

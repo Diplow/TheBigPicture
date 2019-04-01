@@ -31,3 +31,40 @@ label {
 .content {
 	text-align: justify;
 }
+
+.tbp-section {
+  padding: 1rem 0.5rem;
+}
+
+.list-title {
+}
+
+.section {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.level {
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.column {
+  padding: 0;
+  margin: 0.5rem;
+}
+
+.card {
+  width: 100%;
+  padding: 0;
+  margin-right: 0.5rem;
+
+  .card-header {
+    width: 100%;
+  }
+
+  .card-content {
+    width: 100%;
+  }
+}

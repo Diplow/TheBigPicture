@@ -1,16 +1,34 @@
 @import "../../styles/theme.scss";
 
 
-.navbar.tbp-navbar {
+.navbar-section.section.tbp-section {
 	background-color: #D2DDC3;
+	height: 4rem;
+	padding: 0;
 }
 
-.navbar-item {
-    font-weight: bold;
+.container.nav-container {
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 4rem;
+	width: 95%;
 }
 
-.navbar-item.tbp-logo img {
-    max-height: 3.5rem;
+.level.tbp-nav-level {
+	height: 4rem;
+	padding: 1rem 0;
+}
+
+.navbar-item.tbp-nav-item {
+	margin-top: 0.2rem;
+	margin-bottom: 0.2rem;
+	height:3rem;
+}
+
+.tbp-logo {
+    width: 5rem;
+    height: 3rem;
 }
 
 .github-icon {
@@ -25,3 +43,21 @@
 	color: #8C9EFF;
 }
 
+.username {
+	width: 10rem;
+	text-align: right;
+	font-weight: bold;
+	padding-right: 0.5rem;
+}
+
+.button.username {
+	width: 2rem;
+}
+
+.button.username.logged-in {
+	background-color: #93c47d;
+}
+
+.button.username.logged-out {
+	background-color: #dd7e6b;
+}

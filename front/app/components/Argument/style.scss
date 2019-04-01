@@ -9,13 +9,6 @@
 	text-align: left;
 }
 
-.card.is-success {
-	background-color: lighten(desaturate($success, 20%), 10%);
-}
-
-.card.is-danger {
-	background-color: lighten(desaturate($danger, 20%), 10%);
-}
 
 .arg-header-title {
 	font-weight: 400;
@@ -42,9 +35,6 @@
 	float: right;
 }
 
-.arg-buttons {
-	color: white;
-	:hover {
-		color: black;
-	}
+.modal-card-title {
+	font-weight: bold;
 }
