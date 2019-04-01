@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { deleteBigPicture } from '../../actions/index'
 import { selectBigPicture } from '../../actions/basics'
@@ -48,7 +49,7 @@ export class BigPicturePreviewLook extends React.Component {
           this.state.showDetails ? (
             <div className="card-content">
               <div className="content">
-                {this.props.bigPicture.body}
+                <ReactMarkdown source={this.props.bigPicture.body} />
               </div>
             </div>
           ) : null
