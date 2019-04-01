@@ -1,9 +1,9 @@
-from rest_framework.viewsets import ModelViewSet
 from api.models import Argument
 from api.serializers import ArgumentSerializer
+from api.views.bigpictures import BigPictureViewSet
 
 
-class ArgumentViewSet(ModelViewSet):
+class ArgumentViewSet(BigPictureViewSet):
 	serializer_class = ArgumentSerializer
 	queryset = Argument.objects.all()
 
@@ -11,5 +11,6 @@ class ArgumentViewSet(ModelViewSet):
 		queryset = self.queryset
 		element = self.request.query_params.get('element', None)
 		if element is not None:
-			queryset = queryset.filter(bigPicture=element)
+			queryset = queryset.filter(resourceFor=element)
+			print("args queryset", queryset)
 		return queryset
