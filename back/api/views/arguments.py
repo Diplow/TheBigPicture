@@ -12,5 +12,4 @@ class ArgumentViewSet(BigPictureViewSet):
 		element = self.request.query_params.get('element', None)
 		if element is not None:
 			queryset = queryset.filter(resourceFor=element)
-			print("args queryset", queryset)
 		return queryset
