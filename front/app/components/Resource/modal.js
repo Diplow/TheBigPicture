@@ -8,9 +8,11 @@ import "./style.scss"
 
 
 const mapStateToProps = (state) => {
+  const bigPicture = state.get("modals")[cst.CREATE_RESOURCE_MODAL]
   return {
+  	bigPicture: bigPicture,
     "headline": "Nouvelle ressource",
-    "active": state.get("modals")[cst.CREATE_RESOURCE_MODAL]
+    "active": bigPicture != null
   }
 }
 

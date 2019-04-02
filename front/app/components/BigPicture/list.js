@@ -48,9 +48,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    "createBigPicture": () => (dispatch(activateModal(cst.CREATE_BIG_PICTURE_MODAL))),
+    "createBigPicture": () => (dispatch(activateModal(cst.CREATE_BIG_PICTURE_MODAL, {}))),
     "itemGenerator": (bigPicture) => (<BigPicturePreview key={bigPicture.id} data={bigPicture} showDetails={false} />),
-    "isAuthor": (user, bigPicture) => { return true }
+    "isAuthor": (user, bigPicture) => { return user.username != cst.GUEST_NAME }
   }
 }
 

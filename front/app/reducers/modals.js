@@ -2,9 +2,9 @@
 import * as cst from "../constants"
 
 const initial_state = {
-  [cst.CREATE_BIG_PICTURE_MODAL]: false,
-  [cst.CREATE_ARGUMENT_MODAL]: false,
-  [cst.LOGIN_MODAL]: false
+  [cst.CREATE_BIG_PICTURE_MODAL]: null,
+  [cst.CREATE_ARGUMENT_MODAL]: null,
+  [cst.LOGIN_MODAL]: null
 };
 
 const modals = (state = initial_state, action) => {
@@ -12,12 +12,12 @@ const modals = (state = initial_state, action) => {
     case cst.ACTIVATE_MODAL:
       return {
         ...initial_state,
-        [action.modal]: true
+        [action.modal]: action.bigPicture
       }
     case cst.DEACTIVATE_MODAL:
       return {
         ...initial_state,
-        [action.modal]: false
+        [action.modal]: null
       }
     default:
       return state

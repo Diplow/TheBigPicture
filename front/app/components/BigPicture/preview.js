@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { deleteBigPicture } from '../../actions/index'
 import { selectBigPicture } from '../../actions/basics'
-import { TrashButton, LookButton } from './previewbuttons'
+import { TrashButton, LookButton, EditButton } from './previewbuttons'
 import "./style.scss"
 
 
@@ -42,6 +42,7 @@ export class BigPicturePreviewLook extends React.Component {
           </div>
           <div className="level-right">
             <LookButton data={this.props.bigPicture} />
+            <EditButton data={this.props.bigPicture} />
             <TrashButton data={this.props.bigPicture} />
           </div>
         </header>

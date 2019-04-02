@@ -11,6 +11,7 @@ const App = () => (
     <NavBar />
     <Route path="/bigpicture/:id" component={BigPictureView} />
     <Route path="/home" component={Home}/>
+    <Route exact={true} path="/" component={Home}/>
   </div>
 )
 

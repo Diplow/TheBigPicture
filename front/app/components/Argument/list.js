@@ -8,16 +8,15 @@ import "./style.scss"
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.get("args").filter(arg => arg.resourceFor == ownProps.bigPicture.id))
   return {
     bigPictures: state.get("args").filter(arg => arg.resourceFor == ownProps.bigPicture.id),
     user: state.get("user").user
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createBigPicture: () => (dispatch(activateModal(cst.CREATE_ARGUMENT_MODAL))),
+    createBigPicture: () => (dispatch(activateModal(cst.CREATE_ARGUMENT_MODAL, ownProps.bigPicture))),
     itemGenerator: (argument) => (<Argument key={argument.id} data={argument} tileColor={argument.nature == cst.PRO_ARGUMENT ? "#93c47d" : "#dd7e6b"} showDetails={false} />),
     isAuthor: (user, bigPicture) => { return 0 != user.id }
   }

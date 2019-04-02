@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { deleteBigPicture } from '../../actions/index'
-import { selectBigPicture } from '../../actions/basics'
+import { selectBigPicture, activateModal } from '../../actions/basics'
+import * as cst from '../../constants'
 import "./style.scss"
 
 
@@ -36,7 +37,7 @@ export class PreviewButtonLook extends React.Component {
       return (
           <Link 
             className={"level-item " + (this.props.isAuthorized(this.props.user, this.props.data) ? "" : "is-hidden")}
-            onClick={() => this.props.action(this.props.data.id)}
+            onClick={() => this.props.action(this.props.data)}
             to={this.props.to(this.props.data.id)}>
             {tbpIcon(this.props.icon + " bp-preview-icon")}
           </Link>
@@ -47,7 +48,7 @@ export class PreviewButtonLook extends React.Component {
         <a
           href="#"
           className={"level-item " + (this.props.isAuthorized(this.props.user, this.props.data) ? "" : "is-hidden ")}
-          onClick={() => this.props.action(this.props.data.id)}>
+          onClick={() => this.props.action(this.props.data)}>
             {tbpIcon(this.props.icon + "bp-preview-icon ")}
         </a>
       )
@@ -64,7 +65,7 @@ const LookButtonConfig = {
   },
   mapDispatchToProps: (dispatch) => {
     return {
-      action: (id) => { dispatch(selectBigPicture(id)) },
+      action: (bigPicture) => { dispatch(selectBigPicture(bigPicture.id)) },
       to: (id) => { return "/bigPicture/" + id + "/"},
       isAuthorized: (user, data) => { return true }
     }
@@ -80,12 +81,28 @@ const TrashButtonConfig = {
   },
   mapDispatchToProps: (dispatch) => {
     return {
-      action: (id) => { dispatch(deleteBigPicture(id)) },
+      action: (bigPicture) => { dispatch(deleteBigPicture(bigPicture.id)) },
       isAuthorized: (user, data) => { return user.id == data.author }
     }
   }
 }
 
+const EditButtonConfig = {
+  mapStateToProps: (state) => {
+    return {
+      icon: "fa-edit ",
+      user: state.get("user").user
+    }
+  },
+  mapDispatchToProps: (dispatch) => {
+    return {
+      action: (bigPicture) => { dispatch(activateModal(cst.CREATE_BIG_PICTURE_MODAL, bigPicture)) },
+      isAuthorized: (user, data) => { return user.id == data.author }
+    }
+  }
+
+}
 
 export const LookButton = connect(LookButtonConfig.mapStateToProps, LookButtonConfig.mapDispatchToProps)(PreviewButtonLook)
 export const TrashButton = connect(TrashButtonConfig.mapStateToProps, TrashButtonConfig.mapDispatchToProps)(PreviewButtonLook)
+export const EditButton = connect(EditButtonConfig.mapStateToProps, EditButtonConfig.mapDispatchToProps)(PreviewButtonLook)

@@ -38,8 +38,9 @@ class LoginModalLook extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state.get("modals")[cst.LOGIN_MODAL] != null)
   return {
-    active: state.get("modals")[cst.LOGIN_MODAL]
+    active: state.get("modals")[cst.LOGIN_MODAL] != null
   }
 }
 

@@ -48,9 +48,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    editBigPicture: () => { dispatch(activateModal(cst.CREATE_BIG_PICTURE_MODAL)) }
+    editBigPicture: () => { dispatch(activateModal(cst.CREATE_BIG_PICTURE_MODAL, ownProps.data)) }
   }
 }
 

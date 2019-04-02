@@ -16,9 +16,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    "createBigPicture": () => (dispatch(activateModal(cst.CREATE_RESOURCE_MODAL))),
+    "createBigPicture": () => (dispatch(activateModal(cst.CREATE_RESOURCE_MODAL, ownProps.bigPicture))),
     "itemGenerator": (resource) => (<Resource key={resource.id} data={resource} showDetails={false} />),
     "isAuthor": (user, bigPicture) => { return bigPicture.author == user.id }
   }

@@ -22,7 +22,6 @@ class NewBigPictureLook extends React.Component {
     if (this.props.bigPicture != null) {
       document.getElementById("NewBigPictureTitle").value = this.props.bigPicture.title
       document.getElementById("NewBigPictureContent").value = this.props.bigPicture.body
-      document.getElementById("NewBigPictureHashtags").value = this.props.bigPicture.hashtags
     }
   }
 
@@ -38,7 +37,6 @@ class NewBigPictureLook extends React.Component {
     let res = {
       title: document.getElementById("NewBigPictureTitle").value,
       body: document.getElementById("NewBigPictureContent").value,
-      hashtags: document.getElementById("NewBigPictureHashtags").value,
     }
     if (this.props.bigPicture == undefined) { // Create big picture
       this.props.createBigPicture(res)
@@ -59,12 +57,6 @@ class NewBigPictureLook extends React.Component {
           className="input tbp-modal"
           type="text"
           placeholder="Titre de la vue" />
-        <p className="subtitle-modal">Mots-clé</p>
-        <input
-          id="NewBigPictureHashtags"
-          className="input tbp-modal"
-          type="text"
-          placeholder="Mots-clé de la vue" />
         <p className="subtitle-modal">Contenu</p>
         <textarea
           id="NewBigPictureContent"

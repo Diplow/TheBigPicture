@@ -36,9 +36,9 @@ class BigPictureViewLook extends React.Component {
             <ResourceList title="Ressources" bigPicture={this.props.bigPicture} />
             <ArgumentList title="Raisons" bigPicture={this.props.bigPicture} />
           </div>
-          <BigPictureModal bigPicture={this.props.bigPicture}/>
-          <ArgumentModal bigPicture={this.props.bigPicture}/>
-          <ResourceModal bigPicture={this.props.bigPicture}/>
+          <BigPictureModal/>
+          <ArgumentModal/>
+          <ResourceModal/>
         </div>
       )
     }

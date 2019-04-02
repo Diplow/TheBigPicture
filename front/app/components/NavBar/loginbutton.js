@@ -26,8 +26,8 @@ class LoginButtonLook extends React.Component {
         <span className="level-item is-shrink">
           {
             (this.props.username == cst.GUEST_NAME)
-            ? <div className="button username logged-out" onClick={() => this.props.login()}><span className="icon is-small"><i className="fas fa-user is-light"></i></span></div>
-            : <div className="button username logged-in" onClick={() => this.props.logout()}><span className="icon is-small"><i className="fas fa-user is-dark"></i></span></div>
+            ? <div className="button username logged-out" onClick={() => this.props.login()}><span className="icon is-small"><i className="fas fa-user"></i></span></div>
+            : <div className="button username logged-in" onClick={() => this.props.logout()}><span className="icon is-small"><i className="fas fa-user"></i></span></div>
           }
         </span>
       </div>
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: () => { dispatch(activateModal(cst.LOGIN_MODAL)) },
+    login: () => { dispatch(activateModal(cst.LOGIN_MODAL, {})) },
     logout: () => { dispatch(logout()) }
   }
 }

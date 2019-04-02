@@ -39,10 +39,12 @@ export class BigPictureModalLook extends React.Component {
 }
 
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
+  const bigPicture = state.get("modals")[cst.CREATE_BIG_PICTURE_MODAL]
   return {
-    headline: ownProps.bigPicture == null ? "Nouvelle vue" : "Modification de la vue",
-    active: state.get("modals")[cst.CREATE_BIG_PICTURE_MODAL]
+    bigPicture: (bigPicture != null && bigPicture.id == undefined) ? null : bigPicture,
+    headline: (bigPicture != null && bigPicture.id == undefined) ? "Nouvelle vue" : "Modification de la vue",
+    active: bigPicture != null
   }
 }
 

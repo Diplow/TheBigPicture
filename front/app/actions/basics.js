@@ -1,10 +1,11 @@
 import * as cst from "../constants"
 
 
-export const activateModal = (modal) => {
+export const activateModal = (modal, bigPicture) => {
   return {
     type: cst.ACTIVATE_MODAL,
-    modal
+    modal,
+    bigPicture
   }
 }
 
