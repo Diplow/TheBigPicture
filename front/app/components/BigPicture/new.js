@@ -14,15 +14,24 @@ class NewBigPictureLook extends React.Component {
       bigPicture
     } = this.props;
 
+    this.fillDefault = this.fillDefault.bind(this)
     this.computeBigPicture = this.computeBigPicture.bind(this)
   }
 
-  componentDidMount() {
+  fillDefault() {
     if (this.props.bigPicture != null) {
       document.getElementById("NewBigPictureTitle").value = this.props.bigPicture.title
       document.getElementById("NewBigPictureContent").value = this.props.bigPicture.body
       document.getElementById("NewBigPictureHashtags").value = this.props.bigPicture.hashtags
     }
+  }
+
+  componentDidMount() {
+    this.fillDefault()
+  }
+
+  componentDidUpdate() {
+    this.fillDefault()
   }
 
   computeBigPicture() {
