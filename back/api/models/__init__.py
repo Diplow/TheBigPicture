@@ -1,3 +1,3 @@
 
-from api.models.bigpicture import BigPicture
-from api.models.argument import Argument
+from api.models.bigpicture import *
+from api.models.vote import *

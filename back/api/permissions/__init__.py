@@ -1,1 +1,1 @@
-from api.permissions.isAuthor import IsAuthorOrReadOnly
+from api.permissions.isAuthor import *

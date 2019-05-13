@@ -1,3 +1,3 @@
 
-from api.serializers.bigpicture import BigPictureSerializer
-from api.serializers.argument import ArgumentSerializer
+from api.serializers.bigpicture import *
+from api.serializers.vote import *

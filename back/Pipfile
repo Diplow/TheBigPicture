@@ -6,12 +6,13 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
+django = ">=2.2"
 psycopg2 = "*"
 django-cors-headers = "*"
 djangorestframework = "*"
 gunicorn = "*"
 djangorestframework-jwt = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"
