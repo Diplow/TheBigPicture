@@ -88,7 +88,6 @@ export const login = (credentials) => {
         localStorage.setItem('token', json.token);
         localStorage.setItem('user', JSON.stringify(json.user));
         dispatch(basics.login(json.user, json.token))
-        dispatch(basics.deactivateModal(cst.LOGIN_MODAL))
       });
   }
 };
@@ -97,7 +96,6 @@ export const logout = () => {
   return (dispatch) => {
     delete localStorage.token;
     delete localStorage.user;
-    dispatch(basics.deactivateModal(cst.LOGIN_MODAL))
     dispatch(basics.logout())
   }
 }

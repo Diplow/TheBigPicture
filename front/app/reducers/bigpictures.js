@@ -1,36 +1,75 @@
 
 import * as cst from "../constants"
 
+const getBigPictureDetails = (bigPicture) => {
+  let res = null
+  switch (bigPicture.kind) {
+
+    case cst.ARGUMENT_CODE:
+      res = {
+        nature: bigPicture.nature,
+      }
+      break
+
+    case cst.VOTATION_CODE:
+      res = {
+        choices: bigPicture.choices,
+        results: bigPicture.results,
+        deadline: bigPicture.deadline
+      }
+      break
+
+    default:
+      res = {}
+  }
+
+  // remove key of undefined properties
+  // this way, adding an already set bigpicture works correctly
+  Object.keys(res).forEach(key => res[key] === undefined && delete res[key])
+  return res
+}
+
 const bigpictures = (state = [], action) => {
   switch (action.type) {
-    case cst.ADD_ARGUMENT:
-      action.bigpicture.isArg = true
-    case cst.ADD_RESOURCE:
+
     case cst.ADD_BIG_PICTURE:
-      const bp = action.bigpicture;
-      const alreadyInBP = state.filter(element => element.id == bp.id)
-      const current = alreadyInBP.length == 1 ? alreadyInBP[0] : null
-      if (action.bigpicture.isArg == undefined && current != null)
-        action.bigpicture.isArg = current.isArg
+      const bp = action.bigpicture
+      const details = getBigPictureDetails(bp)
+      const previous_bp = state.find(element => element.id == bp.id)
       return [
         ...state.filter(element => element.id != bp.id),
         {
+          // don't override completely previous bp
+          // for instance if an argument is added
+          // and then is added as a bigpicture
+          // without the 'nature' property
+          // keep the previous value for the nature property
+          ...previous_bp,
+          ...details,
           id: bp.id,
           title: bp.title,
+          kind: bp.kind,
           body: bp.body,
-          img: bp.img,
-          hashtags: bp.hashtags,
-          resources: bp.resources,
-          isResource: bp.isResource != undefined ? bp.isResource : [],
           resourceFor: bp.resourceFor,
           author: bp.author,
-          isArg: action.bigpicture.isArg != undefined ? action.bigpicture.isArg : false
+          creationDate: bp.creationDate
         }
       ]
-    case cst.DELETE_RESOURCE:
-    case cst.DELETE_ARGUMENT:
+
+    case cst.UPDATE_BIG_PICTURE:
+      const new_bp = action.bigpicture;
+      const old_bp = state.find(element => element.id == bp.id)
+      return [
+        ...state.filter(element => element.id != bp.id),
+        {
+          ...old_bp,
+          ...new_bp
+        }
+      ]
+
     case cst.DELETE_BIG_PICTURE:
       return state.filter(element => element.id != action.id)
+
     default:
       return state
   }

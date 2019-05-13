@@ -1,32 +1,26 @@
 import * as cst from "../constants"
 
 
-export const activateModal = (modal, bigPicture) => {
+export const updateDraft = (key, value, modal) => {
   return {
-    type: cst.ACTIVATE_MODAL,
+    type: cst.UPDATE_DRAFT,
     modal,
-    bigPicture
+    key,
+    value
   }
 }
 
-export const deactivateModal = (modal) => {
+export const pushChoice = (bpId) => {
   return {
-    type: cst.DEACTIVATE_MODAL,
-    modal
+    type: cst.PUSH_CHOICE,
+    bpId
   }
 }
 
-
-export const unselectBigPicture = () => {
+export const removeChoice = (bpId) => {
   return {
-    type: cst.UNSELECT_BIG_PICTURE
-  }
-}
-
-export const selectBigPicture = (id) => {
-  return {
-    type: cst.SELECT_BIG_PICTURE,
-    id
+    type: cst.REMOVE_CHOICE,
+    bpId
   }
 }
 
@@ -58,38 +52,16 @@ export const addBigPicture = (bigpicture) => {
   }
 }
 
-export const addArgument = (argument) => {
+export const addRating = (rating) => {
   return {
-    type: cst.ADD_ARGUMENT,
-    bigpicture: argument
-  }
-}
-
-export const addResource = (resource) => {
-  return {
-    type: cst.ADD_RESOURCE,
-    bigpicture: resource
+    type: cst.ADD_RATING,
+    rating
   }
 }
 
 export const removeBigPicture = (id) => {
   return {
     type: cst.DELETE_BIG_PICTURE,
-    id
-  }
-}
-
-export const removeArgument = (id) => {
-  console.log("remove", id)
-  return {
-    type: cst.DELETE_ARGUMENT,
-    id
-  }
-}
-
-export const removeResource = (id) => {
-  return {
-    type: cst.DELETE_RESOURCE,
     id
   }
 }
