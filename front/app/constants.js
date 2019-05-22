@@ -1,5 +1,5 @@
 
-export const SERVER_ADDR = process.env.NODE_ENV !== 'production' ? "http://localhost:8000/api/" : "/api/"
+export const SERVER_ADDR = "/api/"
 export const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"]
 
 export const GUEST_NAME = "Invité"
