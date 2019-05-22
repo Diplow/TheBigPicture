@@ -1,29 +1,6 @@
 import * as cst from "../constants"
 
 
-export const updateDraft = (key, value, modal) => {
-  return {
-    type: cst.UPDATE_DRAFT,
-    modal,
-    key,
-    value
-  }
-}
-
-export const pushChoice = (bpId) => {
-  return {
-    type: cst.PUSH_CHOICE,
-    bpId
-  }
-}
-
-export const removeChoice = (bpId) => {
-  return {
-    type: cst.REMOVE_CHOICE,
-    bpId
-  }
-}
-
 export const login = (user, token) => {
   return {
     type: cst.LOGIN,
@@ -38,10 +15,17 @@ export const logout = () => {
   }
 }
 
-export const notification = (msg) => {
+export const notification = (notif) => {
   return {
-    type: cst.NOTIFICATION,
-    msg
+    type: cst.ADD_NOTIFICATION,
+    notif
+  }
+}
+
+export const popNotification = (id) => {
+  return {
+    type: cst.POP_NOTIFICATION,
+    id
   }
 }
 

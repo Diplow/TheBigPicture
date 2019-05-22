@@ -1,6 +1,7 @@
 
 import * as cst from "../constants"
 
+
 const GUEST = {
   "username": cst.GUEST_NAME,
   "email": "",
@@ -17,11 +18,12 @@ const initial_state = {
 const user = (state = initial_state, action) => {
   switch (action.type) {
     case cst.LOGIN:
-      return {
+      const newState = {
         ...state,
         user: action.user,
         token: action.token
       }
+      return newState
     case cst.LOGOUT:
       return {
         "user": GUEST,

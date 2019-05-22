@@ -18,9 +18,9 @@ const useToggle = (initial_value) => {
 const getTileColor = (nature) => {
   let res = "white"
   if (nature == cst.PRO_ARGUMENT)
-    res = "green"
+    res = "#93c47d"
   if (nature == cst.CON_ARGUMENT)
-    res = "red"
+    res = "#dd7e6b"
   return res
 }
 
@@ -35,7 +35,7 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
   const tileColor = getTileColor(data.nature)
 
   return (
-    <div style={{"backgroundColor": tileColor}} className="card">
+    <div style={{"backgroundColor": tileColor}} className="card bp-tile">
       <header className="card-header level preview-item-level is-mobile">
         <div className="level-left">
           <p
@@ -99,7 +99,7 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
 }
 
 BigPicturePreviewLook.propTypes = {  
-  data: PropTypes.object.isRequired,
+  bpId: PropTypes.number.isRequired,
   buttons: PropTypes.arrayOf(PropTypes.string),
   votation: PropTypes.object
 }

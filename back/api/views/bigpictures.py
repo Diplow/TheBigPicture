@@ -23,7 +23,14 @@ class BigPictureViewSet(ModelViewSet):
 			queryset = queryset | votations
 		elif element is not None:
 			elt = queryset.get(id=element)
-			queryset = elt.resources.all() | elt.choices.all()
+			queryset = elt.resources.all()
+			if elt.resourceFor is not None:
+				context = BigPicture.objects.filter(id=elt.resourceFor.id)
+				queryset |= context
+			if elt.choices is not None:
+				queryset |= elt.choices.all()
+				for c in elt.choices.all():
+					queryset |= c.resources.all()
 		return queryset
 
 	def create(self, request):

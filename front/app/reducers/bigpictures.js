@@ -15,7 +15,6 @@ const getBigPictureDetails = (bigPicture) => {
       res = {
         choices: bigPicture.choices,
         results: bigPicture.results,
-        deadline: bigPicture.deadline
       }
       break
 

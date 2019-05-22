@@ -7,7 +7,7 @@ const AddBigPictureButton = ({initBp}) => {
   const [createBPisActive, setCreateBPisActive] = useState(false)
   const icon = initBp.id == undefined ? "fas fa-plus" : "fas fa-edit"
   return (
-  	<span>
+  	<span className="level-item is-narrow">
 	  <a
 		onClick={() => { setCreateBPisActive(true) }}
 		className="button level-item is-narrow">

@@ -7,7 +7,6 @@
 .navbar-section.section.tbp-section {
 	background-color: #D2DDC3;
 	height: 4rem;
-	padding: 0;
 }
 
 .container.nav-container {
@@ -15,7 +14,8 @@
 	padding-top: 0;
 	padding-bottom: 0;
 	height: 4rem;
-	width: 95%;
+	width: 100%;
+	padding: 0 0.5rem;
 }
 
 .level.tbp-nav-level {

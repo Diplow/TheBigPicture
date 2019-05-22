@@ -44,13 +44,12 @@
 .level.preview-item-level {
 	padding: 0 0.8rem;
 	min-height: 4rem;
-
-	.level-left {
-		max-width: 100%;
-		flex-shrink: 1;
-	}
 }
 
 .arglist-level.level {
 	padding-bottom: 0rem;
+}
+
+.bp-tile {
+	margin: 0.4rem 0;
 }

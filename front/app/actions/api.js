@@ -44,8 +44,14 @@ export const deleteItem = (dispatch, itemId, itemAPI, action) => {
   fetch(host, buildRequest({}, "DELETE"))
     .then(handlePermissionDenied(dispatch, "delete"))
     .then(res => {
-      if (res.status == 204)
+      if (res.status == 204) {
         dispatch(action(itemId))
+        dispatch(basics.notification({
+          title: "Élément supprimé",
+          message: "L'élément n'existe plus dans les bases de données du serveur.",
+          type: "success"
+        }))
+      }
     })
 }
 
@@ -63,7 +69,16 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
   fetch(host, buildRequest(item, method))
     .then(handlePermissionDenied(dispatch, "send"))
     .then(res => res.json())
-    .then(res => { dispatch(action(res)); return res; })
+    .then(res => {
+      dispatch(action(res))
+      const verb = method == "PATCH" ? "modifié" : "créé"
+      dispatch(basics.notification({
+        title: "Élément " + verb,
+        message: "L'élément a bien été " + verb + " dans la base de données.",
+        type: "success"
+      }))
+      return res 
+    })
     .then(next)
 }
 
@@ -88,6 +103,11 @@ export const login = (credentials) => {
         localStorage.setItem('token', json.token);
         localStorage.setItem('user', JSON.stringify(json.user));
         dispatch(basics.login(json.user, json.token))
+        dispatch(basics.notification({
+          title: "Identification réussie",
+          message: "Bienvenue " + json.user.username,
+          type: "success"
+        }))
       });
   }
 };
@@ -97,13 +117,17 @@ export const logout = () => {
     delete localStorage.token;
     delete localStorage.user;
     dispatch(basics.logout())
+    dispatch(basics.notification({
+      title: "Déconnexion réussie",
+      message: "Vous devrez vous authentifier à nouveau pour utiliser votre compte.",
+      type: "success"
+    }))
   }
 }
 
 export const permissionDenied = (action) => {
   return (dispatch) => {
     dispatch(logout())
-    dispatch(basics.notification("Authentifiez-vous pour réaliser cette action: " + action))
   }
 }
 
@@ -111,6 +135,11 @@ export const handlePermissionDenied = (dispatch, action) => {
   return (res) => {
     if (res.status == 401) {
       dispatch(permissionDenied(action))
+      dispatch(basics.notification({
+        title: "Session expirée",
+        message: "Vous devez vous authentifier à nouveau pour réaliser cette action.",
+        type: "error"
+      }))
       throw Error("Permission Denied")
     }
     return res

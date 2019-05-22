@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import usePagination from '../../utils/pagination'
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -89,6 +90,10 @@ const natureField = (bp, edit) => {
 const choicesField = (bigPictures, bp, pushChoice, removeChoice) => {
   if (bigPictures == [] || bp.kind !== cst.VOTATION_CODE)
     return null
+
+  const pageSize = 5.
+  const [pagination, page] = usePagination(bigPictures, pageSize)
+
   const preview = (c, onclick) => {
     const b = bigPictures.find((bigPicture) => bigPicture.id == c)
     if (b == null)
@@ -118,9 +123,10 @@ const choicesField = (bigPictures, bp, pushChoice, removeChoice) => {
       }
       </ul>
       <p className="subtitle-modal">Vues</p>
+      { pagination }
       <ul>
         {
-          bigPictures.filter(b => bp.choices.indexOf(b.id) == -1).map(
+          page.filter(b => bp.choices.indexOf(b.id) == -1).map(
           (choice) => { return preview(choice.id, () => pushChoice(choice.id)) }
         )
       }

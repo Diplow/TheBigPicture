@@ -17,9 +17,14 @@ const BigPictureContentLook = ({ data, user }) => {
 
   return (
     <div className="section">
-      <div className="level arglist-level list-title">
-        <h2 className="title level-item bplist-title  is-narrow">{data.title}</h2>
-        { isAuthor ? <AddBigPictureButton initBp={data} /> : null }
+
+      <div className="level is-mobile">
+        <div className="level-left">
+          <h2 className="title">{data.title}</h2>
+        </div>
+        <div className="level-right">
+          { isAuthor ? <AddBigPictureButton initBp={data} /> : null }
+        </div>
       </div>
       <div className="content">
         <ReactMarkdown source={data.body} />

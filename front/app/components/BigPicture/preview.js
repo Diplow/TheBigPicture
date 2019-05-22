@@ -4,7 +4,7 @@ import BigPicturePreviewLook from './looks/preview'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    data: state.get("bigpictures").find(bp => bp.id == ownProps.data.id)
+    data: state.get("bigpictures").find(bp => bp.id == ownProps.bpId)
   }
 }
 

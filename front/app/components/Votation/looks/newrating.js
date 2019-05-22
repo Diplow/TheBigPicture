@@ -9,7 +9,7 @@ const NewRatingLook = ({ args, rating, setRating }) => {
     return null
 
   const edit = (e) => {
-    setRating({ ...rating, [e.target.name]: e.target.value})
+    setRating({ ...rating, value: parseInt(e.target.value)})
   }
   const pushArg = (reason) => {
     setRating({ ...rating, reasons: [...rating.reasons, reason]})
@@ -38,12 +38,16 @@ const valueField = (rating, edit) => {
   return (
     <div>
       <p className="subtitle-modal">Valeur</p>
-      <input
-        className="input tbp-modal"
-        type="text"
-        name="value"
-        value={parseInt(rating.value)}
-        onChange={edit} />
+      <div className="select">
+        <select onChange={edit}>
+          <option value={0}>Non compris</option>
+          <option value={1}>Désaccord total</option>
+          <option value={2}>Désaccord mesuré</option>
+          <option value={3}>Neutre</option>
+          <option value={4}>Accord mesuré</option>
+          <option value={5}>Accord total</option>
+        </select>
+      </div>
     </div>
   )
 }

@@ -52,6 +52,7 @@ const HomeLook = ({ getBigPictures, user }) => {
   return (
     <div className="container tbp-section">
       { bpList() }
+      <div className="is-divider"/>
       { votationList() }
     </div>
   )

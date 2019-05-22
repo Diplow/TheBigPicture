@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import usePagination from '../../utils/pagination'
 import BigPicturePreview from '../preview'
 import AddBigPictureButton from './addbutton'
 import { useAuthorCheck } from './index'
@@ -9,20 +10,27 @@ import "./style.scss"
 
 const BigPictureListLook = ({title, initNewBp, user, bigPictures, buttons }) => {
   const canCreate = user.username != cst.GUEST_NAME && initNewBp != undefined
+  const pageSize = 5.
+  const [pagination, page] = usePagination(bigPictures, pageSize)
 
   return (
     <div className="section">
-      <div className="level arglist-level list-title">
-        <h2 className="title level-item bplist-title is-narrow">{title}</h2>
-        { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
+      <div className="level is-mobile">
+        <div className="level-left">
+          <h2 className="title">{title}</h2>
+        </div>
+        <div className="level-right">
+          { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
+        </div>
       </div>
-      <div className="content">
+      { pagination }
+      <div>
         {
-          bigPictures.map((bp) => {
+          page.map((bp) => {
             return (
               <BigPicturePreview
                 key={bp.id}
-                data={bp}
+                bpId={bp.id}
                 buttons={buttons}
               />
             )

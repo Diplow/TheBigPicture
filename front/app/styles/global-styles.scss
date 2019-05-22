@@ -46,8 +46,11 @@ label {
 }
 
 .level {
-  padding: 1rem 0;
   margin: 0;
+}
+
+.level:not(:last-child) {
+  margin-bottom: .5rem;
 }
 
 .column {
@@ -71,4 +74,16 @@ label {
 
 .subtitle {
   padding-top: 1rem;
+}
+
+.level-left {
+}
+
+.level-right {
+}
+
+.level.is-mobile {
+  .level-item:not(:last-child) {
+    margin-right: .1rem;
+  }  
 }

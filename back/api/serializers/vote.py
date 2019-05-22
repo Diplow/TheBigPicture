@@ -20,4 +20,4 @@ class RatingSerializer(ModelSerializer):
 			rating.reasons.set(validated_data["reasons"])
 			rating.save()
 			return rating
-		return super(self, RatingSerializer).create(validated_data)
+		return super(RatingSerializer, self).create(validated_data)
