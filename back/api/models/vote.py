@@ -58,7 +58,7 @@ class Rating(models.Model):
 
 	class Meta:
 		constraints = [
-			models.UniqueConstraint(fields=['target', 'author'], name='unique_rating')
+			models.UniqueConstraint(fields=['target', 'author', 'votation'], name='unique_rating')
 		]
 
 	def __unicode__(self):
