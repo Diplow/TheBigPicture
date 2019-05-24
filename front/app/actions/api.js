@@ -138,7 +138,7 @@ export const handlePermissionDenied = (dispatch, action) => {
       dispatch(basics.notification({
         title: "Session expirée",
         message: "Vous devez vous authentifier à nouveau pour réaliser cette action.",
-        type: "error"
+        type: "warning"
       }))
       throw Error("Permission Denied")
     }
