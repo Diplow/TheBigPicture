@@ -42,7 +42,7 @@ export const buildRequest = (body, method) => {
 export const deleteItem = (dispatch, itemId, itemAPI, action) => {
   const host = cst.SERVER_ADDR + itemAPI + "/" + itemId + "/?format=json";
   fetch(host, buildRequest({}, "DELETE"))
-    .then(handlePermissionDenied(dispatch, "delete"))
+    .then(handleHttpError(dispatch, "delete"))
     .then(res => {
       if (res.status == 204) {
         dispatch(action(itemId))
@@ -58,7 +58,7 @@ export const deleteItem = (dispatch, itemId, itemAPI, action) => {
 export const getItem = (dispatch, itemId, itemAPI, action, next) => {
   const host = cst.SERVER_ADDR + itemAPI + "/" + itemId + "/?format=json";
   fetch(host, buildRequest({}, "GET"))
-    .then(handlePermissionDenied(dispatch, "getItem"))
+    .then(handleHttpError(dispatch, "getItem"))
     .then(res => res.json())
     .then(item => { dispatch(action(item)); return item })
     .then(next)
@@ -67,7 +67,7 @@ export const getItem = (dispatch, itemId, itemAPI, action, next) => {
 export const sendItem = (dispatch, item, itemAPI, action, options, method, next) => {
   const host = cst.SERVER_ADDR + itemAPI + options
   fetch(host, buildRequest(item, method))
-    .then(handlePermissionDenied(dispatch, "send"))
+    .then(handleHttpError(dispatch, "send"))
     .then(res => res.json())
     .then(res => {
       dispatch(action(res))
@@ -85,7 +85,7 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
 export const getCollection = (dispatch, api, action, options) => {
   const host = cst.SERVER_ADDR + api + options;
   fetch(host, buildRequest({}, "GET"))
-    .then(handlePermissionDenied(dispatch, "getCollection"))
+    .then(handleHttpError(dispatch, "getCollection"))
     .then(res => res.json())
     .then(res => {
       for(let i=0; i < res["results"].length; ++i) {
@@ -98,6 +98,7 @@ export const getCollection = (dispatch, api, action, options) => {
 export const login = (credentials) => {
   return (dispatch) => {
     fetch(cst.SERVER_ADDR + 'token-auth/', buildRequest(credentials, "POST"))
+      .then(handleHttpError(dispatch, "login"))
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
@@ -131,8 +132,20 @@ export const permissionDenied = (action) => {
   }
 }
 
-export const handlePermissionDenied = (dispatch, action) => {
+export const handleHttpError = (dispatch, action) => {
   return (res) => {
+    if (res.status == 200)
+      return res
+    if (res.status == 400) {
+      if (action == "login") {
+        dispatch(basics.notification({
+          title: "L'identification a échoué",
+          message: "Êtes-vous certains d'avoir entré la bonne combinaison identifiant / mot de passe ?",
+          type: "warning"
+        }))
+        throw Error("L'identification a échoué")
+      }
+    }
     if (res.status == 401) {
       dispatch(permissionDenied(action))
       dispatch(basics.notification({
@@ -141,6 +154,15 @@ export const handlePermissionDenied = (dispatch, action) => {
         type: "warning"
       }))
       throw Error("Permission Denied")
+    }
+    if (res.status < 200 || res.status > 299) {
+      dispatch(basics.notification({
+        title: "Erreur de communication avec le serveur",
+        message: "L'action " + action + " n'a pas pu être réalisée, vous pouvez contacter l'administrateur de la plateforme.",
+        type: "warning"
+      }))
+      console.log("error", res)
+      throw Error("Error: could not perform " + action)
     }
     return res
   }
