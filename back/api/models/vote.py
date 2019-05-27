@@ -49,7 +49,7 @@ import statistics
 
 class Rating(models.Model):
 	value = models.FloatField(default=0.)
-	reasons = models.ManyToManyField(BigPicture)
+	reasons = models.ManyToManyField(BigPicture, related_name="reasons")
 	target = models.ForeignKey(BigPicture, on_delete=models.CASCADE, related_name='evaluations')
 	votation = models.ForeignKey(BigPicture, on_delete=models.CASCADE, related_name='ratings')
 	# vote = models.ForeignKey(Vote, blank=True, on_delete=models.CASCADE, related_name="ratings")

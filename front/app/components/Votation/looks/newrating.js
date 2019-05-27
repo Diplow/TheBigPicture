@@ -28,7 +28,6 @@ const NewRatingLook = ({ args, rating, setRating }) => {
 
 NewRatingLook.propTypes = {
   args: PropTypes.arrayOf(PropTypes.object),
-  bigPicture: PropTypes.object,
   rating: PropTypes.object,
   setRating: PropTypes.func
 }
@@ -54,17 +53,21 @@ const valueField = (rating, edit) => {
 
 
 const reasons = (rating, args, pushArg, removeArg) => {
+  console.log(rating)
   const preview = (c, onclick) => {
+    const arg = args.find((arg) => arg.id == c)
+    const result = rating.results.find(res => res.choice == rating.target)
+    console.log(c, result)
+    const perf = " (" + result.reasons[c]/result.total*100 + " , " + result.total + ")"
+    console.log("perf", perf)
     return (
-      <div key={c} className="card">
+      <div key={c} className="card newrating-reason">
         <header className="card-header level preview-item-level is-mobile">
-          <div className="level-left">
-            <p
-              className="card-header-title"
-              onClick={onclick}>
-              {args.find((arg) => arg.id == c).title}
-            </p>
-          </div>
+          <p
+            className="card-header-title"
+            onClick={onclick}>
+            {arg.title + perf}
+          </p>
         </header>
       </div>
     )

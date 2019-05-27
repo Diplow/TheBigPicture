@@ -1,8 +1,9 @@
-from rest_framework.serializers import ModelSerializer
-from api.models import Rating
+from rest_framework import serializers
+from api.models import Rating, BigPicture, ARGUMENT_CODE
 
 
-class RatingSerializer(ModelSerializer):
+class RatingSerializer(serializers.ModelSerializer):
+	reasons = serializers.PrimaryKeyRelatedField(queryset=BigPicture.objects.filter(kind=ARGUMENT_CODE), many=True, required=False)
 
 	class Meta:
 		model = Rating
@@ -17,7 +18,8 @@ class RatingSerializer(ModelSerializer):
 		if existingRating.exists():
 			rating = existingRating.first()
 			rating.value = validated_data["value"]
-			rating.reasons.set(validated_data["reasons"])
+			if "reasons" in validated_data:
+				rating.reasons.set(validated_data["reasons"])
 			rating.save()
 			return rating
 		return super(RatingSerializer, self).create(validated_data)

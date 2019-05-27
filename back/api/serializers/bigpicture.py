@@ -1,7 +1,7 @@
 
 from django.db.models import Avg, StdDev
 from rest_framework import serializers
-from api.models import BigPicture, BIGPICTURE_CODE, VOTATION_CODE
+from api.models import BigPicture, BIGPICTURE_CODE, VOTATION_CODE, ARGUMENT_CODE
 
 
 def median_value(queryset, term):
@@ -31,8 +31,14 @@ class BigPictureSerializer(serializers.ModelSerializer):
 		res = []
 		for choice in obj.choices.all():
 			ratings = obj.ratings.filter(target=choice)
+			reasons = choice.resources.filter(kind=ARGUMENT_CODE)
 			res.append({
 				"choice": choice.id,
+				"total": ratings.count(),
+				"reasons": {
+					reason.id: ratings.filter(reasons__id=reason.id).count()
+					for reason in reasons
+				},
 				0: ratings.filter(value=0).count(),
 				1: ratings.filter(value=1).count(),
 				2: ratings.filter(value=2).count(),

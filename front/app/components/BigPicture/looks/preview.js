@@ -82,6 +82,7 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
                   value: 0,
                   reasons: [],
                   target: data.id,
+                  results: votation.results,
                   votation: votation.id
                 }}
               />
