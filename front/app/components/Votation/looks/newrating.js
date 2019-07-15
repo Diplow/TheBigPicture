@@ -53,13 +53,10 @@ const valueField = (rating, edit) => {
 
 
 const reasons = (rating, args, pushArg, removeArg) => {
-  console.log(rating)
   const preview = (c, onclick) => {
     const arg = args.find((arg) => arg.id == c)
     const result = rating.results.find(res => res.choice == rating.target)
-    console.log(c, result)
-    const perf = " (" + result.reasons[c]/result.total*100 + " , " + result.total + ")"
-    console.log("perf", perf)
+    const perf = " (" + Math.round(result.reasons[c]/result.total*100) + "% approval)"
     return (
       <div key={c} className="card newrating-reason">
         <header className="card-header level preview-item-level is-mobile">

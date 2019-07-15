@@ -86,7 +86,7 @@ const argList = (bigPicture) => {
     nature: cst.PRO_ARGUMENT,
     kind: cst.ARGUMENT_CODE
   }
-  const buttons = ["look", "edit"]
+  const buttons = ["look", "edit", "trash"]
   return createList(title, bigPicture, bpFilter, initNewBp, buttons)
 }
 

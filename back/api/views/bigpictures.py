@@ -18,9 +18,7 @@ class BigPictureViewSet(ModelViewSet):
 		if len(ids) != 0:
 			queryset.filter(id__in=ids)
 		if element == "root":
-			queryset = queryset.filter(resourceFor=None)
-			votations = BigPicture.objects.filter(kind=VOTATION_CODE, deadline__gt=datetime.datetime.now())
-			queryset = queryset | votations
+			queryset = BigPicture.objects.filter(kind=VOTATION_CODE, deadline__gt=datetime.datetime.now())
 		elif element is not None:
 			elt = queryset.get(id=element)
 			queryset = elt.resources.all()

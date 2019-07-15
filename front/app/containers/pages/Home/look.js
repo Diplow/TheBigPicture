@@ -6,26 +6,8 @@ import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import "./style.scss"
 
 
-const bpList = () => {
-  const title = "VUES"
-  const bigPicture = null
-  const bpFilter = (bp) => {
-    return (
-      bp.kind == cst.BIGPICTURE_CODE
-      && bp.resourceFor == null
-    )
-  }
-  const initNewBp = {
-    title: "",
-    body: "",
-    kind: cst.BIGPICTURE_CODE
-  }
-  const buttons = ["look", "edit", "trash"]
-  return createList(title, bigPicture, bpFilter, initNewBp, buttons)
-}
-
 const votationList = () => {
-  const title = "VOTATIONS"
+  const title = "VOTES"
   const bigPicture = null
   const bpFilter = (bp) => {
     return (
@@ -51,8 +33,6 @@ const HomeLook = ({ getBigPictures, user }) => {
 
   return (
     <div className="container tbp-section">
-      { bpList() }
-      <div className="is-divider"/>
       { votationList() }
     </div>
   )
