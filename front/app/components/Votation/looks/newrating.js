@@ -56,7 +56,7 @@ const reasons = (rating, args, pushArg, removeArg) => {
   const preview = (c, onclick) => {
     const arg = args.find((arg) => arg.id == c)
     const result = rating.results.find(res => res.choice == rating.target)
-    const perf = " (" + Math.round(result.reasons[c]/result.total*100) + "% approval)"
+    const perf = result.total != 0 ? " (" + Math.round(result.reasons[c]/result.total*100) + "% approuvé)" : ""
     return (
       <div key={c} className="card newrating-reason">
         <header className="card-header level preview-item-level is-mobile">
