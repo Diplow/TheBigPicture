@@ -146,12 +146,20 @@ const VotationResult = (bigPicture) => {
   let data = [
     ["vote", "Non compris", "Désaccord total", "Désaccord mesuré", "Neutre", "Accord mesuré", "Accord total"],
   ]
+  let result = []
   for (let i in bigPicture.results) {
     let d = bigPicture.results[i]
-    data.push(["Choix " + String(++i), d[0], d[1], d[2], d[3], d[4], d[5]])
+    let choiceName = "Choix " + String(++i)
+    result.push(choiceName + ": " + data[0][d.median+1] + "(" + Math.round(d.average*100) / 100 + ")")
+    data.push([choiceName, d[0], d[1], d[2], d[3], d[4], d[5]])
   }
   return (
-    <FullStackedBarChart data={data} />
+    <div>
+      {
+        result.map(res => <p>{res}</p>)
+      }
+      <FullStackedBarChart data={data} />
+    </div>
   )
 } 
 
