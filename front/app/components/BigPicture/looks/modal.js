@@ -4,11 +4,11 @@ import NewBigPicture from '../new'
 import "./style.scss"
 
 
-const BigPictureModalLook = ({ post, active, setActive, initBp }) => {
+const BigPictureModalLook = ({ post, del, active, setActive, initBp }) => {
 
   const [bp, setBP] = useState(initBp)
   const [publish, setPublish] = useState(null)
-  const headline = initBp.id == undefined ? "Nouvelle vue" : "Modification de la vue"
+  const headline = initBp.id == undefined ? "Création de contenu" : "Modification de contenu"
 
   return (
     <div className={"modal" + (active ? " is-active" : "")}>
@@ -28,6 +28,11 @@ const BigPictureModalLook = ({ post, active, setActive, initBp }) => {
               onClick={() => { setActive(false); post(bp) }}>
               Publier
             </button>
+            <button
+              className="button is-dark"
+              onClick={() => { setActive(false); del(bp) }}>
+              {initBp.id == undefined ? "Annuler" : "Supprimer"}
+            </button>
           </div>
         </footer>
       </div>
@@ -37,6 +42,7 @@ const BigPictureModalLook = ({ post, active, setActive, initBp }) => {
 
 BigPictureModalLook.propTypes = {
   post: PropTypes.func.isRequired,
+  del: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
   setActive: PropTypes.func.isRequired,
   initBp: PropTypes.object.isRequired

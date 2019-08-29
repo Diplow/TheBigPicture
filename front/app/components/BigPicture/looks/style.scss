@@ -4,7 +4,39 @@
 	margin: 0;
 	padding: 0.5rem 0;
 	font-weight: bold;
-	color: $dark;
+}
+
+.level-item.star-rating {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.subject {
+	background-color: $light;
+}
+
+.problem {
+	background-color: $primary-2;
+}
+
+.solution {
+	background-color: $primary-3;
+}
+
+.resource {
+	background-color: $primary-1;
+}
+
+.tbp-star {
+	color: $light;
+}
+
+.tbp-star.checked {
+	color: #ffc857; 
+}
+
+.tbp-addbutton.button {
+	background-color: $light;
 }
 
 .card-header {
@@ -12,18 +44,29 @@
 	padding-left: 1rem;
 	padding-bottom: 0.1rem;
 	margin-bottom: 0.1rem;
+	color: $light;
+}
+
+.card-header-title {
+	color: $dark;
+	text-align: left;
+}
+
+section.modal-card-body {
+	color: $dark;
 }
 
 .card-content {
 	padding-top: 0;
 	padding-left: 2rem;
 	padding-bottom: 0.6rem;
+	color: $dark;
 }
 
 .icon {
 	margin: 0.3rem;
 	.bp-preview-icon {
-		color: black;
+		color: $dark;
 		:hover {
 			color: grey;
 		}

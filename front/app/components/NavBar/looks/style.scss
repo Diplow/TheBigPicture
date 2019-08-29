@@ -1,11 +1,19 @@
 @import "../../../styles/theme.scss";
 
+.title.brand {
+	color: $dark;
+}
+
+.username {
+	color: $dark;
+}
+
 .login-input {
 	width: 100%;
 }
 
 .navbar-section.section.tbp-section {
-	background-color: #D2DDC3;
+	background-color: #CEC8C8;
 	height: 4rem;
 }
 
@@ -58,9 +66,9 @@
 }
 
 .button.username.logged-in {
-	background-color: #93c47d;
+	background-color: $primary-2;
 }
 
 .button.username.logged-out {
-	background-color: #dd7e6b;
+	background-color: $primary-3;
 }

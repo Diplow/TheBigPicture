@@ -24,7 +24,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
           <form className="form">
             <label className="label login-label" htmlFor="username">Username</label>
             <input
-              className="input login-input" 
+              className="input tbp-modal" 
               type="text"
               name="username"
               value={credentials.username}
@@ -32,7 +32,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
             />
             <label className="label login-label" htmlFor="password">Password</label>
             <input
-              className="input login-input" 
+              className="input tbp-modal" 
               type="password"
               name="password"
               value={credentials.password}
@@ -42,7 +42,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
         </section>
         <footer className="modal-card-foot">
           <div
-            className="button login-button"
+            className="button is-dark"
             onClick={() => { setActive(false); login(credentials) }}>
             S'authentifier
           </div>

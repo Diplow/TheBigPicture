@@ -34,9 +34,17 @@ export const ADD_RESOURCE_TO_BIG_PICTURE = "ADD_RESOURCE_TO_BIG_PICTURE"
 
 export const DELETE_BIG_PICTURE = "DELETE_BIG_PICTURE"
 
-export const BIGPICTURE_CODE = 1
-export const ARGUMENT_CODE = 2
-export const VOTATION_CODE = 3
+export const SUBJECT = 1
+export const PROBLEM = 2
+export const SOLUTION = 3
+export const RESOURCE = 4
+export const ARGUMENT = 5
+export const CLASSNAMES = {
+    [PROBLEM]: "problem",
+    [SOLUTION]: "solution",
+    [RESOURCE]: "resource",
+    [SUBJECT]: "subject"
+}
 
 export const PRO_ARGUMENT = 1
 export const CON_ARGUMENT = 2

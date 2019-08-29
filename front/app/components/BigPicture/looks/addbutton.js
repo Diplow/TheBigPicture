@@ -10,7 +10,7 @@ const AddBigPictureButton = ({initBp}) => {
   	<span className="level-item is-narrow">
 	  <a
 		onClick={() => { setCreateBPisActive(true) }}
-		className="button level-item is-narrow">
+		className="tbp-addbutton button level-item is-narrow">
 		<span className="icon"><i className={icon}></i></span>
 	  </a>
 	  <BigPictureModal

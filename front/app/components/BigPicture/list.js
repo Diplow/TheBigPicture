@@ -21,14 +21,13 @@ const BigPictureList = connect(mapStateToProps, mapDispatchToProps)(BigPictureLi
 
 export default BigPictureList
 
-export const createList = (title, bigPicture, filter, initNewBp, buttons) => {
+export const createList = (bigPicture, filter, buttons, showRatings) => {
   return (
     <BigPictureList
-      title={title}
       bigPicture={bigPicture}
       filter={filter}
-      initNewBp={initNewBp}
       buttons={buttons}
+      showRatings={showRatings}
     />
   )
 }

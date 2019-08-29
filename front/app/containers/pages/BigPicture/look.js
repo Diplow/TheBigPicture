@@ -4,30 +4,115 @@ import * as cst from '../../../constants'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
 import BigPictureContent from '../../../components/BigPicture'
-import { FullStackedBarChart } from '../../../components/Votation/looks/results'
 import "./style.scss"
+import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
 
 
-const BigPictureViewLook = ({ user, match, bigPicture, setBigPicture }) => {
+const useFilters = (bigPicture, filters) => {
+
+  let init = {}
+  for (const key in filters)
+    init[filters[key]] = true
+
+  const [res, setFilters] = useState(init)
+  if (bigPicture == null) {
+    return [null, null]
+  }
+  const names = {
+    [cst.RESOURCE]: "Ressources",
+    [cst.PROBLEM]: "Problèmes",
+    [cst.SOLUTION]: "Solutions"
+  }
+  const onChange = (flts, key) => {
+    return () => {
+      setFilters({ ...flts, [key]: !flts[key]})
+    }
+  }
+  const item = (
+    <div className="filters">
+    {
+      Object.keys(res).map((key) => {
+        return (
+          <label key={key} className="checkbox filter">
+            <input
+              type="checkbox"
+              checked={res[key]}
+              onChange={onChange(res, key)}
+              disabled={[cst.SUBJECT, cst.RESOURCE].indexOf(bigPicture.kind) != -1 && key == cst.SOLUTION} />
+            {names[key]}
+          </label>
+        )
+      })
+    }
+    </div>
+  )
+
+  return [item, res]
+}
+
+
+const context = (bigPicture) => {
+  if (bigPicture.kind == cst.SUBJECT)
+    return null
+  return (
+    <div className="tbp-context">
+      <h2 className="subtitle">Contexte</h2>
+      <BigPicturePreview
+        key={bigPicture.parent}
+        bpId={bigPicture.parent}
+        buttons={["look"]}
+      />
+    </div>
+  )
+}
+
+const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }) => {
 
   useEffect(() => {
     setBigPicture(match.params.id)
-  }, [])
+  }, [match])
+
+
+  const [filters, filtersData] = useFilters(
+    bigPicture,
+    [cst.RESOURCE, cst.PROBLEM, cst.SOLUTION]
+  )
+  const [hidden, setHidden] = useState(false)
+
 
   if (bigPicture == null)
     return null
 
+  const initNewBp = {
+    title: "",
+    parent: bigPicture.id,
+    kind: cst.PROBLEM
+  }
+  const canCreate = user.username != cst.GUEST_NAME && initNewBp != undefined
+
   return (
-    <div className="container tbp-section">
-      <div key={bigPicture.id}>
-        <BigPictureContent data={bigPicture} />
-        { choiceList(bigPicture) }
-        { context(bigPicture) }
-        <div className="is-divider"/>
-        { resourceList(bigPicture) }
-        <div className="is-divider"/>
-        { argList(bigPicture) }
-        { results(bigPicture) }
+    <div>
+      <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
+        <div className="container tbp-section">
+          <h1 className="title" onClick={() => setHidden(!hidden)}>
+            {bigPicture.title}
+          <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
+          </h1>
+        </div>
+      </div>
+      <div className="container tbp-section">
+        <div key={bigPicture.id}>
+          {context(bigPicture)}
+          <div className="level is-mobile">
+            <div className="level-left">
+              {filters}
+            </div>
+            <div className="level-right">
+              { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
+            </div>
+          </div>
+        </div>
+          {bigPictureList(bigPicture, filtersData)}
       </div>
     </div>
   )
@@ -39,141 +124,15 @@ BigPictureViewLook.propTypes = {
   setBigPicture: PropTypes.func.isRequired
 }
 
-const context = (bigPicture) => {
-  if (bigPicture.resourceFor == null)
-    return null
-  return (
-    <div>
-      <div className="is-divider"/>
-      <h2 className="title">Contexte</h2>
-      <BigPicturePreview
-        bpId={bigPicture.resourceFor}
-        buttons={["look"]} />
-    </div>
-  )
-}
-
-const resourceList = (bigPicture) => {
-  const title = "Ressources"
+const bigPictureList = (bigPicture, filters) => {
   const bpFilter = (bp) => {
     return (
-      bp.kind == cst.BIGPICTURE_CODE
-      && bp.resourceFor == bigPicture.id
-      && bp.kind !== cst.ARGUMENT_CODE
-      && (bigPicture.choices == null || bigPicture.choices.indexOf(bp.id) == -1)
+      bigPicture.id == bp.parent && filters[bp.kind]
     )
   }
-  const initNewBp = {
-    title:"Nouvelle ressource",
-    resourceFor:bigPicture.id,
-    kind: cst.BIGPICTURE_CODE
-  }
-  const buttons = ["look", "edit"]
-  return createList(title, bigPicture, bpFilter, initNewBp, buttons)
-}
-
-const argList = (bigPicture) => {
-  const title = "Raisons"
-  const bpFilter = (bp) => {
-    return (
-      bp.kind == cst.ARGUMENT_CODE
-      && bp.resourceFor == bigPicture.id
-    )
-  }
-  const initNewBp = {
-    title: "Nouvelle raison",
-    resourceFor: bigPicture.id,
-    nature: cst.PRO_ARGUMENT,
-    kind: cst.ARGUMENT_CODE
-  }
-  const buttons = ["look", "edit", "trash"]
-  return createList(title, bigPicture, bpFilter, initNewBp, buttons)
-}
-
-const choiceList = (bigPicture) => {
-  if (bigPicture.kind != cst.VOTATION_CODE)
-    return null
-
-  return (
-    <div>
-      <div className="is-divider"/>
-      <h2 className="title">Choix</h2>
-      {
-        bigPicture.choices.map((choice) => {
-          return (
-            <BigPicturePreview
-              key={choice}
-              bpId={choice}
-              buttons={["look", "edit", "rate"]}
-              votation={bigPicture}
-            />
-          )
-        })
-      }
-    </div>
-  )
-}
-
-const VotationResult = (bigPicture) => {
-  /*
-    [{
-      choice: 1,
-      0: 52,
-      1: 13,
-      2: 24,
-      3: 56,
-      4: 25,
-      5: 2
-    },
-    {
-      choice: 2,
-      0: 26,
-      1: 22,
-      2: 27,
-      3: 89,
-      4: 111,
-      5: 49
-    }]
-
-    =>
-
-    [
-      [0, 1, 2, 3, 4, 5],
-      [1, 51, 13, 24, 56, 25, 2],
-      [2, 26, 22, 27, 89, 111, 49]
-    ]
-  */
-  let data = [
-    ["vote", "Non compris", "Désaccord total", "Désaccord mesuré", "Neutre", "Accord mesuré", "Accord total"],
-  ]
-  let result = []
-  for (let i in bigPicture.results) {
-    let d = bigPicture.results[i]
-    let choiceName = "Choix " + String(++i)
-    result.push(choiceName + ": " + data[0][d.median+1] + "(" + Math.round(d.average*100) / 100 + ")")
-    data.push([choiceName, d[0], d[1], d[2], d[3], d[4], d[5]])
-  }
-  return (
-    <div>
-      {
-        result.map(res => <p>{res}</p>)
-      }
-      <FullStackedBarChart data={data} />
-    </div>
-  )
-} 
-
-const results = (bigPicture) => {
-  if (bigPicture.kind != cst.VOTATION_CODE)
-    return null
-
-  return (
-    <div>
-      <div className="is-divider"/>
-      <h2 className="title">Résultats</h2>
-      { VotationResult(bigPicture) }
-    </div>
-  )
+  const buttons = ["look", "edit", "rate"]
+  const showRatings = true
+  return createList(bigPicture, bpFilter, buttons, showRatings)
 }
 
 export default BigPictureViewLook
