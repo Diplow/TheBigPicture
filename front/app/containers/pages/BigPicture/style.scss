@@ -1,0 +1,54 @@
+@import "../../../styles/theme.scss";
+
+.checkbox {
+	padding-right: 1rem;
+	:hover {
+		color: $light;
+	}
+}
+.tbp-context {
+	padding-top: 0.5rem;
+	margin-bottom: 0;
+	h2.subtitle {
+		padding: 0;
+		margin: 0;
+		font-weight: 600;
+	}
+}
+
+.hero {
+	.title {
+		color: $dark;
+	}
+	padding: 1rem 0;
+}
+
+.hero.subject {
+	background-color: $light;
+}
+.hero.problem {
+	background-color: $primary-2;
+}
+.hero.solution {
+	background-color: $primary-3;
+}
+.hero.resource {
+	background-color: $primary-1;
+}
+
+
+p.tbp-description {
+	color: $dark;
+	font-size: 1rem;
+	font-weight: 400;
+	padding-top: 0.5rem;
+}
+
+.filter.checkbox:hover {
+	color: $light;
+}
+
+.hero {
+	color: $light;
+	margin: 0.6rem 0;
+}

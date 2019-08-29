@@ -3,25 +3,20 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
+import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
 import "./style.scss"
 
 
-const votationList = () => {
-  const title = "VOTES"
+const subjectsList = () => {
   const bigPicture = null
   const bpFilter = (bp) => {
     return (
-      bp.kind == cst.VOTATION_CODE
+      bp.kind == cst.SUBJECT
     )
   }
-  const initNewBp = {
-    title: "",
-    body: "",
-    kind: cst.VOTATION_CODE,
-    choices: []
-  }
-  const buttons = ["look", "edit", "trash"]
-  return createList(title, bigPicture, bpFilter, initNewBp, buttons)
+  const buttons = ["look", "edit"]
+  const showRatings = false
+  return createList(bigPicture, bpFilter, buttons, showRatings)
 
 }
 
@@ -31,9 +26,31 @@ const HomeLook = ({ getBigPictures, user }) => {
     getBigPictures()
   })
 
+  const initNewBp = {
+    kind: cst.SUBJECT,
+    title: "",
+    parent: null
+  }
+
+  const canCreate = user.username != cst.GUEST_NAME && initNewBp != undefined
+
   return (
-    <div className="container tbp-section">
-      { votationList() }
+    <div>
+      <div className="hero resource">
+        <div className="container tbp-section">
+          <div className="level is-mobile">
+            <div className="level-left">
+              <h1 className="title">SUJETS</h1>
+            </div>
+            <div className="level-right">
+              { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container tbp-section">
+        { subjectsList() }
+      </div>
     </div>
   )
 }

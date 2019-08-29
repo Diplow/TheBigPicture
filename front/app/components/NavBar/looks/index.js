@@ -1,6 +1,7 @@
 import React from 'react'
 import LoginButton from '../loginbutton'
 import LoginModal from '../loginmodal'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import "./style.scss"
 
 
@@ -11,7 +12,7 @@ const NavBarLook = () => {
       <div className="container nav-container">
         <div id="navbar" className="tbp-section level tbp-nav-level is-mobile">
           <div className="level-left is-mobile">
-            <h1 className="title level-item" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VUE D'ENSEMBLE</h1>
+            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VUE D'ENSEMBLE</Link>
           </div>
           <div className="level-right is-mobile">
             <LoginButton />

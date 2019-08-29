@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { patchBigPicture, postBigPicture } from '../../actions/index'
+import { patchBigPicture, postBigPicture, deleteBigPicture } from '../../actions/index'
 import BigPictureModalLook from './looks/modal'
 import * as cst from '../../constants'
 
@@ -14,6 +14,10 @@ const mapDispatchToProps = (dispatch) => {
       bigPicture.id == undefined
         ? dispatch(postBigPicture(bigPicture))
         : dispatch(patchBigPicture(bigPicture))
+    },
+  	del: (bigPicture) => {
+      if (bigPicture.id != undefined)
+        dispatch(deleteBigPicture(bigPicture.id))
     }
   }
 }

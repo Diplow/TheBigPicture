@@ -11,7 +11,7 @@ const LoginButtonLook = ({ username, logout }) => {
   return (
     <div className="level-item">
       <p className="username">{username}</p>
-      <span className="level-item is-shrink">
+      <span className="loggin-label level-item is-shrink">
         {
           username != cst.GUEST_NAME
           ? <div 

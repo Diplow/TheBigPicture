@@ -9,18 +9,13 @@ export const postBigPicture = (bigPicture) => {
   }
 }
 
-export const postArgument = (argument) => {
+export const postVote = (bpId, rating) => {
   return (dispatch) => {
-    const next = (res) => {
-      dispatch(getBigPicture(res.resourceFor))
+    const vote = {
+      target: bpId,
+      value: rating
     }
-    api.sendItem(dispatch, argument, "bigpictures", basics.addBigPicture, "/", "POST", next)
-  }
-}
-
-export const postRating = (rating) => {
-  return (dispatch) => {
-    api.sendItem(dispatch, rating, "ratings", basics.addRating, "/", "POST")
+    api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
 }
 
@@ -30,29 +25,11 @@ export const patchBigPicture = (bigPicture) => {
   }
 }
 
-export const patchRating = (rating) => {
+export const getSubjects = () => {
   return (dispatch) => {
-    api.sendItem(dispatch, rating, "ratings", basics.addRating, "/" + rating.id + "/", "PATCH")
+    api.getCollection(dispatch, "subjects", basics.addBigPicture, "/?format=json")
   }
 }
-
-export const postResource = (resource) => {
-  return (dispatch) => {
-    const next = (res) => {
-      dispatch(getBigPicture(res.resourceFor))
-    }
-    // the API is the same for resources and bigpictures since it is the same kind of object
-    api.sendItem(dispatch, resource, "bigpictures", basics.addBigPicture, "/?format=json", "POST", next)
-  }
-}
-
-export const getBigPictures = (ids) => {
-  return (dispatch) => {
-    const idsParam = ids != undefined ? '&ids=' + JSON.stringify(ids) : ''
-    api.getCollection(dispatch, "bigpictures", basics.addBigPicture, "/?format=json&element=root" + idsParam)
-  }
-}
-
 
 export const getResources = (bigpictureId) => {
   return (dispatch) => {

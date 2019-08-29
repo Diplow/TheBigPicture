@@ -5,7 +5,7 @@ import * as cst from '../../constants'
 
 const mapStateToProps = (state) => {
   return {
-  	bigPictures: state.get("bigpictures").filter((bp) => bp.kind == cst.BIGPICTURE_CODE)
+  	bigPictures: state.get("bigpictures")
   }
 }
 

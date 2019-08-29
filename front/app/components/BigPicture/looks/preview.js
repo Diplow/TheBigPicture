@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import BigPictureModal from '../modal'
-import RatingModal from '../../Votation/ratingmodal'
+import RatingButton from './ratingbutton'
 import * as cst from '../../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { TrashButton, LookButton, EditButton, RateButton } from '../previewbuttons'
@@ -15,14 +15,6 @@ const useToggle = (initial_value) => {
   return [toggleItem, toggleFunc]
 }
 
-const getTileColor = (nature) => {
-  let res = "white"
-  if (nature == cst.PRO_ARGUMENT)
-    res = "#93c47d"
-  if (nature == cst.CON_ARGUMENT)
-    res = "#dd7e6b"
-  return res
-}
 
 const BigPicturePreviewLook = ({ data, buttons, votation }) => {
   if (data == undefined)
@@ -32,10 +24,9 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
   const [createBPisActive, setCreateBPisActive] = useState(false)
   const [createRatingIsActive, setCreateRatingIsActive] = useState(false)
   const hasButton = (button) => { return buttons.indexOf(button) != -1 }
-  const tileColor = getTileColor(data.nature)
 
   return (
-    <div style={{"backgroundColor": tileColor}} className="card bp-tile">
+    <div className={cst.CLASSNAMES[data.kind] + " card bp-tile"}>
       <header className="card-header level preview-item-level is-mobile">
         <div className="level-left">
           <p
@@ -51,43 +42,20 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
             show={hasButton("look")}
             isAuthorized={(user, data) => { return true }}
             to={(id) => { return "/bigPicture/" + id}} />
-          <RateButton
-            data={data}
-            action={() => setCreateRatingIsActive(true)}
-            icon="fas fa-poll "
-            show={hasButton("rate")}
-            isAuthorized={(user, data) => { return user.username != cst.GUEST_NAME }} />
-          <TrashButton
-            data={data}
-            icon="fas fa-trash "
-            show={hasButton("trash")}
-            isAuthorized={(user, data) => { return user.id == data.author }} />
           <EditButton
             data={data}
             action={() => setCreateBPisActive(true)}
             icon="fas fa-edit "
             show={hasButton("edit")}
             isAuthorized={(user, data) => { return user.id == data.author }} />
+          <RatingButton
+            bigPicture={data}
+            show={hasButton("rate")} />
           <BigPictureModal
             active={createBPisActive}
             setActive={setCreateBPisActive}
             initBp={data}
           />
-          {
-            votation != null
-            ? <RatingModal
-                active={createRatingIsActive}
-                setActive={setCreateRatingIsActive}
-                init={{
-                  value: 0,
-                  reasons: [],
-                  target: data.id,
-                  results: votation.results,
-                  votation: votation.id
-                }}
-              />
-            : null
-          }
         </div>
       </header>
       {
@@ -101,8 +69,7 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
 
 BigPicturePreviewLook.propTypes = {  
   bpId: PropTypes.number.isRequired,
-  buttons: PropTypes.arrayOf(PropTypes.string),
-  votation: PropTypes.object
+  buttons: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default BigPicturePreviewLook
