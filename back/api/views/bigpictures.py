@@ -1,9 +1,15 @@
 from rest_framework.viewsets import ModelViewSet
-from api.models import BigPicture, BIGPICTURE_CODE, VOTATION_CODE
+from api.models import BigPicture, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
 from api.permissions import IsAuthorOrReadOnly
 import json
 import datetime
+
+
+class SubjectViewSet(ModelViewSet):
+	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE)
+	serializer_class = BigPictureSerializer
+	permission_classes = [IsAuthorOrReadOnly]
 
 
 class BigPictureViewSet(ModelViewSet):
@@ -17,18 +23,12 @@ class BigPictureViewSet(ModelViewSet):
 		ids = json.loads(self.request.query_params.get('ids', '[]'))
 		if len(ids) != 0:
 			queryset.filter(id__in=ids)
-		if element == "root":
-			queryset = BigPicture.objects.filter(kind=VOTATION_CODE)
-		elif element is not None:
+		if element is not None:
 			elt = queryset.get(id=element)
-			queryset = elt.resources.all()
-			if elt.resourceFor is not None:
-				context = BigPicture.objects.filter(id=elt.resourceFor.id)
+			queryset = queryset.filter(parent=element)
+			if elt.parent is not None:
+				context = BigPicture.objects.filter(id=elt.parent.id)
 				queryset |= context
-			if elt.choices is not None:
-				queryset |= elt.choices.all()
-				for c in elt.choices.all():
-					queryset |= c.resources.all()
 		return queryset
 
 	def create(self, request):

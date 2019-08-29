@@ -3,7 +3,7 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
 from api.views.users import UserViewSet, GroupViewSet
-from api.views.bigpictures import BigPictureViewSet
+from api.views.bigpictures import BigPictureViewSet, SubjectViewSet
 from api.views.ratings import RatingViewSet
 
 
@@ -11,6 +11,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
+router.register(r'subjects', SubjectViewSet)
 router.register(r'ratings', RatingViewSet)
 
 # Wire up our API using automatic URL routing.
