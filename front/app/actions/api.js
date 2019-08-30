@@ -1,4 +1,5 @@
 import * as cst from "../constants"
+import * as notifications from "../constants/notifications"
 import * as basics from "./basics"
 
 
@@ -46,11 +47,7 @@ export const deleteItem = (dispatch, itemId, itemAPI, action) => {
     .then(res => {
       if (res.status == 204) {
         dispatch(action(itemId))
-        dispatch(basics.notification({
-          title: "Élément supprimé",
-          message: "L'élément n'existe plus dans les bases de données du serveur.",
-          type: "success"
-        }))
+        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
       }
     })
 }
@@ -71,12 +68,8 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(res => res.json())
     .then(res => {
       dispatch(action(res))
-      const verb = method == "PATCH" ? "modifié" : "créé"
-      dispatch(basics.notification({
-        title: "Élément " + verb,
-        message: "L'élément a bien été " + verb + " dans la base de données.",
-        type: "success"
-      }))
+      const verb = method == "PATCH" ? notifications.itemModification : notifications.itemCreation
+      dispatch(basics.notification(verb[itemAPI]))
       return res 
     })
     .then(next)

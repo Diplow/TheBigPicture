@@ -23,7 +23,7 @@ const bpSort = (a, b) => {
 const ratingIndicators = (rating) => {
   const baseClass = "tbp-star fa fa-star "
   return (
-    <div className="level is-mobile">
+    <div className="level is-mobile tbp-star-level">
       <div className="level-item star-rating">
         <span className={rating >= 1 ? baseClass + "checked" : baseClass} />
         <span className={rating >= 2 ? baseClass + "checked" : baseClass} />
