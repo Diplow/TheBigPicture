@@ -24,11 +24,14 @@ class BigPictureSerializer(serializers.ModelSerializer):
 		fields = "__all__"
 
 	def get_results(self, obj):
+		author = self.context["author"]
 		ratings = obj.ratings.all()
+		ownrating = ratings.filter(author=author)
 		return {
 			"count": ratings.count(),
 			"median": median_value(ratings, 'value'),
 			"average": ratings.aggregate(Avg('value'))['value__avg'],
+			"own": ownrating[0].value if ownrating.exists() else 0,
 			0: ratings.filter(value=0).count(),
 			1: ratings.filter(value=1).count(),
 			2: ratings.filter(value=2).count(),

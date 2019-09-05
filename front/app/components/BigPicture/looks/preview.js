@@ -36,12 +36,6 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
           </p>
         </div>
         <div className="level-right">
-          <LookButton
-            data={data}
-            icon="fas fa-search "
-            show={hasButton("look")}
-            isAuthorized={(user, data) => { return true }}
-            to={(id) => { return "/bigPicture/" + id}} />
           <EditButton
             data={data}
             action={() => setCreateBPisActive(true)}
@@ -51,6 +45,12 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
           <RatingButton
             bigPicture={data}
             show={hasButton("rate")} />
+          <LookButton
+            data={data}
+            icon="fas fa-search "
+            show={hasButton("look")}
+            isAuthorized={(user, data) => { return true }}
+            to={(id) => { return "/bigPicture/" + id}} />
           <BigPictureModal
             active={createBPisActive}
             setActive={setCreateBPisActive}

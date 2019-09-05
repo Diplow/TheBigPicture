@@ -11,6 +11,13 @@ class SubjectViewSet(ModelViewSet):
 	serializer_class = BigPictureSerializer
 	permission_classes = [IsAuthorOrReadOnly]
 
+	def get_serializer_context(self):
+		context = super(SubjectViewSet, self).get_serializer_context()
+		context.update({
+			"author": context["request"].user.id
+		})
+		return context
+
 
 class BigPictureViewSet(ModelViewSet):
 	queryset = BigPicture.objects.all()
@@ -30,6 +37,13 @@ class BigPictureViewSet(ModelViewSet):
 				context = BigPicture.objects.filter(id=elt.parent.id)
 				queryset |= context
 		return queryset
+
+	def get_serializer_context(self):
+		context = super(BigPictureViewSet, self).get_serializer_context()
+		context.update({
+			"author": context["request"].user.id
+		})
+		return context
 
 	def create(self, request):
 		request.data["author"] = request.user.id
