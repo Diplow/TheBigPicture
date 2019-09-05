@@ -11,6 +11,10 @@
 	padding-bottom: 0.5rem;
 }
 
+.card {
+	color: $dark;
+}
+
 .subject {
 	background-color: $light;
 }
@@ -44,7 +48,7 @@
 	padding-left: 1rem;
 	padding-bottom: 0.1rem;
 	margin-bottom: 0.1rem;
-	color: $light;
+	color: $dark;
 }
 
 .card-header-title {

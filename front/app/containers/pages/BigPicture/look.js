@@ -6,48 +6,17 @@ import BigPicturePreview from '../../../components/BigPicture/preview'
 import BigPictureContent from '../../../components/BigPicture'
 import "./style.scss"
 import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
+import RadioButton from '../../../components/Buttons/radio'
 
 
-const useFilters = (bigPicture, filters) => {
-
-  let init = {}
-  for (const key in filters)
-    init[filters[key]] = true
-
-  const [res, setFilters] = useState(init)
-  if (bigPicture == null) {
-    return [null, null]
-  }
-  const names = {
-    [cst.RESOURCE]: "Ressources",
-    [cst.PROBLEM]: "Problèmes",
-    [cst.SOLUTION]: "Solutions"
-  }
-  const onChange = (flts, key) => {
-    return () => {
-      setFilters({ ...flts, [key]: !flts[key]})
-    }
-  }
-  const item = (
-    <div className="filters">
-    {
-      Object.keys(res).map((key) => {
-        return (
-          <label key={key} className="checkbox filter">
-            <input
-              type="checkbox"
-              checked={res[key]}
-              onChange={onChange(res, key)}
-              disabled={[cst.SUBJECT, cst.RESOURCE].indexOf(bigPicture.kind) != -1 && key == cst.SOLUTION} />
-            {names[key]}
-          </label>
-        )
-      })
-    }
-    </div>
+const toolButton = (classname, isPushed, setIsPushed, icon) => {
+  return (
+    <RadioButton
+      classname={classname}
+      isPushed={isPushed}
+      setIsPushed={setIsPushed}
+      icon={icon} />
   )
-
-  return [item, res]
 }
 
 
@@ -73,11 +42,16 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
   }, [match])
 
 
-  const [filters, filtersData] = useFilters(
-    bigPicture,
-    [cst.RESOURCE, cst.PROBLEM, cst.SOLUTION]
-  )
+  const [resourceFilter, setResourceFilter] = useState(true)
+  const [problemFilter, setProblemFilter] = useState(true)
+  const [solutionFilter, setSolutionFilter] = useState(true)
+  const filtersData = {
+    [cst.PROBLEM]: problemFilter,
+    [cst.SOLUTION]: solutionFilter,
+    [cst.RESOURCE]: resourceFilter
+  }
   const [hidden, setHidden] = useState(false)
+  const [ownRating, setOwnRating] = useState(true)
 
 
   if (bigPicture == null)
@@ -105,14 +79,17 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
           {context(bigPicture)}
           <div className="level is-mobile">
             <div className="level-left">
-              {filters}
+              {toolButton("problem", problemFilter, setProblemFilter, "fas fa-exclamation-triangle")}
+              {toolButton("solution", solutionFilter, setSolutionFilter, "fas fa-lightbulb")}
+              {toolButton("resource", resourceFilter, setResourceFilter, "fas fa-file")}
+              {toolButton("rating", ownRating, setOwnRating, "fas fa-star")}
             </div>
             <div className="level-right">
               { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
             </div>
           </div>
         </div>
-          {bigPictureList(bigPicture, filtersData)}
+          {bigPictureList(bigPicture, filtersData, ownRating)}
       </div>
     </div>
   )
@@ -124,15 +101,17 @@ BigPictureViewLook.propTypes = {
   setBigPicture: PropTypes.func.isRequired
 }
 
-const bigPictureList = (bigPicture, filters) => {
+const bigPictureList = (bigPicture, filters, ownRating) => {
   const bpFilter = (bp) => {
     return (
       bigPicture.id == bp.parent && filters[bp.kind]
     )
   }
-  const buttons = ["look", "edit", "rate"]
+  const buttons = ["edit", "look"]
+  if (ownRating)
+    buttons.push("rate")
   const showRatings = true
-  return createList(bigPicture, bpFilter, buttons, showRatings)
+  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating)
 }
 
 export default BigPictureViewLook

@@ -32,38 +32,41 @@ const kindField = (bp, edit) => {
   if (bp.kind == cst.SUBJECT)
     return null
   return (
-    <div className="control">
-      <label className="radio">
-        <input
-          type="radio"
-          name="kind"
-          value={cst.PROBLEM}
-          onChange={edit} />
-        Problème
-      </label>
-      <label className="radio">
-        <input
-          type="radio"
-          name="kind"
-          value={cst.SOLUTION}
-          onChange={edit} />
-        Solution
-      </label>
-      <label className="radio">
-        <input
-          type="radio"
-          name="kind"
-          value={cst.RESOURCE}
-          onChange={edit} />
-        Ressource
-      </label>
+    <div className="field">
+      <p className="subtitle-modal">Type</p>
+      <div className="control">
+        <label className="radio">
+          <input
+            type="radio"
+            name="kind"
+            value={cst.PROBLEM}
+            onChange={edit} />
+          Problème
+        </label>
+        <label className="radio">
+          <input
+            type="radio"
+            name="kind"
+            value={cst.SOLUTION}
+            onChange={edit} />
+          Solution
+        </label>
+        <label className="radio">
+          <input
+            type="radio"
+            name="kind"
+            value={cst.RESOURCE}
+            onChange={edit} />
+          Ressource
+        </label>
+      </div>
     </div>
   )
 }
 
 const titleField = (bp, edit) => {
   return (
-    <div>
+    <div className="field">
       <p className="subtitle-modal">Titre</p>
       <input
         className="input tbp-modal"
@@ -78,7 +81,7 @@ const titleField = (bp, edit) => {
 
 const contentField = (bp, edit) => {
   return (
-    <div>
+    <div className="field">
       <p className="subtitle-modal">Contenu</p>
       <textarea
         className="textarea tbp-modal"

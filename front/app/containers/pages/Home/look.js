@@ -14,9 +14,10 @@ const subjectsList = () => {
       bp.kind == cst.SUBJECT
     )
   }
-  const buttons = ["look", "edit"]
+  const buttons = ["edit", "look"]
   const showRatings = false
-  return createList(bigPicture, bpFilter, buttons, showRatings)
+  const ownRating = true
+  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating)
 
 }
 

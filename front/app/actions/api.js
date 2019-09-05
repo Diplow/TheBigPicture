@@ -34,7 +34,7 @@ export const buildRequest = (body, method) => {
   }
   if (cst.SAFE_METHODS.indexOf(method) != -1)
     delete res.body
-  else if (isAuthenticated )
+  if (isAuthenticated)
     res.headers.Authorization = `JWT ${localStorage.getItem('token')}`
   return res
 }

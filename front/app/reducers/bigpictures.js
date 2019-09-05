@@ -5,6 +5,20 @@ import * as cst from "../constants"
 const bigpictures = (state = [], action) => {
   switch (action.type) {
 
+    case cst.ADD_RATING:
+      const rating = action.rating
+      const ratedbp = state.find(element => element.id == rating.target)
+      return [
+        ...state.filter(element => element.id != rating.target),
+        {
+          ...ratedbp,
+          results: {
+            ...(ratedbp.results),
+            own: rating.value
+          }
+        }
+      ]
+
     case cst.ADD_BIG_PICTURE:
       const bp = action.bigpicture
       return [

@@ -1,0 +1,24 @@
+@import "../../styles/theme.scss";
+
+.button.tbp-radio {
+	color: $dark;
+	background-color: $light;
+	margin-right: 0.5rem;
+}
+
+.button.tbp-radio.is-active {
+	border-width: 2px;
+	border-color: $dark;
+}
+
+.button.tbp-radio.problem {
+	background-color: $primary-2;
+}
+
+.button.resource {
+	background-color: $primary-1;
+}
+
+.button.solution {
+	background-color: $primary-3;
+}

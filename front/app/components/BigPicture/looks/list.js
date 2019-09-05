@@ -7,14 +7,14 @@ import * as cst from '../../../constants'
 import "./style.scss"
 
 
-const bpSort = (a, b) => {
+const bpSort = (a, b, key) => {
   // Sort by median first, then average, and then by count.
-  if (a.results.median > b.results.median)
+  if (a.results[key] > b.results[key])
     return true
-  if (a.results.median == b.results.median) {
-    if (a.results.average > b.results.average)
+  if (a.results[key] == b.results[key]) {
+    if (key == "median" && a.results.average > b.results.average)
       return true
-    if (a.results.average == b.results.average)
+    if (key == "own" || a.results.average == b.results.average)
       return a.results.count > b.results.count
   }
   return false
@@ -22,22 +22,26 @@ const bpSort = (a, b) => {
 
 const ratingIndicators = (rating) => {
   const baseClass = "tbp-star fa fa-star "
+  const possibleRatings = [1, 2, 3, 4, 5]
   return (
     <div className="level is-mobile tbp-star-level">
       <div className="level-item star-rating">
-        <span className={rating >= 1 ? baseClass + "checked" : baseClass} />
-        <span className={rating >= 2 ? baseClass + "checked" : baseClass} />
-        <span className={rating >= 3 ? baseClass + "checked" : baseClass} />
-        <span className={rating >= 4 ? baseClass + "checked" : baseClass} />
-        <span className={rating >= 5 ? baseClass + "checked" : baseClass} />
+        {
+          possibleRatings.map((val) => {
+            return (
+              <span key={"rating"+val}className={rating >= val ? baseClass + "checked" : baseClass} />
+            )
+          })
+        }
       </div>
     </div>
   )
 }
 
-const BigPictureListLook = ({user, bigPictures, buttons, showRatings }) => {
+const BigPictureListLook = ({user, bigPictures, buttons, showRatings, ownRating }) => {
   const pageSize = 30.
-  const orderedBigPictures = bigPictures.sort((a, b) => bpSort(a, b) ? 1 : -1)
+  const sortKey = ownRating ? "own" : "median"
+  const orderedBigPictures = bigPictures.sort((a, b) => bpSort(a, b, sortKey) ? 1 : -1)
   const [pagination, page] = usePagination(bigPictures, pageSize)
 
   const getBpByRating = (page, rating) => {
@@ -47,14 +51,14 @@ const BigPictureListLook = ({user, bigPictures, buttons, showRatings }) => {
         { showRatings ? ratingIndicators(rating) : null }
         {
           page.map((bp) => {
-            if (bp.results.median == rating) {
+            if (rating == bp.results[sortKey]) {
               return (
                 <BigPicturePreview
                   key={bp.id}
                   bpId={bp.id}
                   buttons={buttons}
                 />
-              ) 
+              )
             }
             return null
           })
@@ -79,6 +83,7 @@ const BigPictureListLook = ({user, bigPictures, buttons, showRatings }) => {
 BigPictureListLook.propTypes = {
   user: PropTypes.object.isRequired,
   showRatings: PropTypes.bool.isRequired,
+  ownRating: PropTypes.bool.isRequired,
   bigPictures: PropTypes.arrayOf(PropTypes.object).isRequired,
   buttons: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
