@@ -34,9 +34,7 @@ const backButton = (parent) => {
 }
 
 const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }) => {
-
-  const ratingUser = match.params.user != null ? match.params.user : user.id
-  console.log(ratingUser)
+  const ratingUser = match.params.user != null ? parseInt(match.params.user) : user.id
 
   useEffect(() => {
     setBigPicture(match.params.id, ratingUser)
@@ -84,7 +82,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
               {toolButton("problem", problemFilter, setProblemFilter, "fas fa-exclamation-triangle")}
               { bigPicture.kind != cst.SUBJECT && bigPicture.kind != cst.RESOURCE ? toolButton("solution", solutionFilter, setSolutionFilter, "fas fa-lightbulb") : null}
               {toolButton("resource", resourceFilter, setResourceFilter, "fas fa-file")}
-              { !isGuest && match.params.user == user.id ? toolButton("rating", ownRating, setOwnRating, "fas fa-star") : null}
+              { !isGuest && ratingUser == user.id ? toolButton("rating", ownRating, setOwnRating, "fas fa-star") : null}
             </div>
             <div className="level-right">
               { backButton(bigPicture.parent) }

@@ -58,7 +58,7 @@ RatingButtonLook.propTypes = {
 	user: PropTypes.object,
 	bigPicture: PropTypes.object.isRequired,
 	vote: PropTypes.func.isRequired,
-	ratingUser: PropTypes.integer
+	ratingUser: PropTypes.number
 }
 
 const mapStateToProps = (state) => {
