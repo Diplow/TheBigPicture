@@ -33,10 +33,14 @@
 
 .tbp-star {
 	color: $light;
+	font-size: 1.5rem;
+}
+
+.tbp-star.tbp-eval {
 }
 
 .tbp-star.checked {
-	color: #ffc857; 
+	color: gold; 
 }
 
 .tbp-addbutton.button {

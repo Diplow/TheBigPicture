@@ -20,7 +20,9 @@ const bpSort = (a, b, key) => {
   return false
 }
 
-const ratingIndicators = (rating) => {
+const ratingIndicators = (rating, page, sortKey) => {
+  if (page.filter(bp => rating == bp.results[sortKey]).length == 0)
+    return null
   const baseClass = "tbp-star fa fa-star "
   const possibleRatings = [1, 2, 3, 4, 5]
   return (
@@ -29,7 +31,7 @@ const ratingIndicators = (rating) => {
         {
           possibleRatings.map((val) => {
             return (
-              <span key={"rating"+val}className={rating >= val ? baseClass + "checked" : baseClass} />
+              <span key={"rating"+val} className={rating >= val ? baseClass + "checked" : baseClass} />
             )
           })
         }
@@ -48,7 +50,7 @@ const BigPictureListLook = ({user, bigPictures, buttons, showRatings, ownRating 
     return (
 
       <div>
-        { showRatings ? ratingIndicators(rating) : null }
+        { showRatings ? ratingIndicators(rating, page, sortKey) : null }
         {
           page.map((bp) => {
             if (rating == bp.results[sortKey]) {
