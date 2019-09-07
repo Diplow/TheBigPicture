@@ -15,8 +15,6 @@ def median_value(queryset, term):
 class BigPictureSerializer(serializers.ModelSerializer):
 	children = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
 	kind = serializers.IntegerField()
-	# arg fields
-	nature = serializers.IntegerField(required=False)
 	results = serializers.SerializerMethodField(read_only=True)
 
 	class Meta:
@@ -25,17 +23,20 @@ class BigPictureSerializer(serializers.ModelSerializer):
 
 	def get_results(self, obj):
 		author = self.context["author"]
+		target = self.context["target"]
 		ratings = obj.ratings.all()
 		ownrating = ratings.filter(author=author)
+		targetrating = ratings.filter(author=target)
 		return {
 			"count": ratings.count(),
 			"median": median_value(ratings, 'value'),
 			"average": ratings.aggregate(Avg('value'))['value__avg'],
 			"own": ownrating[0].value if ownrating.exists() else 0,
-			0: ratings.filter(value=0).count(),
-			1: ratings.filter(value=1).count(),
-			2: ratings.filter(value=2).count(),
-			3: ratings.filter(value=3).count(),
-			4: ratings.filter(value=4).count(),
-			5: ratings.filter(value=5).count(),
+			target: targetrating[0].value if targetrating.exists() else 0,
+			"0star": ratings.filter(value=0).count(),
+			"1star": ratings.filter(value=1).count(),
+			"2stars": ratings.filter(value=2).count(),
+			"3stars": ratings.filter(value=3).count(),
+			"4stars": ratings.filter(value=4).count(),
+			"5stars": ratings.filter(value=5).count(),
 		}
