@@ -20,12 +20,6 @@ const RatingButtonLook = ({bigPicture, show, user, vote}) => {
   }
 
   const starClass = (rate) => {
-  	if (rating >= rate)
-  		return (
-			<div className="level-item" onClick={() => {vote(bigPicture.id, rate); hideTooltip()}}>
-				<span className="tbp-star tbp-eval fa fa-star checked" />
-			</div>
-  		)
   	return (
 		<div className="level-item" onClick={() => {vote(bigPicture.id, rate); hideTooltip()}}>
 			<span className="tbp-star tbp-eval fa fa-star" />
