@@ -16,7 +16,7 @@ const useToggle = (initial_value) => {
 }
 
 
-const BigPicturePreviewLook = ({ data, buttons, votation }) => {
+const BigPicturePreviewLook = ({ data, buttons, votation, ratingUser }) => {
   if (data == undefined)
     return null
 
@@ -44,7 +44,8 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
             isAuthorized={(user, data) => { return user.id == data.author }} />
           <RatingButton
             bigPicture={data}
-            show={hasButton("rate")} />
+            show={hasButton("rate")}
+            ratingUser={ratingUser} />
           <LookButton
             data={data}
             icon="fas fa-search "
@@ -69,7 +70,8 @@ const BigPicturePreviewLook = ({ data, buttons, votation }) => {
 
 BigPicturePreviewLook.propTypes = {  
   bpId: PropTypes.number.isRequired,
-  buttons: PropTypes.arrayOf(PropTypes.string)
+  buttons: PropTypes.arrayOf(PropTypes.string),
+  ratingUser: PropTypes.number
 }
 
 export default BigPicturePreviewLook

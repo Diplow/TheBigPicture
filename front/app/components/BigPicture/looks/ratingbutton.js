@@ -7,10 +7,10 @@ import { postVote as vote } from '../../../actions/index'
 
 
 
-const RatingButtonLook = ({bigPicture, show, user, vote}) => {
+const RatingButtonLook = ({bigPicture, show, user, vote, ratingUser}) => {
   const [rating, setRating] = useState(bigPicture.results.median)
   const tooltip = useRef(null)
-  if (!show || user.username == cst.GUEST_NAME)
+  if (!show || user.username == cst.GUEST_NAME || (ratingUser != undefined && user.id != ratingUser))
   	return null
 
   const hideTooltip = () => {
@@ -21,7 +21,7 @@ const RatingButtonLook = ({bigPicture, show, user, vote}) => {
 
   const starClass = (rate) => {
   	return (
-		<div className="level-item" onClick={() => {vote(bigPicture.id, rate); hideTooltip()}}>
+		<div className="level-item" onClick={() => {vote(bigPicture.id, rate, user.id); hideTooltip()}}>
 			<span className="tbp-star tbp-eval fa fa-star" />
 		</div>
   	)
@@ -57,7 +57,8 @@ const RatingButtonLook = ({bigPicture, show, user, vote}) => {
 RatingButtonLook.propTypes = {
 	user: PropTypes.object,
 	bigPicture: PropTypes.object.isRequired,
-	vote: PropTypes.func.isRequired
+	vote: PropTypes.func.isRequired,
+	ratingUser: PropTypes.integer
 }
 
 const mapStateToProps = (state) => {
@@ -68,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		vote: (bpId, rating) => {dispatch(vote(bpId, rating))}
+		vote: (bpId, rating, author) => {dispatch(vote(bpId, rating, author))}
 	}
 }
 

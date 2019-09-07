@@ -17,7 +17,7 @@ const subjectsList = () => {
   const buttons = ["edit", "look"]
   const showRatings = false
   const ownRating = true
-  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating)
+  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating, null)
 
 }
 

@@ -14,7 +14,8 @@ class SubjectViewSet(ModelViewSet):
 	def get_serializer_context(self):
 		context = super(SubjectViewSet, self).get_serializer_context()
 		context.update({
-			"author": context["request"].user.id
+			"author": context["request"].user.id,
+			"target": context["request"].query_params.get('user', None)
 		})
 		return context
 
@@ -41,7 +42,8 @@ class BigPictureViewSet(ModelViewSet):
 	def get_serializer_context(self):
 		context = super(BigPictureViewSet, self).get_serializer_context()
 		context.update({
-			"author": context["request"].user.id
+			"author": context["request"].user.id,
+			"target": context["request"].query_params.get('user', None)
 		})
 		return context
 

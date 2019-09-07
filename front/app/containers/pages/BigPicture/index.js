@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setBigPicture: (id) => { dispatch(setBigPicture(id)) }
+    setBigPicture: (bpId, userId) => { dispatch(setBigPicture(bpId, userId)) }
   }
 }
 

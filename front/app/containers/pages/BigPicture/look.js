@@ -35,8 +35,11 @@ const backButton = (parent) => {
 
 const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }) => {
 
+  const ratingUser = match.params.user != null ? match.params.user : user.id
+  console.log(ratingUser)
+
   useEffect(() => {
-    setBigPicture(match.params.id)
+    setBigPicture(match.params.id, ratingUser)
   }, [match])
 
 
@@ -49,7 +52,8 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
     [cst.RESOURCE]: resourceFilter
   }
   const [hidden, setHidden] = useState(true)
-  const [ownRating, setOwnRating] = useState(true)
+  const initUserRating = ratingUser != 0 ? true : false
+  const [ownRating, setOwnRating] = useState(initUserRating)
 
 
   if (bigPicture == null)
@@ -61,7 +65,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
     kind: cst.PROBLEM,
     body: "",
   }
-  const isGuest = user.username == cst.GUEST_NAME
+  const isGuest = ratingUser == 0
 
   return (
     <div>
@@ -80,7 +84,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
               {toolButton("problem", problemFilter, setProblemFilter, "fas fa-exclamation-triangle")}
               { bigPicture.kind != cst.SUBJECT && bigPicture.kind != cst.RESOURCE ? toolButton("solution", solutionFilter, setSolutionFilter, "fas fa-lightbulb") : null}
               {toolButton("resource", resourceFilter, setResourceFilter, "fas fa-file")}
-              { !isGuest ? toolButton("rating", ownRating, setOwnRating, "fas fa-star") : null}
+              { !isGuest && match.params.user == user.id ? toolButton("rating", ownRating, setOwnRating, "fas fa-star") : null}
             </div>
             <div className="level-right">
               { backButton(bigPicture.parent) }
@@ -88,7 +92,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
             </div>
           </div>
         </div>
-          {bigPictureList(bigPicture, filtersData, ownRating)}
+          {bigPictureList(bigPicture, filtersData, ownRating, ratingUser)}
       </div>
     </div>
   )
@@ -100,7 +104,7 @@ BigPictureViewLook.propTypes = {
   setBigPicture: PropTypes.func.isRequired
 }
 
-const bigPictureList = (bigPicture, filters, ownRating) => {
+const bigPictureList = (bigPicture, filters, ownRating, ratingUser) => {
   const bpFilter = (bp) => {
     return (
       bigPicture.id == bp.parent && filters[bp.kind]
@@ -110,7 +114,7 @@ const bigPictureList = (bigPicture, filters, ownRating) => {
   if (ownRating)
     buttons.push("rate")
   const showRatings = true
-  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating)
+  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating, ratingUser)
 }
 
 export default BigPictureViewLook

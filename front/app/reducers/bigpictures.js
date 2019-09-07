@@ -14,7 +14,7 @@ const bigpictures = (state = [], action) => {
           ...ratedbp,
           results: {
             ...(ratedbp.results),
-            own: rating.value
+            [rating.author]: rating.value
           }
         }
       ]

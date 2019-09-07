@@ -9,11 +9,12 @@ export const postBigPicture = (bigPicture) => {
   }
 }
 
-export const postVote = (bpId, rating) => {
+export const postVote = (bpId, rating, author) => {
   return (dispatch) => {
     const vote = {
       target: bpId,
-      value: rating
+      value: rating,
+      author: author
     }
     api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
@@ -31,22 +32,23 @@ export const getSubjects = () => {
   }
 }
 
-export const getResources = (bigpictureId) => {
+export const getResources = (bigpictureId, userId) => {
+  const userparam = userId != null ? "&user=" + userId : ""
   return (dispatch) => {
-    api.getCollection(dispatch, "bigpictures", basics.addBigPicture, "/?element=" + bigpictureId)
+    api.getCollection(dispatch, "bigpictures", basics.addBigPicture, "/?element=" + bigpictureId + userparam)
   }
 }
 
-export const getBigPicture = (id, next) => {
+export const getBigPicture = (bpId, userId, next) => {
   return (dispatch) => {
-    api.getItem(dispatch, id, "bigpictures", basics.addBigPicture, next)
-    dispatch(getResources(id))
+    api.getItem(dispatch, bpId, "bigpictures", basics.addBigPicture, next)
+    dispatch(getResources(bpId, userId))
   }
 }
 
-export const setBigPicture = (id) => {
+export const setBigPicture = (bpId, userId) => {
   return (dispatch) => {
-    dispatch(getBigPicture(id))
+    dispatch(getBigPicture(bpId, userId))
   }
 }
 
