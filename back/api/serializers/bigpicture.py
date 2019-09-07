@@ -31,7 +31,7 @@ class BigPictureSerializer(serializers.ModelSerializer):
 			"count": ratings.count(),
 			"median": median_value(ratings, 'value'),
 			"average": ratings.aggregate(Avg('value'))['value__avg'],
-			"own": ownrating[0].value if ownrating.exists() else 0,
+			author: ownrating[0].value if ownrating.exists() else 0,
 			target: targetrating[0].value if targetrating.exists() else 0,
 			"0star": ratings.filter(value=0).count(),
 			"1star": ratings.filter(value=1).count(),
