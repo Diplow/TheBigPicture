@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
@@ -19,19 +20,16 @@ const toolButton = (classname, isPushed, setIsPushed, icon) => {
   )
 }
 
-
-const context = (bigPicture) => {
-  if (bigPicture.kind == cst.SUBJECT)
-    return null
+const backButton = (parent) => {
+  const to = parent == null ? "/" : "/bigPicture/" + parent  
   return (
-    <div className="tbp-context">
-      <h2 className="subtitle">Contexte</h2>
-      <BigPicturePreview
-        key={bigPicture.parent}
-        bpId={bigPicture.parent}
-        buttons={["look"]}
-      />
-    </div>
+    <Link
+      className="button tbp-radio"
+      to={to}
+    >
+      <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
+    </Link>
+
   )
 }
 
@@ -50,7 +48,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
     [cst.SOLUTION]: solutionFilter,
     [cst.RESOURCE]: resourceFilter
   }
-  const [hidden, setHidden] = useState(false)
+  const [hidden, setHidden] = useState(true)
   const [ownRating, setOwnRating] = useState(true)
 
 
@@ -60,9 +58,10 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
   const initNewBp = {
     title: "",
     parent: bigPicture.id,
-    kind: cst.PROBLEM
+    kind: cst.PROBLEM,
+    body: "",
   }
-  const canCreate = user.username != cst.GUEST_NAME && initNewBp != undefined
+  const isGuest = user.username == cst.GUEST_NAME
 
   return (
     <div>
@@ -76,16 +75,16 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
       </div>
       <div className="container tbp-section">
         <div key={bigPicture.id}>
-          {context(bigPicture)}
           <div className="level is-mobile">
             <div className="level-left">
               {toolButton("problem", problemFilter, setProblemFilter, "fas fa-exclamation-triangle")}
-              {toolButton("solution", solutionFilter, setSolutionFilter, "fas fa-lightbulb")}
+              { bigPicture.kind != cst.SUBJECT && bigPicture.kind != cst.RESOURCE ? toolButton("solution", solutionFilter, setSolutionFilter, "fas fa-lightbulb") : null}
               {toolButton("resource", resourceFilter, setResourceFilter, "fas fa-file")}
-              {toolButton("rating", ownRating, setOwnRating, "fas fa-star")}
+              { !isGuest ? toolButton("rating", ownRating, setOwnRating, "fas fa-star") : null}
             </div>
             <div className="level-right">
-              { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
+              { backButton(bigPicture.parent) }
+              { !isGuest ? <AddBigPictureButton initBp={initNewBp} /> : null }
             </div>
           </div>
         </div>

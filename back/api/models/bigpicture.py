@@ -11,7 +11,7 @@ ARGUMENT_CODE = 5
 
 class BigPicture(models.Model):
 	title = models.CharField(max_length=150)
-	body = models.TextField()
+	body = models.TextField(blank=True)
 	kind = models.IntegerField(choices=(
 		("subject", SUBJECT_CODE),
 		("problem", PROBLEM_CODE),

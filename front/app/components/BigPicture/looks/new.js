@@ -9,13 +9,14 @@ const NewBigPictureLook = ({ bigPictures, bp, setBP }) => {
   if (bp == null)
     return null
 
+  const parent = bigPictures.find(elt => elt.id == bp.parent)
   const edit = (e) => {
     setBP({ ...bp, [e.target.name]: e.target.value})
   }
 
   return (
     <div className="newBigPicture-modal">
-      {kindField(bp, edit)}
+      {kindField(bp, edit, parent)}
       {titleField(bp, edit)}
       {contentField(bp, edit)}
     </div>
@@ -28,37 +29,29 @@ NewBigPictureLook.propTypes = {
   setBP: PropTypes.func
 }
 
-const kindField = (bp, edit) => {
+const radioButton = (value, onChange, label) => {
+  return (
+    <label className="radio">
+      <input
+        type="radio"
+        name="kind"
+        value={value}
+        onChange={onChange} />
+      {label}
+    </label>
+  )
+}
+
+const kindField = (bp, edit, parent) => {
   if (bp.kind == cst.SUBJECT)
     return null
   return (
     <div className="field">
       <p className="subtitle-modal">Type</p>
       <div className="control">
-        <label className="radio">
-          <input
-            type="radio"
-            name="kind"
-            value={cst.PROBLEM}
-            onChange={edit} />
-          Problème
-        </label>
-        <label className="radio">
-          <input
-            type="radio"
-            name="kind"
-            value={cst.SOLUTION}
-            onChange={edit} />
-          Solution
-        </label>
-        <label className="radio">
-          <input
-            type="radio"
-            name="kind"
-            value={cst.RESOURCE}
-            onChange={edit} />
-          Ressource
-        </label>
+        { radioButton(cst.PROBLEM, edit, "Problème") }
+        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton(cst.SOLUTION, edit, "Solution") : null }
+        { radioButton(cst.RESOURCE, edit, "Ressource") }
       </div>
     </div>
   )
