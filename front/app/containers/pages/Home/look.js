@@ -33,19 +33,15 @@ const HomeLook = ({ getBigPictures, user }) => {
     parent: null
   }
 
-  const canCreate = user.username != cst.GUEST_NAME && initNewBp != undefined
+  const canCreate = user.username != cst.GUEST_NAME
 
   return (
     <div>
       <div className="hero resource">
         <div className="container tbp-section">
           <div className="level is-mobile">
-            <div className="level-left">
-              <h1 className="title">SUJETS</h1>
-            </div>
-            <div className="level-right">
-              { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
-            </div>
+            <h1 className="title">SUJETS</h1>
+            { canCreate ? <AddBigPictureButton initBp={initNewBp} /> : null }
           </div>
         </div>
       </div>
