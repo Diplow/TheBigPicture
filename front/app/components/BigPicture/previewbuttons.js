@@ -12,19 +12,6 @@ const LookButtonConfig = {
   }
 }
 
-const TrashButtonConfig = {
-  mapStateToProps: (state) => {
-    return {
-      user: state.get("user").user
-    }
-  },
-  mapDispatchToProps: (dispatch) => {
-    return {
-      action: (bigPicture) => { dispatch(deleteBigPicture(bigPicture.id)) }
-    }
-  }
-}
-
 const EditButtonConfig = {
   mapStateToProps: (state) => {
     return {
@@ -32,7 +19,6 @@ const EditButtonConfig = {
     }
   }
 }
-
 
 const RateButtonConfig = {
   mapStateToProps: (state) => {
@@ -43,6 +29,5 @@ const RateButtonConfig = {
 }
 
 export const LookButton = connect(LookButtonConfig.mapStateToProps)(PreviewLinkLook)
-export const TrashButton = connect(TrashButtonConfig.mapStateToProps, TrashButtonConfig.mapDispatchToProps)(PreviewButtonLook)
 export const EditButton = connect(EditButtonConfig.mapStateToProps)(PreviewButtonLook)
 export const RateButton = connect(RateButtonConfig.mapStateToProps)(PreviewButtonLook)

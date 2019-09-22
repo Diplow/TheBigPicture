@@ -49,4 +49,7 @@ class BigPictureViewSet(ModelViewSet):
 
 	def create(self, request):
 		request.data["author"] = request.user.id
+		if request.data["parent"]:
+			parent = BigPicture.objects.get(id=request.data["parent"])
+			assert parent.author.id == request.user.id
 		return super().create(request)

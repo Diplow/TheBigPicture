@@ -22,15 +22,18 @@ class BigPictureSerializer(serializers.ModelSerializer):
 		fields = "__all__"
 
 	def get_results(self, obj):
+		bpAuthor = obj.author
 		author = self.context["author"]
 		target = self.context["target"]
 		ratings = obj.ratings.all()
+		authorrating = ratings.filter(author=bpAuthor)
 		ownrating = ratings.filter(author=author)
 		targetrating = ratings.filter(author=target)
 		return {
 			"count": ratings.count(),
 			"median": median_value(ratings, 'value'),
 			"average": ratings.aggregate(Avg('value'))['value__avg'],
+			"author": authorrating[0].value if authorrating.exists() else 0,
 			author: ownrating[0].value if ownrating.exists() else 0,
 			target: targetrating[0].value if targetrating.exists() else 0,
 			"0star": ratings.filter(value=0).count(),

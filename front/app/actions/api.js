@@ -88,6 +88,12 @@ export const getCollection = (dispatch, api, action, options) => {
     })
 }
 
+const computeTokenTimeout = () => {
+  const expirationDate = new Date()
+  expirationDate.setDate(expirationDate.getDate() + 1)
+  return expirationDate.getTime()
+}
+
 export const login = (credentials) => {
   return (dispatch) => {
     fetch(cst.SERVER_ADDR + 'token-auth/', buildRequest(credentials, "POST"))
@@ -96,6 +102,7 @@ export const login = (credentials) => {
       .then(json => {
         localStorage.setItem('token', json.token);
         localStorage.setItem('user', JSON.stringify(json.user));
+        localStorage.setItem('expiration', computeTokenTimeout())
         dispatch(basics.login(json.user, json.token))
         dispatch(basics.notification({
           title: "Identification réussie",
