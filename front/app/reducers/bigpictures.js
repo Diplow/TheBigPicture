@@ -28,6 +28,7 @@ const bigpictures = (state = [], action) => {
           title: bp.title,
           kind: bp.kind,
           body: bp.body,
+          children: bp.children,
           parent: bp.parent,
           author: bp.author,
           results: bp.results,

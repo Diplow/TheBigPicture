@@ -42,7 +42,7 @@ const ratingIndicators = (rating, page, sortKey) => {
 
 const BigPictureListLook = ({user, bigPictures, buttons, showRatings, ownRating, ratingUser }) => {
   const pageSize = 30.
-  const sortKey = ownRating && ratingUser != 0 ? ratingUser : "median"
+  const sortKey = ownRating && ratingUser != 0 ? ratingUser : "author"
   const orderedBigPictures = bigPictures.sort((a, b) => bpSort(a, b, sortKey) ? 1 : -1)
   const [pagination, page] = usePagination(bigPictures, pageSize)
 
@@ -57,8 +57,9 @@ const BigPictureListLook = ({user, bigPictures, buttons, showRatings, ownRating,
               return (
                 <BigPicturePreview
                   key={bp.id}
-                  bpId={bp.id}
+                  bigPictureId={bp.id}
                   buttons={buttons}
+                  margin={0}
                   ratingUser={ratingUser}
                 />
               )

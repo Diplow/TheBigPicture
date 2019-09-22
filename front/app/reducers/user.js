@@ -10,10 +10,36 @@ const GUEST = {
   "id": 0
 }
 
+
+const initialUser = () => {
+  if (localStorage.getItem('token') == null)
+    return GUEST
+
+  if (localStorage.getItem('expiration') == null)
+    return GUEST
+
+  const currentDate = new Date()
+  const expirationDate = new Date(parseInt(localStorage.expiration))
+
+  if (expirationDate.getTime() < currentDate.getTime()) {
+    delete localStorage.user
+    delete localStorage.token
+    delete localStorage.expiration
+    return GUEST
+  }
+
+  const user = localStorage.getItem('user')
+  if (user == null)
+    return GUEST
+  return JSON.parse(user)
+}
+
+
 const initial_state = {
-  "user": localStorage.getItem('token') == null ? GUEST : JSON.parse(localStorage.getItem('user')),
+  "user": initialUser(),
   "token": localStorage.getItem('token')
 };
+
 
 const user = (state = initial_state, action) => {
   switch (action.type) {

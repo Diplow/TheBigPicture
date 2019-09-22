@@ -86,7 +86,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, setBigPicture }
             </div>
             <div className="level-right">
               { backButton(bigPicture.parent) }
-              { !isGuest ? <AddBigPictureButton initBp={initNewBp} /> : null }
+              { user.id == bigPicture.author ? <AddBigPictureButton initBp={initNewBp} /> : null }
             </div>
           </div>
         </div>
