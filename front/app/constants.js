@@ -48,3 +48,5 @@ export const CLASSNAMES = {
 
 export const PRO_ARGUMENT = 1
 export const CON_ARGUMENT = 2
+
+export const SUBMARGIN = 10
