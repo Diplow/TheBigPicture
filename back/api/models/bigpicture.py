@@ -31,3 +31,4 @@ class BigPicture(models.Model):
 
 	def __str__(self):
 		return "[{kind}] - {title} - {id}".format(kind=self.kind, title=self.title, id=self.id)
+
