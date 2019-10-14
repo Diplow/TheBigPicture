@@ -1,7 +1,8 @@
 
 from django.db.models import Avg, StdDev
 from rest_framework import serializers
-from api.models import BigPicture
+from api.models import BigPicture, BaseUser
+from api.serializers.user import UserSerializer
 import math
 
 
@@ -14,32 +15,25 @@ def median_value(queryset, term):
 
 class BigPictureSerializer(serializers.ModelSerializer):
 	children = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
+	family = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
 	kind = serializers.IntegerField()
-	results = serializers.SerializerMethodField(read_only=True)
+	ratings = serializers.SerializerMethodField(read_only=True)
+	author = UserSerializer()
 
 	class Meta:
 		model = BigPicture
 		fields = "__all__"
 
-	def get_results(self, obj):
-		bpAuthor = obj.author
-		author = self.context["author"]
-		target = self.context["target"]
+	def get_ratings(self, obj):
+		res = []
 		ratings = obj.ratings.all()
-		authorrating = ratings.filter(author=bpAuthor)
-		ownrating = ratings.filter(author=author)
-		targetrating = ratings.filter(author=target)
-		return {
-			"count": ratings.count(),
-			"median": median_value(ratings, 'value'),
-			"average": ratings.aggregate(Avg('value'))['value__avg'],
-			"author": authorrating[0].value if authorrating.exists() else 0,
-			author: ownrating[0].value if ownrating.exists() else 0,
-			target: targetrating[0].value if targetrating.exists() else 0,
-			"0star": ratings.filter(value=0).count(),
-			"1star": ratings.filter(value=1).count(),
-			"2stars": ratings.filter(value=2).count(),
-			"3stars": ratings.filter(value=3).count(),
-			"4stars": ratings.filter(value=4).count(),
-			"5stars": ratings.filter(value=5).count(),
-		}
+		for user in set([obj.author.id, self.context["author"], self.context["target"]]):
+			rating = ratings.filter(author=user, target=obj)
+			res.append({
+				"author": user,
+				"value": rating[0].value if rating.exists() else 0,
+				"target": obj.id,
+				"subject": obj.id if obj.subject is None else obj.subject.id,
+				"date": rating[0].date if rating.exists() else None
+			})
+		return res

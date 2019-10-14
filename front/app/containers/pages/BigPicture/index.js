@@ -1,20 +1,20 @@
 import { connect } from 'react-redux'
 import BigPictureViewLook from './look'
-import { setBigPicture } from '../../../actions/index'
+import { getBigPicture } from '../../../actions/index'
 import * as cst from '../../../constants'
 import "./style.scss"
 
 
 const mapStateToProps = (state, ownProps) => {
   return {
-  	user: state.get("user").user,
+  	user: state.get("user"),
     bigPicture: state.get("bigpictures").find(elt => elt.id == ownProps.match.params.id)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setBigPicture: (bpId, userId) => { dispatch(setBigPicture(bpId, userId)) }
+    getBigPicture: (bpId, userId) => { dispatch(getBigPicture(bpId, userId)) }
   }
 }
 

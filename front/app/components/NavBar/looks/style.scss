@@ -12,6 +12,12 @@
 	width: 100%;
 }
 
+.login-image {
+	border-color: $dark;
+	border-width: 0.1rem;
+	border-style: inset;
+}
+
 .navbar-section.section.tbp-section {
 	background-color: #CEC8C8;
 	height: 4rem;
@@ -59,6 +65,7 @@
 	text-align: right;
 	font-weight: bold;
 	padding-right: 0.5rem;
+	font-size: 1.2rem;
 }
 
 .button.username {

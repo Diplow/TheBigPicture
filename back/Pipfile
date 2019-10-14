@@ -12,6 +12,7 @@ djangorestframework = "*"
 gunicorn = "*"
 djangorestframework-jwt = "*"
 psycopg2 = "*"
+Pillow = "6.1.0"
 
 [requires]
 python_version = "3.7"

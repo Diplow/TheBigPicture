@@ -5,30 +5,16 @@ import LoginModal from '../loginmodal'
 import "./style.scss"
 
 
-const LoginButtonLook = ({ username, logout }) => {
+const LoginButtonLook = ({ user, logout }) => {
   const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="level-item">
-      <p className="username">{username}</p>
+      <p className="username">{user.username}</p>
       <span className="loggin-label level-item is-shrink">
-        {
-          username != cst.GUEST_NAME
-          ? <div 
-              className="button username logged-out"
-              onClick={logout}>
-              <span className="icon is-small">
-                <i className="fas fa-user" />
-              </span>
-            </div>
-          : <div
-              className="button username logged-in"
-              onClick={() => setShowModal(true)}>
-              <span className="icon is-small">
-                <i className="fas fa-user" />
-              </span>
-            </div>
-        }
+        <figure className="image is-48x48" onClick={user.username != cst.GUEST_NAME ? logout : () => setShowModal(true)}>
+          <img src={user.image} className="login-image is-rounded" />
+        </figure>
       </span>
       <LoginModal
         active={showModal}
@@ -39,7 +25,7 @@ const LoginButtonLook = ({ username, logout }) => {
 }
 
 LoginButtonLook.propTypes = {
-  username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 }
 

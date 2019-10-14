@@ -7,6 +7,7 @@ const GUEST = {
   "email": "",
   "groups": [],
   "url": "",
+  "image": "http://localhost:8000/media/profile_images/login.png",
   "id": 0
 }
 
@@ -36,25 +37,26 @@ const initialUser = () => {
 
 
 const initial_state = {
-  "user": initialUser(),
+  ...initialUser(),
   "token": localStorage.getItem('token')
 };
 
 
 const user = (state = initial_state, action) => {
   switch (action.type) {
+
     case cst.LOGIN:
-      const newState = {
-        ...state,
-        user: action.user,
+      return {
+        ...action.user,
         token: action.token
       }
-      return newState
+
     case cst.LOGOUT:
       return {
-        "user": GUEST,
-        "token": null
+        ...GUEST,
+        token: null
       }
+
     default:
       return state
   }

@@ -45,8 +45,6 @@ Pagination.propTypes = {
 }
 
 const createPagination = (items, size) => {
-  if (items == null || items.length == 0)
-    return [null, []]
   const [currentPage, setCurrentPage] = useState([])
   const [currentPageNb, setCurrentPageNb] = useState(1)
   const pageCount = Math.ceil(items.length / size)
@@ -63,6 +61,9 @@ const createPagination = (items, size) => {
   useEffect(() => {
     changePage(currentPageNb)()
   }, [items])
+
+  if (items == null || items.length == 0)
+    return [null, []]
 
   const res = (
     <div className="level is-mobile">

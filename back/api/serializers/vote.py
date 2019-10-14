@@ -11,7 +11,8 @@ class RatingSerializer(serializers.ModelSerializer):
 	def create(self, validated_data):
 		existingRating = Rating.objects.filter(
 			author=validated_data["author"],
-			target=validated_data["target"]
+			target=validated_data["target"],
+			subject=validated_data["subject"]
 		)
 		if existingRating.exists():
 			rating = existingRating.first()

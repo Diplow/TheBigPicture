@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from api.models.user import BaseUser
 import datetime
 
 SUBJECT_CODE = 1
@@ -20,11 +20,10 @@ class BigPicture(models.Model):
 		("argument", ARGUMENT_CODE),
 	))
 	parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="children")
-	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	creationDate = models.DateField(default=datetime.date.today)
-
-	# arg fields
-	nature = models.IntegerField(blank=True, null=True, choices=((1, "pro"), (2, "con")))
+	subject = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="family")
+	author = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
+	creation_date = models.DateField(auto_now_add=True)
+	modification_date = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
 		return self.id

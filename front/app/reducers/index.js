@@ -6,10 +6,12 @@ import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import globalReducer from 'containers/App/reducer';
 import bigpicturesReducer from './bigpictures'
 import notificationsReducer from './notifications'
 import userReducer from './user'
+import usersReducer from './users'
+import resultsReducer from './results'
+import requestsReducer from './requests'
 
 /*
  * routeReducer
@@ -45,9 +47,11 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
-    global: globalReducer,
     bigpictures: bigpicturesReducer,
+    results: resultsReducer,
     user: userReducer,
+    users: usersReducer,
+    requests: requestsReducer,
     notifications: notificationsReducer,
     ...injectedReducers,
   });

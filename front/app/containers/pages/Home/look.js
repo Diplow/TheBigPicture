@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
-import BigPictureList, { createList } from '../../../components/BigPicture/list'
+import { createList } from '../../../components/BigPicture/list'
 import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
 import "./style.scss"
 
@@ -16,9 +16,7 @@ const subjectsList = () => {
   }
   const buttons = ["edit", "look"]
   const showRatings = false
-  const ownRating = true
-  return createList(bigPicture, bpFilter, buttons, showRatings, ownRating, null)
-
+  return createList(bigPicture, bpFilter, buttons, showRatings, null, [])
 }
 
 const HomeLook = ({ getBigPictures, user }) => {
@@ -30,7 +28,7 @@ const HomeLook = ({ getBigPictures, user }) => {
   const initNewBp = {
     kind: cst.SUBJECT,
     title: "",
-    parent: null
+    parent: null,
   }
 
   const canCreate = user.username != cst.GUEST_NAME
