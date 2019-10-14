@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from api.models import BigPicture, Rating, SUBJECT_CODE
+from api.models import BigPicture, BaseUser, Rating, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
 from api.permissions import IsAuthorOrReadOnly
 import json
@@ -57,7 +57,7 @@ class BigPictureViewSet(ModelViewSet):
 		return context
 
 	def create(self, request):
-		request.data["author"] = request.user.id
+		request.data["author"] = BaseUser.objects.get(request.user.id)
 		if "subject" in request.data:
 			subject = BigPicture.objects.get(id=request.data["subject"])
 			parent = BigPicture.objects.get(id=request.data["parent"])
