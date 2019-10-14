@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from api.models import BigPicture, SUBJECT_CODE
+from api.models import BigPicture, Rating, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
 from api.permissions import IsAuthorOrReadOnly
 import json
@@ -7,7 +7,7 @@ import datetime
 
 
 class SubjectViewSet(ModelViewSet):
-	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE)
+	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE).order_by('-modification_date')
 	serializer_class = BigPictureSerializer
 	permission_classes = [IsAuthorOrReadOnly]
 
@@ -15,22 +15,31 @@ class SubjectViewSet(ModelViewSet):
 		context = super(SubjectViewSet, self).get_serializer_context()
 		context.update({
 			"author": context["request"].user.id,
-			"target": context["request"].query_params.get('user', None)
+			"target": context["request"].query_params.get('ratingauthor', None)
 		})
 		return context
 
+	def get_queryset(self):
+		queryset = self.queryset
+		author = self.request.query_params.get('author', None)
+		ratingauthor = self.request.query_params.get('ratingauthor', None)
+		if author is not None:
+			queryset = queryset.filter(author=author)
+		if ratingauthor is not None:
+			ratings = Rating.objects.filter(author=ratingauthor).distinct('subject')
+			ids = [e["subject"] for e in ratings.values('subject')]
+			queryset = queryset.filter(id__in=ids)
+		return queryset
+
 
 class BigPictureViewSet(ModelViewSet):
-	queryset = BigPicture.objects.all()
+	queryset = BigPicture.objects.all().order_by('-modification_date')
 	serializer_class = BigPictureSerializer
 	permission_classes = [IsAuthorOrReadOnly]
 
 	def get_queryset(self):
 		queryset = self.queryset
 		element = self.request.query_params.get('element', None)
-		ids = json.loads(self.request.query_params.get('ids', '[]'))
-		if len(ids) != 0:
-			queryset.filter(id__in=ids)
 		if element is not None:
 			elt = queryset.get(id=element)
 			queryset = queryset.filter(parent=element)
@@ -49,7 +58,12 @@ class BigPictureViewSet(ModelViewSet):
 
 	def create(self, request):
 		request.data["author"] = request.user.id
-		if request.data["parent"]:
+		if "subject" in request.data:
+			subject = BigPicture.objects.get(id=request.data["subject"])
 			parent = BigPicture.objects.get(id=request.data["parent"])
+			assert subject.author.id == request.user.id
 			assert parent.author.id == request.user.id
+			assert parent.id == subject.id or subject.id == parent.subject.id
+		else:
+			assert request.data["kind"] == SUBJECT_CODE
 		return super().create(request)

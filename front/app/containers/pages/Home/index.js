@@ -5,7 +5,7 @@ import HomeLook from './look'
 
 const mapStateToProps = (state) => {
   return {
-  	user: state.get("user").user
+  	user: state.get("user")
   }
 }
 

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import BigPictureModal from './modal'
 import RatingButton from './ratingbutton'
-import { setBigPicture } from '../../actions/index'
+import { getBigPicture } from '../../actions/index'
+import AuthorIcon from '../User/authorIcon'
 import * as cst from '../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { TrashButton, LookButton, EditButton, RateButton } from './previewbuttons'
@@ -12,13 +13,13 @@ import { useToggle } from '../utils/hooks'
 import "./looks/style.scss"
 
 
-const BigPicturePreviewLook = ({ bigPicture, bigPictureId, setBigPicture, buttons, ratingUser, margin }) => {
+const BigPicturePreviewLook = ({ bigPicture, bigPictureId, getBigPicture, buttons, ratingUser, margin }) => {
 
   useEffect(() => {
-    if (bigPicture == undefined || bigPicture == null || bigPicture.id != bigPictureId)
-      setBigPicture(bigPictureId, ratingUser)
+    getBigPicture(bigPictureId, ratingUser)
   }, [])
 
+  const [ratingUsr, setRatingUsr] = useState(ratingUser)
   const [showChildren, toggleChildren] = useToggle(false)
   const [showDetails, toggleDetails] = useToggle(false)
   const [createBPisActive, setCreateBPisActive] = useState(false)
@@ -31,11 +32,11 @@ const BigPicturePreviewLook = ({ bigPicture, bigPictureId, setBigPicture, button
       <div className={cst.CLASSNAMES[bigPicture.kind] + " card bp-tile"}>
         <header className="card-header level preview-item-level is-mobile">
           { bpLeftLevel(bigPicture, toggleChildren, toggleDetails) }
-          { bpRightLevel(bigPicture, buttons, ratingUser, createBPisActive, setCreateBPisActive) }
+          { bpRightLevel(bigPicture, buttons, ratingUsr, createBPisActive, setCreateBPisActive) }
         </header>
         { bpDetails(showDetails, bigPicture.body) }
       </div>
-      { bpChildren(showChildren, bigPicture, ratingUser, margin) }
+      { bpChildren(showChildren, bigPicture, ratingUsr, margin) }
     </div>
   )
 }
@@ -43,7 +44,7 @@ const BigPicturePreviewLook = ({ bigPicture, bigPictureId, setBigPicture, button
 BigPicturePreviewLook.propTypes = {  
   bigPicture: PropTypes.object,
   bigPictureId: PropTypes.number.isRequired, // used by connect
-  setBigPicture: PropTypes.func.isRequired, // action to trigger if the bigpicture to preview is not loaded yet
+  getBigPicture: PropTypes.func.isRequired, // action to trigger if the bigpicture to preview is not loaded yet
   buttons: PropTypes.arrayOf(PropTypes.string), // buttons displayed on the bigpicture preview
   ratingUser: PropTypes.number, // user evaluating the bigpicture
   margin: PropTypes.number, // leftmargin in case of a child bppreview
@@ -52,14 +53,15 @@ BigPicturePreviewLook.propTypes = {
 
 const bpLeftLevel = (bigPicture, toggleChildren, toggleDetails) => {
 	return (
-      <div className="level-left">
-        <p
-          className="card-header-title"
-          onClick={toggleChildren}>
-          {bigPicture.title}
-        </p>
-        { bigPicture.body != "" ? <span onClick={toggleDetails}>...</span> : null}
-      </div>
+    <div className="level-left">
+      { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} clickable={true}/> : null }
+      <p
+        className="card-header-title"
+        onClick={toggleChildren}>
+        {bigPicture.title}
+      </p>
+      { bigPicture.body != "" ? <span className="level-item" onClick={toggleDetails}>...</span> : null}
+    </div>
 	)
 }
 
@@ -70,7 +72,7 @@ const bpRightLevel = (bigPicture, buttons, ratingUser, createBPisActive, setCrea
       <div className="level-right">
         {editButton(bigPicture, hasButton("edit"), createBPisActive, setCreateBPisActive)}
         {ratingButton(bigPicture, hasButton("rate"), ratingUser)}
-        {lookButton(bigPicture, hasButton("look"))}
+        {lookButton(bigPicture, hasButton("look"), ratingUser)}
       </div>
 	)
 }
@@ -97,20 +99,22 @@ const editButton = (bigPicture, show, createBPisActive, setCreateBPisActive) => 
 const ratingButton = (bigPicture, show, ratingUser) => {
   return (
     <RatingButton
-    bigPicture={bigPicture}
-    show={show}
-    ratingUser={ratingUser} />
+      bigPicture={bigPicture}
+      show={show}
+      ratingUser={ratingUser}
+    />
   )
 }
 
-const lookButton = (bigPicture, show) => {
+const lookButton = (bigPicture, show, ratingUser) => {
+  const ratingUserUrl = ratingUser != null ? "/" + ratingUser + "/" : ""
   return (
     <LookButton
       data={bigPicture}
       icon="fas fa-search "
       show={show}
       isAuthorized={(user, data) => { return true }}
-      to={(id) => { return "/bigPicture/" + id}} />
+      to={(id) => { return "/bigPicture/" + id + ratingUserUrl}} />
   )
 }
 
@@ -171,7 +175,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setBigPicture: (bpId, userId) => { dispatch(setBigPicture(bpId, userId)) }
+    getBigPicture: (bpId, userId) => { dispatch(getBigPicture(bpId, userId)) }
   }
 }
 

@@ -8,9 +8,9 @@ import { postVote as vote } from '../../actions/index'
 
 
 const RatingButtonLook = ({bigPicture, show, user, vote, ratingUser}) => {
-  const [rating, setRating] = useState(bigPicture.results.median)
+  const [rating, setRating] = useState(0)
   const tooltip = useRef(null)
-  if (!show || user.username == cst.GUEST_NAME || (ratingUser != undefined && user.id != ratingUser))
+  if (!show || user.username == cst.GUEST_NAME || (ratingUser != 0 && user.id != ratingUser))
   	return null
 
   const hideTooltip = () => {
@@ -21,7 +21,7 @@ const RatingButtonLook = ({bigPicture, show, user, vote, ratingUser}) => {
 
   const starClass = (rate) => {
   	return (
-		<div className="level-item" onClick={() => {vote(bigPicture.id, rate, user.id); hideTooltip()}}>
+		<div className="level-item" onClick={() => {vote(bigPicture.id, rate, user.id, bigPicture.subject); hideTooltip()}}>
 			<span className="tbp-star tbp-eval fa fa-star" />
 		</div>
   	)
@@ -63,13 +63,13 @@ RatingButtonLook.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.get("user").user
+		user: state.get("user")
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		vote: (bpId, rating, author) => {dispatch(vote(bpId, rating, author))}
+		vote: (bpId, rating, author, subject) => {dispatch(vote(bpId, rating, author, subject))}
 	}
 }
 

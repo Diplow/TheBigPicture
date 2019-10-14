@@ -1,14 +1,16 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from rest_framework.serializers import ModelSerializer
-from rest_framework.serializers import SerializerMethodField, CharField
+from rest_framework.serializers import SerializerMethodField, CharField, ImageField
 from rest_framework_jwt.settings import api_settings
+from api.models import BaseUser
 
 
 class UserSerializer(ModelSerializer):
+    image = ImageField()
 
-	class Meta:
-		model = User
-		fields = ("id", "url", "username", "email", "groups")
+    class Meta:
+        model = BaseUser
+        fields = ("id", "url", "username", "email", "groups", "image")
 
 
 class GroupSerializer(ModelSerializer):
@@ -39,5 +41,5 @@ class UserSerializerWithToken(ModelSerializer):
         return instance
 
     class Meta:
-        model = User
-        fields = ('token', 'username', 'password')
+        model = BaseUser
+        fields = ('token', 'username', 'password', 'image', 'id')

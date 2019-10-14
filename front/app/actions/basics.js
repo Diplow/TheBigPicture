@@ -15,6 +15,28 @@ export const logout = () => {
   }
 }
 
+
+export const make = (request) => {
+  return {
+    type: cst.ADD_REQUEST,
+    request
+  }
+}
+
+export const done = (request) => {
+  return {
+    ...request,
+    type: cst.REQUEST_DONE
+  }
+}
+
+export const processed = (request) => {
+  return {
+    ...request,
+    type: cst.REQUEST_PROCESSED
+  }
+}
+
 export const notification = (notif) => {
   return {
     type: cst.ADD_NOTIFICATION,
@@ -33,6 +55,13 @@ export const addBigPicture = (bigpicture) => {
   return {
     type: cst.ADD_BIG_PICTURE,
     bigpicture
+  }
+}
+
+export const addUser = (user) => {
+  return {
+    type: cst.ADD_USER,
+    user
   }
 }
 

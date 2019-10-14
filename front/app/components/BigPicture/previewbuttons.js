@@ -7,7 +7,7 @@ import * as cst from '../../constants'
 const LookButtonConfig = {
   mapStateToProps: (state) => {
     return {
-      user: state.get("user").user
+      user: state.get("user")
     }
   }
 }
@@ -15,7 +15,7 @@ const LookButtonConfig = {
 const EditButtonConfig = {
   mapStateToProps: (state) => {
     return {
-      user: state.get("user").user
+      user: state.get("user")
     }
   }
 }
@@ -23,7 +23,7 @@ const EditButtonConfig = {
 const RateButtonConfig = {
   mapStateToProps: (state) => {
     return {
-      user: state.get("user").user
+      user: state.get("user")
     }
   }
 }

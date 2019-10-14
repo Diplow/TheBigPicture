@@ -3,6 +3,45 @@ import * as notifications from "../constants/notifications"
 import * as basics from "./basics"
 
 
+export const make = (request) => {
+  return (dispatch) => {
+    const host = cst.SERVER_ADDR + request.url
+    fetch(host, buildRequest(request.body, request.method))
+    .then(res => {
+      const success = res.status - 200 >= 0 && res.status - 300 < 0
+      switch (request.method) {
+
+        case "GET":
+          res.json().then(result => {
+            dispatch(basics.done({
+              ...request,
+              success,
+              response: result,
+              status: res.status,
+            }))
+          })
+          break;
+
+        case "DELETE":
+          res.json().then(result => {
+            dispatch(basics.done({
+              ...request,
+              success,
+              response: {},
+              status: res.status,
+            }))
+          })
+          break;
+
+        default:
+          throw(Error("unknown request method " + request.method))
+
+      }
+    })
+  }
+}
+
+
 const getCookie = (name) => {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -40,25 +79,28 @@ export const buildRequest = (body, method) => {
 }
 
 
-export const deleteItem = (dispatch, itemId, itemAPI, action) => {
-  const host = cst.SERVER_ADDR + itemAPI + "/" + itemId + "/?format=json";
-  fetch(host, buildRequest({}, "DELETE"))
-    .then(handleHttpError(dispatch, "delete"))
-    .then(res => {
-      if (res.status == 204) {
-        dispatch(action(itemId))
-        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
-      }
-    })
+export const deleteItem = (dispatch, itemId, itemAPI) => {
+  const url = itemAPI + "/" + itemId + "/?format=json";
+  const method = "DELETE"
+  const body = {}
+  dispatch(basics.make({
+    url,
+    body,
+    method,
+    id: [method, itemAPI, itemId].join('-'),
+  }))
 }
 
-export const getItem = (dispatch, itemId, itemAPI, action, next) => {
-  const host = cst.SERVER_ADDR + itemAPI + "/" + itemId + "/?format=json";
-  fetch(host, buildRequest({}, "GET"))
-    .then(handleHttpError(dispatch, "getItem"))
-    .then(res => res.json())
-    .then(item => { dispatch(action(item)); return item })
-    .then(next)
+export const getItem = (dispatch, itemId, itemAPI) => {
+  const url = itemAPI + "/" + itemId + "/?format=json";
+  const method = "GET"
+  const body = {}
+  dispatch(basics.make({
+    url,
+    body,
+    method,
+    id: [method, itemAPI, itemId].join('-'),
+  }))
 }
 
 export const sendItem = (dispatch, item, itemAPI, action, options, method, next) => {
@@ -75,17 +117,16 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(next)
 }
 
-export const getCollection = (dispatch, api, action, options) => {
-  const host = cst.SERVER_ADDR + api + options;
-  fetch(host, buildRequest({}, "GET"))
-    .then(handleHttpError(dispatch, "getCollection"))
-    .then(res => res.json())
-    .then(res => {
-      for(let i=0; i < res["results"].length; ++i) {
-        dispatch(action(res["results"][i]));
-      }
-      return res;
-    })
+export const getCollection = (dispatch, itemAPI, options) => {
+  const url = itemAPI + "/?" + options.concat(["format=json"]).join('&');
+  const method = "GET"
+  const body = {}
+  dispatch(basics.make({
+    url,
+    body,
+    method,
+    id: [method, itemAPI].concat(options).join('-'),
+  }))
 }
 
 const computeTokenTimeout = () => {

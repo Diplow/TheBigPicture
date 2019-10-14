@@ -6,7 +6,7 @@ import LoginModalLook from './looks/loginmodal'
 
 const mapStateToProps = (state) => {
   return {
-    username: state.get("user").user.username
+    username: state.get("user").username
   }
 }
 

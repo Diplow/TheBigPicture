@@ -6,7 +6,7 @@ import LoginButtonLook from './looks/loginbutton'
 
 const mapStateToProps = (state) => {
   return {
-    username: state.get("user").user.username
+    user: state.get("user")
   }
 }
 
