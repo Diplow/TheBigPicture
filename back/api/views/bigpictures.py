@@ -57,7 +57,7 @@ class BigPictureViewSet(ModelViewSet):
 		return context
 
 	def create(self, request):
-		request.data["author"] = BaseUser.objects.get(request.user.id)
+		request.data["author_id"] = request.user.id
 		if "subject" in request.data:
 			subject = BigPicture.objects.get(id=request.data["subject"])
 			parent = BigPicture.objects.get(id=request.data["parent"])

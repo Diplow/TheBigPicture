@@ -18,7 +18,8 @@ class BigPictureSerializer(serializers.ModelSerializer):
 	family = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
 	kind = serializers.IntegerField()
 	ratings = serializers.SerializerMethodField(read_only=True)
-	author = UserSerializer()
+	author = UserSerializer(read_only=True)
+	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
 
 	class Meta:
 		model = BigPicture
