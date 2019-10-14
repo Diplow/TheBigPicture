@@ -2,6 +2,7 @@
 from django.db.models import Avg, StdDev
 from rest_framework import serializers
 from api.models import BigPicture, BaseUser
+from api.serializers.user import UserSerializer
 import math
 
 
@@ -17,6 +18,7 @@ class BigPictureSerializer(serializers.ModelSerializer):
 	family = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
 	kind = serializers.IntegerField()
 	ratings = serializers.SerializerMethodField(read_only=True)
+	author = UserSerializer()
 
 	class Meta:
 		model = BigPicture

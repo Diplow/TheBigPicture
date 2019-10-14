@@ -24,11 +24,11 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
   useEffect(() => {
     if (ratingUser != 0 && ratingUsers.indexOf(ratingUser) == -1)
       ratingUsers.push(ratingUser)
-    if (bigPicture != undefined && ratingUsers.indexOf(bigPicture.author) == -1) {
-      setRatingUsers([...ratingUsers, bigPicture.author])
+    if (bigPicture != undefined && ratingUsers.indexOf(bigPicture.author.id) == -1) {
+      setRatingUsers([...ratingUsers, bigPicture.author.id])
     }
     if (bigPicture != undefined && ratingUser == 0) {
-      setRatingUser(bigPicture.author)
+      setRatingUser(bigPicture.author.id)
     }
   }, [ratingUser, bigPicture])
 
@@ -50,7 +50,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
         <div className="container tbp-section">
           <div className="level is-mobile">
             <span className="level-item author-icon">
-              <AuthorIcon userId={bigPicture.author} clickable={true} />
+              <AuthorIcon userId={bigPicture.author.id} clickable={true} />
             </span>
             <h1 className="title" onClick={() => setHidden(!hidden)}>
               {bigPicture.title}
@@ -67,7 +67,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
             </div>
             <div className="level-right">
               { backButton(bigPicture.parent) }
-              { user.id == bigPicture.author ? <AddBigPictureButton initBp={initNewBp} /> : null }
+              { user.id == bigPicture.author.id ? <AddBigPictureButton initBp={initNewBp} /> : null }
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@ const bigPictureList = (bigPicture, ratingUser) => {
   }
   const buttons = ["rate", "edit", "look"]
   const showRatings = true
-  return createList(bigPicture, bpFilter, buttons, showRatings, ratingUser, [])
+  return createList(bigPicture, bpFilter, buttons, showRatings, ratingUser, bigPicture.children)
 }
 
 export default BigPictureViewLook

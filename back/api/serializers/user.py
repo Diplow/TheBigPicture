@@ -10,7 +10,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = BaseUser
-        fields = ("id", "url", "username", "email", "groups", "image")
+        fields = ("id", "username", "groups", "image")
 
 
 class GroupSerializer(ModelSerializer):

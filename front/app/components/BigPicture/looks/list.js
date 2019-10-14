@@ -52,7 +52,7 @@ const BigPictureListLook = ({ user, bigPictures, results, buttons, showRatings, 
       const bigPictureId = bigPictureIds[i]
       getBigPicture(bigPictureId, ratingUser)
     }
-  }, [])
+  }, [bigPictureIds])
 
 
   const getBpByRating = (page, rating) => {

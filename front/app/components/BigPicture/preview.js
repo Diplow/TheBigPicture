@@ -16,7 +16,8 @@ import "./looks/style.scss"
 const BigPicturePreviewLook = ({ bigPicture, bigPictureId, getBigPicture, buttons, ratingUser, margin }) => {
 
   useEffect(() => {
-    getBigPicture(bigPictureId, ratingUser)
+    if (bigPicture == undefined)
+      getBigPicture(bigPictureId, ratingUser)
   }, [])
 
   const [ratingUsr, setRatingUsr] = useState(ratingUser)
@@ -54,7 +55,7 @@ BigPicturePreviewLook.propTypes = {
 const bpLeftLevel = (bigPicture, toggleChildren, toggleDetails) => {
 	return (
     <div className="level-left">
-      { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} clickable={true}/> : null }
+      { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author.id} clickable={true}/> : null }
       <p
         className="card-header-title"
         onClick={toggleChildren}>
@@ -85,7 +86,7 @@ const editButton = (bigPicture, show, createBPisActive, setCreateBPisActive) => 
       action={() => setCreateBPisActive(true)}
       icon="fas fa-edit "
       show={show}
-      isAuthorized={(user, data) => { return user.id == data.author }}
+      isAuthorized={(user, data) => { return user.id == data.author.id }}
       />
       <BigPictureModal
       active={createBPisActive}

@@ -59,7 +59,6 @@ export const getResources = (bigpictureId, userId) => {
 export const getBigPicture = (bpId, userId) => {
   return (dispatch) => {
     api.getItem(dispatch, bpId, "bigpictures", addBigPicture)
-    dispatch(getResources(bpId, userId))
   }
 }
 

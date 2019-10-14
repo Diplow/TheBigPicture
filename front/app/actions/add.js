@@ -35,5 +35,6 @@ const addBigPicture = (dispatch, bigPicture) => {
 	  const rating = bigPicture.ratings[i]
 	  dispatch(basics.addRating(rating))
 	}
+	dispatch(basics.addUser(bigPicture.author))
 	dispatch(basics.addBigPicture(bigPicture))
 }
