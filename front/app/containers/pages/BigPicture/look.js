@@ -49,13 +49,15 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
       <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
         <div className="container tbp-section">
           <div className="level is-mobile">
-            <span className="level-item author-icon">
-              <AuthorIcon userId={bigPicture.author.id} clickable={true} />
-            </span>
-            <h1 className="title" onClick={() => setHidden(!hidden)}>
-              {bigPicture.title}
-            <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
-            </h1>
+            <div className="level-item" style={{"max-width": "95%"}}>
+              <span className="author-icon">
+                <AuthorIcon userId={bigPicture.author.id} clickable={true} />
+              </span>
+              <h1 className="title" onClick={() => setHidden(!hidden)}>
+                {bigPicture.title}
+              <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
+              </h1>
+            </div>
           </div>
         </div>
       </div>

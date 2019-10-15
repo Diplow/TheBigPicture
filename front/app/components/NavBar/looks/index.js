@@ -12,7 +12,7 @@ const NavBarLook = () => {
       <div className="container nav-container">
         <div id="navbar" className="tbp-section level tbp-nav-level is-mobile">
           <div className="level-left is-mobile">
-            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VUE D'ENSEMBLE</Link>
+            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VDE</Link>
           </div>
           <div className="level-right is-mobile">
             <LoginButton />
