@@ -23,8 +23,8 @@ export const postVote = (bpId, rating, author, subject) => {
 
 export const addBigPicture = (bigPicture) => {
   return (dispatch) => {
-    for (let i = 0; i < bigPicture.results.length; ++i) {
-      const rating = bigPicture.results[i]
+    for (let i = 0; i < bigPicture.ratings.length; ++i) {
+      const rating = bigPicture.ratings[i]
       dispatch(basics.addRating(rating))
     }
     dispatch(basics.addBigPicture(bigPicture))
