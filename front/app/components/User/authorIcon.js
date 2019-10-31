@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { getUser } from '../../actions'
+import "./style"
 
 
 export const AuthorIconLook = ({ user, getUser, userId, clickable }) => {

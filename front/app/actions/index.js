@@ -39,7 +39,7 @@ export const patchBigPicture = (bigPicture) => {
 
 export const getUser = (id) => {
   return (dispatch) => {
-    api.getItem(dispatch, id, "users")
+    api.getItem(dispatch, id, "users", [])
   }
 }
 
@@ -58,7 +58,7 @@ export const getResources = (bigpictureId, userId) => {
 
 export const getBigPicture = (bpId, userId) => {
   return (dispatch) => {
-    api.getItem(dispatch, bpId, "bigpictures", addBigPicture)
+    api.getItem(dispatch, bpId, "bigpictures", ["ratingauthor=" + userId])
   }
 }
 
