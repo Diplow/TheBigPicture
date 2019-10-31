@@ -91,15 +91,15 @@ export const deleteItem = (dispatch, itemId, itemAPI) => {
   }))
 }
 
-export const getItem = (dispatch, itemId, itemAPI) => {
-  const url = itemAPI + "/" + itemId + "/?format=json";
+export const getItem = (dispatch, itemId, itemAPI, options) => {
+  const url = itemAPI + "/" + itemId + "/?" + options.concat(["format=json"]).join('&');;
   const method = "GET"
   const body = {}
   dispatch(basics.make({
     url,
     body,
     method,
-    id: [method, itemAPI, itemId].join('-'),
+    id: [method, itemAPI, itemId].concat(options).join('-'),
   }))
 }
 
