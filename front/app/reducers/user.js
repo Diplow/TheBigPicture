@@ -7,7 +7,7 @@ const GUEST = {
   "email": "",
   "groups": [],
   "url": "",
-  "image": "http://localhost:8000/media/profile_images/login.png",
+  "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
   "id": 0
 }
 
