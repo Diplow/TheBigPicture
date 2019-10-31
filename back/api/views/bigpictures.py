@@ -52,7 +52,7 @@ class BigPictureViewSet(ModelViewSet):
 		context = super(BigPictureViewSet, self).get_serializer_context()
 		context.update({
 			"author": context["request"].user.id,
-			"target": context["request"].query_params.get('user', None)
+			"target": context["request"].query_params.get('ratingauthor', None)
 		})
 		return context
 
