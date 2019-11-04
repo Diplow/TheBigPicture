@@ -60,7 +60,6 @@ const createPagination = (items, count, getPage, size) => {
   }
 
   useEffect(() => {
-    console.log(items)
     changePage(currentPageNb)()
     setCurrentPageCount(Math.ceil(count / size))
   }, [items])
