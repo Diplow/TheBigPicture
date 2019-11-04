@@ -43,34 +43,40 @@ export const getUser = (id) => {
   }
 }
 
-export const getSubjects = () => {
+export const getSubjects = (page) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subjects", [])
+    const next = "getallsubjects"
+    const nextargs = {}
+    api.getCollection(dispatch, "subjects", page, [], next, nextargs)
   }
 }
 
 export const getResources = (bigpictureId, userId) => {
   const userparam = userId != null ? ["user=" + userId] : []
   return (dispatch) => {
-    api.getCollection(dispatch, "bigpictures", ["element=" + bigpictureId].concat(userparam))
+    api.getCollection(dispatch, "bigpictures", page, ["element=" + bigpictureId].concat(userparam))
   }
 }
 
 export const getBigPicture = (bpId, userId) => {
   return (dispatch) => {
-    api.getItem(dispatch, bpId, "bigpictures", ["ratingauthor=" + userId])
+    api.getItem(dispatch, bpId, "bigpictures", userId != undefined ? ["ratingauthor=" + userId] : [])
   }
 }
 
-export const getOwnSubjects = (userId) => {
+export const getOwnSubjects = (userId, page) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subjects", ["author=" + userId])
+    const next = "getownsubjects"
+    const nextargs = { userId }
+    api.getCollection(dispatch, "subjects", page, ["author=" + userId], next, nextargs)
   }
 }
 
-export const getRatedSubjects = (userId) => {
+export const getRatedSubjects = (userId, page) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "ratings", ["ratingauthor=" + userId])
+    const next = "getratedsubjects"
+    const nextargs = { userId }
+    api.getCollection(dispatch, "ratings", page, ["ratingauthor=" + userId], next, nextargs)
   }
 }
 

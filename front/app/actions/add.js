@@ -4,6 +4,16 @@ import * as basics from "./basics"
 
 
 export const add = (request) => {
+
+  const addBigPicture = (dispatch, bigPicture) => {
+  for (let i = 0; i < bigPicture.ratings.length; ++i) {
+    const rating = bigPicture.ratings[i]
+    dispatch(basics.addRating(rating))
+  }
+  dispatch(basics.addUser(bigPicture.author))
+  dispatch(basics.addBigPicture(bigPicture))
+  }
+
   return (dispatch) => {
     const itemAPI = request.url.split("/")[0]
     const actions = {
@@ -27,14 +37,4 @@ export const add = (request) => {
 	}
     dispatch(basics.processed(request))
   }
-}
-
-
-const addBigPicture = (dispatch, bigPicture) => {
-	for (let i = 0; i < bigPicture.ratings.length; ++i) {
-	  const rating = bigPicture.ratings[i]
-	  dispatch(basics.addRating(rating))
-	}
-	dispatch(basics.addUser(bigPicture.author))
-	dispatch(basics.addBigPicture(bigPicture))
 }

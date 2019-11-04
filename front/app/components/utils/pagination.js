@@ -44,15 +44,16 @@ Pagination.propTypes = {
   changePage: PropTypes.func.isRequired
 }
 
-const createPagination = (items, size) => {
+const createPagination = (items, count, getPage, size) => {
   const [currentPage, setCurrentPage] = useState([])
   const [currentPageNb, setCurrentPageNb] = useState(1)
-  const pageCount = Math.ceil(items.length / size)
+  const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
 
   const changePage = (pageNb) => {
     return () => {
       const first = size*(pageNb-1)
       const last = first + size
+      getPage(pageNb)
       setCurrentPage(items.slice(first, last))
       setCurrentPageNb(pageNb)
     }
@@ -60,6 +61,7 @@ const createPagination = (items, size) => {
 
   useEffect(() => {
     changePage(currentPageNb)()
+    setCurrentPageCount(Math.ceil(count / size))
   }, [items])
 
   if (items == null || items.length == 0)

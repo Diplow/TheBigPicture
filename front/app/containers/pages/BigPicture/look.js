@@ -157,7 +157,8 @@ const bigPictureList = (bigPicture, ratingUser) => {
   }
   const buttons = ["rate", "edit", "look"]
   const showRatings = true
-  return createList(bigPicture, bpFilter, buttons, showRatings, ratingUser, bigPicture.children)
+  const getPage = (page) => {}
+  return createList(bigPicture, bigPicture.children.length, getPage, bpFilter, buttons, showRatings, ratingUser, bigPicture.children)
 }
 
 export default BigPictureViewLook

@@ -12,11 +12,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const userId = ownProps.match.params.id
   return {
     getUser: (id) => { dispatch(getUser(id)) },
-    getOwnSubjects: (userId) => { dispatch(getOwnSubjects(userId)) },
-    getRatedSubjects: (userId) => { dispatch(getRatedSubjects(userId)) }
+    getOwnSubjects: (page) => { dispatch(getOwnSubjects(userId, page)) },
+    getRatedSubjects: (page) => { dispatch(getRatedSubjects(userId, page)) }
   }
 }
 

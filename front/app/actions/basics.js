@@ -51,6 +51,29 @@ export const popNotification = (id) => {
   }
 }
 
+export const setRatedSubjectCount = (userId, count) => {
+  return {
+    type: cst.SET_RATED_SUBJECT_COUNT,
+    userId,
+    count
+  }
+}
+
+export const setOwnSubjectCount = (userId, count) => {
+  return {
+    type: cst.SET_OWN_SUBJECT_COUNT,
+    userId,
+    count
+  }
+}
+
+export const setSubjectCount = (count) => {
+  return {
+    type: cst.SET_GLOBAL_SUBJECT_COUNT,
+    count
+  }
+}
+
 export const addBigPicture = (bigpicture) => {
   return {
     type: cst.ADD_BIG_PICTURE,

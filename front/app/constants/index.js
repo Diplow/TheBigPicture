@@ -34,6 +34,12 @@ export const ADD_RESOURCE_TO_BIG_PICTURE = "ADD_RESOURCE_TO_BIG_PICTURE"
 
 export const DELETE_BIG_PICTURE = "DELETE_BIG_PICTURE"
 
+// pagination
+export const PAGE_SIZE = 5.
+export const SET_RATED_SUBJECT_COUNT = "SET_RATED_SUBJECT_COUNT"
+export const SET_OWN_SUBJECT_COUNT = "SET_OWN_SUBJECT_COUNT"
+export const SET_GLOBAL_SUBJECT_COUNT = "SET_GLOBAL_SUBJECT_COUNT"
+
 export const SUBJECT = 1
 export const PROBLEM = 2
 export const SOLUTION = 3
@@ -50,3 +56,9 @@ export const PRO_ARGUMENT = 1
 export const CON_ARGUMENT = 2
 
 export const SUBMARGIN = 5
+
+export const ADD_USER = "ADD_USER"
+export const ADD_REQUEST = "ADD_REQUEST"
+export const REQUEST_CREATED = "REQUEST_CREATED"
+export const REQUEST_DONE = "REQUEST_DONE"
+export const REQUEST_PROCESSED = "REQUEST_PROCESSED"

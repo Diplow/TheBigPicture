@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ReactTooltip from 'react-tooltip'
 import { connect } from 'react-redux'
@@ -10,8 +10,12 @@ import { postVote as vote } from '../../actions/index'
 const RatingButtonLook = ({bigPicture, show, user, vote, ratingUser}) => {
   const [rating, setRating] = useState(0)
   const tooltip = useRef(null)
-  if (!show || user.username == cst.GUEST_NAME || (ratingUser != 0 && user.id != ratingUser))
-  	return null
+  const [hidden, setHidden] = useState(true)
+
+  useEffect(() => {
+    setHidden(!show || user.username == cst.GUEST_NAME || user.id != ratingUser)
+  }, [ratingUser, user])
+
 
   const hideTooltip = () => {
   	const current = tooltip.current
@@ -27,6 +31,8 @@ const RatingButtonLook = ({bigPicture, show, user, vote, ratingUser}) => {
   	)
   }
 
+  if (hidden)
+  	return null
   return (
     <span className="icon is-small">
    	  <a data-tip data-for={'clickme'+bigPicture.id} data-event='click'>
@@ -58,7 +64,7 @@ RatingButtonLook.propTypes = {
 	user: PropTypes.object,
 	bigPicture: PropTypes.object.isRequired,
 	vote: PropTypes.func.isRequired,
-	ratingUser: PropTypes.number
+	ratingUser: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => {

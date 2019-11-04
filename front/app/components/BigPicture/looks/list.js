@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import usePagination from '../../utils/pagination'
 import BigPicturePreview from '../preview'
-import * as cst from '../../../constants'
+import * as cst from '../../../constants/index'
 import "./style.scss"
 
 
@@ -42,18 +42,9 @@ const ratingIndicators = (results, rating, page, author) => {
   )
 }
 
-const BigPictureListLook = ({ user, bigPictures, results, buttons, showRatings, ratingUser, bigPictureIds, getBigPicture }) => {
-  const pageSize = 15.
+const BigPictureListLook = ({ user, bigPictures, count, getPage, results, buttons, showRatings, ratingUser, bigPictureIds, getBigPicture }) => {
   bigPictures.sort((a, b) => bpSort(results, a, b, ratingUser))
-  const [pagination, page] = usePagination(bigPictures, pageSize)
-
-  useEffect(() => {
-    for (let i = 0; i < bigPictureIds.length; ++i) {
-      const bigPictureId = bigPictureIds[i]
-      getBigPicture(bigPictureId, ratingUser)
-    }
-  }, [bigPictureIds])
-
+  const [pagination, page] = usePagination(bigPictures, count, getPage, cst.PAGE_SIZE)
 
   const getBpByRating = (page, rating) => {
     return (
@@ -69,7 +60,7 @@ const BigPictureListLook = ({ user, bigPictures, results, buttons, showRatings, 
                   bigPictureId={bp.id}
                   buttons={buttons}
                   margin={0}
-                  ratingUser={ratingUser}
+                  ratingUser={ratingUser == null ? bp.author.id : ratingUser}
                 />
               )
             }
@@ -97,6 +88,8 @@ BigPictureListLook.propTypes = {
   user: PropTypes.object.isRequired,
   showRatings: PropTypes.bool.isRequired,
   bigPictures: PropTypes.arrayOf(PropTypes.object).isRequired,
+  count: PropTypes.number.isRequired,
+  getPage: PropTypes.func.isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   buttons: PropTypes.arrayOf(PropTypes.string).isRequired,
   ratingUser: PropTypes.number,

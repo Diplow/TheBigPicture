@@ -22,13 +22,8 @@ class SubjectViewSet(ModelViewSet):
 	def get_queryset(self):
 		queryset = self.queryset
 		author = self.request.query_params.get('author', None)
-		ratingauthor = self.request.query_params.get('ratingauthor', None)
 		if author is not None:
 			queryset = queryset.filter(author=author)
-		if ratingauthor is not None:
-			ratings = Rating.objects.filter(author=ratingauthor).distinct('subject')
-			ids = [e["subject"] for e in ratings.values('subject')]
-			queryset = queryset.filter(id__in=ids)
 		return queryset
 
 

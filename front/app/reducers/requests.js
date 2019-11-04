@@ -17,6 +17,8 @@ const requests = (state = [], action) => {
           url: request.url,
           body: request.body,
           method: request.method,
+          next: request.next,
+          nextargs: request.nextargs,
           state: cst.REQUEST_CREATED
         }
       ]
