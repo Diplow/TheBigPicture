@@ -14,7 +14,7 @@ const bigpictures = (state = [], action) => {
           title: bp.title,
           kind: bp.kind,
           body: bp.body,
-          children: bp.children,
+          children: bp.children.map(child => child.id !== undefined ? child.id : child),
           family: bp.family,
           parent: bp.parent,
           subject: bp.subject,

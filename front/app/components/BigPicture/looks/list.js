@@ -10,11 +10,15 @@ const bpSort = (results, a, b, key) => {
   // Sort by median first, then average, and then by count.
   const aresult = results.find(elt => elt.target == a.id && elt.author == key)
   const bresult = results.find(elt => elt.target == b.id && elt.author == key)
-  if (aresult == null || bresult == null)
+  if (aresult == null && bresult == null)
+    return -1
+  if (aresult == null)
     return 1
+  if (bresult == null)
+    return -1
   if (aresult.value >= bresult.value)
-    return 1
-  return -1
+    return -1
+  return 1
 }
 
 const ratingIndicators = (results, rating, page, author) => {

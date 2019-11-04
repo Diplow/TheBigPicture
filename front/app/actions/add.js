@@ -6,12 +6,18 @@ import * as basics from "./basics"
 export const add = (request) => {
 
   const addBigPicture = (dispatch, bigPicture) => {
-  for (let i = 0; i < bigPicture.ratings.length; ++i) {
-    const rating = bigPicture.ratings[i]
-    dispatch(basics.addRating(rating))
-  }
-  dispatch(basics.addUser(bigPicture.author))
-  dispatch(basics.addBigPicture(bigPicture))
+	  for (let i = 0; i < bigPicture.ratings.length; ++i) {
+	    const rating = bigPicture.ratings[i]
+	    dispatch(basics.addRating(rating))
+	  }
+	  for (let i = 0; i < bigPicture.children.length; ++i) {
+	  	const child = bigPicture.children[i]
+	  	if (child.id !== undefined) {
+	  		addBigPicture(dispatch, child)
+	  	}
+	  }
+	  dispatch(basics.addUser(bigPicture.author))
+	  dispatch(basics.addBigPicture(bigPicture))
   }
 
   return (dispatch) => {
