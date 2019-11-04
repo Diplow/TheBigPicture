@@ -19,7 +19,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
 
   useEffect(() => {
     getBigPicture(match.params.id, match.params.user)
-  }, [])
+  }, [match])
 
   useEffect(() => {
     if (ratingUser != 0 && ratingUsers.indexOf(ratingUser) == -1)
@@ -68,7 +68,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
               { ratingButton(bigPicture, ratingUser, setRatingUser, ratingUsers, tooltip) }
             </div>
             <div className="level-right">
-              { backButton(bigPicture.parent) }
+              { backButton(bigPicture.parent, ratingUser) }
               { user.id == bigPicture.author.id ? <AddBigPictureButton initBp={initNewBp} /> : null }
             </div>
           </div>
@@ -136,8 +136,8 @@ const ratingButton = (bigPicture, ratingUser, setRatingUser, ratingUsers, toolti
   )
 }
 
-const backButton = (parent) => {
-  const to = parent == null ? "/" : "/bigPicture/" + parent  
+const backButton = (parent, ratingUser) => {
+  const to = parent == null ? "/" : "/bigPicture/" + parent + "/" + ratingUser
   return (
     <Link
       className="button tbp-radio"
