@@ -1,0 +1,12 @@
+@import "../../styles/theme.scss";
+
+.pagination-link.is-current {
+    background-color: $light;
+    color: $dark;
+    border-color: $dark;
+    border-radius: 2px;
+}
+
+.pagination-link {
+    color: $light;
+}

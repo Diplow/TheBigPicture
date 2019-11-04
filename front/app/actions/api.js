@@ -3,6 +3,18 @@ import * as notifications from "../constants/notifications"
 import * as basics from "./basics"
 
 
+const NEXTS = {
+  "getallsubjects": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setSubjectCount(result.count)) }
+  },
+  "getratedsubjects": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setRatedSubjectCount(nextargs.userId, result.count)) }
+  },
+  "getownsubjects": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
+  },
+}
+
 export const make = (request) => {
   return (dispatch) => {
     const host = cst.SERVER_ADDR + request.url
@@ -19,7 +31,8 @@ export const make = (request) => {
               response: result,
               status: res.status,
             }))
-          })
+            return result
+          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
           break;
 
         case "DELETE":
@@ -30,7 +43,8 @@ export const make = (request) => {
               response: {},
               status: res.status,
             }))
-          })
+            return result
+          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
           break;
 
         default:
@@ -117,7 +131,13 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(next)
 }
 
-export const getCollection = (dispatch, itemAPI, options) => {
+export const getCollection = (dispatch, itemAPI, page, options, next, nextargs) => {
+  if (!page) {
+    options.push(["page=1"])
+  }
+  else {
+    options.push("page="+page)
+  }
   const url = itemAPI + "/?" + options.concat(["format=json"]).join('&');
   const method = "GET"
   const body = {}
@@ -125,8 +145,10 @@ export const getCollection = (dispatch, itemAPI, options) => {
     url,
     body,
     method,
-    id: [method, itemAPI].concat(options).join('-'),
-  }))
+    next,
+    nextargs,
+    id: [method, itemAPI].concat(options).join('-')
+  }, next))
 }
 
 const computeTokenTimeout = () => {

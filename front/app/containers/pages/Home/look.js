@@ -7,7 +7,7 @@ import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
 import "./style.scss"
 
 
-const subjectsList = () => {
+const subjectsList = (count, getPage, userId) => {
   const bigPicture = null
   const bpFilter = (bp) => {
     return (
@@ -16,14 +16,10 @@ const subjectsList = () => {
   }
   const buttons = ["edit", "look"]
   const showRatings = false
-  return createList(bigPicture, bpFilter, buttons, showRatings, null, [])
+  return createList(bigPicture, count, getPage, bpFilter, buttons, showRatings, null, [])
 }
 
-const HomeLook = ({ getBigPictures, user }) => {
-
-  useEffect(() => {
-    getBigPictures()
-  })
+const HomeLook = ({ getBigPictures, user, count }) => {
 
   const initNewBp = {
     kind: cst.SUBJECT,
@@ -44,7 +40,7 @@ const HomeLook = ({ getBigPictures, user }) => {
         </div>
       </div>
       <div className="container tbp-section">
-        { subjectsList() }
+        { subjectsList(count, getBigPictures, user.id) }
       </div>
     </div>
   )
@@ -53,6 +49,7 @@ const HomeLook = ({ getBigPictures, user }) => {
 HomeLook.propTypes = {
   getBigPictures: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  count: PropTypes.number.isRequired,
 }
 
 export default HomeLook

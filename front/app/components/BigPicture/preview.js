@@ -20,7 +20,6 @@ const BigPicturePreviewLook = ({ bigPicture, bigPictureId, getBigPicture, button
       getBigPicture(bigPictureId, ratingUser)
   }, [])
 
-  const [ratingUsr, setRatingUsr] = useState(ratingUser)
   const [showChildren, toggleChildren] = useToggle(false)
   const [showDetails, toggleDetails] = useToggle(false)
   const [createBPisActive, setCreateBPisActive] = useState(false)
@@ -33,11 +32,11 @@ const BigPicturePreviewLook = ({ bigPicture, bigPictureId, getBigPicture, button
       <div className={cst.CLASSNAMES[bigPicture.kind] + " card bp-tile"}>
         <header className="card-header level preview-item-level is-mobile">
           { bpLeftLevel(bigPicture, toggleChildren, toggleDetails) }
-          { bpRightLevel(bigPicture, buttons, ratingUsr, createBPisActive, setCreateBPisActive) }
+          { bpRightLevel(bigPicture, buttons, ratingUser, createBPisActive, setCreateBPisActive) }
         </header>
         { bpDetails(showDetails, bigPicture.body) }
       </div>
-      { bpChildren(showChildren, bigPicture, ratingUsr, margin) }
+      { bpChildren(showChildren, bigPicture, ratingUser, margin) }
     </div>
   )
 }

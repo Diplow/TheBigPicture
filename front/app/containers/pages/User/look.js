@@ -13,8 +13,6 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
     const userId = parseInt(match.params.id)
     if (user == undefined)
       getUser(userId)
-    getOwnSubjects(userId)
-    getRatedSubjects(userId)
   }, [match])
 
   if (user == undefined)
@@ -34,9 +32,9 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
       </div>
       <div className="container tbp-section">
         <div className="subtitle user">Sujets créés par {user.username}</div>
-        { userSubjects(user.id) }
+        { userSubjects(user.id, user.ownSubjectCount, getOwnSubjects) }
         <div className="subtitle user">Sujets évalués par {user.username}</div>
-        { userRatings(user, ratings) }
+        { userRatings(user, ratings, user.ratedSubjectCount, getRatedSubjects) }
       </div>
     </div>
   )
@@ -51,17 +49,17 @@ UserViewLook.propTypes = {
   getRatedSubjects: PropTypes.func.isRequired
 }
 
-const userSubjects = (userId) => {
+const userSubjects = (userId, count, getPage) => {
   const bpFilter = (bp) => {
     return (
       bp.kind == cst.SUBJECT
       && bp.author.id == userId
     )
   }
-  return subjectsList(bpFilter, 0, [])
+  return subjectsList(bpFilter, 0, [], count, getPage)
 }
 
-const userRatings = (user, ratings) => {
+const userRatings = (user, ratings, count, getPage) => {
   const ratedsubjects = computeRatedSubjects(ratings)
   const bpFilter = (bp) => {
     return (
@@ -69,7 +67,7 @@ const userRatings = (user, ratings) => {
       && bp.author.id != user.id
     )
   }
-  return subjectsList(bpFilter, user.id, ratedsubjects)
+  return subjectsList(bpFilter, user.id, ratedsubjects, count, getPage)
 }
 
 const computeRatedSubjects = (ratings) => {
@@ -82,11 +80,11 @@ const computeRatedSubjects = (ratings) => {
   return res
 }
 
-const subjectsList = (filter, ratingUser, ratedsubjects) => {
+const subjectsList = (filter, ratingUser, ratedsubjects, count, getPage) => {
   const bigPicture = null
   const buttons = ["look"]
   const showRatings = false
-  return createList(bigPicture, filter, buttons, showRatings, ratingUser, ratedsubjects)
+  return createList(bigPicture, count, getPage, filter, buttons, showRatings, ratingUser, ratedsubjects)
 
 }
 

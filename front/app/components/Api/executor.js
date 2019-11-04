@@ -6,6 +6,8 @@ import * as cst from '../../constants'
 
 
 const ExecutionEngine = ({ todo, remove, add }) => {
+
+  useEffect(() => {
 	if (todo != undefined) {
 		switch (todo.method) {
 			case "DELETE":
@@ -20,7 +22,9 @@ const ExecutionEngine = ({ todo, remove, add }) => {
 				throw Error("unhandled method " + req.method)
 		}	
 	}
-	return null
+  }, [todo])
+
+  return null
 }
 
 const mapStateToProps = (state) => {

@@ -12,6 +12,7 @@ import userReducer from './user'
 import usersReducer from './users'
 import resultsReducer from './results'
 import requestsReducer from './requests'
+import globalReducer from './global'
 
 /*
  * routeReducer
@@ -53,6 +54,7 @@ export default function createReducer(injectedReducers) {
     users: usersReducer,
     requests: requestsReducer,
     notifications: notificationsReducer,
+    global: globalReducer,
     ...injectedReducers,
   });
 }

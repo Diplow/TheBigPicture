@@ -5,13 +5,14 @@ import HomeLook from './look'
 
 const mapStateToProps = (state) => {
   return {
-  	user: state.get("user")
+  	user: state.get("user"),
+  	count: state.get("global").subjectCount
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBigPictures: () => { dispatch(getSubjects()) }
+    getBigPictures: (page) => { dispatch(getSubjects(page)) }
   }
 }
 
