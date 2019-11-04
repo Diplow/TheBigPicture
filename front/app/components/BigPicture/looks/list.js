@@ -18,8 +18,10 @@ const bpSort = (results, a, b, key) => {
     return 1
   if (bresult == null)
     return -1
-  if (aresult.value >= bresult.value)
+  if (aresult.value > bresult.value)
     return -1
+  if (aresult.value < bresult.value)
+    return 1
   return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
 }
 
