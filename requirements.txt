@@ -1,3 +1,0 @@
-Django==2.1.15
-pkg-resources==0.0.0
-pytz==2018.9
