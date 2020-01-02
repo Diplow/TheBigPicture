@@ -10,11 +10,15 @@ const results = (state = [], action) => {
       if (rating.author == null)
         return state
       return [
-        ...state.filter(elt => elt.target != rating.target || elt.author != rating.author),
+        ...state.filter(elt => elt.id != rating.id),
         {
-          author: parseInt(rating.author),
+          id: rating.id,
+          author: rating.author.id,
           value: rating.value,
-          target: rating.target,
+          target_bp: rating.target_bp,
+          target_rating: rating.target_rating,
+          ratingCount: rating.ratingCount,
+          reason: rating.reason,
           subject: rating.subject,
           date: rating.date
         }

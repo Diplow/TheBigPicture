@@ -5,7 +5,7 @@ import { getUser } from '../../actions'
 import "./style"
 
 
-export const AuthorIconLook = ({ user, getUser, userId, clickable }) => {
+export const AuthorIconLook = ({ user, showIcon, getUser, userId, clickable }) => {
 
   useEffect(() => {
   	if (user == null || user == undefined || user.id != userId)
@@ -30,7 +30,7 @@ export const AuthorIconLook = ({ user, getUser, userId, clickable }) => {
 		      className="level-item"
 		      to={"/user/"+user.id}
 		    >
-			 {img}      
+			 {showIcon ? img : "crée par " + user.username}      
 		    </Link>
   	  	) : img
   	  }

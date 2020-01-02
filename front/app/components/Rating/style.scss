@@ -1,0 +1,38 @@
+@import "../../styles/theme.scss";
+
+
+.reason.card.bp-tile {
+	background-color: light-grey;
+}
+
+p.vde-no-comment {
+	font-size: large;
+	padding: 0.5rem;
+}
+
+.vde-preview-content {
+	padding: 12px;
+}
+
+.tbp-star {
+	color: $light;
+	border-color: black;
+}
+
+.selected {
+	.tbp-star {
+		color: gold;
+	}
+}
+.tbp-star.selected {
+	color: gold;
+}
+
+.level.star-level {
+	max-width: 5rem;
+}
+
+div.button.tbp-radio.vde-add-comment {
+	background-color: $light;
+	width: 2.3rem;
+}

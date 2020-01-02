@@ -13,6 +13,9 @@ const NEXTS = {
   "getownsubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
   },
+  "getbigpictureratings": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setBigPictureRatingCount(nextargs.targetId, result.count))}
+  }
 }
 
 export const make = (request) => {
@@ -36,15 +39,12 @@ export const make = (request) => {
           break;
 
         case "DELETE":
-          res.json().then(result => {
-            dispatch(basics.done({
-              ...request,
-              success,
-              response: {},
-              status: res.status,
-            }))
-            return result
-          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
+          dispatch(basics.done({
+            ...request,
+            success,
+            response: {},
+            status: res.status,
+          }))
           break;
 
         default:

@@ -1,0 +1,11 @@
+@import "../../styles/theme.scss";
+
+.subtitle-modal {
+	margin: 0;
+	padding: 0.5rem 0;
+	font-weight: bold;
+}
+
+section.modal-card-body {
+	color: $dark;
+}

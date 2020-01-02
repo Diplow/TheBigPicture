@@ -53,7 +53,7 @@ const userSubjects = (userId, count, getPage) => {
   const bpFilter = (bp) => {
     return (
       bp.kind == cst.SUBJECT
-      && bp.author.id == userId
+      && bp.author == userId
     )
   }
   return subjectsList(bpFilter, 0, [], count, getPage)
@@ -64,7 +64,7 @@ const userRatings = (user, ratings, count, getPage) => {
   const bpFilter = (bp) => {
     return (
       ratedsubjects.indexOf(bp.id) != -1
-      && bp.author.id != user.id
+      && bp.author != user.id
     )
   }
   return subjectsList(bpFilter, user.id, ratedsubjects, count, getPage)

@@ -67,6 +67,14 @@ export const setOwnSubjectCount = (userId, count) => {
   }
 }
 
+export const setBigPictureRatingCount = (count, targetId) => {
+  return {
+    type: cst.SET_BIG_PICTURE_RATING_COUNT,
+    targetId,
+    count
+  }
+}
+
 export const setSubjectCount = (count) => {
   return {
     type: cst.SET_GLOBAL_SUBJECT_COUNT,

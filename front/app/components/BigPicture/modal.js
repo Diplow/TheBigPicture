@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
+import React from 'react'
 import { patchBigPicture, postBigPicture, deleteBigPicture } from '../../actions/index'
-import BigPictureModalLook from './looks/modal'
+import EditionModalLook from '../Modal/look'
+import NewBigPicture from './new'
 import * as cst from '../../constants'
 
 
@@ -22,6 +24,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const BigPictureModal = connect(mapStateToProps, mapDispatchToProps)(BigPictureModalLook)
+const BigPictureModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
 
 export default BigPictureModal

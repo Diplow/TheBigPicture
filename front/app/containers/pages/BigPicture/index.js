@@ -8,13 +8,13 @@ import "./style.scss"
 const mapStateToProps = (state, ownProps) => {
   return {
   	user: state.get("user"),
-    bigPicture: state.get("bigpictures").find(elt => elt.id == ownProps.match.params.id)
+    bigPicture: state.get("bigpictures").find(elt => elt.id == ownProps.match.params.bpId)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBigPicture: (bpId, userId) => { dispatch(getBigPicture(bpId, userId)) }
+    getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) }
   }
 }
 

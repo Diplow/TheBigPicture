@@ -1,24 +1,17 @@
 @import "../../styles/theme.scss";
 
-.button.tbp-radio {
+span.vde-button.is-narrow.level-item {
 	color: $dark;
-	background-color: $light;
+	background-color: transparent;
 	margin-right: 0.5rem;
-}
+	border-width: 0;
+	width: 2.3rem;
 
-.button.tbp-radio.is-active {
-	border-width: 2px;
-	border-color: $dark;
-}
+	a {
+		color: $dark;
+	}
 
-.button.tbp-radio.problem {
-	background-color: $primary-2;
-}
-
-.button.resource {
-	background-color: $primary-1;
-}
-
-.button.solution {
-	background-color: $primary-3;
+	a:hover {
+		color: grey;
+	}
 }

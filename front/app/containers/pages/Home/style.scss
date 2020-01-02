@@ -1,7 +1,21 @@
+@import "../../../styles/theme.scss";
 
 .level {
 	.title:not(:last-child) {
 		margin-bottom: 0;
 		margin-right: 0.5rem;
+		color: $light;
+	}
+}
+
+span.vde-button.is-narrow.level-item.vde-home {
+	a {
+		color: $light;
+	}
+}
+
+div.level.is-mobile {
+	h1.vde-home.title {
+		color: $light;
 	}
 }
