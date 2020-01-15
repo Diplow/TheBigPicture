@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	post: (rating) => { console.log(rating); dispatch(postVote(rating)) },
+  	post: (rating) => { dispatch(postVote(rating)) },
   	del: (rating) => { if (rating.id != undefined) { dispatch(deleteVote(rating.id)) } }
   }
 }

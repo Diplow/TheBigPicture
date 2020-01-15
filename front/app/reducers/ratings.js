@@ -2,12 +2,12 @@
 import * as cst from "../constants"
 
 
-const results = (state = [], action) => {
+const ratings = (state = [], action) => {
   switch (action.type) {
 
     case cst.ADD_RATING:
       const rating = action.rating
-      if (rating.author == null)
+      if (rating.author == null || rating.endorsment != null)
         return state
       return [
         ...state.filter(elt => elt.id != rating.id),
@@ -29,4 +29,4 @@ const results = (state = [], action) => {
   }
 }
 
-export default results
+export default ratings

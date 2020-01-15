@@ -17,7 +17,7 @@
 	}
 }
 
-p.subtitle.level-item.vde-subtitle-bp-page {
+p.subtitle.level-item {
     font-weight: 700;
     padding: 0.5rem;
     font-size: xx-large;
@@ -26,7 +26,6 @@ p.subtitle.level-item.vde-subtitle-bp-page {
 span.vde-button.is-narrow.level-item.button.tbp-radio {
 	color: $dark;
 	background-color: $light;
-	margin-right: 0.5rem;
 }
 
 .button.tbp-radio {
@@ -64,6 +63,6 @@ p.tbp-description {
 
 div.vde-bigpicture-page {
   .container.tbp-section.section-field {
-    padding-bottom: 1rem;
+    padding-bot: 1rem;
   }
 }

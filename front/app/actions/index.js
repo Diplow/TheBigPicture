@@ -47,25 +47,37 @@ export const getResources = (bigpictureId) => {
   }
 }
 
+export const getResults = (bigpictureId) => {
+  return (dispatch) => {
+    const next = "getresults"
+    const nextargs = { bigpictureId }
+    api.get(dispatch, `bigpictures/${bigpictureId}/results`, [], next, nextargs)
+  }
+}
+
 export const getBigPicture = (bpId) => {
   return (dispatch) => {
     api.getItem(dispatch, bpId, "bigpictures", [])
   }
 }
 
+export const getReferences = (page, bpId) => {
+  return (dispatch) => {
+    const next = "getreferences"
+    const nextargs = { bpId }
+    api.getCollection(dispatch, "subjects", page, [`reference=${bpId}`], next, nextargs)
+  }
+}
+
 export const getBigPictureRatings = (page, targetId, userId) => {
   return (dispatch) => {
-    const next = "getbigpictureratings"
-    const nextargs = { targetId }
-    api.getCollection(dispatch, "ratings", page, [`bigpicture=${targetId}`], next, nextargs)
+    api.getCollection(dispatch, "ratings", page, [`bigpicture=${targetId}`])
   }
 }
 
 export const getOwnSubjects = (userId, page) => {
   return (dispatch) => {
-    const next = "getownsubjects"
-    const nextargs = { userId }
-    api.getCollection(dispatch, "subjects", page, [`author=${userId}`], next, nextargs)
+    api.getCollection(dispatch, "subjects", page, [`author=${userId}`])
   }
 }
 

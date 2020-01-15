@@ -51,30 +51,6 @@ export const popNotification = (id) => {
   }
 }
 
-export const setRatedSubjectCount = (userId, count) => {
-  return {
-    type: cst.SET_RATED_SUBJECT_COUNT,
-    userId,
-    count
-  }
-}
-
-export const setOwnSubjectCount = (userId, count) => {
-  return {
-    type: cst.SET_OWN_SUBJECT_COUNT,
-    userId,
-    count
-  }
-}
-
-export const setBigPictureRatingCount = (count, targetId) => {
-  return {
-    type: cst.SET_BIG_PICTURE_RATING_COUNT,
-    targetId,
-    count
-  }
-}
-
 export const setSubjectCount = (count) => {
   return {
     type: cst.SET_GLOBAL_SUBJECT_COUNT,
@@ -82,10 +58,34 @@ export const setSubjectCount = (count) => {
   }
 }
 
+export const addRatedSubject = (bigPicture, userId) => {
+  return {
+    type: cst.ADD_USER_RATED_SUBJECT,
+    subjectId: bigPicture.id,
+    userId
+  }
+}
+
 export const addBigPicture = (bigpicture) => {
   return {
     type: cst.ADD_BIG_PICTURE,
     bigpicture
+  }
+}
+
+export const addBigPictureReference = (bpId, referenceId) => {
+  return {
+    type: cst.ADD_BIG_PICTURE_REFERENCE,
+    bpId,
+    referenceId
+  }
+}
+
+export const addBigPictureResults = (bpId, results) => {
+  return {
+    type: cst.ADD_BIG_PICTURE_RESULTS,
+    bpId,
+    results
   }
 }
 

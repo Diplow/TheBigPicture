@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { createList } from '../../../components/BigPicture/list'
+import BigPictureList from '../../../components/BigPicture/list'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import AuthorIcon from '../../../components/User/authorIcon'
@@ -31,10 +31,8 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
         </div>
       </div>
       <div className="container tbp-section">
-        <div className="subtitle user">Sujets créés par {user.username}</div>
-        { userSubjects(user.id, user.ownSubjectCount, getOwnSubjects) }
-        <div className="subtitle user">Sujets évalués par {user.username}</div>
-        { userRatings(user, ratings, user.ratedSubjectCount, getRatedSubjects) }
+        { userSubjects(user, getOwnSubjects) }
+        { userRatings(user, ratings, getRatedSubjects) }
       </div>
     </div>
   )
@@ -49,43 +47,41 @@ UserViewLook.propTypes = {
   getRatedSubjects: PropTypes.func.isRequired
 }
 
-const userSubjects = (userId, count, getPage) => {
+const userSubjects = (user, getPage) => {
   const bpFilter = (bp) => {
     return (
       bp.kind == cst.SUBJECT
-      && bp.author == userId
+      && bp.author == user.id
     )
   }
-  return subjectsList(bpFilter, 0, [], count, getPage)
+  const loadFirstPage = true
+  return subjectsList(bpFilter, user.ownSubjectCount, getPage, "Sujets créés", `Aucun sujet n'a encore été créé publiquement par ${user.username}`, loadFirstPage)
 }
 
-const userRatings = (user, ratings, count, getPage) => {
-  const ratedsubjects = computeRatedSubjects(ratings)
+const userRatings = (user, ratings, getPage) => {
   const bpFilter = (bp) => {
     return (
-      ratedsubjects.indexOf(bp.id) != -1
+      user.ratedSubjects.indexOf(bp.id) != -1
       && bp.author != user.id
     )
   }
-  return subjectsList(bpFilter, user.id, ratedsubjects, count, getPage)
+  const loadFirstPage = false
+  return subjectsList(bpFilter, user.ratedSubjectCount, getPage, "Sujets évalués", `Aucun sujet n'a encore été évalué publiquement par ${user.username}`, loadFirstPage)
 }
 
-const computeRatedSubjects = (ratings) => {
-  let res = []
-  for (let i = 0; i < ratings.length; ++i) {
-    const rating = ratings[i]
-    if (res.indexOf(rating.subject) == -1 && rating.value != 0)
-      res.push(rating.subject)
-  }
-  return res
-}
-
-const subjectsList = (filter, ratingUser, ratedsubjects, count, getPage) => {
-  const bigPicture = null
-  const buttons = ["look"]
-  const showRatings = false
-  return createList(bigPicture, count, getPage, filter, buttons, showRatings, ratingUser, ratedsubjects)
-
+const subjectsList = (filter, count, getPage, title, emptyMessage, loadFirstPage) => {
+  return (
+    <BigPictureList
+      parent={null}
+      count={count}
+      getPage={getPage}
+      title={title}
+      emptyMessage={emptyMessage}
+      loadFirstPage={loadFirstPage}
+      buttons={[]}
+      filter={filter}
+    />
+  )
 }
 
 export default UserViewLook

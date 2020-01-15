@@ -3,7 +3,7 @@
 span.vde-button.is-narrow.level-item {
 	color: $dark;
 	background-color: transparent;
-	margin-right: 0.5rem;
+	margin-right: 0.3rem;
 	border-width: 0;
 	width: 2.3rem;
 
@@ -13,5 +13,12 @@ span.vde-button.is-narrow.level-item {
 
 	a:hover {
 		color: grey;
+	}
+}
+
+
+.button.tbp-radio.vde-add-comment.is-narrow {
+	a {
+		color: $dark;
 	}
 }

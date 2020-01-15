@@ -4,7 +4,7 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const createPagination = (items, count, getPage, size) => {
+const createPagination = (items, count, getPage, size, loadFirstPage) => {
   const [pageNb, setPageNb] = useState(0)
   const [currentPage, setCurrentPage] = useState(items.slice(0, pageNb*size))
   const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
@@ -20,12 +20,9 @@ const createPagination = (items, count, getPage, size) => {
   }, [items])
 
   useEffect(() => {
-    console.log("lalalal")
-    loadMore()
+    if (loadFirstPage)
+      loadMore()
   }, [])
-
-  if (items == null || items.length == 0)
-    return [null, []]
 
   const res = currentPage.length < count ? (
     <a className="subtitle vde-loadmore" onClick={loadMore}>

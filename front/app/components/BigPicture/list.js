@@ -17,13 +17,14 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const BigPictureListLook = ({ user, parent, bigPictures, count, getPage, ratings }) => {
+const BigPictureListLook = ({ user, parent, bigPictures, title, emptyMessage, loadFirstPage, buttons, count, getPage, ratings }) => {
   bigPictures.sort((a, b) => bpSort(ratings, a, b))
-  const [pagination, page] = usePagination(bigPictures, count, getPage, cst.PAGE_SIZE)
+  const [pagination, page] = usePagination(bigPictures, count, getPage, cst.PAGE_SIZE, loadFirstPage)
 
   return (
-    <div className="section">
-    { header(parent, user) }
+    <div>
+    { header(buttons, parent, user, title) }
+    { count == 0 ? <p className="vde-no-comment subtitle">{emptyMessage}</p> : null }
     { page.map((bp) => <BigPicturePreview key={bp.id} bigPictureId={bp.id} margin={0} />) }
     { pagination }
     </div>
@@ -34,20 +35,29 @@ BigPictureListLook.propTypes = {
   user: PropTypes.object.isRequired,
   parent: PropTypes.object,
   bigPictures: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+  emptyMessage: PropTypes.string.isRequired,
+  loadFirstPage: PropTypes.bool.isRequired,
+  buttons: PropTypes.arrayOf(PropTypes.string).isRequired,
   count: PropTypes.number.isRequired,
   getPage: PropTypes.func.isRequired,
   ratings: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-const header = (parent, user) => {
-  if (parent == null)
-    return null
+const header = (buttons, parent, user, title) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
-        <p className="subtitle level-item vde-subtitle-bp-page">Analyse</p>
-        {backButton(parent)}
-        {user.id == parent.author ? addBigPictureButton(parent) : null}
+        <p className="subtitle level-item vde-subtitle-bp-page">{title}</p>
+        {buttons.indexOf(cst.BACK_BUTTON) != -1 ? backButton(parent) : null}
+        {
+          buttons.indexOf(cst.ADD_BUTTON) != -1 
+          && (
+            (parent == null && user.id != 0)
+            || (parent != null && user.id == parent.author)
+          ) ? addBigPictureButton(parent)
+          : null
+        }
       </div>
     </div>
   )
@@ -76,12 +86,14 @@ const bpSort = (ratings, a, b) => {
 const backButton = (bp) => {
   const to = bp.parent == null ? "/" : `/subject/${bp.subject}/bigPicture/${bp.parent}`
   return (
+
+  <div className="button tbp-radio vde-add-comment is-narrow">
     <Link
-      className="button tbp-radio"
       to={to}
     >
       <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
     </Link>
+  </div>
 
   )
 }
@@ -89,9 +101,10 @@ const backButton = (bp) => {
 const addBigPictureButton = (bigPicture) => {
   const newBP = {
     title: "",
-    parent: bigPicture.id,
-    kind: cst.PROBLEM,
-    subject: bigPicture.subject != null ? bigPicture.subject : bigPicture.id,
+    parent: bigPicture == null ? null : bigPicture.id,
+    kind: bigPicture == null ? cst.SUBJECT : cst.PROBLEM,
+    hyperlink: null,
+    subject: bigPicture == null ? null : (bigPicture.subject != null ? bigPicture.subject : bigPicture.id),
     body: "",
   }
   return (
@@ -113,7 +126,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user,
     bigPictures: state.get("bigpictures").filter(ownProps.filter),
-    ratings: ownProps.parent != null ? state.get("results").filter(rating => rating.author == ownProps.parent.author) : [],
+    ratings: ownProps.parent != null ? state.get("ratings").filter(rating => rating.author == ownProps.parent.author) : [],
   }
 }
 

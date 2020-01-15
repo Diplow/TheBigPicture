@@ -120,8 +120,8 @@ const ratingChildren = (rating, children, parentMargin) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    rating: state.get("results").find(rating => rating.id == ownProps.ratingId),
-    ratings: state.get("results").filter(rating => rating.target_rating == ownProps.ratingId),
+    rating: state.get("ratings").find(rating => rating.id == ownProps.ratingId),
+    ratings: state.get("ratings").filter(rating => rating.target_rating == ownProps.ratingId),
   }
 }
 

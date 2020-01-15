@@ -9,21 +9,13 @@ import * as cst from '../../constants/index'
 import "./style.scss"
 
 
-const RatingListLook = ({ user, ratings, target, getPage, ratingsFilter }) => {
+const RatingListLook = ({ user, ratings, margin, showHeader, loadFirstPage, target, getPage }) => {
   ratings.sort(ratingsSort)
-  const [pagination, page] = usePagination(ratings, target.ratingCount, getPage, cst.PAGE_SIZE)
+  const [pagination, page] = usePagination(ratings, target.ratingCount, getPage, cst.PAGE_SIZE, loadFirstPage)
 
   return (
-    <div className="section">
-      <div className="level is-mobile">
-        <div className="level-left">
-          <p className="subtitle level-item vde-subtitle-bp-page">Commentaires</p>
-          { user.id !== 0 ? addRatingButton(target) : null }
-        </div>
-        <div className="level-right">
-          { pagination }
-        </div>
-      </div>
+    <div>
+      { showHeader ? header(user, target) : null }
       { ratings.length == 0 ? <p className="vde-no-comment subtitle">Il n'y a pas encore de commentaires.</p> : null }
       {
         page.map((rating) => {
@@ -31,23 +23,36 @@ const RatingListLook = ({ user, ratings, target, getPage, ratingsFilter }) => {
             <RatingPreview
               key={`ratingpreview-${rating.id}`}
               ratingId={rating.id}
-              margin={0}
+              margin={margin}
             />
           )
         })
       }
+      { pagination }
     </div>
   )
 }
 
 RatingListLook.propTypes = {
   ratings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  margin: PropTypes.number.isRequired,
   user: PropTypes.object.isRequired,
+  loadFirstPage: PropTypes.bool.isRequired,
   target: PropTypes.object.isRequired,
   getPage: PropTypes.func.isRequired,
   ratingsFilter: PropTypes.func.isRequired,
 }
 
+const header = (user, target) => {
+  return (
+    <div className="level is-mobile">
+      <div className="level-left">
+        <p className="subtitle level-item vde-subtitle-bp-page">Commentaires</p>
+        { user.id !== cst.GUEST_ID ? addRatingButton(target) : null }
+      </div>
+    </div>
+  )
+}
 const ratingsSort = (ratingA, ratingB) => {
   return ratingA.median >= ratingB.median ? 1 : -1
 }
@@ -71,7 +76,7 @@ const addRatingButton = (bigPicture) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ratings: state.get("results").filter(ownProps.ratingsFilter),
+    ratings: state.get("ratings").filter(ownProps.ratingsFilter),
     user: state.get("user")
   }
 }

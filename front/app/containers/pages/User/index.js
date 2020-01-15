@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
   	user,
   	visitor: state.get("user"),
-  	ratings: user == null ? [] : state.get("results").filter(rating => rating.author == user.id)
+  	ratings: user == null ? [] : state.get("ratings").filter(rating => rating.author == user.id)
   }
 }
 

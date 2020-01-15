@@ -11,7 +11,7 @@ const NavBarLook = () => {
   return (
     <div className="section tbp-section navbar-section">
       <div className="container nav-container">
-        <div id="navbar" className="tbp-section level tbp-nav-level is-mobile">
+        <div id="navbar" className="tbp-section level tbp-nav-level is-mobile no-top-margin">
           <div className="level-left is-mobile">
             <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VDE</Link>
           </div>

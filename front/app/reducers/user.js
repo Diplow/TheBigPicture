@@ -48,6 +48,7 @@ const user = (state = initial_state, action) => {
     case cst.LOGIN:
       return {
         ...action.user,
+        image: action.user.image == null ? "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png" : action.user.image,
         token: action.token
       }
 

@@ -1,6 +1,7 @@
 import * as cst from "../constants"
 import * as notifications from "../constants/notifications"
 import * as basics from "./basics"
+import uuid from 'uuid/v4'
 
 
 const NEXTS = {
@@ -8,14 +9,28 @@ const NEXTS = {
     return (result) => { dispatch(basics.setSubjectCount(result.count)) }
   },
   "getratedsubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setRatedSubjectCount(nextargs.userId, result.count)) }
+    return (resp) => {
+      for (let i = 0; i < resp.results.length; ++i) {
+        const bp = resp.results[i]
+        dispatch(basics.addBigPicture(bp))
+        dispatch(basics.addRatedSubject(bp, nextargs.userId))
+      }
+    }
   },
-  "getownsubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
+  "getreferences": (dispatch, nextargs) => {
+    return (resp) => {
+      for (let i = 0; i < resp.results.length; ++i) {
+        const bp = resp.results[i]
+        dispatch(basics.addBigPicture(bp))
+        dispatch(basics.addBigPictureReference(nextargs.bpId, bp.id))
+      }
+    }
   },
-  "getbigpictureratings": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setBigPictureRatingCount(nextargs.targetId, result.count))}
-  }
+  "getresults": (dispatch, nextargs) => {
+    return (resp) => {
+      dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
+    }
+  },
 }
 
 export const make = (request) => {
@@ -105,8 +120,23 @@ export const deleteItem = (dispatch, itemId, itemAPI) => {
   }))
 }
 
+
+export const get = (dispatch, endpoint, options, next, nextargs) => {
+  const url = `${endpoint}/?${options.concat(["format=json"]).join('&')}`
+  const method = "GET"
+  const body = {}
+  dispatch(basics.make({
+    url,
+    body,
+    method,
+    next,
+    nextargs,
+    id: [method].concat(endpoint.split('/')).concat(options).concat([uuid()]).join('-')
+  }))
+}
+
 export const getItem = (dispatch, itemId, itemAPI, options) => {
-  const url = itemAPI + "/" + itemId + "/?" + options.concat(["format=json"]).join('&');;
+  const url = `${itemAPI}/${itemId}/?${options.concat(["format=json"]).join('&')}`
   const method = "GET"
   const body = {}
   dispatch(basics.make({
@@ -123,10 +153,19 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(handleHttpError(dispatch, "send"))
     .then(res => res.json())
     .then(res => {
-      dispatch(action(res))
-      const verb = method == "PATCH" ? notifications.itemModification : notifications.itemCreation
-      dispatch(basics.notification(verb[itemAPI]))
-      return res 
+      if (res.error != undefined) {
+        dispatch(basics.notification({
+          title: "Erreur de communication avec le serveur",
+          message: res.error,
+          type: "warning"
+        }))
+      }
+      else {
+        dispatch(action(res))
+        const verb = method == "PATCH" ? notifications.itemModification : notifications.itemCreation
+        dispatch(basics.notification(verb[itemAPI]))
+        return res 
+      }
     })
     .then(next)
 }
@@ -206,7 +245,6 @@ export const handleHttpError = (dispatch, action) => {
           message: "Êtes-vous certains d'avoir entré la bonne combinaison identifiant / mot de passe ?",
           type: "warning"
         }))
-        throw Error("L'identification a échoué")
       }
     }
     if (res.status == 401) {
@@ -216,16 +254,13 @@ export const handleHttpError = (dispatch, action) => {
         message: "Vous devez vous authentifier à nouveau pour réaliser cette action.",
         type: "warning"
       }))
-      throw Error("Permission Denied")
     }
-    if (res.status < 200 || res.status > 299) {
+    if (res.status == 500 || res.status == 503) {
       dispatch(basics.notification({
         title: "Erreur de communication avec le serveur",
         message: "L'action " + action + " n'a pas pu être réalisée, vous pouvez contacter l'administrateur de la plateforme.",
         type: "warning"
       }))
-      console.log("error", res)
-      throw Error("Error: could not perform " + action)
     }
     return res
   }

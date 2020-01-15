@@ -5,21 +5,29 @@ import * as cst from "../constants"
 const bigpictures = (state = [], action) => {
   switch (action.type) {
 
-    case cst.SET_BIG_PICTURE_RATING_COUNT:
-      const target = state.find(element => element.id == action.targetId)
-      if (target != null) {
-        return [
-          ...state.filter(element => element.id != target.id),
-          {
-            ...target,
-            ratingCount: action.count
-          }
-        ]
-      }
-      return state
+    case cst.ADD_BIG_PICTURE_REFERENCE:
+      let old = state.find(element => element.id == action.bpId)
+      return [
+        ...state.filter(element => element.id != old.id),
+        {
+          ...old,
+          references: [...old.references.filter(ref => ref != action.referenceId), action.referenceId]
+        }
+      ]
+
+    case cst.ADD_BIG_PICTURE_RESULTS:
+      old = state.find(element => element.id == action.bpId)
+      return [
+        ...state.filter(element => element.id != old.id),
+        {
+          ...old,
+          results: action.results
+        }
+      ]
 
     case cst.ADD_BIG_PICTURE:
       const bp = action.bigpicture
+      old = state.find(element => element.id == bp.id)
       return [
         ...state.filter(element => element.id != bp.id),
         {
@@ -29,13 +37,16 @@ const bigpictures = (state = [], action) => {
           body: bp.body,
           children: bp.children,
           family: bp.family != null ? bp.family.map(child => child.id) : undefined,
-          subjectratings: bp.subjectratings != null ? bp.subjectratings.map(rating => rating.id) : undefined,
+          hyperlink: bp.hyperlink,
+          hyperlink_id: bp.hyperlink_id,
           parent: bp.parent,
           subject: bp.subject,
           author: bp.author_id,
           creation_date: bp.creation_date,
           modification_date: bp.modification_date,
-          ratingCount: bp.ratingCount
+          ratingCount: bp.ratingCount,
+          referenceCount: bp.referenceCount,
+          references: old == null ? [] : old.references,
         }
       ]
 

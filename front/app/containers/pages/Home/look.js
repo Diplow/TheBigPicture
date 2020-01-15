@@ -12,19 +12,15 @@ import "./style.scss"
 const HomeLook = ({ getBigPictures, count }) => {
   return (
     <div>
-      <div className="hero">
-        <div className="container tbp-section">
-          <div className="level is-mobile">
-            <h1 className="vde-home title">SUJETS</h1>
-            { addBigPictureButton() }
-          </div>
-        </div>
-      </div>
       <div className="container tbp-section">
         <BigPictureList
           parent={null}
           count={count}
           getPage={getBigPictures}
+          title={"SUJETS"}
+          emptyMessage={"Aucun sujet n'a encore été créé. Soyez le premier !"}
+          loadFirstPage={true}
+          buttons={[cst.ADD_BUTTON]}
           filter={bp => bp.kind == cst.SUBJECT}
         />
       </div>

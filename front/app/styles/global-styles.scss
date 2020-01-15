@@ -97,3 +97,11 @@ label {
     margin-right: .1rem;
   }  
 }
+
+div.level.is-mobile {
+  margin-top: 0.5rem;
+}
+
+div.level.is-mobile.no-top-margin {
+  margin-top: 0;
+}

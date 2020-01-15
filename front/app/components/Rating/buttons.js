@@ -18,7 +18,7 @@ const RatingButtonLook = ({ initRating, ownRating }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ownRating: state.get("results").find(rating => {
+    ownRating: state.get("ratings").find(rating => {
       return (
         rating.author == state.get("user").id
         && ((rating.target_rating == ownProps.initRating.target_rating && ownProps.initRating.target_rating != undefined)

@@ -8,8 +8,11 @@ import "./style.scss"
 
 
 const NewBigPictureLook = ({ parent, data, setData }) => {
-  if (data == null)
-    return null
+  const [kind, setKind] = useState(data.kind)
+
+  useEffect(() => {
+  	setKind(data.kind)
+  }, [data])
 
   const edit = (e) => {
     setData({ ...data, [e.target.name]: e.target.value})
@@ -17,7 +20,8 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
 
   return (
     <div className="newBigPicture-modal">
-      {kindField(data, edit, parent)}
+      {kindField(kind, edit, parent)}
+      {kind == cst.REFERENCE ? hyperLinkIdField(data, edit) : null}
       {titleField(data, edit)}
       {contentField(data, edit)}
     </div>
@@ -30,30 +34,47 @@ NewBigPictureLook.propTypes = {
   setData: PropTypes.func
 }
 
-const radioButton = (value, onChange, label) => {
+const radioButton = (checked, value, onChange, label) => {
   return (
     <label className="radio">
       <input
         type="radio"
         name="kind"
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+        checked={checked} />
       {label}
     </label>
   )
 }
 
-const kindField = (data, edit, parent) => {
-  if (data.kind == cst.SUBJECT)
+const kindField = (kind, edit, parent) => {
+  if (kind == cst.SUBJECT)
     return null
   return (
     <div className="field">
       <p className="subtitle-modal">Type</p>
       <div className="control">
-        { radioButton(cst.PROBLEM, edit, "Problème") }
-        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton(cst.SOLUTION, edit, "Solution") : null }
-        { radioButton(cst.RESOURCE, edit, "Ressource") }
+        { radioButton(kind == cst.PROBLEM, cst.PROBLEM, edit, "Problème") }
+        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton(kind == cst.SOLUTION, cst.SOLUTION, edit, "Solution") : null }
+        { radioButton(kind == cst.RESOURCE, cst.RESOURCE, edit, "Ressource") }
+        { radioButton(kind == cst.REFERENCE, cst.REFERENCE, edit, "Référence") }
       </div>
+    </div>
+  )
+}
+
+const hyperLinkIdField = (data, edit) => {
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Identifiant de la référence</p>
+      <input
+        className="input tbp-modal"
+        type="text"
+        name="hyperlink_id"
+        value={data.hyperlink_id}
+        onChange={edit}
+        placeholder="Identifiant (numérique)" />
     </div>
   )
 }

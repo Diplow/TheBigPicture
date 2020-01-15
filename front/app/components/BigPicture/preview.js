@@ -9,6 +9,7 @@ import { getBigPicture } from '../../actions/index'
 import AuthorIcon from '../User/authorIcon'
 import NewBigPicture from './new'
 import NewRating from '../Rating/new'
+import RatingList from '../Rating/list'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { RatingButton } from '../Rating/buttons'
 import { useToggle } from '../utils/hooks'
@@ -19,11 +20,13 @@ import "./style.scss"
 import * as cst from '../../constants'
 
 
-const BigPicturePreviewLook = ({ bigPicture, ratings, bigPictureId, getBigPicture, margin }) => {
+const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, getBigPicture, margin }) => {
 
   useEffect(() => {
     if (bigPicture == undefined)
       getBigPicture(bigPictureId)
+    if (bigPicture != undefined && bigPicture.hyperlink_id != null && hyperlink == null)
+      getBigPicture(bigPicture.hyperlink_id)
   }, [])
 
   const [showChildren, toggleChildren] = useToggle(false)
@@ -50,7 +53,7 @@ const BigPicturePreviewLook = ({ bigPicture, ratings, bigPictureId, getBigPictur
             toggleRatings,
             toggleChildren) }
       </div>
-      { showRatings ? bpRatings(ratings, margin) : null }
+      { showRatings ? bpRatings(bigPicture, ratings, margin) : null }
       { showChildren ? bpChildren(bigPicture, margin) : null }
     </div>
   )
@@ -85,7 +88,7 @@ const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, to
         {ratingButton(bigPicture)}
         { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
         { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
-        { ratings.length != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
+        { bigPicture.ratingCount != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
         {lookButton(bigPicture)}
       </div>
     </div>
@@ -152,10 +155,19 @@ const ratingButton = (bigPicture) => {
 }
 
 const lookButton = (bigPicture) => {
+  let bp = bigPicture
+  if (bp.hyperlink != null) {
+    if (bp.hyperlink.id != undefined)
+      bp = bp.hyperlink
+    else
+      bp = { id: bp.hyperlink, subject: null }
+  }
   return (
     <LinkButton
       icon="fas fa-search "
-      to={`/subject/${bigPicture.subject == null ? bigPicture.id : bigPicture.subject}/bigPicture/${bigPicture.id}`} />
+      to={
+        `/subject/${bp.subject == null ? bp.id : bp.subject}/bigPicture/${bp.id}`
+      } />
   )
 }
 
@@ -202,7 +214,7 @@ const bpChildren = (bigPicture, parentMargin) => {
 
 }
 
-const bpRatings = (ratings, parentMargin) => {
+const bpRatings = (bigPicture, ratings, parentMargin) => {
   const margin = (
     parentMargin == 0
     ? cst.SUBMARGIN 
@@ -210,28 +222,22 @@ const bpRatings = (ratings, parentMargin) => {
   )
 
   return (
-    <div>
-      {
-        ratings.map(rating => {
-          return (
-            <RatingPreview
-              key={"previewRating"+rating.id}
-              ratingId={rating.id}
-              margin={margin}
-            />
-          )
-        })
-      }
-      </div>
+    <RatingList
+      target={bigPicture}
+      ratingsFilter={(rating) => rating.target_bp == bigPicture.id}
+      showHeader={false}
+      margin={margin}
+    />
   )
-
 }
 
 
 const mapStateToProps = (state, ownProps) => {
+  const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
-    bigPicture: state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId),
-    ratings: state.get("results").filter(rating => rating.target_bp == ownProps.bigPictureId),
+    bigPicture,
+    hyperlink: state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id),
+    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
   }
 }
 
