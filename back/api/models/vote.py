@@ -17,10 +17,12 @@ class Rating(models.Model):
 	subject = models.ForeignKey(BigPicture, on_delete=models.CASCADE, related_name='subjectratings')
 	date = models.DateField(default=datetime.date.today)
 	reason = models.TextField(blank=True)
+	endorsment = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name='endorsments')
 
 	class Meta:
 		constraints = [
-			models.UniqueConstraint(fields=['target_bp', 'target_rating', 'author'], name='unique_rating')
+			models.UniqueConstraint(fields=['target_rating', 'author'], name='unique_rating_on_rating'),
+			models.UniqueConstraint(fields=['target_bp', 'author'], name='unique_rating_on_bp')
 		]
 
 	def __unicode__(self):

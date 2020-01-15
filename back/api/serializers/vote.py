@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Rating, BigPicture, ARGUMENT_CODE, BaseUser
+from api.models import Rating, BigPicture, BaseUser
 from api.serializers.user import UserSerializer
 
 
@@ -14,15 +14,17 @@ class RatingSerializer(serializers.ModelSerializer):
 
 	def create(self, validated_data):
 		existingRating = Rating.objects.filter(
-			author=validated_data.get("author"),
+			author_id=validated_data.get("author").id,
 			target_bp=validated_data.get("target_bp", None),
-			target_rating=validated_data.get("target_rating", None),
-			subject=validated_data["subject"]
+			target_rating=validated_data.get("target_rating", None)
 		)
 		if existingRating.exists():
 			rating = existingRating.first()
 			rating.value = validated_data["value"]
 			rating.reason = validated_data["reason"]
+			rating.endorsment = validated_data.get("endorsment", None)
+			rating.target_rating = validated_data.get("target_rating", rating.target_rating)
+			rating.target_bp = validated_data.get("target_bp", rating.target_bp)
 			rating.save()
 			return rating
 		return super(RatingSerializer, self).create(validated_data)

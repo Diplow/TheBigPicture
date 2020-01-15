@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Simple is Better Than Complex{% endblock %}</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="https://vde-staticfiles.s3.eu-west-3.amazonaws.com/static/extra-css/admin-extra.css" />
+  <body>
+    <header>
+      <h1>Vue d'Ensemble</h1>
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_jwt',
+    'django_registration',
     'storages',
     'api'
 ]
@@ -76,6 +77,8 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'api.utils.my_jwt_response_handler',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=60*60*24)
 }
+
+ACCOUNT_ACTIVATION_DAYS = 7
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
@@ -120,6 +123,12 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'VDE'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS = True
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -142,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 

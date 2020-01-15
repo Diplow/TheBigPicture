@@ -6,7 +6,7 @@ SUBJECT_CODE = 1
 PROBLEM_CODE = 2
 SOLUTION_CODE = 3
 RESOURCE_CODE = 4
-ARGUMENT_CODE = 5
+HYPERLINK_CODE = 5
 
 
 class BigPicture(models.Model):
@@ -17,8 +17,9 @@ class BigPicture(models.Model):
 		("problem", PROBLEM_CODE),
 		("solution", SOLUTION_CODE),
 		("resource", RESOURCE_CODE),
-		("argument", ARGUMENT_CODE),
+		("hyperlink", HYPERLINK_CODE),
 	))
+	hyperlink = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="references")
 	parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="children")
 	subject = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="family")
 	author = models.ForeignKey(BaseUser, on_delete=models.CASCADE)

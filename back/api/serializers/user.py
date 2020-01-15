@@ -1,28 +1,35 @@
 from django.contrib.auth.models import Group
-from rest_framework.serializers import ModelSerializer
-from rest_framework.serializers import SerializerMethodField, CharField, ImageField
+from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from api.models import BaseUser
+from api.models import BaseUser, BigPicture, Rating, SUBJECT_CODE
 
 
-class UserSerializer(ModelSerializer):
-    image = ImageField()
+class UserSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
+    ratedSubjectCount = serializers.SerializerMethodField()
+    ownSubjectCount = serializers.SerializerMethodField()
 
     class Meta:
         model = BaseUser
-        fields = ("id", "username", "groups", "image")
+        fields = ("id", "username", "groups", "image", "ratedSubjectCount", "ownSubjectCount")
+
+    def get_ratedSubjectCount(self, obj):
+        return Rating.objects.filter(author=obj.id).exclude(subject__author=obj.id).distinct("subject").count()
+
+    def get_ownSubjectCount(self, obj):
+        return BigPicture.objects.filter(author=obj.id, kind=SUBJECT_CODE).count()
 
 
-class GroupSerializer(ModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Group
 		fields = "__all__"
 
 
-class UserSerializerWithToken(ModelSerializer):
-    token = SerializerMethodField()
-    password = CharField(write_only=True)
+class UserSerializerWithToken(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+    password = serializers.CharField(write_only=True)
 
     def get_token(self, obj):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
