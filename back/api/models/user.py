@@ -3,4 +3,4 @@ from django.db import models
 
 
 class BaseUser(User):
-	image = models.ImageField(upload_to="profile_images", blank=True)
+	image = models.ImageField(default="profile_images/default_user_image.png", upload_to="profile_images", blank=False)

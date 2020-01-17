@@ -23,7 +23,7 @@ const users = (state = [], action) => {
         {
           id: usr.id,
           username: usr.username,
-          image: usr.image == null ? "http://localhost:8000/media/profile_images/download_c1P2Cgo.png" : usr.image,
+          image: usr.image,
           ownSubjectCount: usr.ownSubjectCount,
           ratedSubjectCount: usr.ratedSubjectCount,
           ratedSubjects: old != null ? old.ratedSubjects : [],

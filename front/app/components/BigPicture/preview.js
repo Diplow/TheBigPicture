@@ -226,6 +226,7 @@ const bpRatings = (bigPicture, ratings, parentMargin) => {
       target={bigPicture}
       ratingsFilter={(rating) => rating.target_bp == bigPicture.id}
       showHeader={false}
+      loadFirstPage={true}
       margin={margin}
     />
   )

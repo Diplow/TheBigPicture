@@ -1,7 +1,9 @@
 {% autoescape off %}
-Hi {{ user.username }},
+Bonjour {{ user.username }},
 
-Please click on the link below to confirm your registration:
+Visitez le lien suivant pour confirmer votre inscription:
 
 {{ scheme }}://{{ site.domain }}/accounts/activate/{{ activation_key }}/
+
+À bientôt sur VDE !
 {% endautoescape %}
