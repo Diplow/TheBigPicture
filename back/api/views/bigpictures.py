@@ -22,8 +22,16 @@ class SubjectViewSet(ModelViewSet):
 	def get_queryset(self):
 		queryset = self.queryset
 		author = self.request.query_params.get('author', None)
+		ratingauthor = self.request.query_params.get('ratingauthor', None)
+		reference = self.request.query_params.get('reference', None)
+		if reference is not None:
+			references = BigPicture.objects.get(id=reference).references.all().distinct('subject').values('subject')
+			queryset = queryset.filter(id__in=[r["subject"] for r in references])
 		if author is not None:
 			queryset = queryset.filter(author=author)
+		if ratingauthor is not None:
+			ratings = Rating.objects.filter(author_id=ratingauthor).distinct('subject').values('subject')
+			queryset = queryset.filter(id__in=[r["subject"] for r in ratings]).exclude(author_id=ratingauthor)
 		return queryset
 
 
@@ -53,7 +61,7 @@ class BigPictureViewSet(ModelViewSet):
 
 	def create(self, request):
 		request.data["author_id"] = request.user.id
-		if "subject" in request.data:
+		if "subject" in request.data and request.data["subject"] is not None:
 			subject = BigPicture.objects.get(id=request.data["subject"])
 			parent = BigPicture.objects.get(id=request.data["parent"])
 			assert subject.author.id == request.user.id

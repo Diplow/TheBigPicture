@@ -1,67 +1,46 @@
 
-from django.db.models import Avg, StdDev
 from rest_framework import serializers
-from api.models import BigPicture, BaseUser
+from api.models import BigPicture, BaseUser, Rating
 from api.serializers.user import UserSerializer
-import math
-
-
-def median_value(queryset, term):
-    count = queryset.count()
-    if count == 0:
-    	return 0
-    return queryset.values_list(term, flat=True).order_by(term)[math.trunc(count/2)]
+from api.serializers.vote import RatingSerializer
 
 
 class BigPictureChildSerializer(serializers.ModelSerializer):
-	kind = serializers.IntegerField()
 	children = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
-	author = UserSerializer(read_only=True)
-	ratings = serializers.SerializerMethodField(read_only=True)
+	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
+	ratingCount = serializers.SerializerMethodField()
+	referenceCount = serializers.SerializerMethodField()
+	hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.all(), )
 
 	class Meta:
 		model = BigPicture
 		fields = "__all__"
 
-	def get_ratings(self, obj):
-		res = []
-		ratings = obj.ratings.all()
-		for user in set([obj.author.id, self.context["author"], self.context["target"]]):
-			rating = ratings.filter(author=user, target=obj)
-			if rating.exists():
-				res.append({
-					"author": user,
-					"value": rating[0].value,
-					"target": obj.id,
-					"subject": obj.id if obj.subject is None else obj.subject.id,
-					"date": rating[0].date
-				})
-		return res
+	def get_ratingCount(self, obj):
+		return Rating.objects.filter(target_bp=obj.id, endorsment=None).exclude(reason="").count()
+
+	def get_referenceCount(self, obj):
+		return BigPicture.objects.filter(hyperlink=obj.id).distinct('subject').count()
 
 
 class BigPictureSerializer(serializers.ModelSerializer):
-	children = BigPictureChildSerializer(many=True, read_only=True)
-	family = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
+	children = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
+	family = BigPictureChildSerializer(many=True, read_only=True)
+	hyperlink = BigPictureChildSerializer(many=False, read_only=True)
+	hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.all(), )
 	kind = serializers.IntegerField()
-	ratings = serializers.SerializerMethodField(read_only=True)
 	author = UserSerializer(read_only=True)
-	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
+	author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
+	ratingCount = serializers.SerializerMethodField()
+	referenceCount = serializers.SerializerMethodField()
 
 	class Meta:
 		model = BigPicture
 		fields = "__all__"
 
-	def get_ratings(self, obj):
-		res = []
-		ratings = obj.ratings.all()
-		for user in set([obj.author.id, self.context["author"], self.context["target"]]):
-			rating = ratings.filter(author=user, target=obj)
-			if rating.exists():
-				res.append({
-					"author": user,
-					"value": rating[0].value,
-					"target": obj.id,
-					"subject": obj.id if obj.subject is None else obj.subject.id,
-					"date": rating[0].date
-				})
-		return res
+	def get_ratingCount(self, obj):
+		return Rating.objects.filter(target_bp=obj.id, endorsment=None).exclude(reason="").count()
+
+	def get_referenceCount(self, obj):
+		return BigPicture.objects.filter(hyperlink=obj.id).distinct('subject').count()
+

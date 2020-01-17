@@ -1,24 +1,24 @@
 @import "../../styles/theme.scss";
 
-.button.tbp-radio {
+span.vde-button.is-narrow.level-item {
 	color: $dark;
-	background-color: $light;
-	margin-right: 0.5rem;
+	background-color: transparent;
+	margin-right: 0.3rem;
+	border-width: 0;
+	width: 2.3rem;
+
+	a {
+		color: $dark;
+	}
+
+	a:hover {
+		color: grey;
+	}
 }
 
-.button.tbp-radio.is-active {
-	border-width: 2px;
-	border-color: $dark;
-}
 
-.button.tbp-radio.problem {
-	background-color: $primary-2;
-}
-
-.button.resource {
-	background-color: $primary-1;
-}
-
-.button.solution {
-	background-color: $primary-3;
+.button.tbp-radio.vde-add-comment.is-narrow {
+	a {
+		color: $dark;
+	}
 }

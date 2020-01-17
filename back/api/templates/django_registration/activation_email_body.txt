@@ -1,0 +1,9 @@
+{% autoescape off %}
+Bonjour {{ user.username }},
+
+Visitez le lien suivant pour confirmer votre inscription:
+
+{{ scheme }}://{{ site.domain }}/accounts/activate/{{ activation_key }}/
+
+À bientôt sur VDE !
+{% endautoescape %}

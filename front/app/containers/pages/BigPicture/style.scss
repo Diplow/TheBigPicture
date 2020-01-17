@@ -6,6 +6,7 @@
 		color: $light;
 	}
 }
+
 .tbp-context {
 	padding-top: 0.5rem;
 	margin-bottom: 0;
@@ -14,6 +15,17 @@
 		margin: 0;
 		font-weight: 600;
 	}
+}
+
+p.subtitle.level-item {
+    font-weight: 700;
+    padding: 0.5rem;
+    font-size: xx-large;
+}
+
+span.vde-button.is-narrow.level-item.button.tbp-radio {
+	color: $dark;
+	background-color: $light;
 }
 
 .button.tbp-radio {
@@ -47,4 +59,10 @@ p.tbp-description {
 
 .hero {
 	margin: 0.6rem 0;
+}
+
+div.vde-bigpicture-page {
+  .container.tbp-section.section-field {
+    padding-bot: 1rem;
+  }
 }

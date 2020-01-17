@@ -13,8 +13,9 @@ gunicorn = "*"
 djangorestframework-jwt = "*"
 psycopg2 = "*"
 Pillow = "*"
-boto3= ">=1.9.38"
-django-storages= "*"
+boto3 = ">=1.9.38"
+django-storages = "*"
+django-registration = "*"
 
 [requires]
 python_version = "3.7"

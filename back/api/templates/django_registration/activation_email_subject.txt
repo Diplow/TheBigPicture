@@ -1,0 +1,3 @@
+{% autoescape off %}
+VDE - activation du compte
+{% endautoescape %}

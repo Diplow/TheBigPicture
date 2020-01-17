@@ -13,8 +13,7 @@ import NotificationManager from '../../components/utils/notification'
 const App = () => (
   <div>
     <NavBar />
-    <Route exact={true} path="/bigpicture/:id/:user" component={BigPictureView} />
-    <Route exact={true} path="/bigpicture/:id" component={BigPictureView} />
+    <Route exact={true} path="/subject/:subjectId/bigPicture/:bpId" component={BigPictureView} />
     <Route exact={true} path="/user/:id" component={UserView} />
     <Route path="/home" component={Home}/>
     <Route exact={true} path="/" component={Home}/>

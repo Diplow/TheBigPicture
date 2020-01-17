@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import NewBigPicture from '../new'
 import "./style.scss"
 
 
-const BigPictureModalLook = ({ post, del, active, setActive, initBp }) => {
+const EditionModalLook = ({ post, del, construct, active, setActive, initData }) => {
 
-  const [bp, setBP] = useState(initBp)
+  const [item, setItem] = useState(initData)
   const [publish, setPublish] = useState(null)
-  const headline = initBp.id == undefined ? "Création de contenu" : "Modification de contenu"
+  const headline = initData.id == undefined ? "Création de contenu" : "Modification de contenu"
 
   return (
     <div className={"modal" + (active ? " is-active" : "")}>
@@ -19,19 +18,19 @@ const BigPictureModalLook = ({ post, del, active, setActive, initBp }) => {
           <button className="delete" onClick={() => setActive(false)} aria-label="close"></button>
         </header>
         <section className="modal-card-body">
-          <NewBigPicture bp={bp} setBP={setBP} />
+          { construct(item, setItem) }
         </section>
         <footer className="modal-card-foot">
           <div className="control">
             <button
               className="button is-dark"
-              onClick={() => { setActive(false); post(bp) }}>
+              onClick={() => { setActive(false); post(item) }}>
               Publier
             </button>
             <button
               className="button is-dark"
-              onClick={() => { setActive(false); del(bp) }}>
-              {initBp.id == undefined ? "Annuler" : "Supprimer"}
+              onClick={() => { setActive(false); del(item) }}>
+              {initData.id == undefined ? "Annuler" : "Supprimer"}
             </button>
           </div>
         </footer>
@@ -40,12 +39,13 @@ const BigPictureModalLook = ({ post, del, active, setActive, initBp }) => {
   )
 }
 
-BigPictureModalLook.propTypes = {
+EditionModalLook.propTypes = {
   post: PropTypes.func.isRequired,
   del: PropTypes.func.isRequired,
+  construct: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
   setActive: PropTypes.func.isRequired,
-  initBp: PropTypes.object.isRequired
+  initData: PropTypes.object.isRequired
 }
 
-export default BigPictureModalLook
+export default EditionModalLook

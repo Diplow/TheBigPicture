@@ -13,6 +13,8 @@ const notifications = (state = [], action) => {
   switch (action.type) {
 
     case cst.ADD_NOTIFICATION:
+      if (action.notif.message == undefined || action.notif.type == undefined)
+        return state
       return [
         ...state,
         {

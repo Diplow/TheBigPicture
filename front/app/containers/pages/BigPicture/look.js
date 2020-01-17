@@ -1,78 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import * as cst from '../../../constants'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
+import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
-import ReactTooltip from 'react-tooltip'
+import Results from '../../../components/BigPicture/results'
+import { RatingButton } from '../../../components/Rating/buttons'
 import AuthorIcon from '../../../components/User/authorIcon'
+import * as cst from '../../../constants'
 import "./style.scss"
-import AddBigPictureButton from '../../../components/BigPicture/looks/addbutton'
 
 
-const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }) => {
-  const initRatingUser = match.params.user != null ? parseInt(match.params.user) : 0
-  const [ratingUsers, setRatingUsers] = useState(initRatingUsers(user, bigPicture, initRatingUser))
-  const [ratingUser, setRatingUser] = useState(initRatingUser)
-  const [hidden, setHidden] = useState(true)
-  const tooltip = useRef(null)
+const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences }) => {
 
   useEffect(() => {
-    getBigPicture(match.params.id, match.params.user)
+    getBigPicture(match.params.subjectId)
   }, [match])
 
-  useEffect(() => {
-    if (ratingUser != 0 && ratingUsers.indexOf(ratingUser) == -1)
-      ratingUsers.push(ratingUser)
-    if (bigPicture != undefined && ratingUsers.indexOf(bigPicture.author.id) == -1) {
-      setRatingUsers([...ratingUsers, bigPicture.author.id])
-    }
-    if (bigPicture != undefined && ratingUser == 0) {
-      setRatingUser(bigPicture.author.id)
-    }
-  }, [ratingUser, bigPicture])
-
-  if (bigPicture == undefined || ratingUser == 0)
-    return null
-
-  const initNewBp = {
-    title: "",
-    parent: bigPicture.id,
-    kind: cst.PROBLEM,
-    subject: bigPicture.subject != null ? bigPicture.subject : bigPicture.id,
-    body: "",
-  }
-  const isGuest = user.id == 0
-
   return (
-    <div>
-      <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
-        <div className="container tbp-section">
-          <div className="level is-mobile">
-            <span className="level-item author-icon">
-              <AuthorIcon userId={bigPicture.author.id} clickable={true}/>
-            </span>
-            <h1 className="title" onClick={() => setHidden(!hidden)}>
-              {bigPicture.title}
-            <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
-            </h1>
-          </div>
-        </div>
-      </div>
-      <div className="container tbp-section">
-        <div key={bigPicture.id}>
-          <div className="level is-mobile">
-            <div className="level-left">
-              { ratingButton(bigPicture, ratingUser, setRatingUser, ratingUsers, tooltip) }
-            </div>
-            <div className="level-right">
-              { backButton(bigPicture.parent, ratingUser) }
-              { user.id == bigPicture.author.id ? <AddBigPictureButton initBp={initNewBp} /> : null }
-            </div>
-          </div>
-        </div>
-          {bigPictureList(bigPicture, ratingUser)}
-      </div>
+    <div className="vde-bigpicture-page">
+      { bigPicture == undefined ? <div className="container tbp-section section-field"><div className="loader"></div></div> : null }
+      { header(bigPicture) }
+      { analyse(bigPicture) }
+      { comments(bigPicture) }
+      { references(bigPicture, getReferences) }
+      { results(bigPicture) }
     </div>
   )
 }
@@ -80,83 +31,100 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture }
 BigPictureViewLook.propTypes = {
   match: PropTypes.object.isRequired,
   bigPicture: PropTypes.object,
-  getBigPicture: PropTypes.func.isRequired
+  getBigPicture: PropTypes.func.isRequired,
+  getReferences: PropTypes.func.isRequired
 }
 
-const initRatingUsers = (user, bigPicture, ratingUser) => {
-  let res = []
-  if (ratingUser != 0)
-    res.push(ratingUser)
-  if (user.id != 0 && res.indexOf(user.id) == -1)
-    res.push(user.id)
-  return res
-}
+const header = (bigPicture) => {
+  const [hidden, setHidden] = useState(false)
 
-const ratingButton = (bigPicture, ratingUser, setRatingUser, ratingUsers, tooltip) => {
-  const hideTooltip = () => {
-    const current = tooltip.current
-    current.tooltipRef = null
-    ReactTooltip.hide()
-  }
+  if (bigPicture == undefined)
+    return null
 
   return (
-    <div className="button is-primary">
-      <span className="level-item author-icon">
-        <AuthorIcon userId={ratingUser} clickable={true}/>
-      </span>
-      <span className="icon is-small">
-        <a data-tip data-for={'ratingbutton'+bigPicture.id} data-event='click'>
-          <span className="icon is-small">
-            <i className="bp-preview-icon fa fa-star"/>
-          </span>
-        </a>
-        <ReactTooltip
-          id={'ratingbutton'+bigPicture.id}
-          ref={tooltip}
-          place="top"
-          type="dark"
-          effect="float"
-          clickable={true}>
-          <div className="level is-mobile">
-            {
-              ratingUsers.map((rtgUsr) => {
-                return (
-                  <span onClick={() => { setRatingUser(rtgUsr); hideTooltip()}} key={rtgUsr} className="level-item author-icon">
-                    <AuthorIcon userId={rtgUsr} clickable={false}/>
-                  </span>
-                )
-              })
-            }
+    <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
+      <div className="container tbp-section">
+        <div className="level is-mobile no-top-margin">
+          <div className="level-left">
+            <span className="level-item author-icon">
+              <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
+            </span>
+            <h1 className="title" onClick={() => setHidden(!hidden)}>
+              {bigPicture.title}
+              <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
+            </h1>
           </div>
-        </ReactTooltip>
-      </span>
+        </div>
+      </div>
     </div>
   )
 }
 
-const backButton = (parent, ratingUser) => {
-  const to = parent == null ? "/" : "/bigPicture/" + parent + "/" + ratingUser
-  return (
-    <Link
-      className="button tbp-radio"
-      to={to}
-    >
-      <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
-    </Link>
+const analyse = (bigPicture) => {
+  if (bigPicture == undefined)
+    return null
 
+  return (
+    <div className="container tbp-section section-field">
+      <BigPictureList
+        parent={bigPicture}
+        count={bigPicture.children.length}
+        title={"Analyse"}
+        emptyMessage={"Aucun élément d'analyse n'a encore été apporté pour préciser cette vue d'ensemble."}
+        loadFirstPage={true}
+        buttons={[cst.ADD_BUTTON, cst.BACK_BUTTON]}
+        getPage={(page) => {}}
+        filter={bp => bp.parent == bigPicture.id}
+      />
+    </div>
   )
 }
 
-const bigPictureList = (bigPicture, ratingUser) => {
-  const bpFilter = (bp) => {
-    return (
-      bigPicture.id == bp.parent
-    )
-  }
-  const buttons = ["rate", "edit", "look"]
-  const showRatings = true
-  const getPage = (page) => {}
-  return createList(bigPicture, bigPicture.children.length, getPage, bpFilter, buttons, showRatings, ratingUser, bigPicture.children)
+const comments = (bigPicture) => {
+  if (bigPicture == undefined)
+    return null
+
+  return (
+    <div className="container tbp-section section-field">
+      <RatingList
+        target={bigPicture}
+        margin={cst.BASE_MARGIN}
+        showHeader={true}
+        loadFirstPage={true}
+        ratingsFilter={(rating) => rating.target_bp == bigPicture.id}
+      />
+    </div>
+  )
 }
+
+const references = (bigPicture, getReferences) => {
+  if (bigPicture == undefined)
+    return null
+
+  return (
+    <div className="container tbp-section section-field">
+      <BigPictureList
+        parent={bigPicture}
+        count={bigPicture.referenceCount}
+        title={"Références"}
+        emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
+        loadFirstPage={false}
+        buttons={[]}
+        getPage={(page) => {getReferences(page, bigPicture.id)}}
+        filter={bp => bigPicture.references.indexOf(bp.id) != -1}
+      />
+    </div>
+  )
+}
+
+const results = (bigPicture) => {
+  if (bigPicture == undefined)
+    return null
+
+  return (
+    <Results showHeader={true} bigPictureId={bigPicture.id} />
+  )
+}
+
 
 export default BigPictureViewLook

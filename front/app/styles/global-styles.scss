@@ -51,6 +51,11 @@ label {
   margin-bottom: .5rem;
 }
 
+.card.bp-tile {
+  border-radius: 10px;
+  box-shadow: inset 0 0 3px;
+}
+
 .column {
   padding: 0;
   margin: 0.5rem;
@@ -80,15 +85,23 @@ label {
 }
 
 .level-left {
-  max-width: 80%
+  max-width: 100%
 }
 
 .level-right {
-  max-width: 10%;
+  max-width: 50%;
 }
 
 .level.is-mobile {
   .level-item:not(:last-child) {
     margin-right: .1rem;
   }  
+}
+
+div.level.is-mobile {
+  margin-top: 0.5rem;
+}
+
+div.level.is-mobile.no-top-margin {
+  margin-top: 0;
 }

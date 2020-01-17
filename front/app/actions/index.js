@@ -9,31 +9,22 @@ export const postBigPicture = (bigPicture) => {
   }
 }
 
-export const postVote = (bpId, rating, author, subject) => {
+export const postVote = (vote) => {
   return (dispatch) => {
-    const vote = {
-      author,
-      subject,
-      target: bpId,
-      value: rating
-    }
     api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
 }
 
-export const addBigPicture = (bigPicture) => {
+export const deleteVote = (id) => {
   return (dispatch) => {
-    for (let i = 0; i < bigPicture.ratings.length; ++i) {
-      const rating = bigPicture.ratings[i]
-      dispatch(basics.addRating(rating))
-    }
-    dispatch(basics.addBigPicture(bigPicture))
+    api.deleteItem(dispatch, id, "ratings")
   }
 }
 
 export const patchBigPicture = (bigPicture) => {
   return (dispatch) => {
-    api.sendItem(dispatch, bigPicture, "bigpictures", addBigPicture, "/" + bigPicture.id + "/", "PATCH")
+    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null) && delete bigPicture[key])
+    api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, `/${bigPicture.id}/`, "PATCH")
   }
 }
 
@@ -51,24 +42,43 @@ export const getSubjects = (page) => {
   }
 }
 
-export const getResources = (bigpictureId, userId) => {
-  const userparam = userId != null ? ["user=" + userId] : []
+export const getResources = (bigpictureId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "bigpictures", page, ["element=" + bigpictureId].concat(userparam))
+    api.getCollection(dispatch, "bigpictures", page, [`element=${bigpictureId}`])
   }
 }
 
-export const getBigPicture = (bpId, userId) => {
+export const getResults = (bigpictureId) => {
   return (dispatch) => {
-    api.getItem(dispatch, bpId, "bigpictures", userId != undefined ? ["ratingauthor=" + userId] : [])
+    const next = "getresults"
+    const nextargs = { bigpictureId }
+    api.get(dispatch, `bigpictures/${bigpictureId}/results`, [], next, nextargs)
+  }
+}
+
+export const getBigPicture = (bpId) => {
+  return (dispatch) => {
+    api.getItem(dispatch, bpId, "bigpictures", [])
+  }
+}
+
+export const getReferences = (page, bpId) => {
+  return (dispatch) => {
+    const next = "getreferences"
+    const nextargs = { bpId }
+    api.getCollection(dispatch, "subjects", page, [`reference=${bpId}`], next, nextargs)
+  }
+}
+
+export const getBigPictureRatings = (page, targetId, userId) => {
+  return (dispatch) => {
+    api.getCollection(dispatch, "ratings", page, [`bigpicture=${targetId}`])
   }
 }
 
 export const getOwnSubjects = (userId, page) => {
   return (dispatch) => {
-    const next = "getownsubjects"
-    const nextargs = { userId }
-    api.getCollection(dispatch, "subjects", page, ["author=" + userId], next, nextargs)
+    api.getCollection(dispatch, "subjects", page, [`author=${userId}`])
   }
 }
 
@@ -76,7 +86,7 @@ export const getRatedSubjects = (userId, page) => {
   return (dispatch) => {
     const next = "getratedsubjects"
     const nextargs = { userId }
-    api.getCollection(dispatch, "ratings", page, ["ratingauthor=" + userId], next, nextargs)
+    api.getCollection(dispatch, "subjects", page, [`ratingauthor=${userId}`], next, nextargs)
   }
 }
 

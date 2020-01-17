@@ -4,77 +4,31 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const Pagination = ({ currentPageNb, pageCount, changePage }) => {
-  if (pageCount == 1)
-    return null
-
-  const hidePreviousPage = currentPageNb == 1
-  const hideNextPage = currentPageNb == pageCount
-  const hidePreviousEllipsis = currentPageNb < 4
-  const hideNextEllipsis = currentPageNb > pageCount - 3
-  const hideLastPage = currentPageNb >= pageCount - 1
-  const hideFirstPage = currentPageNb <= 2
-
-  const firstPage = (hide) => (hide ? null : <li><a className="pagination-link" aria-label="Goto page 1" onClick={changePage(1)}>1</a></li>)
-  const prevEllipsis = (hide) => (hide ? null : <li><span className="pagination-ellipsis">&hellip;</span></li>) 
-  const prevPage = (hide) => (hide ? null : <li><a className="pagination-link" aria-label="Goto previous page" onClick={changePage(currentPageNb-1)}>{currentPageNb-1}</a></li>)
-  const currentPage = () => (<li><a className="pagination-link is-current" aria-label="currentPage">{currentPageNb}</a></li>)
-  const nextPage = (hide) => (hide ? null : <li><a className="pagination-link" aria-label="Goto next page" onClick={changePage(currentPageNb+1)}>{currentPageNb+1}</a></li>)
-  const nextEllipsis = prevEllipsis
-  const lastPage = (hide) => (hide ? null : <li><a className="pagination-link" aria-label="Goto last page" onClick={changePage(pageCount)}>{pageCount}</a></li>)
-
-  return (
-    <nav className="pagination level-item" role="navigation" aria-label="pagination">
-      <ul className="pagination-list">
-        { firstPage(hideFirstPage) }
-        { prevEllipsis(hidePreviousEllipsis) }
-        { prevPage(hidePreviousPage) }
-        { currentPage() }
-        { nextPage(hideNextPage) }
-        { nextEllipsis(hideNextEllipsis) }
-        { lastPage(hideLastPage) }
-      </ul>
-    </nav>
-  )
-}
-
-Pagination.propTypes = {
-  currentPageNb: PropTypes.number.isRequired,
-  pageCount: PropTypes.number.isRequired,
-  changePage: PropTypes.func.isRequired
-}
-
-const createPagination = (items, count, getPage, size) => {
-  const [currentPage, setCurrentPage] = useState([])
-  const [currentPageNb, setCurrentPageNb] = useState(1)
+const createPagination = (items, count, getPage, size, loadFirstPage) => {
+  const [pageNb, setPageNb] = useState(0)
+  const [currentPage, setCurrentPage] = useState(items.slice(0, pageNb*size))
   const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
 
-  const changePage = (pageNb) => {
-    return () => {
-      const first = size*(pageNb-1)
-      const last = first + size
-      getPage(pageNb)
-      setCurrentPage(items.slice(first, last))
-      setCurrentPageNb(pageNb)
-    }
+  const loadMore = () => {
+    getPage(pageNb+1)
+    setCurrentPage(items.slice(0, (pageNb+1)*size))
+    setPageNb(pageNb+1)
   }
 
   useEffect(() => {
-    changePage(currentPageNb)()
-    setCurrentPageCount(Math.ceil(count / size))
+    setCurrentPage(items.slice(0, pageNb*size))
   }, [items])
 
-  if (items == null || items.length == 0)
-    return [null, []]
+  useEffect(() => {
+    if (loadFirstPage)
+      loadMore()
+  }, [])
 
-  const res = (
-    <div className="level is-mobile">
-      <div className="level-left" />
-      <div className="level-right">
-        <Pagination currentPageNb={currentPageNb} pageCount={pageCount} changePage={changePage} />
-      </div>
-    </div>
-  )
+  const res = currentPage.length < count ? (
+    <a className="subtitle vde-loadmore" onClick={loadMore}>
+      Charger plus de contenus...
+    </a>
+  ) : null
   return [res, currentPage]
 }
 

@@ -48,6 +48,7 @@ const user = (state = initial_state, action) => {
     case cst.LOGIN:
       return {
         ...action.user,
+        image: action.user.image,
         token: action.token
       }
 

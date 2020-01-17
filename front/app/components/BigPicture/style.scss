@@ -1,4 +1,9 @@
-@import "../../../styles/theme.scss";
+@import "../../styles/theme.scss";
+
+.vde-toolbar {
+	height: 2rem;
+	padding-left: 0.5rem;
+}
 
 .subtitle-modal {
 	margin: 0;
@@ -16,6 +21,10 @@
 }
 
 .subject {
+	background-color: $light;
+}
+
+.reference {
 	background-color: $light;
 }
 
@@ -86,7 +95,6 @@ section.modal-card-body {
 	text-align: left;
 	float: left;
 	margin-bottom: 0;
-	max-width: 95%;
 }
 
 .level.preview-item-level {
@@ -99,5 +107,5 @@ section.modal-card-body {
 }
 
 .bp-tile {
-	margin: 0.4rem 0;
+	margin-bottom: 0.4rem;
 }

@@ -10,7 +10,7 @@ import bigpicturesReducer from './bigpictures'
 import notificationsReducer from './notifications'
 import userReducer from './user'
 import usersReducer from './users'
-import resultsReducer from './results'
+import ratingsReducer from './ratings'
 import requestsReducer from './requests'
 import globalReducer from './global'
 
@@ -49,7 +49,7 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
     bigpictures: bigpicturesReducer,
-    results: resultsReducer,
+    ratings: ratingsReducer,
     user: userReducer,
     users: usersReducer,
     requests: requestsReducer,
