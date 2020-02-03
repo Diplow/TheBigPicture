@@ -83,9 +83,9 @@ ACCOUNT_ACTIVATION_DAYS = 7
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'localhost:1337',
-    'localhost:3000'
+    'http://localhost:8000',
+    'http://localhost:1337',
+    'http://localhost:3000'
 )
 
 ROOT_URLCONF = 'api.urls'
@@ -123,12 +123,7 @@ DATABASES = {
     }
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'VDE'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
