@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from api.models import BigPicture, BaseUser, Rating, SUBJECT_CODE
+from api.models import BigPicture, Rating, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
 from api.permissions import IsAuthorOrReadOnly
 import json
