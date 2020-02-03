@@ -1,6 +1,5 @@
 from django.db import models
 from api.settings import AUTH_USER_MODEL
-from api.models.user import BaseUser
 import datetime
 
 SUBJECT_CODE = 1
