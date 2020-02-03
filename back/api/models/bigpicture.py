@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 from api.models.user import BaseUser
 import datetime
 

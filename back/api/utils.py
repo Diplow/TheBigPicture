@@ -1,5 +1,5 @@
 from api.serializers.user import UserSerializer
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 
 
 def my_jwt_response_handler(token, user=None, request=None):

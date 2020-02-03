@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 from api.models.bigpicture import BigPicture
 import datetime
 import statistics
