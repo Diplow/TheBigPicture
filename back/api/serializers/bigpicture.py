@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 from api.models import BigPicture Rating
 from api.serializers.user import UserSerializer
 from api.serializers.vote import RatingSerializer

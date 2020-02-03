@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 from rest_framework.viewsets import ModelViewSet
 from api.serializers.user import UserSerializerWithToken, UserSerializer
 from api.serializers.user import GroupSerializer

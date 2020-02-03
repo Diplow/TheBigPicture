@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from django.conf.settings import AUTH_USER_MODEL
+from api.settings import AUTH_USER_MODEL
 from api.models import BigPicture, Rating, SUBJECT_CODE
 
 
