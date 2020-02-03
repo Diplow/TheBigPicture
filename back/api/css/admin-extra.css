@@ -1,0 +1,17 @@
+
+body {
+    color: #1f2041;
+    background-color: #F4E5DA;
+    margin: 2rem;
+    font-size: larger;
+}
+
+button {
+    background-color: #1F2043;
+    border: 0;
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    color: #f4e5d9;
+    font-weight: 800;
+    font-size: large;
+}

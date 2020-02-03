@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from api.settings import AUTH_USER_MODEL
-from api.models import Rating, BigPicture
+from api.models import Rating, BigPicture, BaseUser
 from api.serializers.user import UserSerializer
 
 
 class RatingSerializer(serializers.ModelSerializer):
 	author = UserSerializer(read_only=True)
-	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=AUTH_USER_MODEL.objects.all(), )
+	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
 	ratingCount = serializers.SerializerMethodField()
 
 	class Meta:

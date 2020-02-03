@@ -1,5 +1,5 @@
 from django.db import models
-from api.settings import AUTH_USER_MODEL
+from django.conf import settings
 import datetime
 
 SUBJECT_CODE = 1
@@ -22,7 +22,7 @@ class BigPicture(models.Model):
 	hyperlink = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="references")
 	parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="children")
 	subject = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="family")
-	author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	creation_date = models.DateField(auto_now_add=True)
 	modification_date = models.DateTimeField(auto_now=True)
 

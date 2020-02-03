@@ -1,14 +1,13 @@
 
 from rest_framework import serializers
-from api.settings import AUTH_USER_MODEL
-from api.models import BigPicture Rating
+from api.models import BigPicture, BaseUser, Rating
 from api.serializers.user import UserSerializer
 from api.serializers.vote import RatingSerializer
 
 
 class BigPictureChildSerializer(serializers.ModelSerializer):
 	children = serializers.PrimaryKeyRelatedField(many=True, read_only=True, required=False)
-	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=AUTH_USER_MODEL.objects.all(), )
+	author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
 	ratingCount = serializers.SerializerMethodField()
 	referenceCount = serializers.SerializerMethodField()
 	hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.all(), )
@@ -31,7 +30,7 @@ class BigPictureSerializer(serializers.ModelSerializer):
 	hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.all(), )
 	kind = serializers.IntegerField()
 	author = UserSerializer(read_only=True)
-	author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=AUTH_USER_MODEL.objects.all(), )
+	author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
 	ratingCount = serializers.SerializerMethodField()
 	referenceCount = serializers.SerializerMethodField()
 
