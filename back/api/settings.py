@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost"]
 
+AUTH_USER_MODEL = 'api.BaseUser'
 
 # Application definition
 
