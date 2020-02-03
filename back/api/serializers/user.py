@@ -1,8 +1,7 @@
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from api.settings import AUTH_USER_MODEL
-from api.models import BigPicture, Rating, SUBJECT_CODE
+from api.models import BigPicture, Rating, SUBJECT_CODE, BaseUser
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     ownSubjectCount = serializers.SerializerMethodField()
 
     class Meta:
-        model = AUTH_USER_MODEL
+        model = BaseUser
         fields = ("id", "username", "groups", "image", "ratedSubjectCount", "ownSubjectCount")
 
     def get_ratedSubjectCount(self, obj):
@@ -49,5 +48,5 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         return instance
 
     class Meta:
-        model = AUTH_USER_MODEL
+        model = BaseUser
         fields = ('token', 'username', 'password', 'image', 'id')
