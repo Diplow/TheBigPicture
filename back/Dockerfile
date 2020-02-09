@@ -23,7 +23,12 @@ RUN apk --update add libxml2-dev libxslt-dev libffi-dev gcc musl-dev libgcc open
 RUN apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev
 
 COPY ./Pipfile /opt/vuedensemble/back
-RUN pipenv install --skip-lock --system --dev
+RUN cat Pipfile
+RUN pipenv install --skip-lock --deploy --system --ignore-pipfile
+RUN pip uninstall --yes Django
+RUN pip uninstall --yes Django
+RUN pip install Django==2.2
+RUN pip freeze
 
 # copy project
 COPY . /opt/vuedensemble/back

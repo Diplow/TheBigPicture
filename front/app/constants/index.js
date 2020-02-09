@@ -1,5 +1,5 @@
 
-export const SERVER_ADDR = document.domain == "localhost" ? "http://localhost:8000/api/" : "http://api.vue-d-ensemble.fr/api/"
+export const SERVER_ADDR = document.domain == "localhost" ? "http://localhost:8000/api/" : "https://api.vue-d-ensemble.fr/api/"
 export const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"]
 
 export const GUEST_NAME = "Invité"

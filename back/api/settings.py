@@ -82,11 +82,13 @@ JWT_AUTH = {
 ACCOUNT_ACTIVATION_DAYS = 7
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
     'http://localhost:1337',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://api.vue-d-ensemble.fr',
+    'https://vue-d-ensemble.fr'
 )
 
 ROOT_URLCONF = 'api.urls'
