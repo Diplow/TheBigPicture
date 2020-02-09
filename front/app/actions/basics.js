@@ -109,3 +109,10 @@ export const removeBigPicture = (id) => {
     id
   }
 }
+
+export const removeRating = (id) => {
+  return {
+    type: cst.DELETE_RATING,
+    id
+  }
+}

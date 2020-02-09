@@ -17,7 +17,12 @@ export const itemModification = {
       title: "Vue modifiée",
       message: "Votre vue a bien été modifiée.",
       type: "success"
-    }
+    },
+  ratings: {
+    title: "Vote modifié",
+    message: "Votre vote a bien été modifié.",
+    type: "success"
+  }
 }
 
 export const itemDeletion = {
@@ -25,5 +30,10 @@ export const itemDeletion = {
       title: "Vue supprimée",
       message: "Votre vue a bien été supprimée.",
       type: "success"
-    }
+    },
+  ratings: {
+    title: "Vote supprimé",
+    message: "Votre vote a bien été supprimé.",
+    type: "success"
+  }
 }

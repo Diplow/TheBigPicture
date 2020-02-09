@@ -31,7 +31,7 @@ class SubjectViewSet(ModelViewSet):
 			queryset = queryset.filter(author=author)
 		if ratingauthor is not None:
 			ratings = Rating.objects.filter(author_id=ratingauthor).distinct('subject').values('subject')
-			queryset = queryset.filter(id__in=[r["subject"] for r in ratings]).exclude(author_id=ratingauthor)
+			queryset = queryset.filter(id__in=[r["subject"] for r in ratings])
 		return queryset
 
 

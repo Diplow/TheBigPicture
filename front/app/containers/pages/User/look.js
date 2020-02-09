@@ -22,11 +22,13 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
     <div>
       <div className="hero subject">
         <div className="container tbp-section">
-          <div className="level is-mobile">
-            <span className="level-item author-icon">
-              <AuthorIcon userId={user.id}/>
-            </span>
-            <h1 className="title">{user.username}</h1>
+          <div className="level is-mobile no-top-margin">
+            <div className="level-left">
+              <span className="level-item author-icon">
+                <AuthorIcon userId={user.id}/>
+              </span>
+              <h1 className="title">{user.username}</h1>
+            </div>
           </div>
         </div>
       </div>
@@ -62,10 +64,9 @@ const userRatings = (user, ratings, getPage) => {
   const bpFilter = (bp) => {
     return (
       user.ratedSubjects.indexOf(bp.id) != -1
-      && bp.author != user.id
     )
   }
-  const loadFirstPage = false
+  const loadFirstPage = true
   return subjectsList(bpFilter, user.ratedSubjectCount, getPage, "Sujets évalués", `Aucun sujet n'a encore été évalué publiquement par ${user.username}`, loadFirstPage)
 }
 

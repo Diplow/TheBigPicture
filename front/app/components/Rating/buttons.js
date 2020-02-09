@@ -6,9 +6,14 @@ import NewRating from './new'
 
 
 const RatingButtonLook = ({ initRating, ownRating }) => {
+  const [init, setter] = useState(ownRating == null ? initRating : ownRating)
+  useEffect(() => {
+    setter(ownRating == null ? initRating : ownRating)
+  }, [initRating, ownRating])
   return (
     <EditionModalButton
-      init={ownRating == null ? initRating : ownRating}
+      init={init}
+      setter={setter}
       icon={"fas fa-star "}
       EditionModal={RatingModal}
       NewItem={NewRating}
@@ -32,9 +37,14 @@ export const RatingButton = connect(mapStateToProps)(RatingButtonLook)
 
 
 export const EditRatingButton = ({ initRating }) => {
+  const [init, setter] = useState(initRating)
+  useEffect(() => {
+    setter(initRating)
+  }, [initRating])
   return (
     <EditionModalButton
-      init={initRating}
+      init={init}
+      setter={setter}
       icon={"fas fa-edit "}
       EditionModal={RatingModal}
       NewItem={NewRating}

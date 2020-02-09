@@ -11,7 +11,6 @@ import "./style.scss"
 
 
 const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences }) => {
-
   useEffect(() => {
     getBigPicture(match.params.subjectId)
   }, [match])

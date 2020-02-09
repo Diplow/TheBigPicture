@@ -24,6 +24,9 @@ const ratings = (state = [], action) => {
         }
       ]
 
+    case cst.DELETE_RATING:
+      return state.filter(elt => elt.id != action.id)
+
     default:
       return state
   }

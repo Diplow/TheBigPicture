@@ -29,6 +29,12 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
       getBigPicture(bigPicture.hyperlink_id)
   }, [])
 
+  const [init, setter] = useState(bigPicture)
+
+  useEffect(() => {
+    setter(bigPicture)
+  }, [bigPicture])
+
   const [showChildren, toggleChildren] = useToggle(false)
   const [showRatings, toggleRatings] = useToggle(false)
   const [showDetails, toggleDetails] = useToggle(false)
@@ -51,7 +57,9 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
             showChildren,
             toggleDetails,
             toggleRatings,
-            toggleChildren) }
+            toggleChildren,
+            init,
+            setter) }
       </div>
       { showRatings ? bpRatings(bigPicture, ratings, margin) : null }
       { showChildren ? bpChildren(bigPicture, margin) : null }
@@ -77,14 +85,14 @@ const bpLeftLevel = (bigPicture) => {
 	)
 }
 
-const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, toggleDetails, toggleRatings, toggleChildren) => {
+const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, toggleDetails, toggleRatings, toggleChildren, init, setter) => {
   return (
     <div className="level is-mobile vde-toolbar">
       <div className="level-left">
         <p>{bigPicture.creation_date}</p>
       </div>
       <div className="level-right">
-        {editButton(bigPicture)}
+        {editButton(init, setter)}
         {ratingButton(bigPicture)}
         { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
         { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
@@ -128,10 +136,11 @@ const toggleDetailsButton = (showDetails, toggleDetails) => {
   )
 }
 
-const editButton = (bigPicture) => {
+const editButton = (init, setter) => {
   return (
     <EditionModalButton
-      init={bigPicture}
+      init={init}
+      setter={setter}
       icon={"fas fa-edit"}
       EditionModal={BigPictureModal}
       NewItem={NewBigPicture}
@@ -237,7 +246,7 @@ const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
     bigPicture,
-    hyperlink: state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id),
+    hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
     ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
   }
 }

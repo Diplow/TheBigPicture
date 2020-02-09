@@ -5,7 +5,7 @@ import RadioButton from './radio'
 import "./style.scss"
 
 
-const EditionModalButtonLook = ({ user, classname, init, icon, EditionModal, NewItem }) => {
+const EditionModalButtonLook = ({ user, classname, init, setter, icon, EditionModal, NewItem }) => {
   const [isActive, setIsActive] = useState(false)
 
   if (user.id == 0 || (init.id != undefined && init.author != user.id))
@@ -20,10 +20,10 @@ const EditionModalButtonLook = ({ user, classname, init, icon, EditionModal, New
         icon={icon}
       />
       <EditionModal
-	    construct={(data, setData) => <NewItem data={data} setData={setData} />}
+	    construct={<NewItem data={init} setData={setter} />}
 	    active={isActive}
 	    setActive={setIsActive}
-	    initData={init}
+	    data={init}
 	  />
     </div>
   )
@@ -33,6 +33,7 @@ EditionModalButtonLook.propTypes = {
 	user: PropTypes.object.isRequired,
 	classname: PropTypes.string,
 	init: PropTypes.object.isRequired,
+	setter: PropTypes.func.isRequired,
 	icon: PropTypes.string.isRequired,
 	EditionModal: PropTypes.elementType.isRequired,
 	NewItem: PropTypes.elementType.isRequired

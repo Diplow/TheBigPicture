@@ -20,7 +20,7 @@ class RatingViewSet(ModelViewSet):
 		if author is not None:
 			queryset = queryset.filter(author=author)
 		if ratingauthor is not None:
-			queryset = queryset.filter(author=ratingauthor).exclude(subject__author=ratingauthor).distinct('subject')
+			queryset = queryset.filter(author=ratingauthor).distinct('subject')
 		if bp is not None:
 			queryset = queryset.filter(target_bp=bp)
 		return queryset

@@ -7,11 +7,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { getBigPicture } from '../../actions'
 
 import usePagination from '../utils/pagination'
-import EditionModalButton from '../Buttons/modal'
+import AddBigPictureButton from '../Buttons/add'
 
 import BigPicturePreview from './preview'
-import NewBigPicture from './new'
-import BigPictureModal from './modal'
 
 import * as cst from '../../constants'
 import "./style.scss"
@@ -24,7 +22,7 @@ const BigPictureListLook = ({ user, parent, bigPictures, title, emptyMessage, lo
   return (
     <div>
     { header(buttons, parent, user, title) }
-    { count == 0 ? <p className="vde-no-comment subtitle">{emptyMessage}</p> : null }
+    { count == 0 && bigPictures.length == 0 ? <p className="vde-no-comment subtitle">{emptyMessage}</p> : null }
     { page.map((bp) => <BigPicturePreview key={bp.id} bigPictureId={bp.id} margin={0} />) }
     { pagination }
     </div>
@@ -99,32 +97,13 @@ const backButton = (bp) => {
 }
 
 const addBigPictureButton = (bigPicture) => {
-  const newBP = {
-    title: "",
-    parent: bigPicture == null ? null : bigPicture.id,
-    kind: bigPicture == null ? cst.SUBJECT : cst.PROBLEM,
-    hyperlink: null,
-    subject: bigPicture == null ? null : (bigPicture.subject != null ? bigPicture.subject : bigPicture.id),
-    body: "",
-  }
-  return (
-    <div className="button tbp-radio vde-add-comment is-narrow">
-      <EditionModalButton
-        init={newBP}
-        classname={"button tbp-radio "}
-        icon={"fas fa-plus"}
-        EditionModal={BigPictureModal}
-        NewItem={NewBigPicture}
-      />
-    </div>
-  )
+  return <AddBigPictureButton bigPicture={bigPicture} />
 }
 
 
 const mapStateToProps = (state, ownProps) => {
-  const user = state.get("user")
   return {
-    user,
+    user: state.get("user"),
     bigPictures: state.get("bigpictures").filter(ownProps.filter),
     ratings: ownProps.parent != null ? state.get("ratings").filter(rating => rating.author == ownProps.parent.author) : [],
   }
@@ -133,14 +112,3 @@ const mapStateToProps = (state, ownProps) => {
 const BigPictureList = connect(mapStateToProps)(BigPictureListLook)
 
 export default BigPictureList
-
-export const createList = (parent, count, getPage, filter) => {
-  return (
-    <BigPictureList
-      parent={parent}
-      count={count}
-      getPage={getPage}
-      filter={filter}
-    />
-  )
-}
