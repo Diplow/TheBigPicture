@@ -27,7 +27,7 @@ RUN cat Pipfile
 RUN pipenv install --skip-lock --deploy --system --ignore-pipfile
 RUN pip uninstall --yes Django
 RUN pip uninstall --yes Django
-RUN pip install Django==2.2
+RUN pip install Django==2.2.9
 RUN pip freeze
 
 # copy project
