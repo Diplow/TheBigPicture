@@ -61,8 +61,16 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
             init,
             setter) }
       </div>
-      { showRatings ? bpRatings(bigPicture, ratings, margin) : null }
-      { showChildren ? bpChildren(bigPicture, margin) : null }
+      {
+        showRatings && ratings.length != 0
+        ? bpRatings(bigPicture, ratings, margin) 
+        : null
+      }
+      {
+        showChildren && bigPicture.children.length != 0
+        ? bpChildren(bigPicture, margin)
+        : null
+      }
     </div>
   )
 }
@@ -96,7 +104,7 @@ const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, to
         {ratingButton(bigPicture)}
         { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
         { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
-        { bigPicture.ratingCount != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
+        { bigPicture.ratingCount != 0 || ratings.length != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
         {lookButton(bigPicture)}
       </div>
     </div>

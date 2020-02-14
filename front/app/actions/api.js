@@ -160,6 +160,13 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
           type: "warning"
         }))
       }
+      else if (Array.isArray(res.title)) {
+        dispatch(basics.notification({
+          title: "La vue n'a pas pu être créée",
+          message: res.title[0],
+          type: "warning"
+        }))
+      }
       else {
         dispatch(action(res))
         const verb = method == "PATCH" ? notifications.itemModification : notifications.itemCreation

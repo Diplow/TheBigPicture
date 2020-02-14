@@ -14,7 +14,7 @@ const ratings = (state = [], action) => {
         {
           id: rating.id,
           author: rating.author.id,
-          value: rating.value,
+          value: parseInt(rating.value),
           target_bp: rating.target_bp,
           target_rating: rating.target_rating,
           ratingCount: rating.ratingCount,

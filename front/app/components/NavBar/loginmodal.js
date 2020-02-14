@@ -40,6 +40,9 @@ const LoginModalLook = ({ active, setActive, login }) => {
               value={credentials.password}
               onChange={edit}
             />
+            <label className="label login-inscription"> 
+	          <a href="https://api.vue-d-ensemble.fr/api/accounts/register">Ou inscrivez-vous ici.</a>
+	        </label>
           </form>
         </section>
         <footer className="modal-card-foot">

@@ -10,7 +10,7 @@ HYPERLINK_CODE = 5
 
 
 class BigPicture(models.Model):
-	title = models.CharField(max_length=150)
+	title = models.CharField(max_length=380)
 	body = models.TextField(blank=True)
 	kind = models.IntegerField(choices=(
 		("subject", SUBJECT_CODE),

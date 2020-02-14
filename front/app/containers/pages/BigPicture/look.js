@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
+import ReactMarkdown from 'react-markdown'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
@@ -50,7 +51,9 @@ const header = (bigPicture) => {
             </span>
             <h1 className="title" onClick={() => setHidden(!hidden)}>
               {bigPicture.title}
-              <p className={hidden ? "tbp-description is-hidden" : "tbp-description"}>{bigPicture.body}</p>
+              <div className={hidden ? "tbp-description is-hidden" : "tbp-description"}>
+                <ReactMarkdown source={bigPicture.body} />
+              </div>
             </h1>
           </div>
         </div>

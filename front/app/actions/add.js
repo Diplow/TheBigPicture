@@ -15,7 +15,8 @@ export const add = (request) => {
 	    }
 	  }
 
-	  dispatch(basics.addUser(bigPicture.author))
+	  if (bigPicture.author.id != undefined)
+		dispatch(basics.addUser(bigPicture.author))
 	  dispatch(basics.addBigPicture(bigPicture))
   }
 

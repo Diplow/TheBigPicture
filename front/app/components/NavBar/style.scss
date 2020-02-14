@@ -8,6 +8,17 @@
 	color: $dark;
 }
 
+.label.login-label {
+	margin-top: 0.5rem;
+}
+
+.label.login-inscription {
+	a {
+		font-weight: 400;
+	}
+	margin-top: 1rem;
+}
+
 .login-input {
 	width: 100%;
 }
