@@ -23,6 +23,12 @@ p.subtitle.level-item {
     font-size: xx-large;
 }
 
+div.tbp-description {
+	p {
+		margin-bottom: 1rem;
+	}
+}
+
 span.vde-button.is-narrow.level-item.button.tbp-radio {
 	color: $dark;
 	background-color: $light;
