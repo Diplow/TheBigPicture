@@ -62,7 +62,7 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
             setter) }
       </div>
       {
-        showRatings && ratings.length != 0
+        showRatings
         ? bpRatings(bigPicture, ratings, margin) 
         : null
       }
