@@ -8,12 +8,14 @@ WORKDIR /opt/tbp/front/
 # where available (npm@5+)
 COPY package*.json ./
 
+RUN rm -rf node_modules
 RUN npm install
 # If you are building your code for production
-RUN npm ci --only=production
+# RUN npm ci --only=production
 
 # Bundle app source
 COPY . .
 RUN npm run build
+RUN ls -l build
 
 EXPOSE 3000
