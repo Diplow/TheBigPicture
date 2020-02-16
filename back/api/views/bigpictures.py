@@ -70,3 +70,24 @@ class BigPictureViewSet(ModelViewSet):
 		else:
 			assert request.data["kind"] == SUBJECT_CODE
 		return super().create(request)
+
+	def partial_update(self, request, pk=None):
+		if "subject" in request.data and request.data["subject"] is not None:
+			subject = BigPicture.objects.get(id=request.data["subject"])
+			parent = BigPicture.objects.get(id=request.data["parent"])
+			if parent.subject is not None:
+				if parent.subject.id != subject.id:
+					request.data["subject"] = parent.subject.id
+			else:
+				if parent.id != subject.id:
+					request.data["subject"] = parent.id
+			if (request.data["subject"] != subject.id):
+				subject = BigPicture.objects.get(id=request.data["subject"])
+			assert subject.author.id == request.user.id
+			assert parent.author.id == request.user.id
+			assert parent.id == subject.id or subject.id == parent.subject.id
+		else:
+			assert request.data["kind"] == SUBJECT_CODE
+
+		return super().partial_update(request, pk)
+

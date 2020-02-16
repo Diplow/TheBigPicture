@@ -3,10 +3,15 @@ import * as cst from "../constants"
 
 
 const bigpictures = (state = [], action) => {
+  let old = null
+  let old_parent = null
+  let new_parent = null
+  let res = state
+
   switch (action.type) {
 
     case cst.ADD_BIG_PICTURE_REFERENCE:
-      let old = state.find(element => element.id == action.bpId)
+      old = state.find(element => element.id == action.bpId)
       return [
         ...state.filter(element => element.id != old.id),
         {
@@ -28,15 +33,20 @@ const bigpictures = (state = [], action) => {
     case cst.ADD_BIG_PICTURE:
       const bp = action.bigpicture
       old = state.find(element => element.id == bp.id)
-      return [
-        ...state.filter(element => element.id != bp.id),
+      if (old != null && old.parent != bp.parent) {
+        old_parent = state.find(element => element.id == old.parent)
+        new_parent = state.find(element => element.id == bp.parent)
+      }
+      res = [
+        ...state.filter(element => element.id != bp.id
+          && (old_parent == null || element.id != old_parent.id)
+          && (new_parent == null || element.id != new_parent.id)),
         {
           id: bp.id,
           title: bp.title,
           kind: bp.kind,
           body: bp.body,
           children: bp.children,
-          family: bp.family != null ? bp.family.map(child => child.id) : undefined,
           hyperlink: bp.hyperlink,
           hyperlink_id: bp.hyperlink_id,
           parent: bp.parent,
@@ -49,6 +59,17 @@ const bigpictures = (state = [], action) => {
           references: old == null ? [] : old.references,
         }
       ]
+      if (old_parent != null) {
+        res.push({
+          ...old_parent,
+          children: old_parent.children.filter(id => id != bp.id)
+        })
+        res.push({
+          ...new_parent,
+          children: [...new_parent.children, bp.id]
+        })
+      }
+      return res
 
     case cst.DELETE_BIG_PICTURE:
       return state.filter(element => element.id != action.id)

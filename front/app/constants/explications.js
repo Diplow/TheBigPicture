@@ -33,14 +33,6 @@ const EXPLICATIONS = {
 		4: "Je pense qu'on gagnerait à essayer cette solution, elle devrait résoudre au moins une partie du problème, mais je ne pense pas qu'on puisse s'en contenter.",
 		5: "Je suis convaincu que cette solution est faisable et efficace pour régler le problème.",
 	},
-	[cst.REFERENCE]: {
-		0: "Je ne comprends pas le lien entre ce sujet et cette référence.",
-		1: "Je pense que cette référence est mal utilisée ici.",
-		2: "Je ne pense pas que cette référence soit utile ici mais je comprends pourquoi pour d'autres elle paraît l'être.",
-		3: "Je suis partagé quant à cette référence, elle apport à la fois des éclairages intéressants mais pourrait aussi induire en erreur.",
-		4: "Je pense que cette référence est utile ici.",
-		5: "Je pense que cette référence est excellente ici et permet quasiment à elle seule de bien saisir le sujet.",
-	},
 	[cst.RATING]: {
 		0: "Je ne comprends pas bien ce commentaire.",
 		1: "Je pense que ce commentaire n'apporte rien.",

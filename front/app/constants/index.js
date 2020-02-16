@@ -32,7 +32,6 @@ export const SUBJECT = 1
 export const PROBLEM = 2
 export const SOLUTION = 3
 export const RESOURCE = 4
-export const REFERENCE = 5
 export const RATING = 6
 
 export const CLASSNAMES = {
@@ -40,7 +39,6 @@ export const CLASSNAMES = {
     [SOLUTION]: "solution",
     [RESOURCE]: "resource",
     [SUBJECT]: "subject",
-    [REFERENCE]: "reference",
 }
 
 export const ADD_BUTTON = "ADD_BUTTON"

@@ -21,7 +21,8 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
   return (
     <div className="newBigPicture-modal">
       {kindField(kind, edit, parent)}
-      {kind == cst.REFERENCE ? hyperLinkIdField(data, edit) : null}
+      {data.kind != cst.SUBJECT ? parentField(data, edit) : null}
+      {data.kind != cst.SUBJECT ? hyperLinkIdField(data, edit) : null}
       {titleField(data, edit)}
       {contentField(data, edit)}
     </div>
@@ -58,7 +59,6 @@ const kindField = (kind, edit, parent) => {
         { radioButton(kind == cst.PROBLEM, cst.PROBLEM, edit, "Problème") }
         { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton(kind == cst.SOLUTION, cst.SOLUTION, edit, "Solution") : null }
         { radioButton(kind == cst.RESOURCE, cst.RESOURCE, edit, "Ressource") }
-        { radioButton(kind == cst.REFERENCE, cst.REFERENCE, edit, "Référence") }
       </div>
     </div>
   )
@@ -67,14 +67,30 @@ const kindField = (kind, edit, parent) => {
 const hyperLinkIdField = (data, edit) => {
   return (
     <div className="field">
-      <p className="subtitle-modal">Identifiant de la référence</p>
+      <p className="subtitle-modal">Identifiant de la référence (optionnel)</p>
       <input
         className="input tbp-modal"
         type="text"
         name="hyperlink_id"
-        value={data.hyperlink_id}
+        value={data.hyperlink_id != undefined ? data.hyperlink_id : ""}
         onChange={edit}
         placeholder="Identifiant (numérique)" />
+    </div>
+  )
+}
+
+
+const parentField = (data, edit) => {
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Identifiant du parent</p>
+      <input
+        className="input tbp-modal"
+        type="text"
+        name="parent"
+        value={data.parent}
+        onChange={edit}
+        placeholder="Identifiant du parent (numérique)" />
     </div>
   )
 }
