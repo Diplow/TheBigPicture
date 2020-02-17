@@ -2,6 +2,9 @@ from rest_framework.viewsets import ModelViewSet
 from api.models import BigPicture, Rating, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
 from api.permissions import IsAuthorOrReadOnly
+
+from django.http import HttpResponse
+
 import json
 import datetime
 
@@ -64,9 +67,13 @@ class BigPictureViewSet(ModelViewSet):
 		if "subject" in request.data and request.data["subject"] is not None:
 			subject = BigPicture.objects.get(id=request.data["subject"])
 			parent = BigPicture.objects.get(id=request.data["parent"])
-			assert subject.author.id == request.user.id
-			assert parent.author.id == request.user.id
-			assert parent.id == subject.id or subject.id == parent.subject.id
+			if subject.author.id != request.user.id or parent.author.id != request.user.id:
+				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
+			if parent.id != subject.id:
+				if parent.kind == SUBJECT_CODE:
+					request.data["subject"] = parent.id
+				else:
+					request.data["subject"] = parent.subject.id
 		else:
 			assert request.data["kind"] == SUBJECT_CODE
 		return super().create(request)
@@ -83,9 +90,13 @@ class BigPictureViewSet(ModelViewSet):
 					request.data["subject"] = parent.id
 			if (request.data["subject"] != subject.id):
 				subject = BigPicture.objects.get(id=request.data["subject"])
-			assert subject.author.id == request.user.id
-			assert parent.author.id == request.user.id
-			assert parent.id == subject.id or subject.id == parent.subject.id
+			if subject.author.id != request.user.id or parent.author.id != request.user.id:
+				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
+			if parent.id != subject.id:
+				if parent.kind == SUBJECT_CODE:
+					request.data["subject"] = parent.id
+				else:
+					request.data["subject"] = parent.subject.id
 		else:
 			assert request.data["kind"] == SUBJECT_CODE
 
