@@ -121,7 +121,7 @@ DATABASES = {
         'NAME': 'vuedensemble',
         'USER': 'diplo',
         'PASSWORD': 'vuedensemble',
-        'HOST': 'localhost', # db
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
