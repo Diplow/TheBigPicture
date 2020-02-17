@@ -44,7 +44,7 @@ BigPictureListLook.propTypes = {
 
 const header = (buttons, parent, user, title) => {
   return (
-    <div className="level is-mobile">
+    <div className="level is-mobile vde-header">
       <div className="level-left">
         <p className="subtitle level-item vde-subtitle-bp-page">{title}</p>
         {buttons.indexOf(cst.BACK_BUTTON) != -1 ? backButton(parent) : null}

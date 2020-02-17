@@ -32,7 +32,9 @@ p.vde-no-comment {
 	max-width: 5rem;
 }
 
-div.button.tbp-radio.vde-add-comment {
+div.tbp-radio.vde-add-comment {
 	background-color: $light;
 	width: 2.3rem;
+	height: 2.3rem;
+	border-radius: 4px;
 }

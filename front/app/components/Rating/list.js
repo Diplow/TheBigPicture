@@ -45,7 +45,7 @@ RatingListLook.propTypes = {
 
 const header = (user, target) => {
   return (
-    <div className="level is-mobile">
+    <div className="level is-mobile vde-header">
       <div className="level-left">
         <p className="subtitle level-item vde-subtitle-bp-page">Commentaires</p>
         { user.id !== cst.GUEST_ID ? addRatingButton(target) : null }
@@ -68,7 +68,7 @@ const addRatingButton = (bigPicture) => {
   if (initRating.subject == null)
     initRating.subject = bigPicture.id
   return (
-    <div className="button tbp-radio vde-add-comment is-narrow">
+    <div className="tbp-radio vde-add-comment">
       <RatingButton initRating={initRating} />
     </div>
   )

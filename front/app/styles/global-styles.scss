@@ -48,7 +48,7 @@ label {
 }
 
 .level:not(:last-child) {
-  margin-bottom: .5rem;
+  margin-bottom: 0;
 }
 
 .card.bp-tile {
@@ -92,6 +92,10 @@ label {
   max-width: 50%;
 }
 
+.level.vde-header.is-mobile {
+  margin: 0.7rem 0;
+}
+
 .level.is-mobile {
   .level-item:not(:last-child) {
     margin-right: .1rem;
@@ -99,7 +103,7 @@ label {
 }
 
 div.level.is-mobile {
-  margin-top: 0.5rem;
+  margin-top: 0rem;
 }
 
 div.level.is-mobile.no-top-margin {
