@@ -20,6 +20,20 @@
 	color: $dark;
 }
 
+.card-content {
+	margin-top: 1rem;
+}
+
+.content h1:not(:first-child) {
+	margin-top: 0.3rem;
+}
+.content h2:not(:first-child) {
+	margin-top: 0.2rem;
+}
+.content h3:not(:first-child) {
+	margin-top: 0.1rem;
+}
+
 .subject {
 	background-color: $light;
 }

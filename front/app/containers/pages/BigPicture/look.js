@@ -52,7 +52,9 @@ const header = (bigPicture) => {
             <h1 className="title" onClick={() => setHidden(!hidden)}>
               {bigPicture.title}
               <div className={hidden ? "tbp-description is-hidden" : "tbp-description"}>
-                <ReactMarkdown source={bigPicture.body} />
+                <div className="content">
+                  <ReactMarkdown source={bigPicture.body} />
+                </div>
               </div>
             </h1>
           </div>
