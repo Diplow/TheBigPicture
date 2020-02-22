@@ -29,7 +29,8 @@ p.vde-no-comment {
 	color: gold;
 }
 
-.level.star-level {
+.level.star-level.is-mobile {
+	margin-bottom: 0.4rem;
 	max-width: 5rem;
 }
 
