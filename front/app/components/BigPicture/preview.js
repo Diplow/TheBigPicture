@@ -88,6 +88,7 @@ const bpLeftLevel = (bigPicture) => {
 	return (
     <div className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
+      { bigPicture.hyperlink_id != null ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
       <p className="card-header-title">{bigPicture.title}</p>
     </div>
 	)
