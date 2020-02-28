@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getUser, getOwnSubjects, getRatedSubjects } from '../../../actions'
+import { getUser, getSubjects, getRatedSubjects } from '../../../actions'
 import UserViewLook from './look'
 
 
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const userId = ownProps.match.params.id
   return {
     getUser: (id) => { dispatch(getUser(id)) },
-    getOwnSubjects: (page) => { dispatch(getOwnSubjects(userId, page)) },
+    getOwnSubjects: (page) => { dispatch(getSubjects(page, userId)) },
     getRatedSubjects: (page) => { dispatch(getRatedSubjects(userId, page)) }
   }
 }

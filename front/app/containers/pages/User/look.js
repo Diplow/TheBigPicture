@@ -54,6 +54,7 @@ const userSubjects = (user, getPage) => {
     return (
       bp.kind == cst.SUBJECT
       && bp.author == user.id
+      && bp.private == false
     )
   }
   const loadFirstPage = true
