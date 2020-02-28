@@ -43,10 +43,10 @@ class BigPictureSerializer(serializers.ModelSerializer):
 
 
 	def get_family(self, obj):
-		return [BigPictureChildSerializer(a).data for a in BigPicture.objects.filter(subject=obj.id, private=False)]
+		return [BigPictureChildSerializer(a).data for a in BigPicture.objects.filter(subject=obj.id)]
 
 	def get_children(self, obj):
-		return [a.id for a in BigPicture.objects.filter(parent=obj.id, private=False)]
+		return [a.id for a in BigPicture.objects.filter(parent=obj.id)]
 
 	def get_ratingCount(self, obj):
 		return Rating.objects.filter(target_bp=obj.id, endorsment=None).exclude(reason="").count()
