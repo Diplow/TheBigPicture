@@ -25,6 +25,11 @@ class BigPicture(models.Model):
 	creation_date = models.DateField(auto_now_add=True)
 	modification_date = models.DateTimeField(auto_now=True)
 
+	def save(self, *args, **kwargs):
+		super(BigPicture, self).save(*args, **kwargs)
+		if self.subject is None:
+			self.subject = self
+			self.save()
 
 	def __unicode__(self):
 		return self.id

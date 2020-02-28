@@ -43,47 +43,24 @@ class BigPictureViewSet(ModelViewSet):
 
 	def create(self, request):
 		request.data["author_id"] = request.user.id
-		if "subject" in request.data and request.data["subject"] is not None:
-			subject = BigPicture.objects.get(id=request.data["subject"])
-			parent = BigPicture.objects.get(id=request.data["parent"])
-			if subject.author.id != request.user.id or parent.author.id != request.user.id:
-				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
-			if parent.id != subject.id:
-				if parent.kind == SUBJECT_CODE:
-					request.data["subject"] = parent.id
-					request.data["private"] = parent.private
-				else:
-					request.data["subject"] = parent.subject.id
-					request.data["private"] = parent.subject.private
-		else:
-			assert request.data["kind"] == SUBJECT_CODE
 		return super().create(request)
 
 	def partial_update(self, request, pk=None):
-		if "subject" in request.data and request.data["subject"] is not None:
-			subject = BigPicture.objects.get(id=request.data["subject"])
-			parent = BigPicture.objects.get(id=request.data["parent"])
-			if parent.subject is not None:
-				if parent.subject.id != subject.id:
-					request.data["subject"] = parent.subject.id
-					request.data["private"] = parent.subject.private
-			else:
-				if parent.id != subject.id:
-					request.data["subject"] = parent.id
-					request.data["private"] = parent.private
-			if (request.data["subject"] != subject.id):
-				subject = BigPicture.objects.get(id=request.data["subject"])
-			if subject.author.id != request.user.id or parent.author.id != request.user.id:
-				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
-			if parent.id != subject.id:
-				if parent.kind == SUBJECT_CODE:
-					request.data["subject"] = parent.id
-					request.data["private"] = parent.private
-				else:
-					request.data["subject"] = parent.subject.id
-					request.data["private"] = parent.subject.private
-		else:
-			assert request.data["kind"] == SUBJECT_CODE
 
+		def change_parent(obj, new_parent):
+			obj.parent = new_parent
+			obj.subject = new_parent.subject
+			obj.private = new_parent.private
+			obj.save()
+			for elt in BigPicture.objects.filter(parent=obj):
+				change_parent(elt, obj)
+
+		item = BigPicture.objects.get(id=pk)
+		if item.parent.id != request.data["parent"]:
+			new_parent = BigPicture.objects.get(id=request.data["parent"])
+			if new_parent.author.id != request.user.id:
+				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
+			change_parent(item, new_parent)
+			del request.data["subject"]
 		return super().partial_update(request, pk)
 
