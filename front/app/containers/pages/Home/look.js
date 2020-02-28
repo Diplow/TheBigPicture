@@ -9,7 +9,7 @@ import EditionModalButton from '../../../components/Buttons/modal'
 import "./style.scss"
 
 
-const HomeLook = ({ getBigPictures, count }) => {
+const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
   return (
     <div>
       <div className="container tbp-section">
@@ -18,12 +18,28 @@ const HomeLook = ({ getBigPictures, count }) => {
           count={count}
           getPage={getBigPictures}
           title={"SUJETS"}
-          emptyMessage={"Aucun sujet n'a encore été créé. Soyez le premier !"}
+          emptyMessage={"Aucun sujet n'a encore été créé."}
           loadFirstPage={true}
-          buttons={[cst.ADD_BUTTON]}
-          filter={bp => bp.kind == cst.SUBJECT}
+          buttons={[]}
+          filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
         />
       </div>
+      {
+        user.id == 0
+        ? null
+        : <div className="container tbp-section">
+            <BigPictureList
+              parent={null}
+              count={user.ownSubjectCount}
+              getPage={(page) => getOwnSubjects(user.id, page)}
+              title={"VOS SUJETS"}
+              emptyMessage={"Vous n'avez encore créé aucun sujet."}
+              loadFirstPage={true}
+              buttons={[cst.ADD_BUTTON]}
+              filter={bp => bp.kind == cst.SUBJECT && bp.author == user.id}
+            />
+          </div>
+      }
     </div>
   )
 }
@@ -31,23 +47,6 @@ const HomeLook = ({ getBigPictures, count }) => {
 HomeLook.propTypes = {
   getBigPictures: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
-}
-
-const addBigPictureButton = () => {
-  const newBP = {
-    kind: cst.SUBJECT,
-    title: "",
-    parent: null,
-  }
-  return (
-    <EditionModalButton
-      init={newBP}
-      classname={"vde-home"}
-      icon={"fas fa-plus"}
-      EditionModal={BigPictureModal}
-      NewItem={NewBigPicture}
-    />
-  )
 }
 
 export default HomeLook

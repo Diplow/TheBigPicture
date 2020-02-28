@@ -8,7 +8,7 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
 from api.views.users import UserViewSet, GroupViewSet, AuthViewSet
-from api.views.bigpictures import BigPictureViewSet, SubjectViewSet
+from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet
 from api.views.ratings import RatingViewSet
 from api.views.results import bigPictureResults, ratingResults
 
@@ -21,6 +21,7 @@ router.register(r'auth', AuthViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
 router.register(r'subjects', SubjectViewSet)
+router.register(r'ownsubjects', OwnSubjectViewSet)
 router.register(r'ratings', RatingViewSet)
 
 urlpatterns = [

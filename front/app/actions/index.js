@@ -34,11 +34,14 @@ export const getUser = (id) => {
   }
 }
 
-export const getSubjects = (page) => {
+export const getSubjects = (page, userId) => {
   return (dispatch) => {
     const next = "getallsubjects"
     const nextargs = {}
-    api.getCollection(dispatch, "subjects", page, [], next, nextargs)
+    let args = []
+    if (userId != undefined)
+      args = [`author=${userId}`]
+    api.getCollection(dispatch, "subjects", page, args, next, nextargs)
   }
 }
 
@@ -76,9 +79,9 @@ export const getBigPictureRatings = (page, targetId, userId) => {
   }
 }
 
-export const getOwnSubjects = (userId, page) => {
+export const getOwnSubjects = (page) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subjects", page, [`author=${userId}`])
+    api.getCollection(dispatch, "ownsubjects", page, [])
   }
 }
 

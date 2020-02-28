@@ -30,6 +30,9 @@ const bigpictures = (state = [], action) => {
         }
       ]
 
+    case cst.LOGOUT:
+      return state.filter(element => element.private == false)
+
     case cst.ADD_BIG_PICTURE:
       const bp = action.bigpicture
       old = state.find(element => element.id == bp.id)
@@ -57,6 +60,7 @@ const bigpictures = (state = [], action) => {
           ratingCount: bp.ratingCount,
           referenceCount: bp.referenceCount,
           references: old == null ? [] : old.references,
+          private: bp.private,
         }
       ]
       if (old_parent != null) {

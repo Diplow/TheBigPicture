@@ -13,13 +13,15 @@ import "./style.scss"
 
 const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences }) => {
   useEffect(() => {
-    getBigPicture(match.params.subjectId)
+    if (bigPicture == undefined)
+      getBigPicture(match.params.subjectId)
   }, [match])
 
   return (
     <div className="vde-bigpicture-page">
-      { bigPicture == undefined ? <div className="container tbp-section section-field"><div className="loader"></div></div> : null }
+      { bigPicture == undefined ? <div className="container tbp-section section-field"><div className="loader" style={{width:"5rem", height:"5rem"}}></div></div> : null }
       { header(bigPicture) }
+      { content(bigPicture) }
       { analyse(bigPicture) }
       { comments(bigPicture) }
       { references(bigPicture, getReferences) }
@@ -36,8 +38,6 @@ BigPictureViewLook.propTypes = {
 }
 
 const header = (bigPicture) => {
-  const [hidden, setHidden] = useState(false)
-
   if (bigPicture == undefined)
     return null
 
@@ -49,15 +49,34 @@ const header = (bigPicture) => {
             <span className="level-item author-icon">
               <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
             </span>
-            <h1 className="title" onClick={() => setHidden(!hidden)}>
+            <h1 className="title">
               {bigPicture.title}
-              <div className={hidden ? "tbp-description is-hidden" : "tbp-description"}>
-                <div className="content">
-                  <ReactMarkdown source={bigPicture.body} />
-                </div>
-              </div>
             </h1>
           </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const content = (bigPicture) => {
+  const [hidden, setHidden] = useState(false)
+
+  if (bigPicture == undefined)
+    return null
+
+  return (
+    <div className="container tbp-section section-field">
+      <div className="level is-mobile vde-header">
+        <div className="level-left">
+          { hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
+          { !hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+          <p className="subtitle level-item vde-subtitle-bp-page">Contenu</p>
+        </div>
+      </div>
+      <div className={hidden ? "card bp-tile tbp-description is-hidden" : "card bp-tile tbp-description"}>
+        <div className="content">
+          <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : "Ce contenu est vide pour le moment."} />
         </div>
       </div>
     </div>

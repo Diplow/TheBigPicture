@@ -42,15 +42,17 @@ span.vde-button.is-narrow.level-item.button.tbp-radio {
 }
 
 
-div.tbp-description {
+div.tbp-description.card.bp-tile {
 	color: $dark;
 	font-size: 1rem;
-	font-weight: 400;
-
+	background-color: $light;
 	h2 {
 
 	}
-	padding-top: 0.5rem;
+	strong {
+		color: $dark
+	}
+	padding: 1rem;
 }
 
 .filter.checkbox:hover {

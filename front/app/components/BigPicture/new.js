@@ -9,13 +9,23 @@ import "./style.scss"
 
 const NewBigPictureLook = ({ parent, data, setData }) => {
   const [kind, setKind] = useState(data.kind)
+  const [privacy, setPrivacy] = useState(data.private)
 
   useEffect(() => {
   	setKind(data.kind)
+  	setPrivacy(data.private)
   }, [data])
 
   const edit = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value})
+  	if (e.target.name == "private") {
+  		if (e.target.value == "false")
+    		setData({ ...data, private: false})
+    	else
+    		setData({ ...data, private: true})
+  	}
+  	else {
+	    setData({ ...data, [e.target.name]: e.target.value})
+  	}
   }
 
   return (
@@ -25,6 +35,7 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
       {data.kind != cst.SUBJECT ? hyperLinkIdField(data, edit) : null}
       {titleField(data, edit)}
       {contentField(data, edit)}
+      {data.kind == cst.SUBJECT ? privacyField(privacy, edit) : null}
     </div>
   )
 }
@@ -35,12 +46,12 @@ NewBigPictureLook.propTypes = {
   setData: PropTypes.func
 }
 
-const radioButton = (checked, value, onChange, label) => {
+const radioButton = (name, checked, value, onChange, label) => {
   return (
     <label className="radio">
       <input
         type="radio"
-        name="kind"
+        name={name}
         value={value}
         onChange={onChange}
         checked={checked} />
@@ -56,9 +67,21 @@ const kindField = (kind, edit, parent) => {
     <div className="field">
       <p className="subtitle-modal">Type</p>
       <div className="control">
-        { radioButton(kind == cst.PROBLEM, cst.PROBLEM, edit, "Problème") }
-        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton(kind == cst.SOLUTION, cst.SOLUTION, edit, "Solution") : null }
-        { radioButton(kind == cst.RESOURCE, cst.RESOURCE, edit, "Ressource") }
+        { radioButton("kind", kind == cst.PROBLEM, cst.PROBLEM, edit, "Problème") }
+        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton("kind", kind == cst.SOLUTION, cst.SOLUTION, edit, "Solution") : null }
+        { radioButton("kind", kind == cst.RESOURCE, cst.RESOURCE, edit, "Ressource") }
+      </div>
+    </div>
+  )
+}
+
+const privacyField = (privacy, edit) => {
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Visibilité</p>
+      <div className="control">
+        { radioButton("private", privacy == false, false, edit, "Publique") }
+        { radioButton("private", privacy == true, true, edit, "Privé") }
       </div>
     </div>
   )

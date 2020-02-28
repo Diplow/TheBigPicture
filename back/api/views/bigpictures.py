@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from api.models import BigPicture, Rating, SUBJECT_CODE
 from api.serializers import BigPictureSerializer
-from api.permissions import IsAuthorOrReadOnly
+from api.permissions import IsAuthorOrReadOnly, IsAuthor
 
 from django.http import HttpResponse
 
@@ -9,18 +9,16 @@ import json
 import datetime
 
 
-class SubjectViewSet(ModelViewSet):
+class OwnSubjectViewSet(ModelViewSet):
 	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE).order_by('-modification_date')
 	serializer_class = BigPictureSerializer
-	permission_classes = [IsAuthorOrReadOnly]
+	permission_classes = [IsAuthor]
 
-	def get_serializer_context(self):
-		context = super(SubjectViewSet, self).get_serializer_context()
-		context.update({
-			"author": context["request"].user.id,
-			"target": context["request"].query_params.get('ratingauthor', None)
-		})
-		return context
+
+class SubjectViewSet(ModelViewSet):
+	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE, private=False).order_by('-modification_date')
+	serializer_class = BigPictureSerializer
+	permission_classes = [IsAuthorOrReadOnly]
 
 	def get_queryset(self):
 		queryset = self.queryset
@@ -34,7 +32,7 @@ class SubjectViewSet(ModelViewSet):
 			queryset = queryset.filter(author=author)
 		if ratingauthor is not None:
 			ratings = Rating.objects.filter(author_id=ratingauthor).distinct('subject').values('subject')
-			queryset = queryset.filter(id__in=[r["subject"] for r in ratings])
+			queryset = queryset.filter(id__in=[r["subject"] for r in ratings], private=False)
 		return queryset
 
 
@@ -42,25 +40,6 @@ class BigPictureViewSet(ModelViewSet):
 	queryset = BigPicture.objects.all().order_by('-modification_date')
 	serializer_class = BigPictureSerializer
 	permission_classes = [IsAuthorOrReadOnly]
-
-	def get_queryset(self):
-		queryset = self.queryset
-		element = self.request.query_params.get('element', None)
-		if element is not None:
-			elt = queryset.get(id=element)
-			queryset = queryset.filter(parent=element)
-			if elt.parent is not None:
-				context = BigPicture.objects.filter(id=elt.parent.id)
-				queryset |= context
-		return queryset
-
-	def get_serializer_context(self):
-		context = super(BigPictureViewSet, self).get_serializer_context()
-		context.update({
-			"author": context["request"].user.id,
-			"target": context["request"].query_params.get('ratingauthor', None)
-		})
-		return context
 
 	def create(self, request):
 		request.data["author_id"] = request.user.id
@@ -72,8 +51,10 @@ class BigPictureViewSet(ModelViewSet):
 			if parent.id != subject.id:
 				if parent.kind == SUBJECT_CODE:
 					request.data["subject"] = parent.id
+					request.data["private"] = parent.private
 				else:
 					request.data["subject"] = parent.subject.id
+					request.data["private"] = parent.subject.private
 		else:
 			assert request.data["kind"] == SUBJECT_CODE
 		return super().create(request)
@@ -85,9 +66,11 @@ class BigPictureViewSet(ModelViewSet):
 			if parent.subject is not None:
 				if parent.subject.id != subject.id:
 					request.data["subject"] = parent.subject.id
+					request.data["private"] = parent.subject.private
 			else:
 				if parent.id != subject.id:
 					request.data["subject"] = parent.id
+					request.data["private"] = parent.private
 			if (request.data["subject"] != subject.id):
 				subject = BigPicture.objects.get(id=request.data["subject"])
 			if subject.author.id != request.user.id or parent.author.id != request.user.id:
@@ -95,8 +78,10 @@ class BigPictureViewSet(ModelViewSet):
 			if parent.id != subject.id:
 				if parent.kind == SUBJECT_CODE:
 					request.data["subject"] = parent.id
+					request.data["private"] = parent.private
 				else:
 					request.data["subject"] = parent.subject.id
+					request.data["private"] = parent.subject.private
 		else:
 			assert request.data["kind"] == SUBJECT_CODE
 

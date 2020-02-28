@@ -42,6 +42,14 @@ export const make = (request) => {
       switch (request.method) {
 
         case "GET":
+          if (!success) {
+            dispatch(basics.notification({
+              title: "Erreur de communication avec le serveur",
+              message: "N'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr.",
+              type: "warning"
+            }))
+            break;
+          }
           res.json().then(result => {
             dispatch(basics.done({
               ...request,

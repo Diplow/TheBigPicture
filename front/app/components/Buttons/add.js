@@ -13,6 +13,7 @@ const AddBigPictureButton = ({ bigPicture }) => {
     title: "",
     parent: bigPicture == null ? null : bigPicture.id,
     kind: bigPicture == null ? cst.SUBJECT : cst.PROBLEM,
+    private: bigPicture == null ? true : (bigPicture.subject != null ? bigPicture.subject.private : bigPicture.private),
     hyperlink: null,
     subject: bigPicture == null ? null : (bigPicture.subject != null ? bigPicture.subject : bigPicture.id),
     body: "",

@@ -14,10 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "groups", "image", "ratedSubjectCount", "ownSubjectCount")
 
     def get_ratedSubjectCount(self, obj):
-        return Rating.objects.filter(author=obj.id).exclude(subject__author=obj.id).distinct("subject").count()
+        return Rating.objects.filter(author=obj.id).exclude(subject__author=obj.id).exclude(subject__private=True).distinct("subject").count()
 
     def get_ownSubjectCount(self, obj):
-        return BigPicture.objects.filter(author=obj.id, kind=SUBJECT_CODE).count()
+        return BigPicture.objects.filter(author=obj.id, kind=SUBJECT_CODE, private=False).count()
 
 
 class GroupSerializer(serializers.ModelSerializer):

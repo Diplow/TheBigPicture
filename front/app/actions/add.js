@@ -26,6 +26,7 @@ export const add = (request) => {
 	    const actions = {
 	    	"bigpictures": addBigPicture,
 	    	"subjects": addBigPicture,
+	    	"ownsubjects": addBigPicture,
 	    	"users": (dispatch, user) => { dispatch(basics.addUser(user)) },
 	    	"ratings": (dispatch, rating) => { dispatch(basics.addRating(rating)) },
 	    }

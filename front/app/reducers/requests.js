@@ -5,6 +5,9 @@ import * as cst from "../constants"
 const requests = (state = [], action) => {
   switch (action.type) {
 
+    case cst.LOGOUT:
+      return []
+
     case cst.ADD_REQUEST:
       const request = action.request
       if (state.find(elt => elt.id == request.id) != null)
