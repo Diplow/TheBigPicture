@@ -12,7 +12,7 @@ const EditionModalButtonLook = ({ user, classname, init, setter, icon, EditionMo
   	return null
 
   return (
-    <div>
+    <div style={{width:"2.3rem"}}>
       <RadioButton
         classname={classname}
         isPushed={isActive}

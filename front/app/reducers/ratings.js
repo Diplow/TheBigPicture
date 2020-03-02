@@ -7,7 +7,7 @@ const ratings = (state = [], action) => {
 
     case cst.ADD_RATING:
       const rating = action.rating
-      if (rating.author == null || rating.endorsment != null)
+      if (rating.author == null || rating.endorsment != null || rating.reason == "")
         return state
       return [
         ...state.filter(elt => elt.id != rating.id),

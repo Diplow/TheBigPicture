@@ -10,23 +10,31 @@ import EXPLICATIONS from '../../constants/explications'
 
 
 const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
+  const [hidden, setHidden] = useState(true)
+
+  useEffect(() => {
+    if (!hidden)
+      getResults(bigPicture.id)
+  }, [hidden])
+
   if (bigPicture == undefined)
     return null
 
   return (
     <div className="container tbp-section section-field">
-      { showHeader ? header(bigPicture, getResults) : null }
-      { bigPicture.results != undefined ? chart(bigPicture) : <p className="vde-no-comment subtitle">Obtenez les résultats via le bouton d'actualisation.</p> }
+      { showHeader ? header(bigPicture, hidden, setHidden) : null }
+      { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
     </div>
   )
 }
 
-const header = (bigPicture, getResults) => {
+const header = (bigPicture, hidden, setHidden) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
+        { hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
+        { !hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
         <p className="subtitle level-item vde-subtitle-bp-page">Résultats</p>
-        <RefreshButton refresh={() => getResults(bigPicture.id)} />
       </div>
     </div>
   )

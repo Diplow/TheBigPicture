@@ -16,15 +16,27 @@ import "./style.scss"
 
 
 const BigPictureListLook = ({ user, parent, bigPictures, title, emptyMessage, loadFirstPage, buttons, count, getPage, ratings }) => {
-  bigPictures.sort((a, b) => bpSort(ratings, a, b))
+  bigPictures.sort((a, b) => bpSort(a, b))
   const [pagination, page] = usePagination(bigPictures, count, getPage, cst.PAGE_SIZE, loadFirstPage)
+  const [hidden, setHidden] = useState(!loadFirstPage)
+
+  useEffect(() => {
+    if (!hidden) {
+      getPage(1)
+    }
+  }, [hidden])
 
   return (
     <div>
-    { header(buttons, parent, user, title) }
-    { count == 0 && bigPictures.length == 0 ? <p className="vde-no-comment subtitle">{emptyMessage}</p> : null }
-    { page.map((bp) => <BigPicturePreview key={bp.id} bigPictureId={bp.id} margin={0} />) }
-    { pagination }
+    { header(buttons, parent, user, title, hidden, setHidden) }
+    { !hidden
+      ? <div>
+      { count == 0 && bigPictures.length == 0 ? <p className="vde-no-comment subtitle">{emptyMessage}</p> : null }
+      { page.map((bp) => <BigPicturePreview key={bp.id} bigPictureId={bp.id} margin={0} />) }
+      { pagination }
+      </div>
+      : null
+    }
     </div>
   )
 }
@@ -42,10 +54,13 @@ BigPictureListLook.propTypes = {
   ratings: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-const header = (buttons, parent, user, title) => {
+const header = (buttons, parent, user, title, hidden, setHidden) => {
+
   return (
     <div className="level is-mobile vde-header">
       <div className="level-left">
+        { hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
+        { !hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
         <p className="subtitle level-item vde-subtitle-bp-page">{title}</p>
         {buttons.indexOf(cst.BACK_BUTTON) != -1 ? backButton(parent) : null}
         {
@@ -61,22 +76,10 @@ const header = (buttons, parent, user, title) => {
   )
 }
 
-const bpSort = (ratings, a, b) => {
-  // Sort by median first, then average, and then by count.
-  const aresult = ratings.find(elt => elt.target_bp == a.id && elt.author == a.author)
-  const bresult = ratings.find(elt => elt.target_bp == b.id && elt.author == b.author)
+const bpSort = (a, b) => {
+  // Sort by modif date
   const aModifDate = new Date(a.modification_date)
   const bModifDate = new Date(b.modification_date)
-  if (aresult == null && bresult == null)
-    return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
-  if (aresult == null)
-    return 1
-  if (bresult == null)
-    return -1
-  if (aresult.value > bresult.value)
-    return -1
-  if (aresult.value < bresult.value)
-    return 1
   return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
 }
 

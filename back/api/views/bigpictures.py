@@ -56,7 +56,7 @@ class BigPictureViewSet(ModelViewSet):
 				change_parent(elt, obj)
 
 		item = BigPicture.objects.get(id=pk)
-		if item.parent.id != request.data["parent"]:
+		if item.parent != None and item.parent.id != request.data["parent"]:
 			new_parent = BigPicture.objects.get(id=request.data["parent"])
 			if new_parent.author.id != request.user.id:
 				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)

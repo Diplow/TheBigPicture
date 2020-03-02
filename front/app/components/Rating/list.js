@@ -12,23 +12,30 @@ import "./style.scss"
 const RatingListLook = ({ user, ratings, margin, showHeader, loadFirstPage, target, getPage }) => {
   ratings.sort(ratingsSort)
   const [pagination, page] = usePagination(ratings, target.ratingCount, getPage, cst.PAGE_SIZE, loadFirstPage)
+  const [hidden, setHidden] = useState(false)
 
   return (
     <div>
-      { showHeader ? header(user, target) : null }
-      { ratings.length == 0 ? <p className="vde-no-comment subtitle">Il n'y a pas encore de commentaires.</p> : null }
+      { showHeader ? header(user, target, hidden, setHidden) : null }
       {
-        page.map((rating) => {
-          return (
-            <RatingPreview
-              key={`ratingpreview-${rating.id}`}
-              ratingId={rating.id}
-              margin={margin}
-            />
-          )
-        })
+        !hidden
+        ? <div>
+          { ratings.length == 0 ? <p className="vde-no-comment subtitle">Il n'y a pas encore de commentaires.</p> : null }
+          {
+            page.map((rating) => {
+              return (
+                <RatingPreview
+                  key={`ratingpreview-${rating.id}`}
+                  ratingId={rating.id}
+                  margin={margin}
+                />
+              )
+            })
+          }
+          { pagination }
+          </div>
+        : null
       }
-      { pagination }
     </div>
   )
 }
@@ -43,10 +50,12 @@ RatingListLook.propTypes = {
   ratingsFilter: PropTypes.func.isRequired,
 }
 
-const header = (user, target) => {
+const header = (user, target, hidden, setHidden) => {
   return (
     <div className="level is-mobile vde-header">
       <div className="level-left">
+        { hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
+        { !hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
         <p className="subtitle level-item vde-subtitle-bp-page">Commentaires</p>
         { user.id !== cst.GUEST_ID ? addRatingButton(target) : null }
       </div>
