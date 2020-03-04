@@ -13,6 +13,7 @@ import RatingList from '../Rating/list'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { RatingButton } from '../Rating/buttons'
 import { useToggle } from '../utils/hooks'
+import List from '../List'
 import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
@@ -20,7 +21,7 @@ import "./style.scss"
 import * as cst from '../../constants'
 
 
-const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, getBigPicture, margin }) => {
+const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictureId, getBigPicture, margin }) => {
 
   useEffect(() => {
     if (bigPicture == undefined)
@@ -43,7 +44,7 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
     return null
 
   return (
-    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}}>
+    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={bigPicture.id}>
       <div className={cst.CLASSNAMES[bigPicture.kind] + " card bp-tile"}>
         <header className="card-header level preview-item-level is-mobile">
           { bpLeftLevel(bigPicture) }
@@ -68,7 +69,7 @@ const BigPicturePreviewLook = ({ bigPicture, hyperlink, ratings, bigPictureId, g
       }
       {
         showChildren && bigPicture.children.length != 0
-        ? bpChildren(bigPicture, margin)
+        ? bpChildren(bigPicture, margin, user)
         : null
       }
     </div>
@@ -89,6 +90,9 @@ const bpLeftLevel = (bigPicture) => {
     <div className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
       { bigPicture.hyperlink_id != null ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
+      { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
+      { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-lightbulb"></i></figure> : null }
+      { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-folder"></i></figure> : null }
       <p className="card-header-title">{bigPicture.title}</p>
     </div>
 	)
@@ -205,7 +209,7 @@ const bpDetails = (showDetails, body) => {
 	)
 }
 
-const bpChildren = (bigPicture, parentMargin) => {
+const bpChildren = (bigPicture, parentMargin, user) => {
 
   const margin = (
     parentMargin == 0
@@ -213,23 +217,28 @@ const bpChildren = (bigPicture, parentMargin) => {
     : (1+cst.SUBMARGIN/100)*parentMargin
   )
 
-  return (
-    <div>
-      {
-        bigPicture.children.map(bp => {
-          return (
-            <BigPicturePreview
-              key={"preview"+bp}
-              buttons={["look"]}
-              bigPictureId={bp}
-              margin={margin}
-            />
-          )
-        })
-      }
-      </div>
-  )
+  const sortBigPictures = (a, b) => {
+    // Sort by modif date
+    const aModifDate = new Date(a.modification_date)
+    const bModifDate = new Date(b.modification_date)
+    return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
+  }
 
+  return (
+    <List
+      items={bigPicture.children}
+      container={(bpId) => <BigPicturePreview key={"preview"+bpId} bigPictureId={bpId} margin={margin}/>}
+      user={user}
+      emptyMessage={""}
+      sortFunc={sortBigPictures}
+      count={bigPicture.children.length}
+      getPage={(page) => {}}
+      loadFirstPage={true}
+      showHeader={false}
+      title={""}
+      buttons={[]}
+    />
+  )
 }
 
 const bpRatings = (bigPicture, ratings, parentMargin) => {
@@ -255,6 +264,7 @@ const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
     bigPicture,
+    user: state.get("user"),
     hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
     ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
   }

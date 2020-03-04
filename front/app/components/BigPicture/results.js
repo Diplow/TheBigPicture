@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Chart from "react-apexcharts";
 import RefreshButton from '../Buttons/refresh'
-import { getResults } from '../../actions'
+import { getBigPictureResults } from '../../actions'
 import "./style.scss"
 import * as cst from '../../constants'
 import EXPLICATIONS from '../../constants/explications'
@@ -131,7 +131,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getResults: (bpId) => { dispatch(getResults(bpId)) }
+    getResults: (bpId) => { dispatch(getBigPictureResults(bpId)) }
   }
 }
 

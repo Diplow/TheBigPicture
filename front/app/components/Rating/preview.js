@@ -6,26 +6,31 @@ import * as cst from '../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useToggle } from '../utils/hooks'
 import "./style.scss"
+import { getRatingRatings } from '../../actions'
 import { RatingButton, EditRatingButton } from './buttons'
+import List from '../List'
 import RadioButton from '../Buttons/radio'
 import ReactMarkdown from 'react-markdown'
+import RatingResults from './results'
 
 
-const RatingPreviewLook = ({ rating, ratings, ratingId, margin }) => {
+const RatingPreviewLook = ({ rating, ratings, user, ratingId, margin, getPage }) => {
   const [showRatings, toggleRatings] = useToggle(false)
+  const [showResults, toggleResults] = useToggle(false)
 
   if (rating == undefined || rating == null)
     return null
 
   return (
-    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}}>
+    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={`ratingpreview${rating.id}`}>
       <div className="reason card bp-tile">
         <header className="card-header level preview-item-level is-mobile">
           { ratingLeftLevel(rating) }
         </header>
-        { toolBar(rating, ratings, showRatings, toggleRatings) }
+        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults) }
       </div>
-      { showRatings ? ratingChildren(rating, ratings, margin) : null }
+      { showResults ? <RatingResults ratingId={rating.id} /> : null }
+      { showRatings ? ratingChildren(rating, ratings, margin, user, getPage) : null }
     </div>
   )
 }
@@ -64,7 +69,7 @@ const ratingLeftLevel = (rating) => {
 	)
 }
 
-const toolBar = (rating, ratings, showRatings, toggleRatings) => {
+const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults) => {
   const initRating = {
     value: 0,
     target_bp: null,
@@ -80,41 +85,61 @@ const toolBar = (rating, ratings, showRatings, toggleRatings) => {
       <div className="level-right">
         <EditRatingButton initRating={rating} />
         <RatingButton initRating={initRating} />
-        { ratings.length != 0 ? <RadioButton
+        { rating.ratingCount != 0 ? <RadioButton
           classname={""}
           isPushed={showRatings}
           setIsPushed={toggleRatings}
           icon={"fas fa-comments"}
         /> : null }
+        <RadioButton
+          classname={""}
+          isPushed={showResults}
+          setIsPushed={toggleResults}
+          icon={"far fa-chart-bar"} />
       </div>
     </div>
 	)
 }
 
-const ratingChildren = (rating, children, parentMargin) => {
+
+const toggleResults = (showResults, toggleResults) => {
+  return (
+    <RadioButton
+      classname={""}
+      isPushed={showResults}
+      setIsPushed={toggleResults}
+      icon={"fas fa-chart-bar"}
+    />
+  )
+}
+
+const ratingChildren = (rating, children, parentMargin, user, getPage) => {
 
   const margin = (
     parentMargin == 0
     ? cst.SUBMARGIN 
     : (1+cst.SUBMARGIN/100)*parentMargin
   )
+  
+  const ratingsSort = (ratingA, ratingB) => {
+    return ratingA.median >= ratingB.median ? 1 : -1
+  }
 
   return (
-    <div>
-      {
-        children.map(child => {
-          return (
-            <RatingPreview
-              key={"preview"+child.id}
-              ratingId={child.id}
-              margin={margin}
-            />
-          )
-        })
-      }
-      </div>
+    <List
+      items={children}
+      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} margin={margin} />}
+      user={user}
+      emptyMessage={""}
+      sortFunc={ratingsSort}
+      count={rating.ratingCount}
+      getPage={(page) => getPage(page, rating.id)}
+      loadFirstPage={true}
+      showHeader={false}
+      title={""}
+      buttons={[]}
+    />
   )
-
 }
 
 
@@ -122,9 +147,16 @@ const mapStateToProps = (state, ownProps) => {
   return {
     rating: state.get("ratings").find(rating => rating.id == ownProps.ratingId),
     ratings: state.get("ratings").filter(rating => rating.target_rating == ownProps.ratingId),
+    user: state.get("user")
   }
 }
 
-const RatingPreview = connect(mapStateToProps)(RatingPreviewLook)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPage: (page, ratingId) => dispatch(getRatingRatings(page, ratingId))
+  }
+}
+
+const RatingPreview = connect(mapStateToProps, mapDispatchToProps)(RatingPreviewLook)
 
 export default RatingPreview

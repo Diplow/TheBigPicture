@@ -17,12 +17,15 @@ class RatingViewSet(ModelViewSet):
 		author = self.request.query_params.get('author', None)
 		ratingauthor = self.request.query_params.get('ratingauthor', None)
 		bp = self.request.query_params.get('bigpicture', None)
+		rating = self.request.query_params.get('rating', None)
 		if author is not None:
 			queryset = queryset.filter(author=author)
 		if ratingauthor is not None:
 			queryset = queryset.filter(author=ratingauthor).distinct('subject')
 		if bp is not None:
 			queryset = queryset.filter(target_bp=bp)
+		if rating is not None:
+			queryset = queryset.filter(target_rating=rating)
 		return queryset
 
 	def create(self, request):

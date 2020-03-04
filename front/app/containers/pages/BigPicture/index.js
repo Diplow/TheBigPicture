@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import BigPictureViewLook from './look'
-import { getBigPicture, getReferences } from '../../../actions/index'
+import { getBigPicture, getReferences, getBigPictureRatings } from '../../../actions/index'
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -15,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getReferences: (page, bpId) => { dispatch(getReferences(page, bpId)) }
+    getReferences: (page, bpId) => { dispatch(getReferences(page, bpId)) },
+    getRatingsPage: (page, bpId) => { dispatch(getBigPictureRatings(page, bpId)) }
   }
 }
 

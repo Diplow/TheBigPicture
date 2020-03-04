@@ -74,14 +74,15 @@ const userRatings = (user, ratings, getPage) => {
 const subjectsList = (filter, count, getPage, title, emptyMessage, loadFirstPage) => {
   return (
     <BigPictureList
+      filter={filter}
       parent={null}
       count={count}
       getPage={getPage}
+      showHeader={true}
       title={title}
-      emptyMessage={emptyMessage}
       loadFirstPage={loadFirstPage}
+      emptyMessage={emptyMessage}
       buttons={[]}
-      filter={filter}
     />
   )
 }

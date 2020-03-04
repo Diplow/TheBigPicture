@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
@@ -10,11 +11,12 @@ import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
+import AddBigPictureButton from '../../../components/Buttons/add'
 import * as cst from '../../../constants'
 import "./style.scss"
 
 
-const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences }) => {
+const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences, getRatingsPage }) => {
   useEffect(() => {
     if (bigPicture == undefined)
       getBigPicture(match.params.subjectId)
@@ -33,7 +35,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
       { header(init) }
       { content(init, user, setter) }
       { analyse(init) }
-      { comments(init) }
+      { comments(init, getRatingsPage) }
       { references(init, getReferences) }
       { results(init) }
     </div>
@@ -58,6 +60,9 @@ const header = (bigPicture) => {
           <div className="level-left">
             <span className="level-item author-icon">
               <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
+              { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
+              { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-lightbulb"></i></figure> : null }
+              { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-folder"></i></figure> : null }
             </span>
             <h1 className="title">
               {bigPicture.title}
@@ -116,35 +121,78 @@ const analyse = (bigPicture) => {
   return (
     <div className="container tbp-section section-field">
       <BigPictureList
+        filter={bp => bp.parent == bigPicture.id}
         parent={bigPicture}
         count={bigPicture.children.length}
-        title={"Analyse"}
-        emptyMessage={"Aucun élément d'analyse n'a encore été apporté pour préciser cette vue d'ensemble."}
-        loadFirstPage={true}
-        buttons={[cst.ADD_BUTTON, cst.BACK_BUTTON]}
         getPage={(page) => {}}
-        filter={bp => bp.parent == bigPicture.id}
+        showHeader={true}
+        title={"Analyse"}
+        loadFirstPage={true}
+        emptyMessage={"Aucun élément d'analyse n'a encore été apporté pour préciser cette vue d'ensemble."}
+        buttons={[() => backButton(bigPicture), () => addBigPictureButton(bigPicture)]}
       />
     </div>
   )
 }
 
-const comments = (bigPicture) => {
+
+const backButton = (bp) => {
+  const to = bp.parent == null ? "/" : `/subject/${bp.subject}/bigPicture/${bp.parent}`
+  return (
+    <div className="button tbp-radio vde-add-comment is-narrow" key={`back${bp.id}`}>
+      <Link
+        to={to}
+      >
+        <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
+      </Link>
+    </div>
+  )
+}
+
+const addBigPictureButton = (bigPicture) => {
+  return <AddBigPictureButton key={`add${bigPicture.id}`} bigPicture={bigPicture} />
+}
+
+
+const comments = (bigPicture, getRatingsPage) => {
   if (bigPicture == undefined)
     return null
 
   return (
     <div className="container tbp-section section-field">
       <RatingList
-        target={bigPicture}
         margin={cst.BASE_MARGIN}
         showHeader={true}
         loadFirstPage={true}
-        ratingsFilter={(rating) => rating.target_bp == bigPicture.id}
+        filter={(rating) => rating.target_bp == bigPicture.id}
+        count={bigPicture.ratingCount}
+        getPage={(page) => { getRatingsPage(page, bigPicture.id) }}
+        title={"Raisons"}
+        emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
+        buttons={[() => addRatingButton(bigPicture)]}
       />
     </div>
   )
 }
+
+
+const addRatingButton = (bigPicture) => {
+  const initRating = {
+    value: 0,
+    target_bp: bigPicture.id,
+    target_rating: null,
+    reason: "",
+    subject: bigPicture.subject
+  }
+  if (initRating.subject == null)
+    initRating.subject = bigPicture.id
+  return (
+    <div className="tbp-radio vde-add-comment">
+      <RatingButton initRating={initRating} />
+    </div>
+  )
+}
+
 
 const references = (bigPicture, getReferences) => {
   if (bigPicture == undefined)
@@ -153,14 +201,15 @@ const references = (bigPicture, getReferences) => {
   return (
     <div className="container tbp-section section-field">
       <BigPictureList
+        filter={bp => bigPicture.references.indexOf(bp.id) != -1}
         parent={bigPicture}
         count={bigPicture.referenceCount}
-        title={"Références"}
-        emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
-        loadFirstPage={false}
-        buttons={[]}
         getPage={(page) => {getReferences(page, bigPicture.id)}}
-        filter={bp => bigPicture.references.indexOf(bp.id) != -1}
+        showHeader={true}
+        title={"Références"}
+        loadFirstPage={false}
+        emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
+        buttons={[]}
       />
     </div>
   )

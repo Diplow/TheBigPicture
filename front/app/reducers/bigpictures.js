@@ -6,6 +6,7 @@ const bigpictures = (state = [], action) => {
   let old = null
   let old_parent = null
   let new_parent = null
+  let target_bp = null
   let res = state
 
   switch (action.type) {

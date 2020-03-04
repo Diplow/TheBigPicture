@@ -34,24 +34,14 @@
 	margin-top: 0.1rem;
 }
 
-.subject {
+.hero {
 	background-color: $light;
 }
 
-.reference {
-	background-color: $light;
-}
-
-.problem {
-	background-color: $primary-2;
-}
-
-.solution {
-	background-color: $primary-3;
-}
-
-.resource {
-	background-color: $primary-1;
+.level.is-mobile {	
+	figure.image.level-item.is-32x32 {
+		margin-right: 0.5rem;
+	}
 }
 
 .tbp-star {

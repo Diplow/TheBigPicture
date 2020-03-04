@@ -3,6 +3,8 @@ import * as cst from "../constants"
 
 
 const ratings = (state = [], action) => {
+  let old = null
+
   switch (action.type) {
 
     case cst.ADD_RATING:
@@ -21,6 +23,16 @@ const ratings = (state = [], action) => {
           reason: rating.reason,
           subject: rating.subject,
           date: rating.date
+        }
+      ]
+
+    case cst.ADD_RATING_RESULTS:
+      old = state.find(element => element.id == action.ratingId)
+      return [
+        ...state.filter(element => element.id != old.id),
+        {
+          ...old,
+          results: action.results
         }
       ]
 

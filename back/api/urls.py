@@ -26,7 +26,7 @@ router.register(r'ratings', RatingViewSet)
 
 urlpatterns = [
     path('api/bigpictures/<int:pk>/results/', bigPictureResults),
-    path('api/bigpictures/<int:pk>/results/', ratingResults),
+    path('api/ratings/<int:pk>/results/', ratingResults),
     path('api/token-auth/', obtain_jwt_token),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

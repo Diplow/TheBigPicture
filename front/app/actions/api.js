@@ -26,9 +26,14 @@ const NEXTS = {
       }
     }
   },
-  "getresults": (dispatch, nextargs) => {
+  "getbpresults": (dispatch, nextargs) => {
     return (resp) => {
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
+    }
+  },
+  "getratingresults": (dispatch, nextargs) => {
+    return (resp) => {
+      dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
   },
 }
@@ -45,7 +50,7 @@ export const make = (request) => {
           if (!success) {
             dispatch(basics.notification({
               title: "Erreur de communication avec le serveur",
-              message: "N'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr.",
+              message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr",
               type: "warning"
             }))
             break;

@@ -6,6 +6,7 @@ import BigPictureList from '../../../components/BigPicture/list'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
 import EditionModalButton from '../../../components/Buttons/modal'
+import AddBigPictureButton from '../../../components/Buttons/add'
 import "./style.scss"
 
 
@@ -14,14 +15,15 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
     <div>
       <div className="container tbp-section">
         <BigPictureList
+          filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
           parent={null}
           count={count}
           getPage={getBigPictures}
+          showHeader={true}
           title={"SUJETS"}
-          emptyMessage={"Aucun sujet n'a encore été créé."}
           loadFirstPage={true}
+          emptyMessage={"Aucun sujet n'a encore été créé."}
           buttons={[]}
-          filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
         />
       </div>
       {
@@ -29,19 +31,24 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         ? null
         : <div className="container tbp-section">
             <BigPictureList
+              filter={bp => bp.kind == cst.SUBJECT && bp.author == user.id}
               parent={null}
               count={user.ownSubjectCount}
               getPage={(page) => getOwnSubjects(user.id, page)}
+              showHeader={true}
               title={"VOS SUJETS"}
-              emptyMessage={"Vous n'avez encore créé aucun sujet."}
               loadFirstPage={true}
-              buttons={[cst.ADD_BUTTON]}
-              filter={bp => bp.kind == cst.SUBJECT && bp.author == user.id}
+              emptyMessage={"Vous n'avez encore créé aucun sujet."}
+              buttons={[addBigPictureButton]}
             />
           </div>
       }
     </div>
   )
+}
+
+const addBigPictureButton = () => {
+  return <AddBigPictureButton key={`addhome`} bigPicture={null} />
 }
 
 HomeLook.propTypes = {

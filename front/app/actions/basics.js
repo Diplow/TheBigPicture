@@ -103,6 +103,14 @@ export const addRating = (rating) => {
   }
 }
 
+export const addRatingResults = (ratingId, results) => {
+  return {
+    type: cst.ADD_RATING_RESULTS,
+    ratingId,
+    results
+  }
+}
+
 export const removeBigPicture = (id) => {
   return {
     type: cst.DELETE_BIG_PICTURE,

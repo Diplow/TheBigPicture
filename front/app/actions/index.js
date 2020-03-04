@@ -51,11 +51,19 @@ export const getResources = (bigpictureId) => {
   }
 }
 
-export const getResults = (bigpictureId) => {
+export const getBigPictureResults = (bigpictureId) => {
   return (dispatch) => {
-    const next = "getresults"
+    const next = "getbpresults"
     const nextargs = { bigpictureId }
     api.get(dispatch, `bigpictures/${bigpictureId}/results`, [], next, nextargs)
+  }
+}
+
+export const getRatingResults = (ratingId) => {
+  return (dispatch) => {
+    const next = "getratingresults"
+    const nextargs = { ratingId }
+    api.get(dispatch, `ratings/${ratingId}/results`, [], next, nextargs)
   }
 }
 
@@ -76,6 +84,12 @@ export const getReferences = (page, bpId) => {
 export const getBigPictureRatings = (page, targetId, userId) => {
   return (dispatch) => {
     api.getCollection(dispatch, "ratings", page, [`bigpicture=${targetId}`])
+  }
+}
+
+export const getRatingRatings = (page, targetId, userId) => {
+  return (dispatch) => {
+    api.getCollection(dispatch, "ratings", page, [`rating=${targetId}`])
   }
 }
 
