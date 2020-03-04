@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import BigPictureModal from './modal'
 import RatingModal from '../Rating/modal'
 import RatingPreview from '../Rating/preview'
-import { getBigPicture } from '../../actions/index'
+import { getBigPicture, getBigPictureRatings } from '../../actions/index'
 import AuthorIcon from '../User/authorIcon'
 import NewBigPicture from './new'
 import NewRating from '../Rating/new'
@@ -21,7 +21,7 @@ import "./style.scss"
 import * as cst from '../../constants'
 
 
-const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictureId, getBigPicture, margin }) => {
+const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictureId, getBigPicture, getBigPictureRatings, margin }) => {
 
   useEffect(() => {
     if (bigPicture == undefined)
@@ -64,7 +64,7 @@ const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictur
       </div>
       {
         showRatings
-        ? bpRatings(bigPicture, ratings, margin) 
+        ? bpRatings(bigPicture, ratings, margin, getBigPictureRatings) 
         : null
       }
       {
@@ -89,10 +89,10 @@ const bpLeftLevel = (bigPicture) => {
 	return (
     <div className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
-      { bigPicture.hyperlink_id != null ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
       { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
       { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-lightbulb"></i></figure> : null }
       { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-folder"></i></figure> : null }
+      { bigPicture.hyperlink_id != null ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
       <p className="card-header-title">{bigPicture.title}</p>
     </div>
 	)
@@ -241,7 +241,7 @@ const bpChildren = (bigPicture, parentMargin, user) => {
   )
 }
 
-const bpRatings = (bigPicture, ratings, parentMargin) => {
+const bpRatings = (bigPicture, ratings, parentMargin, getPage) => {
   const margin = (
     parentMargin == 0
     ? cst.SUBMARGIN 
@@ -251,9 +251,14 @@ const bpRatings = (bigPicture, ratings, parentMargin) => {
   return (
     <RatingList
       target={bigPicture}
-      ratingsFilter={(rating) => rating.target_bp == bigPicture.id}
+      filter={(rating) => rating.target_bp == bigPicture.id}
       showHeader={false}
       loadFirstPage={true}
+      emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
+      count={bigPicture.ratingCount}
+      title={""}
+      getPage={(page) => getPage(page, bigPicture.id)}
+      buttons={[]}
       margin={margin}
     />
   )
@@ -273,7 +278,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) }
+    getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
+    getBigPictureRatings: (page, bpId) => { dispatch(getBigPictureRatings(page, bpId)) }
   }
 }
 

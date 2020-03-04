@@ -21,6 +21,7 @@ const RatingListLook = (props) => {
     showHeader,
     loadFirstPage,
     title,
+    margin,
     buttons
   } = props
 
@@ -32,7 +33,7 @@ const RatingListLook = (props) => {
   return (
     <List
       items={ratings}
-      container={(rating) => <RatingPreview key={`previewrating-${rating.id}`} ratingId={rating.id} margin={0} />}
+      container={(rating) => <RatingPreview key={`previewrating-${rating.id}`} ratingId={rating.id} margin={margin} />}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={ratingsSort}
