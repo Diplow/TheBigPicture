@@ -168,7 +168,7 @@ const comments = (bigPicture, getRatingsPage) => {
         count={bigPicture.ratingCount}
         getPage={(page) => { getRatingsPage(page, bigPicture.id) }}
         title={"Raisons"}
-        emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
+        emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
         buttons={[() => addRatingButton(bigPicture)]}
       />
     </div>

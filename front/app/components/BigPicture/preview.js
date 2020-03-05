@@ -21,7 +21,7 @@ import "./style.scss"
 import * as cst from '../../constants'
 
 
-const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictureId, getBigPicture, getBigPictureRatings, margin }) => {
+const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings, bigPictureId, getBigPicture, getBigPictureRatings, margin }) => {
 
   useEffect(() => {
     if (bigPicture == undefined)
@@ -69,7 +69,7 @@ const BigPicturePreviewLook = ({ bigPicture, user, hyperlink, ratings, bigPictur
       }
       {
         showChildren && bigPicture.children.length != 0
-        ? bpChildren(bigPicture, margin, user)
+        ? bpChildren(bigPicture, children, margin, user)
         : null
       }
     </div>
@@ -209,7 +209,7 @@ const bpDetails = (showDetails, body) => {
 	)
 }
 
-const bpChildren = (bigPicture, parentMargin, user) => {
+const bpChildren = (bigPicture, children, parentMargin, user) => {
 
   const margin = (
     parentMargin == 0
@@ -226,8 +226,8 @@ const bpChildren = (bigPicture, parentMargin, user) => {
 
   return (
     <List
-      items={bigPicture.children}
-      container={(bpId) => <BigPicturePreview key={"preview"+bpId} bigPictureId={bpId} margin={margin}/>}
+      items={children}
+      container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} margin={margin}/>}
       user={user}
       emptyMessage={""}
       sortFunc={sortBigPictures}
@@ -269,6 +269,7 @@ const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
     bigPicture,
+    children: bigPicture != null ? state.get("bigpictures").filter(bp => bigPicture.children.indexOf(bp.id) != -1) : [],
     user: state.get("user"),
     hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
     ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
