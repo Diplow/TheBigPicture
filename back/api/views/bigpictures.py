@@ -43,6 +43,12 @@ class BigPictureViewSet(ModelViewSet):
 
 	def create(self, request):
 		request.data["author_id"] = request.user.id
+
+		if request.data["parent"] is not None:
+			parent = BigPicture.objects.get(id=request.data["parent"])
+			if parent.author.id  != request.user.id:
+				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
+
 		return super().create(request)
 
 	def partial_update(self, request, pk=None):

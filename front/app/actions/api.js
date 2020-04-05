@@ -176,7 +176,14 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
       else if (Array.isArray(res.title)) {
         dispatch(basics.notification({
           title: "La vue n'a pas pu être créée",
-          message: res.title[0],
+          message: "Le champ titre doit être renseignée et suffisament court.",
+          type: "warning"
+        }))
+      }
+      else if (Array.isArray(res.hyperlink_id)) {
+        dispatch(basics.notification({
+          title: "La vue n'a pas pu être créée",
+          message: "La référence n'existe pas (ou alors elle est privée et ne peut donc pas être référencée).",
           type: "warning"
         }))
       }
