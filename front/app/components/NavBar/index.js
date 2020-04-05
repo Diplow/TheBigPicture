@@ -13,7 +13,9 @@ const NavBarLook = () => {
       <div className="container nav-container">
         <div id="navbar" className="tbp-section level tbp-nav-level is-mobile no-top-margin">
           <div className="level-left is-mobile">
-            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>VDE</Link>
+            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>
+              <figure className="level-item image is-96x96"><img src="https://vde-staticfiles.s3.amazonaws.com/media/profile_images/vde3.png"/></figure>
+            </Link>
           </div>
           <div className="level-right is-mobile">
             <LoginButton />
