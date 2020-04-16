@@ -8,9 +8,10 @@ import BigPictureModal from '../BigPicture/modal'
 import "./style.scss"
 
 
-const AddBigPictureButton = ({ bigPicture }) => {
+const AddBigPictureButtonLook = ({ bigPicture, user }) => {
   const init = {
     title: "",
+    author_id: user.id,
     parent: bigPicture == null ? null : bigPicture.id,
     kind: bigPicture == null ? cst.SUBJECT : cst.PROBLEM,
     private: bigPicture == null ? true : bigPicture.private,
@@ -37,5 +38,13 @@ const AddBigPictureButton = ({ bigPicture }) => {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.get("user")
+  }
+}
+
+const AddBigPictureButton = connect(mapStateToProps)(AddBigPictureButtonLook)
 
 export default AddBigPictureButton

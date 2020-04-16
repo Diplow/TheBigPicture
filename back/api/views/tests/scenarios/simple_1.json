@@ -1,0 +1,43 @@
+[
+    {
+        "name": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le projet VDE",
+            "body": "Le projet VDE veut créer un pouvoir politique légitime et compétent.",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "Le changement climatique",
+            "private": false
+        },
+        "expectation": {
+            "status": 401
+        }
+    }
+]

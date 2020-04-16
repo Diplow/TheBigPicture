@@ -1,0 +1,124 @@
+[
+    {
+        "name": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "create_user",
+        "data": {
+            "id": 2,
+            "username": "Test",
+            "password": "testest",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le projet VDE",
+            "body": "Le projet VDE veut créer un pouvoir politique légitime et compétent.",
+            "private": false
+        },
+        "expectation": {
+            "status": 401
+        }
+    },
+    {
+        "name": "login",
+        "data": {
+            "username": "Test",
+            "password": "testest"
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "Le projet VDE",
+            "body": "Le projet VDE veut créer un pouvoir politique légitime et compétent.",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le changement climatique",
+            "private": false
+        },
+        "expectation": {
+            "status": 401
+        }
+    },
+    {
+        "name": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le changement climatique",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "post_rating",
+        "data": {
+            "value": 3,
+            "author_id": 2,
+            "target_bp": 1,
+            "reason": "Il s'agit d'un homme de paille.",
+            "subject": 1
+        },
+        "expectation": {
+            "status": 401
+        }
+    },
+    {
+        "name": "post_rating",
+        "data": {
+            "value": 3,
+            "author_id": 1,
+            "target_bp": 1,
+            "reason": "Il s'agit d'un homme de paille.",
+            "subject": 1
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "post_big_picture",
+        "data": {
+            "kind": 2,
+            "parent": 2,
+            "subject": 2,
+            "author_id": 1,
+            "title": "Le changement climatique",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    }
+]

@@ -29,7 +29,9 @@ class RatingViewSet(ModelViewSet):
 		return queryset
 
 	def create(self, request):
-		request.data["author_id"] = request.user.id
+		if request.user.id != int(request.data["author_id"]):
+			return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter une raison dont vous n'êtes pas l'auteur."}), status=401)
+
 		if (request.data["value"] == 6):
 			endorsment = Rating.objects.get(id=request.data["target_rating"])
 			if request.user.id == endorsment.author_id:

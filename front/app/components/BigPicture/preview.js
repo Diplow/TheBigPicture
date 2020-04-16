@@ -60,7 +60,8 @@ const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings,
             toggleRatings,
             toggleChildren,
             init,
-            setter) }
+            setter,
+            user) }
       </div>
       {
         showRatings
@@ -98,7 +99,7 @@ const bpLeftLevel = (bigPicture) => {
 	)
 }
 
-const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, toggleDetails, toggleRatings, toggleChildren, init, setter) => {
+const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, toggleDetails, toggleRatings, toggleChildren, init, setter, user) => {
   return (
     <div className="level is-mobile vde-toolbar">
       <div className="level-left">
@@ -106,7 +107,7 @@ const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, to
       </div>
       <div className="level-right">
         {editButton(init, setter)}
-        {ratingButton(bigPicture)}
+        {ratingButton(bigPicture, user)}
         { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
         { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
         { bigPicture.ratingCount != 0 || ratings.length != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
@@ -161,9 +162,10 @@ const editButton = (init, setter) => {
   )
 }
 
-const ratingButton = (bigPicture) => {
+const ratingButton = (bigPicture, user) => {
   const initRating = {
     value: 0,
+    author_id: user.id,
     target_bp: bigPicture.id,
     target_rating: null,
     reason: "",

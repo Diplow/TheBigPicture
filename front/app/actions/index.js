@@ -5,6 +5,7 @@ import * as cst from "../constants"
 
 export const postBigPicture = (bigPicture) => {
   return (dispatch) => {
+    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
     api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, "/", "POST")
   }
 }
@@ -23,7 +24,7 @@ export const deleteVote = (id) => {
 
 export const patchBigPicture = (bigPicture) => {
   return (dispatch) => {
-    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null) && delete bigPicture[key])
+    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
     api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, `/${bigPicture.id}/`, "PATCH")
   }
 }
