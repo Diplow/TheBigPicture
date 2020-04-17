@@ -18,9 +18,9 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
 
   const edit = (e) => {
   	if (e.target.name == "private") {
-  		if (e.target.value == "false")
+  		if (e.target.value === "false" || e.target.value === false)
     		setData({ ...data, private: false})
-    	else
+    	if (e.target.value === "true" || e.target.value === true)
     		setData({ ...data, private: true})
   	}
   	else {
@@ -80,8 +80,8 @@ const privacyField = (privacy, edit) => {
     <div className="field">
       <p className="subtitle-modal">Visibilité</p>
       <div className="control">
-        { radioButton("private", privacy == false, false, edit, "Publique") }
-        { radioButton("private", privacy == true, true, edit, "Privé") }
+        { radioButton("private", privacy === false, false, edit, "Publique") }
+        { radioButton("private", privacy === true, true, edit, "Privé") }
       </div>
     </div>
   )

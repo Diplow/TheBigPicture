@@ -5,13 +5,14 @@ import * as cst from "../constants"
 
 export const postBigPicture = (bigPicture) => {
   return (dispatch) => {
-    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
+    Object.keys(bigPicture).forEach((key) => (bigPicture[key] === null || bigPicture[key] === "") && delete bigPicture[key])
     api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, "/", "POST")
   }
 }
 
 export const postVote = (vote) => {
   return (dispatch) => {
+    Object.keys(vote).forEach((key) => (vote[key] === null || vote[key] === "") && delete vote[key])
     api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
 }
