@@ -25,7 +25,7 @@ export const deleteVote = (id) => {
 
 export const patchBigPicture = (bigPicture) => {
   return (dispatch) => {
-    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
+    Object.keys(bigPicture).forEach((key) => (bigPicture[key] === null || bigPicture[key] === "") && delete bigPicture[key])
     api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, `/${bigPicture.id}/`, "PATCH")
   }
 }

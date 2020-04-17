@@ -6,7 +6,6 @@ import uuid from 'uuid/v4'
 
 
 const EditionModalLook = ({ post, del, construct, active, setActive, data }) => {
-  const [publish, setPublish] = useState(null)
   const headline = data.id == undefined ? "Création de contenu" : "Modification de contenu"
 
   return (

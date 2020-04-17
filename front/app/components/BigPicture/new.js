@@ -18,10 +18,12 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
 
   const edit = (e) => {
   	if (e.target.name == "private") {
-  		if (e.target.value === "false" || e.target.value === false)
-    		setData({ ...data, private: false})
-    	if (e.target.value === "true" || e.target.value === true)
-    		setData({ ...data, private: true})
+  		if (e.target.value === "false" || e.target.value === false) {
+    		setData({ ...data, [e.target.name]: false})
+      }
+    	else if (e.target.value === "true" || e.target.value === true) {
+    		setData({ ...data, [e.target.name]: true})
+      }
   	}
   	else {
 	    setData({ ...data, [e.target.name]: e.target.value})
