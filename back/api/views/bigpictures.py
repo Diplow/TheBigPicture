@@ -53,12 +53,13 @@ class BigPictureViewSet(ModelViewSet):
 		if "parent" in request.data:
 			parent = BigPicture.objects.get(id=request.data["parent"])
 			if parent.author.id  != request.user.id:
-				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
+				return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=401)
 
 		return super().create(request)
 
 	def partial_update(self, request, pk=None):
-		update_parent(pk, request.data["parent"])
+		if "parent" in request.data:
+			update_parent(pk, request.data["parent"])
 		return super().partial_update(request, pk)
 
 def update_parent(pk, new_parent_id):
