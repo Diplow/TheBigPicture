@@ -6,7 +6,13 @@ import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
 
 
-const NewRatingLook = ({ data, setData, target_bp }) => {
+const NewRatingLook = (props) => {
+  const {
+    data,
+    setData,
+    target_bp
+  } = props;
+
   if (data == null)
     return null
 

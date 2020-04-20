@@ -35,7 +35,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
       { header(init) }
       { content(init, user, setter) }
       { analyse(init) }
-      { comments(init, getRatingsPage) }
+      { comments(init, getRatingsPage, user) }
       { references(init, getReferences) }
       { results(init) }
     </div>
@@ -154,7 +154,7 @@ const addBigPictureButton = (bigPicture) => {
 }
 
 
-const comments = (bigPicture, getRatingsPage) => {
+const comments = (bigPicture, getRatingsPage, user) => {
   if (bigPicture == undefined)
     return null
 
@@ -169,18 +169,19 @@ const comments = (bigPicture, getRatingsPage) => {
         getPage={(page) => { getRatingsPage(page, bigPicture.id) }}
         title={"Raisons"}
         emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
-        buttons={[() => addRatingButton(bigPicture)]}
+        buttons={[() => addRatingButton(bigPicture, user)]}
       />
     </div>
   )
 }
 
 
-const addRatingButton = (bigPicture) => {
+const addRatingButton = (bigPicture, user) => {
   const initRating = {
     value: 0,
     target_bp: bigPicture.id,
     target_rating: null,
+    author_id: user.id,
     reason: "",
     subject: bigPicture.subject
   }

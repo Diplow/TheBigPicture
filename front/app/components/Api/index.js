@@ -4,11 +4,21 @@ import { make } from '../../actions/api'
 import * as cst from '../../constants'
 
 
-const ApiEngine = ({ todo, make }) => {
-	if (todo != undefined)
-		make(todo)
+/**
+  The APIEngine executes all the request with the status cst.REQUEST_CREATED
+  See the requests reducers for an explanation over the purpose of "requests"
+  in this application.
+**/
+const ApiEngine = (props) => {
+  const {
+    todo, // a request (see the requests reducer for a request fields description)
+    make // a function to execute a request
+  } = props
 
-	return null
+  if (todo != undefined)
+    make(todo)
+
+  return null
 }
 
 const mapStateToProps = (state) => {
@@ -19,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	make: (request) => { dispatch(make(request)) },
+    make: (request) => { dispatch(make(request)) },
   }
 }
 

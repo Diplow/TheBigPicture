@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ownRating: state.get("ratings").find(rating => {
       return (
-        rating.author == state.get("user").id
+        rating.author_id == state.get("user").id
         && ((rating.target_rating == ownProps.initRating.target_rating && ownProps.initRating.target_rating != undefined)
         || (rating.target_bp == ownProps.initRating.target_bp && ownProps.initRating.target_bp != undefined))
       )

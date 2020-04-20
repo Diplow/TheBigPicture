@@ -33,7 +33,7 @@ const RatingListLook = (props) => {
   return (
     <List
       items={ratings}
-      container={(rating) => <RatingPreview key={`previewrating-${rating.id}`} ratingId={rating.id} margin={margin} />}
+      container={(rating) => <div key={`previewrating-${rating.id}`} ><RatingPreview ratingId={rating.id} margin={margin} /></div>}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={ratingsSort}
