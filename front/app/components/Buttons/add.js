@@ -26,16 +26,14 @@ const AddBigPictureButtonLook = ({ bigPicture, user }) => {
   	setInitBp(init)
   }, [bigPicture])
   return (
-    <div className="button tbp-radio vde-add-comment is-narrow">
-      <EditionModalButton
-        init={initBp}
-        setter={setInitBp}
-        classname={"button tbp-radio "}
-        icon={"fas fa-plus"}
-        EditionModal={BigPictureModal}
-        NewItem={NewBigPicture}
-      />
-    </div>
+    <EditionModalButton
+      init={initBp}
+      setter={setInitBp}
+      classname={"button tbp-radio title-button"}
+      icon={"fas fa-plus"}
+      EditionModal={BigPictureModal}
+      NewItem={NewBigPicture}
+    />
   )
 }
 

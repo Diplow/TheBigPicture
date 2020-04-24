@@ -3,6 +3,7 @@ import { logout } from '../../actions/api'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import LoginModal from './loginmodal'
+import UserIcon from '../../images/icons/user.svg';
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -10,14 +11,13 @@ import "./style.scss"
 const LoginButtonLook = ({ user, logout }) => {
   const [showModal, setShowModal] = useState(false)
 
+  if (user.id != 0)
+    return null
   return (
-    <div className="level-item">
-      <p className="username">{user.username}</p>
-      <span className="loggin-label level-item is-shrink">
-        <figure className="image is-48x48" onClick={user.username != cst.GUEST_NAME ? logout : () => setShowModal(true)}>
-          <img src={user.image} className="login-image is-rounded" />
-        </figure>
-      </span>
+    <div className="vde dropdown nav-item">
+      <a href="#" className="icon-button" onClick={() => setShowModal(true)}>
+        <img src={UserIcon} style={{width:"100%"}} className="vde navbar menu is-rounded" />
+      </a>
       <LoginModal
         active={showModal}
         setActive={setShowModal}

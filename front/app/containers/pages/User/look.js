@@ -21,21 +21,19 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
   return (
     <div>
       <div className="hero subject">
-        <div className="container tbp-section">
-          <div className="level is-mobile no-top-margin">
-            <div className="level-left">
+        <div className="vde container section">
+          <div className="vde level is-mobile">
+            <div style={{maxWidth: "100%"}} className="level-left">
               <span className="level-item author-icon">
                 <AuthorIcon userId={user.id}/>
               </span>
-              <h1 className="title">{user.username}</h1>
+              <h1 className="vde title">{user.username}</h1>
             </div>
           </div>
         </div>
       </div>
-      <div className="container tbp-section">
-        { userSubjects(user, getOwnSubjects) }
-        { userRatings(user, ratings, getRatedSubjects) }
-      </div>
+      { userSubjects(user, getOwnSubjects) }
+      { userRatings(user, ratings, getRatedSubjects) }
     </div>
   )
 }
