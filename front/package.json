@@ -69,6 +69,7 @@
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^3.5.2",
     "eventsource-polyfill": "^0.9.6",
     "exports-loader": "^0.7.0",
