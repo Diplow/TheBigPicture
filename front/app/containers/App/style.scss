@@ -1,0 +1,12 @@
+@import "../../styles/theme.scss";
+
+div#navbardiv {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index:10;
+}
+
+div#routes {
+  margin-top: 5.5rem;
+}

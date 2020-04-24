@@ -10,7 +10,7 @@ import EXPLICATIONS from '../../constants/explications'
 
 
 const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
-  const [hidden, setHidden] = useState(true)
+  const [hidden, setHidden] = useState(showHeader)
 
   useEffect(() => {
     if (!hidden)
@@ -21,7 +21,7 @@ const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
     return null
 
   return (
-    <div className="container tbp-section section-field">
+    <div className="container vde section section-field">
       { showHeader ? header(bigPicture, hidden, setHidden) : null }
       { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
     </div>
@@ -32,9 +32,9 @@ const header = (bigPicture, hidden, setHidden) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
-        { hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-        { !hidden ? <figure className="level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
-        <p className="subtitle level-item vde-subtitle-bp-page">Résultats</p>
+        { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
+        { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+        <p className="vde subtitle level-item">Résultats</p>
       </div>
     </div>
   )
@@ -63,7 +63,7 @@ const chart = (bigPicture) => {
   const options = {
     chart: {
       type: 'bar',
-      height: 'auto',
+      height: '50px',
       stacked: true,
       stackType: '100%',
       colors: ["#6A6A6B", "#B02E0C", "#EB4511", "#C1BFB5", "#8ADD75", "#5EA34C"],
@@ -117,7 +117,7 @@ const chart = (bigPicture) => {
     {
       bigPicture.results.count == 0
       ? <p className="vde-no-comment subtitle">Personne n'a encore évalué ce contenu.</p>
-      : <Chart options={options} series={series} type="bar" height={600} />
+      : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>
   )

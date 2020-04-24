@@ -16,8 +16,8 @@ export const AuthorIconLook = ({ user, showIcon, getUser, userId, clickable }) =
   	return null
 
   const img = (
-	<figure className="level-item image is-48x48">
-      <img src={user.image} className="login-image is-rounded"/>
+	<figure className={"level-item image is-48x48"}>
+      <img src={user.image} className={`login-image is-rounded ${clickable ? "clickable" : ""}`}/>
   	</figure>
   )
 

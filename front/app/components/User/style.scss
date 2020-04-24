@@ -1,5 +1,14 @@
+@import "../../styles/theme.scss";
 
-figure.image.is-48x48 {
+
+.level-item.image.is-48x48 {
 	width: 3.3rem;
 	margin-right: 0.5rem;	
+}
+
+.login-image.clickable:hover,
+.login-image.clickable:focus {
+  border-color: $dark;
+  border-width: thin;
+  border-style: outset;
 }

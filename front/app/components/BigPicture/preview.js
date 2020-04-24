@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import BigPictureModal from './modal'
+import Results from './results'
 import RatingModal from '../Rating/modal'
 import RatingPreview from '../Rating/preview'
 import { getBigPicture, getBigPictureRatings } from '../../actions/index'
@@ -39,14 +40,15 @@ const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings,
   const [showChildren, toggleChildren] = useToggle(false)
   const [showRatings, toggleRatings] = useToggle(false)
   const [showDetails, toggleDetails] = useToggle(false)
+  const [showResults, toggleResults] = useToggle(false)
 
   if (bigPicture == undefined || bigPicture == null)
     return null
 
   return (
     <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={bigPicture.id}>
-      <div className={cst.CLASSNAMES[bigPicture.kind] + " card bp-tile"}>
-        <header className="card-header level preview-item-level is-mobile">
+      <div className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
+        <header className="vde card-header level preview-item-level is-mobile" onClick={() => toggleDetails()}>
           { bpLeftLevel(bigPicture) }
         </header>
         { bpDetails(showDetails, bigPicture.body) }
@@ -56,13 +58,20 @@ const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings,
             showDetails,
             showRatings,
             showChildren,
+            showResults,
             toggleDetails,
             toggleRatings,
             toggleChildren,
+            toggleResults,
             init,
             setter,
             user) }
       </div>
+      {
+        showResults
+        ? <Results showHeader={false} bigPictureId={bigPicture.id} />
+        : null
+      }
       {
         showRatings
         ? bpRatings(bigPicture, ratings, margin, getBigPictureRatings) 
@@ -88,20 +97,20 @@ BigPicturePreviewLook.propTypes = {
 
 const bpLeftLevel = (bigPicture) => {
 	return (
-    <div className="level-left">
+    <div style={{maxWidth:"100%"}} className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
-      { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
-      { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-lightbulb"></i></figure> : null }
-      { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-folder"></i></figure> : null }
-      { bigPicture.hyperlink_id != null ? <figure className="level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
-      <p className="card-header-title">{bigPicture.title}</p>
+      { bigPicture.kind == cst.PROBLEM ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
+      { bigPicture.kind == cst.SOLUTION ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-lightbulb"></i></figure> : null }
+      { bigPicture.kind == cst.RESOURCE ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-folder"></i></figure> : null }
+      { bigPicture.hyperlink_id != null ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
+      <p className="vde title">{bigPicture.title}</p>
     </div>
 	)
 }
 
-const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, toggleDetails, toggleRatings, toggleChildren, init, setter, user) => {
+const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, showResults, toggleDetails, toggleRatings, toggleChildren, toggleResults, init, setter, user) => {
   return (
-    <div className="level is-mobile vde-toolbar">
+    <div className="vde toolbar level is-mobile">
       <div className="level-left">
         <p>{bigPicture.creation_date}</p>
       </div>
@@ -109,6 +118,7 @@ const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, to
         {editButton(init, setter)}
         {ratingButton(bigPicture, user)}
         { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
+        {toggleResultsButton(showResults, toggleResults)}
         { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
         { bigPicture.ratingCount != 0 || ratings.length != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
         {lookButton(bigPicture)}
@@ -120,7 +130,7 @@ const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, to
 const toggleRatingButton = (showRatings, toggleRatings) => {
   return (
     <RadioButton
-      classname={""}
+      classname={"vde toolbar"}
       isPushed={showRatings}
       setIsPushed={toggleRatings}
       icon={"fas fa-comments"}
@@ -131,7 +141,7 @@ const toggleRatingButton = (showRatings, toggleRatings) => {
 const toggleChildrenButton = (showChildren, toggleChildren) => {
   return (
     <RadioButton
-      classname={""}
+      classname={"vde toolbar"}
       isPushed={showChildren}
       setIsPushed={toggleChildren}
       icon={"fas fa-eye"}
@@ -142,7 +152,7 @@ const toggleChildrenButton = (showChildren, toggleChildren) => {
 const toggleDetailsButton = (showDetails, toggleDetails) => {
   return (
     <RadioButton
-      classname={""}
+      classname={"vde toolbar"}
       isPushed={showDetails}
       setIsPushed={toggleDetails}
       icon={"fas fa-file"}
@@ -150,9 +160,21 @@ const toggleDetailsButton = (showDetails, toggleDetails) => {
   )
 }
 
+const toggleResultsButton = (showResults, toggleResults) => {
+  return (
+    <RadioButton
+      classname={"vde toolbar"}
+      isPushed={showResults}
+      setIsPushed={toggleResults}
+      icon={"far fa-chart-bar"}
+    />
+  )
+}
+
 const editButton = (init, setter) => {
   return (
     <EditionModalButton
+      classname={"vde toolbar"}
       init={init}
       setter={setter}
       icon={"fas fa-edit"}
@@ -174,7 +196,9 @@ const ratingButton = (bigPicture, user) => {
   if (initRating.subject == null)
     initRating.subject = bigPicture.id
   return (
-    <RatingButton initRating={initRating} />
+    <RatingButton
+      initRating={initRating}
+      classname={"vde toolbar"} />
   )
 }
 
@@ -191,7 +215,8 @@ const lookButton = (bigPicture) => {
       icon="fas fa-search "
       to={
         `/subject/${bp.subject == null ? bp.id : bp.subject}/bigPicture/${bp.id}`
-      } />
+      }
+      classname="vde toolbar" />
   )
 }
 
@@ -203,7 +228,7 @@ const bpDetails = (showDetails, body) => {
 		return null
 
 	return (
-		<div className="card-content">
+		<div className="vde card-content">
 			<div className="content">
 				<ReactMarkdown source={body} />
 			</div>

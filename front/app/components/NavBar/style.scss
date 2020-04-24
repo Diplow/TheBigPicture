@@ -1,92 +1,79 @@
+
 @import "../../styles/theme.scss";
 
-.title.brand {
-	color: $dark;
+.vde.navbar.menu {
+  height: 2rem;
+  width: auto;
+  border-radius: 50%;
 }
 
-.username {
-	color: $dark;
+.vde.dropdown.nav-item:hover,
+.vde.dropdown.nav-item:focus {
+  border-color: $dark;
+  border-width: thin;
+  border-style: outset;
 }
 
-.label.login-label {
-	margin-top: 0.5rem;
+.inscription-link {
+  color: blue;
 }
 
-.label.login-inscription {
-	a {
-		font-weight: 400;
-	}
-	margin-top: 1rem;
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.login-input {
-	width: 100%;
+/* Top Navigation Bar */
+
+div.section.vde-navbar {
+  height: $navsize;
+  background-color: $primary-5;
+  border-bottom: var(--border);
+  width: 100%;
+  padding: 1.5rem 0;
 }
 
-.login-image {
-	border-color: $dark;
-	border-width: 0.1rem;
-	border-style: inset;
+div.container.vde-navbar {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
 
-.navbar-section.section.tbp-section {
-	background-color: #CEC8C8;
-	height: 4rem;
+div.level.vde-navbar {
+  height: 100%;
+  width: 100%;
 }
 
-.container.nav-container {
-	margin-top: 0;
-	padding-top: 0;
-	padding-bottom: 0;
-	height: 4rem;
-	width: 100%;
-	padding: 0 0.5rem;
+.navbar-nav {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.level.tbp-nav-level {
-	height: 4rem;
-	padding: 1rem 0;
+.vde.dropdown.nav-item {
+  --button-size: calc(5.5rem * 0.6);
+  width: var(--button-size);
+  height: var(--button-size);
+  margin: 3px;
+  background-color: $primary-4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.navbar-item.tbp-nav-item {
-	margin-top: 0.2rem;
-	margin-bottom: 0.2rem;
-	height:3rem;
+/* Icon Button */
+.icon-button {
+  --button-size: calc(5.5rem * 0.35);
+  width: var(--button-size);
+  height: var(--button-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 300ms;
 }
 
-.tbp-logo {
-    width: 5rem;
-    height: 3rem;
-}
 
-.github-icon {
-	color: #333;
-}
-
-.twitter-icon {
-	color: #55acee;
-}
-
-.discord-icon {
-	color: #8C9EFF;
-}
-
-.username {
-	width: 10rem;
-	text-align: right;
-	font-weight: bold;
-	padding-right: 0.5rem;
-	font-size: 1.2rem;
-}
-
-.button.username {
-	width: 2rem;
-}
-
-.button.username.logged-in {
-	background-color: $primary-2;
-}
-
-.button.username.logged-out {
-	background-color: $primary-3;
-}

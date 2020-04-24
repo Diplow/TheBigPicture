@@ -58,7 +58,8 @@ class BigPictureViewSet(ModelViewSet):
 		return super().create(request)
 
 	def partial_update(self, request, pk=None):
-		update_parent(pk, request.data["parent"])
+		if "parent" in request.data:
+			update_parent(pk, request.data["parent"])
 		return super().partial_update(request, pk)
 
 def update_parent(pk, new_parent_id):
