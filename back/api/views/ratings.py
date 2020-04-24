@@ -39,6 +39,8 @@ class RatingViewSet(ModelViewSet):
 			request.data["value"] = endorsment.value
 			request.data["reason"] = endorsment.reason
 			request.data["endorsment"] = endorsment.id
-			request.data["target_rating"] = endorsment.target_rating.id if endorsment.target_rating is not None else None
-			request.data["target_bp"] = endorsment.target_bp.id if endorsment.target_bp is not None else None
+			if endorsment.target_rating is not None:
+				request.data["target_rating"] = endorsment.target_rating.id
+			if endorsment.target_bp is not None:
+				request.data["target_bp"] = endorsment.target_bp.id
 		return super().create(request)

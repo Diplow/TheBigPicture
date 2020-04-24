@@ -1,6 +1,6 @@
 [
     {
-        "name": "Create user Diplo",
+        "name": "Create user Diplo.",
         "action": "create_user",
         "data": {
             "id": 1,
@@ -10,7 +10,7 @@
         }
     },
     {
-        "name": "Diplo logs in",
+        "name": "Diplo logs in.",
         "action": "login",
         "data": {
             "username": "Diplo",
@@ -18,10 +18,10 @@
         }
     },
     {
-        "name": "Diplo post the bp 'Le projet VDE'",
+        "name": "Diplo creates the bp 'Le projet VDE'.",
         "action": "send_api",
-        "verb": "post",
         "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
             "kind": 1,
             "author_id": 1,
@@ -30,31 +30,39 @@
             "private": false
         },
         "expectation": {
-            "status": 201,
-            "response": {
-                "id": {
-                    "_meta": "isInteger"
-                },
-                "author_id": 1,
-                "title": "Le projet VDE",
-                "private": false
-            }
-        },
-        "response": "bp_projet_vde"
+            "status": 201
+        }
     },
     {
-        "name": "Diplo post a bp for someone else and it fails",
+        "name": "Diplo creates the ressource 'Les fonctionnalités de la plateforme VDE', son of 'le projet VDE'.",
         "action": "send_api",
-        "verb": "post",
         "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
-            "kind": 1,
-            "author_id": 2,
-            "title": "Le changement climatique",
+            "kind": 4,
+            "author_id": 1,
+            "parent": 1,
+            "title": "Les fonctionnalités de la plateforme VDE",
             "private": false
         },
         "expectation": {
-            "status": 401
+            "status": 201
+        }
+    },
+    {
+        "name": "Diplo creates the ressource 'Créer une analyse politique', son of 'Les fonctionnalités...'.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
+        "data": {
+            "kind": 4,
+            "author_id": 1,
+            "parent": 2,
+            "title": "Créer une analyse politique",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
         }
     }
 ]

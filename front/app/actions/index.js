@@ -22,6 +22,7 @@ export const postBigPicture = (bigPicture) => {
 
 export const postVote = (vote) => {
   return (dispatch) => {
+    Object.keys(vote).forEach((key) => (vote[key] === null || vote[key] === "") && delete vote[key])
     api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
 }

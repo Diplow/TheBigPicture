@@ -27,7 +27,7 @@ const RatingPreviewLook = ({ rating, ratings, user, ratingId, margin, getPage })
         <header className="vde card-header level preview-item-level is-mobile">
           { ratingLeftLevel(rating) }
         </header>
-        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults) }
+        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
       { showRatings ? ratingChildren(rating, ratings, margin, user, getPage) : null }
@@ -69,11 +69,12 @@ const ratingLeftLevel = (rating) => {
 	)
 }
 
-const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults) => {
+const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) => {
   const initRating = {
     value: 0,
     target_bp: null,
     target_rating: rating.id,
+    author_id: user.id,
     reason: "",
     subject: rating.subject
   }
