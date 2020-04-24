@@ -8,14 +8,8 @@ const NEXTS = {
   "getallsubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setSubjectCount(result.count)) }
   },
-  "getratedsubjects": (dispatch, nextargs) => {
-    return (resp) => {
-      for (let i = 0; i < resp.results.length; ++i) {
-        const bp = resp.results[i]
-        dispatch(basics.addBigPicture(bp))
-        dispatch(basics.addRatedSubject(bp, nextargs.userId))
-      }
-    }
+  "getownsubjects": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
   },
   "getreferences": (dispatch, nextargs) => {
     return (resp) => {

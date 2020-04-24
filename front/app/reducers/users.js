@@ -3,15 +3,19 @@ import * as cst from "../constants"
 
 
 const users = (state = [], action) => {
+  let old = null
+
   switch (action.type) {
 
-    case cst.ADD_USER_RATED_SUBJECT:
-      let old = state.find(element => element.id == action.userId)
-      return [
-        ...state.filter(element => element.id != old.id),
+    case cst.SET_OWN_SUBJECT_COUNT:
+      let usrId = action.userId
+      let count = action.count
+      old = state.find(element => element.id == usrId)
+      return[
+        ...state.filter(user => user.id != usrId),
         {
           ...old,
-          ratedSubjects: [...old.ratedSubjects.filter(subj => subj != action.subjectId), action.subjectId]
+          ownSubjectCount: count
         }
       ]
 
@@ -24,8 +28,7 @@ const users = (state = [], action) => {
           id: usr.id,
           username: usr.username,
           image: usr.image,
-          ownSubjectCount: usr.ownSubjectCount,
-          ratedSubjectCount: usr.ratedSubjectCount,
+          ownSubjectCount: old != null ? old.ownSubjectCount : 1,
           ratedSubjects: old != null ? old.ratedSubjects : [],
         }
       ]

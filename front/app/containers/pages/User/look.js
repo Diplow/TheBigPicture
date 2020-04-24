@@ -9,7 +9,17 @@ import AddBigPictureButton from '../../../components/Buttons/add'
 import "./style.scss"
 
 
-const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRatedSubjects, match }) => {
+const UserViewLook = (props) => {
+
+  const {
+    user,
+    visitor,
+    ratings,
+    getUser,
+    getOwnSubjects,
+    getSubjects,
+    match
+  } = props
 
   useEffect(() => {
     const userId = parseInt(match.params.id)
@@ -34,7 +44,7 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
           </div>
         </div>
       </div>
-      { userSubjects(user, getOwnSubjects) }
+      { subjectsList(user, visitor, getOwnSubjects, getSubjects) }
     </div>
   )
 }
@@ -45,33 +55,21 @@ UserViewLook.propTypes = {
   user: PropTypes.object,
   getUser: PropTypes.func.isRequired,
   getOwnSubjects: PropTypes.func.isRequired,
-  getRatedSubjects: PropTypes.func.isRequired
+  getSubjects: PropTypes.func.isRequired
 }
 
-const userSubjects = (user, getPage) => {
-  const bpFilter = (bp) => {
-    return (
-      bp.kind == cst.SUBJECT
-      && bp.author == user.id
-      && bp.private == false
-    )
-  }
-  const loadFirstPage = true
-  return subjectsList(bpFilter, user.ownSubjectCount, getPage, "Sujets créés", `Aucun sujet n'a encore été créé publiquement par ${user.username}`, loadFirstPage)
-}
-
-const subjectsList = (filter, count, getPage, title, emptyMessage, loadFirstPage) => {
+const subjectsList = (user, visitor, getOwnSubjects, getSubjects) => {
   return (
     <BigPictureList
-      filter={filter}
+      filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
       parent={null}
-      count={count}
-      getPage={getPage}
+      count={user.ownSubjectCount}
+      getPage={visitor.id == user.id ? getOwnSubjects : getSubjects}
       showHeader={true}
-      title={title}
-      loadFirstPage={loadFirstPage}
-      emptyMessage={emptyMessage}
-      buttons={[addBigPictureButton]}
+      title={"Sujets créés"}
+      loadFirstPage={false}
+      emptyMessage={`Aucun sujet n'a encore été créé publiquement par ${user.username}`}
+      buttons={visitor.id == user.id ? [addBigPictureButton] : []}
     />
   )
 }
