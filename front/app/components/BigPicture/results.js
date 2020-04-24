@@ -116,7 +116,7 @@ const chart = (bigPicture) => {
     <div id="chart">
     {
       bigPicture.results.count == 0
-      ? <p className="vde-no-comment subtitle">Personne n'a encore évalué ce contenu.</p>
+      ? <p className="vde vde-no-comment subtitle">Personne n'a encore évalué ce contenu.</p>
       : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>

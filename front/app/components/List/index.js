@@ -33,7 +33,7 @@ const List = (props) => {
   const [hidden, setHidden] = useState(!loadFirstPage)
 
   return (
-    <div className="container vde section section-field">
+    <div className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(buttons, user, title, hidden, setHidden) : null }
       { !hidden ? <div>
         { count == 0 && items.length == 0 ? <p className="vde subtitle">{emptyMessage}</p> : null }

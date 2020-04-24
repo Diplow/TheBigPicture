@@ -4,6 +4,8 @@ import BigPictureList from '../../../components/BigPicture/list'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import AuthorIcon from '../../../components/User/authorIcon'
+import EditionModalButton from '../../../components/Buttons/modal'
+import AddBigPictureButton from '../../../components/Buttons/add'
 import "./style.scss"
 
 
@@ -33,7 +35,6 @@ const UserViewLook = ({ user, visitor, ratings, getUser, getOwnSubjects, getRate
         </div>
       </div>
       { userSubjects(user, getOwnSubjects) }
-      { userRatings(user, ratings, getRatedSubjects) }
     </div>
   )
 }
@@ -59,16 +60,6 @@ const userSubjects = (user, getPage) => {
   return subjectsList(bpFilter, user.ownSubjectCount, getPage, "Sujets créés", `Aucun sujet n'a encore été créé publiquement par ${user.username}`, loadFirstPage)
 }
 
-const userRatings = (user, ratings, getPage) => {
-  const bpFilter = (bp) => {
-    return (
-      user.ratedSubjects.indexOf(bp.id) != -1
-    )
-  }
-  const loadFirstPage = true
-  return subjectsList(bpFilter, user.ratedSubjectCount, getPage, "Sujets évalués", `Aucun sujet n'a encore été évalué publiquement par ${user.username}`, loadFirstPage)
-}
-
 const subjectsList = (filter, count, getPage, title, emptyMessage, loadFirstPage) => {
   return (
     <BigPictureList
@@ -80,9 +71,13 @@ const subjectsList = (filter, count, getPage, title, emptyMessage, loadFirstPage
       title={title}
       loadFirstPage={loadFirstPage}
       emptyMessage={emptyMessage}
-      buttons={[]}
+      buttons={[addBigPictureButton]}
     />
   )
+}
+
+const addBigPictureButton = () => {
+  return <AddBigPictureButton key={`addhome`} bigPicture={null} />
 }
 
 export default UserViewLook
