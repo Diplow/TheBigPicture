@@ -15,6 +15,9 @@ class OwnSubjectViewSet(ModelViewSet):
 	serializer_class = BigPictureSerializer
 	permission_classes = [IsAuthor]
 
+	def get_queryset(self):
+		return self.queryset.filter(author=self.request.user)
+
 
 class SubjectViewSet(ModelViewSet):
 	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE, private=False).order_by('-modification_date')
@@ -59,10 +62,10 @@ class BigPictureViewSet(ModelViewSet):
 
 	def partial_update(self, request, pk=None):
 		if "parent" in request.data:
-			update_parent(pk, request.data["parent"])
+			update_parent(pk, request.data["parent"], request)
 		return super().partial_update(request, pk)
 
-def update_parent(pk, new_parent_id):
+def update_parent(pk, new_parent_id, request):
 	def change_parent(obj, new_parent):
 		obj.parent = new_parent
 		obj.subject = new_parent.subject
@@ -77,4 +80,5 @@ def update_parent(pk, new_parent_id):
 		if new_parent.author.id != request.user.id:
 			return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu à un sujet dont vous n'êtes pas l'auteur."}), status=400)
 		change_parent(item, new_parent)
-		del request.data["subject"]
+		if "subject" in request.data:
+			del request.data["subject"]
