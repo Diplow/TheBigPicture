@@ -50,7 +50,7 @@ const stars = (data, edit) => {
 
   const Star = ({ value, setValue, nb }) => {
     return (
-      <div className={"level-item" + (value >= nb ? " selected" : "")} onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
+      <div className={"level-item is-narrow" + (value >= nb ? " selected" : "")} onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
         <span className="tbp-star tbp-eval fa fa-star"/>
       </div>
     )

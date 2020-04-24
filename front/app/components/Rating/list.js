@@ -27,7 +27,40 @@ const RatingListLook = (props) => {
 
   
   const ratingsSort = (ratingA, ratingB) => {
-    return ratingA.median >= ratingB.median ? 1 : -1
+    const ENOUGH_RATINGS = 5
+    const sort = (rA, rB) => {
+      const dateA = new Date(rA.date)
+      const dateB = new Date(rB.date)
+      if (rA.median != rB.median) {
+        return rA.median > rB.median ? 1 : -1 
+      }
+      else if (rA.average != rB.average) {
+        return rA.average > rB.average ? 1 : -1
+      }
+      else if (rA.ratingcount != rB.ratingcount) {
+        return rA.ratingcount > rB.ratingcount ? 1 : -1 
+      }
+      else if (dateA != dateB) {
+        return dateA > dateB ? 1 : -1
+      }
+      else {
+        return 0
+      }
+    }
+    if (ratingA.ratingcount > ENOUGH_RATINGS) {
+      if (ratingB.ratingcount > ENOUGH_RATINGS)
+        return sort(ratingA, ratingB)
+      else {
+        return 1
+      }
+    }
+    else {
+      if (ratingB.ratingcount > ENOUGH_RATINGS)
+        return -1
+      else {
+        return sort(ratingA, ratingB)
+      }
+    }
   }
 
   return (

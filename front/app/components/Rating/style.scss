@@ -1,23 +1,10 @@
 @import "../../styles/theme.scss";
 
 
-.reason.card.bp-tile {
-	background-color: light-grey;
-}
-
-p.vde-no-comment {
-	font-size: large;
-	padding: 0.5rem;
-}
-
-.card-content.vde-preview-content {
-	padding: 0;
-	margin: 0.7rem;
-}
-
 .tbp-star {
 	color: $light;
 	border-color: black;
+	width: 1rem;
 }
 
 .selected {
@@ -25,18 +12,8 @@ p.vde-no-comment {
 		color: gold;
 	}
 }
-.tbp-star.selected {
-	color: gold;
-}
 
 .level.star-level.is-mobile {
 	margin-bottom: 0.4rem;
-	max-width: 5rem;
-}
-
-div.tbp-radio.vde-add-comment {
-	background-color: $light;
-	width: 2.3rem;
-	height: 2.3rem;
-	border-radius: 4px;
+	display: inline-flex;
 }

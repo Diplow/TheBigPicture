@@ -13,35 +13,31 @@ import "./style.scss"
 const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
   return (
     <div>
-      <div className="container tbp-section">
-        <BigPictureList
-          filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
-          parent={null}
-          count={count}
-          getPage={getBigPictures}
-          showHeader={true}
-          title={"SUJETS"}
-          loadFirstPage={true}
-          emptyMessage={"Aucun sujet n'a encore été créé."}
-          buttons={[]}
-        />
-      </div>
+      <BigPictureList
+        filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
+        parent={null}
+        count={count}
+        getPage={getBigPictures}
+        showHeader={true}
+        title={"SUJETS"}
+        loadFirstPage={true}
+        emptyMessage={"Aucun sujet n'a encore été créé."}
+        buttons={[]}
+      />
       {
         user.id == 0
         ? null
-        : <div className="container tbp-section">
-            <BigPictureList
-              filter={bp => bp.kind == cst.SUBJECT && bp.author == user.id}
-              parent={null}
-              count={user.ownSubjectCount}
-              getPage={(page) => getOwnSubjects(user.id, page)}
-              showHeader={true}
-              title={"VOS SUJETS"}
-              loadFirstPage={true}
-              emptyMessage={"Vous n'avez encore créé aucun sujet."}
-              buttons={[addBigPictureButton]}
-            />
-          </div>
+        : <BigPictureList
+            filter={bp => bp.kind == cst.SUBJECT && bp.author == user.id}
+            parent={null}
+            count={user.ownSubjectCount}
+            getPage={(page) => getOwnSubjects(user.id, page)}
+            showHeader={true}
+            title={"VOS SUJETS"}
+            loadFirstPage={true}
+            emptyMessage={"Vous n'avez encore créé aucun sujet."}
+            buttons={[addBigPictureButton]}
+          />
       }
     </div>
   )

@@ -1,25 +1,7 @@
 @import "../../styles/theme.scss";
 
-span.vde-button.is-narrow.level-item {
-	color: $dark;
-	background-color: transparent;
-	margin-right: 0.3rem;
-	border-width: 0;
-	width: 2.3rem;
-	height: 2.3rem;
-
-	a {
-		color: $dark;
-	}
-
-	a:hover {
-		color: grey;
-	}
-}
-
-
-.button.tbp-radio.vde-add-comment.is-narrow {
-	a {
-		color: $dark;
-	}
+.button.tbp-radio.title-button:focus,
+.button.tbp-radio.title-button:hover {
+	background-color: $primary-4;
+	color: $primary-3;
 }

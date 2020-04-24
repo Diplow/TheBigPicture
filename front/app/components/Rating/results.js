@@ -19,7 +19,7 @@ const ResultsLook = ({ rating, getResults }) => {
     return null
 
   return (
-    <div className="container tbp-section section-field">
+    <div className="container vde section section-field">
       { rating.results != undefined ? chart(rating) : null}
     </div>
   )
@@ -101,8 +101,8 @@ const chart = (rating) => {
     <div id="chart">
     {
       rating.results.count == 0
-      ? <p className="vde-no-comment subtitle">Personne n'a encore évalué ce commentaire.</p>
-      : <Chart options={options} series={series} type="bar" height={600} />
+      ? <p className="vde subtitle">Personne n'a encore évalué ce commentaire.</p>
+      : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>
   )
