@@ -3,15 +3,26 @@ import * as api from './api'
 import * as cst from "../constants"
 
 
+const removeEmptyKeys = (obj) => {
+  let res = {}
+  Object.keys(obj).forEach(
+    (key) => {
+      if ((obj[key] !== null && obj[key] !== ""))
+        res[key] = obj[key]
+    }
+  )
+  return res
+}
+
 export const postBigPicture = (bigPicture) => {
   return (dispatch) => {
-    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
-    api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, "/", "POST")
+    api.sendItem(dispatch, removeEmptyKeys(bigPicture), "bigpictures", basics.addBigPicture, "/", "POST")
   }
 }
 
 export const postVote = (vote) => {
   return (dispatch) => {
+    Object.keys(vote).forEach((key) => (vote[key] === null || vote[key] === "") && delete vote[key])
     api.sendItem(dispatch, vote, "ratings", basics.addRating, "/", "POST")
   }
 }
@@ -24,8 +35,7 @@ export const deleteVote = (id) => {
 
 export const patchBigPicture = (bigPicture) => {
   return (dispatch) => {
-    Object.keys(bigPicture).forEach((key) => (bigPicture[key] == null || bigPicture[key] == "") && delete bigPicture[key])
-    api.sendItem(dispatch, bigPicture, "bigpictures", basics.addBigPicture, `/${bigPicture.id}/`, "PATCH")
+    api.sendItem(dispatch, removeEmptyKeys(bigPicture), "bigpictures", basics.addBigPicture, `/${bigPicture.id}/`, "PATCH")
   }
 }
 

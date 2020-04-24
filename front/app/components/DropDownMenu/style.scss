@@ -1,0 +1,34 @@
+@import "../../styles/theme.scss";
+
+/* Dropdown Menu */
+
+.vde.dropdown-menu {
+  display: inherit;
+  right: 0;
+  left: inherit;
+
+  .vde.dropdown-content {
+
+    background-color: $light;
+
+    .vde.dropdown-item {
+      background-color: $light;
+      display: inline-flex;
+    }
+
+    .vde.dropdown-item:hover {
+      background-color: darken($light, 10);
+    }
+
+    .vde.dropdown-icon {
+      background-color: transparent;
+    }
+
+  }
+}
+
+.vde.navbar.menu {
+  background-color: transparent;
+}
+
+

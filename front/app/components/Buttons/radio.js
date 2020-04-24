@@ -5,7 +5,7 @@ import "./style.scss"
 
 const RadioButton = ({ classname, isPushed, setIsPushed, icon}) => {
   return (
-  	<span className={`${classname} level-item vde-button is-narrow`}>
+  	<span className={`${classname} level-item is-narrow`}>
 	  <a
 		onClick={() => setIsPushed(!isPushed)}
 		className={isPushed ? " is-active" : ""}>

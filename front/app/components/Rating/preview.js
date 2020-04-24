@@ -23,11 +23,11 @@ const RatingPreviewLook = ({ rating, ratings, user, ratingId, margin, getPage })
 
   return (
     <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={`ratingpreview${rating.id}`}>
-      <div className="reason card bp-tile">
-        <header className="card-header level preview-item-level is-mobile">
+      <div className="vde card reason">
+        <header className="vde card-header level preview-item-level is-mobile">
           { ratingLeftLevel(rating) }
         </header>
-        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults) }
+        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
       { showRatings ? ratingChildren(rating, ratings, margin, user, getPage) : null }
@@ -57,10 +57,10 @@ const valueIcons = {
 const ratingLeftLevel = (rating) => {
 	return (
     <div className="level-left">
-      <figure className="level-item image is-48x48">
+      <figure className="vde rating-image level-item image is-48x48">
         <img src={staticStorage + valueIcons[rating.value]} />
       </figure>
-      <div className="card-content vde-preview-content">
+      <div className="vde card-content vde-preview-content">
         <div className="content">
           <ReactMarkdown source={rating.reason} />
         </div>
@@ -69,30 +69,31 @@ const ratingLeftLevel = (rating) => {
 	)
 }
 
-const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults) => {
+const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) => {
   const initRating = {
     value: 0,
     target_bp: null,
     target_rating: rating.id,
+    author_id: user.id,
     reason: "",
     subject: rating.subject
   }
 	return (
-    <div className="level is-mobile vde-toolbar">
+    <div className="vde toolbar level is-mobile">
       <div className="level-left">
         <p>{rating.date}</p>
       </div>
       <div className="level-right">
-        <EditRatingButton initRating={rating} />
+        <EditRatingButton initRating={rating} classname="vde toolbar" />
         <RatingButton initRating={initRating} />
         { rating.ratingCount != 0 ? <RadioButton
-          classname={""}
+          classname="vde toolbar"
           isPushed={showRatings}
           setIsPushed={toggleRatings}
           icon={"fas fa-comments"}
         /> : null }
         <RadioButton
-          classname={""}
+          classname="vde toolbar"
           isPushed={showResults}
           setIsPushed={toggleResults}
           icon={"far fa-chart-bar"} />

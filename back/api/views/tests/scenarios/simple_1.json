@@ -1,6 +1,7 @@
 [
     {
-        "name": "create_user",
+        "name": "Create user Diplo",
+        "action": "create_user",
         "data": {
             "id": 1,
             "username": "Diplo",
@@ -9,14 +10,18 @@
         }
     },
     {
-        "name": "login",
+        "name": "Diplo logs in",
+        "action": "login",
         "data": {
             "username": "Diplo",
             "password": "vuedensemble"
         }
     },
     {
-        "name": "post_big_picture",
+        "name": "Diplo post the bp 'Le projet VDE'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
         "data": {
             "kind": 1,
             "author_id": 1,
@@ -25,11 +30,23 @@
             "private": false
         },
         "expectation": {
-            "status": 201
-        }
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta": "isInteger"
+                },
+                "author_id": 1,
+                "title": "Le projet VDE",
+                "private": false
+            }
+        },
+        "response": "bp_projet_vde"
     },
     {
-        "name": "post_big_picture",
+        "name": "Diplo post a bp for someone else and it fails",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
         "data": {
             "kind": 1,
             "author_id": 2,

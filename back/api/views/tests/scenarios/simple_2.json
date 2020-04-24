@@ -1,6 +1,7 @@
 [
     {
-        "name": "create_user",
+        "name": "Create user Diplo",
+        "action": "create_user",
         "data": {
             "id": 1,
             "username": "Diplo",
@@ -9,7 +10,8 @@
         }
     },
     {
-        "name": "create_user",
+        "name": "Create user Test",
+        "action": "create_user",
         "data": {
             "id": 2,
             "username": "Test",
@@ -18,7 +20,10 @@
         }
     },
     {
-        "name": "post_big_picture",
+        "name": "Try to post a bp without being logged in and it fails",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
             "kind": 1,
             "author_id": 1,
@@ -31,14 +36,18 @@
         }
     },
     {
-        "name": "login",
+        "name": "Test logs in",
+        "action": "login",
         "data": {
             "username": "Test",
             "password": "testest"
         }
     },
     {
-        "name": "post_big_picture",
+        "name": "Test create the bp 'Le projet VDE'",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
             "kind": 1,
             "author_id": 2,
@@ -48,10 +57,14 @@
         },
         "expectation": {
             "status": 201
-        }
+        },
+        "response": "bp_proj_vde"
     },
     {
-        "name": "post_big_picture",
+        "name": "Test create a bp whose author is Diplo but he has no right to do so, it fails.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
             "kind": 1,
             "author_id": 1,
@@ -63,14 +76,18 @@
         }
     },
     {
-        "name": "login",
+        "name": "Diplo logs in",
+        "action": "login",
         "data": {
             "username": "Diplo",
             "password": "vuedensemble"
         }
     },
     {
-        "name": "post_big_picture",
+        "name": "Diplo creates the bp 'Le changement climatique' and since he is the author, it works",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
         "data": {
             "kind": 1,
             "author_id": 1,
@@ -79,10 +96,14 @@
         },
         "expectation": {
             "status": 201
-        }
+        },
+        "response": "bp_climate_change"
     },
     {
-        "name": "post_rating",
+        "name": "Diplo tries to vote as Test but he has no right to do so",
+        "action": "send_api",
+        "path": "/api/ratings/",
+        "verb": "post",
         "data": {
             "value": 3,
             "author_id": 2,
@@ -95,30 +116,26 @@
         }
     },
     {
-        "name": "post_rating",
+        "name": "Diplo votes in his own name this time and it works",
+        "action": "send_api",
+        "path": "/api/ratings/",
+        "verb": "post",
         "data": {
             "value": 3,
             "author_id": 1,
-            "target_bp": 1,
+            "target_bp": {
+                "_meta": "response",
+                "bp_proj_vde": "id"
+            },
             "reason": "Il s'agit d'un homme de paille.",
-            "subject": 1
+            "subject": {
+                "_meta": "response",
+                "bp_proj_vde": "id"
+            }
         },
         "expectation": {
             "status": 201
-        }
-    },
-    {
-        "name": "post_big_picture",
-        "data": {
-            "kind": 2,
-            "parent": 2,
-            "subject": 2,
-            "author_id": 1,
-            "title": "Le changement climatique",
-            "private": false
         },
-        "expectation": {
-            "status": 201
-        }
+        "response": "diplos_rating_proj_vde"
     }
 ]

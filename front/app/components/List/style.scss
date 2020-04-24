@@ -1,0 +1,11 @@
+@import "../../styles/theme.scss";
+
+.vde.header-button {
+	color: $light;
+}
+
+
+.vde.header-button:focus,
+.vde.header-button:hover {
+	color: $primary-4;
+}

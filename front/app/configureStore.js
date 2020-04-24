@@ -4,19 +4,17 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router/immutable'
 import thunk from 'redux-thunk';
-import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
-const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
   // 3. thunkMiddleware: for async actions based on AJAX requests
-  const middlewares = [sagaMiddleware, routerMiddleware(history), thunk];
+  const middlewares = [routerMiddleware(history), thunk];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
@@ -28,18 +26,17 @@ export default function configureStore(initialState = {}, history) {
     }) : compose;
   /* eslint-enable */
 
-  const store = createStore(createReducer(), fromJS(initialState), composeEnhancers(...enhancers));
-
-  // Extensions
-  store.runSaga = sagaMiddleware.run;
-  store.injectedReducers = {}; // Reducer registry
-  store.injectedSagas = {}; // Saga registry
+  const store = createStore(
+    createReducer(history),
+    fromJS(initialState),
+    composeEnhancers(...enhancers)
+  );
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      store.replaceReducer(createReducer(store.injectedReducers));
+      store.replaceReducer(createReducer(history));
       store.dispatch({ type: '@@REDUCER_INJECTED' });
     });
   }

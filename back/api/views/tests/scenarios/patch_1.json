@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Create user Diplo.",
+        "action": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Diplo logs in.",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo creates the bp 'Le projet VDE'.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le projet VDE",
+            "body": "Le projet VDE veut créer un pouvoir politique légitime et compétent.",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Diplo creates the ressource 'Les fonctionnalités de la plateforme VDE', son of 'le projet VDE'.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
+        "data": {
+            "kind": 4,
+            "author_id": 1,
+            "parent": 1,
+            "title": "Les fonctionnalités de la plateforme VDE",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Diplo creates the ressource 'Créer une analyse politique', son of 'Les fonctionnalités...'.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
+        "data": {
+            "kind": 4,
+            "author_id": 1,
+            "parent": 2,
+            "title": "Créer une analyse politique",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    }
+]

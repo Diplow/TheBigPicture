@@ -1,115 +1,60 @@
 @import "../../styles/theme.scss";
 
-.vde-toolbar {
-	height: 2rem;
-	padding-left: 0.5rem;
+
+.vde.card {
+  --basic-padding: 0.6rem;
+  border-radius: 10px;
+  border-color: primary-2;
+  border-size: thick;
+  background-color: $primary-5;
+  width: 100%;
+  padding: 0;
+  margin: 0.7rem 0;
+
+  .vde.card-header {
+    width: 100%;
+    padding: var(--basic-padding);
+    margin: 0;
+
+    .vde.title {
+      color: $primary-2;
+      font-size: 1rem;
+    }
+
+    .vde.p {
+      color: $primary-2;
+    }
+  }
+
+  .vde.card-content {
+    width: 100%;
+    color: $primary-2;
+    padding: var(--basic-padding);
+    font-size: 1rem;
+    strong {
+      color: $primary-2;
+    }
+  }
+
+  .vde.toolbar.level {
+    margin: 0.3rem 0;
+    padding-left: var(--basic-padding);
+    height: 2rem;
+
+    .vde.toolbar.level-item {
+      margin-right: 0.8rem;
+      height: 90%;
+    }
+    .vde.toolbar {
+      color: $primary-2;
+    }
+  }
 }
 
-.subtitle-modal {
-	margin: 0;
-	padding: 0.5rem 0;
-	font-weight: bold;
+.vde.toolbar:hover {
+  color: $primary-3;
 }
 
-.level-item.star-rating {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-}
-
-.card {
-	color: $dark;
-}
-
-.card-content {
-	margin-top: 1rem;
-}
-
-.content h1:not(:first-child) {
-	margin-top: 0.3rem;
-}
-.content h2:not(:first-child) {
-	margin-top: 0.2rem;
-}
-.content h3:not(:first-child) {
-	margin-top: 0.1rem;
-}
-
-.hero {
-	background-color: $light;
-}
-
-.level.is-mobile {	
-	figure.image.level-item.is-32x32 {
-		margin-right: 0.5rem;
-	}
-}
-
-.tbp-star {
-	color: $light;
-	font-size: 1.5rem;
-}
-
-.tbp-star.checked {
-	color: gold; 
-}
-
-.tbp-addbutton.button {
-	background-color: $light;
-}
-
-.card-header {
-	padding-top: 0.5rem;
-	padding-left: 1rem;
-	padding-bottom: 0.1rem;
-	margin-bottom: 0.1rem;
-	color: $dark;
-}
-
-.card-header-title {
-	color: $dark;
-	text-align: left;
-}
-
-section.modal-card-body {
-	color: $dark;
-}
-
-.card-content {
-	padding-top: 0;
-	padding-left: 2rem;
-	padding-bottom: 0.6rem;
-	color: $dark;
-}
-
-.icon {
-	margin: 0.3rem;
-	.bp-preview-icon {
-		color: $dark;
-		:hover {
-			color: grey;
-		}
-	}
-}
-
-.title-button {
-	margin-left: 1rem;
-}
-
-.bplist-title.title.level-item {
-	text-align: left;
-	float: left;
-	margin-bottom: 0;
-}
-
-.level.preview-item-level {
-	padding: 0 0.8rem;
-	min-height: 4rem;
-}
-
-.arglist-level.level {
-	padding-bottom: 0rem;
-}
-
-.bp-tile {
-	margin-bottom: 0.4rem;
+.vde.level-item.image.is-32x32.bp-icons {
+	color: $primary-1;
 }
