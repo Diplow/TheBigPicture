@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import BigPictureList from '../../../components/BigPicture/list'
+import RatingList from '../../../components/Rating/list'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import AuthorIcon from '../../../components/User/authorIcon'
@@ -18,6 +19,8 @@ const UserViewLook = (props) => {
     getUser,
     getOwnSubjects,
     getSubjects,
+    getOwnRatings,
+    getRatings,
     match
   } = props
 
@@ -45,6 +48,7 @@ const UserViewLook = (props) => {
         </div>
       </div>
       { subjectsList(user, visitor, getOwnSubjects, getSubjects) }
+      { ratingsList(user, visitor, getOwnRatings, getRatings) }
     </div>
   )
 }
@@ -55,7 +59,9 @@ UserViewLook.propTypes = {
   user: PropTypes.object,
   getUser: PropTypes.func.isRequired,
   getOwnSubjects: PropTypes.func.isRequired,
-  getSubjects: PropTypes.func.isRequired
+  getSubjects: PropTypes.func.isRequired,
+  getOwnRatings: PropTypes.func.isRequired,
+  getRatings: PropTypes.func.isRequired
 }
 
 const subjectsList = (user, visitor, getOwnSubjects, getSubjects) => {
@@ -70,6 +76,22 @@ const subjectsList = (user, visitor, getOwnSubjects, getSubjects) => {
       loadFirstPage={false}
       emptyMessage={`Aucun sujet n'a encore été créé publiquement par ${user.username}`}
       buttons={visitor.id == user.id ? [addBigPictureButton] : []}
+    />
+  )
+}
+
+const ratingsList = (user, visitor, getOwnRatings, getRatings) => {
+  return (
+    <RatingList
+      filter={(rating) => rating.author == user.id}
+      parent={null}
+      count={user.ownRatingCount}
+      getPage={visitor.id == user.id ? getOwnRatings : getRatings}
+      showHeader={true}
+      title={"Raisons données"}
+      loadFirstPage={false}
+      emptyMessage={`Aucune raison n'a encore été donnée publiquement par ${user.username}`}
+      buttons={[]}
     />
   )
 }

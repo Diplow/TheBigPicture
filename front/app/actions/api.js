@@ -11,6 +11,9 @@ const NEXTS = {
   "getownsubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
   },
+  "getownratings": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.userId, result.count)) }
+  },
   "getreferences": (dispatch, nextargs) => {
     return (resp) => {
       for (let i = 0; i < resp.results.length; ++i) {

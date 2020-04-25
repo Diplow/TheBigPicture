@@ -41,7 +41,7 @@ const RatingListLook = (props) => {
         return rA.ratingcount > rB.ratingcount ? 1 : -1 
       }
       else if (dateA != dateB) {
-        return dateA > dateB ? 1 : -1
+        return dateA < dateB ? 1 : -1
       }
       else {
         return 0
