@@ -42,6 +42,7 @@ const users = (state = [], action) => {
           id: usr.id,
           username: usr.username,
           image: usr.image,
+          bio: usr.bio,
           ownSubjectCount: old != null ? old.ownSubjectCount : 1,
           ownRatingCount: old != null ? old.ownSubjectCount : 1,
         }

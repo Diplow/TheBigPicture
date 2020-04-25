@@ -39,6 +39,12 @@ export const patchBigPicture = (bigPicture) => {
   }
 }
 
+export const patchUser = (user) => {
+  return (dispatch) => {
+    api.sendItem(dispatch, removeEmptyKeys(user), "users", basics.addUser, `/${user.id}/`, "PATCH")
+  }
+}
+
 export const getUser = (id) => {
   return (dispatch) => {
     api.getItem(dispatch, id, "users", [])

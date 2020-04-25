@@ -5,6 +5,7 @@ import * as cst from "../constants"
 const GUEST = {
   "username": cst.GUEST_NAME,
   "email": "",
+  "bio": "",
   "groups": [],
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
