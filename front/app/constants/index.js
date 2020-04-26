@@ -26,8 +26,9 @@ export const ADD_RATING_RESULTS = "ADD_RATING_RESULTS"
 
 // pagination
 export const PAGE_SIZE = 10.
+export const SET_OWN_SUBJECT_COUNT = "SET_OWN_SUBJECT_COUNT"
 export const SET_GLOBAL_SUBJECT_COUNT = "SET_GLOBAL_SUBJECT_COUNT"
-export const ADD_USER_RATED_SUBJECT = "ADD_USER_RATED_SUBJECT"
+export const SET_OWN_RATING_COUNT = "SET_OWN_RATING_COUNT"
 
 export const SUBJECT = 1
 export const PROBLEM = 2

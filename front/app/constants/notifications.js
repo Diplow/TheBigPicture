@@ -13,7 +13,7 @@ export const itemCreation = {
 }
 
 export const itemModification = {
-	bigpictures: {
+  bigpictures: {
       title: "Vue modifiée",
       message: "Votre vue a bien été modifiée.",
       type: "success"
@@ -22,7 +22,12 @@ export const itemModification = {
     title: "Vote modifié",
     message: "Votre vote a bien été modifié.",
     type: "success"
-  }
+  },
+  users: {
+      title: "Utilisateur modifié",
+      message: "Vous avez bien modifié votre profil.",
+      type: "success"
+    }
 }
 
 export const itemDeletion = {

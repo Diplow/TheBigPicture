@@ -5,6 +5,7 @@ import * as cst from "../constants"
 const GUEST = {
   "username": cst.GUEST_NAME,
   "email": "",
+  "bio": "",
   "groups": [],
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
@@ -44,6 +45,14 @@ const initial_state = {
 
 const user = (state = initial_state, action) => {
   switch (action.type) {
+
+    case cst.ADD_USER:
+      if (action.user.id == state.id)
+        return {
+          ...state,
+          ...action.user
+        }
+      return state
 
     case cst.LOGIN:
       return {

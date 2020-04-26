@@ -1,0 +1,289 @@
+[
+    {
+        "name": "Create user Diplo",
+        "action": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Create user Test",
+        "action": "create_user",
+        "data": {
+            "id": 2,
+            "username": "Test",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Diplo logs in",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo post the bp 'Le projet VDE'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "Le projet VDE",
+            "body": "Le projet VDE veut créer un pouvoir politique légitime et compétent.",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 1,
+                "title": "Le projet VDE",
+                "private": false
+            }
+        },
+        "response": "bp_projet_vde"
+    },
+    {
+        "name": "Diplo post a private bp",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "WIP",
+            "private": true
+        },
+        "expectation": {
+            "status": 201
+        },
+        "response": "private_bp_diplo"
+    },
+    {
+        "name": "Test logs in",
+        "action": "login",
+        "data": {
+            "username": "Test",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Test gets all subjects and does not get Diplo's private bps",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subjects/?page=1&format=json",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 1
+            }
+        },
+        "response": "get_subjects_1"
+    },
+    {
+        "name": "Test post a public bp 1",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP1",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 2",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP2",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 3",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP3",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 4",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP4",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 5",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP5",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 6",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP6",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 7",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP7",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 8",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP8",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 9",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP9",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test post a public bp 10",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP10",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        }
+    },
+    {
+        "name": "Test gets all subjects and does not get Diplo's private bps",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subjects/?page=1&format=json",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 11
+            }
+        },
+        "response": "get_subjects_2"
+    },
+    {
+        "name": "Test gets all his subjects and expect not to find Diplo's private bp",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/ownsubjects/?page=1&format=json",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 10
+            }
+        },
+        "response": "get_ownsubjects_1"
+    },
+    {
+        "name": "Diplo logs in",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo gets all his subjects and expect to find his private bps",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/ownsubjects/?page=1&format=json",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 2
+            }
+        },
+        "response": "get_ownsubjects_2"
+    }
+]

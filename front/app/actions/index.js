@@ -39,6 +39,12 @@ export const patchBigPicture = (bigPicture) => {
   }
 }
 
+export const patchUser = (user) => {
+  return (dispatch) => {
+    api.sendItem(dispatch, removeEmptyKeys(user), "users", basics.addUser, `/${user.id}/`, "PATCH")
+  }
+}
+
 export const getUser = (id) => {
   return (dispatch) => {
     api.getItem(dispatch, id, "users", [])
@@ -55,6 +61,34 @@ export const getSubjects = (page, userId) => {
     api.getCollection(dispatch, "subjects", page, args, next, nextargs)
   }
 }
+
+export const getOwnSubjects = (page, userId) => {
+  return (dispatch) => {
+    const next = "getownsubjects"
+    const nextargs = { userId }
+    api.getCollection(dispatch, "ownsubjects", page, [], next, nextargs)
+  }
+}
+
+export const getRatings = (page, userId) => {
+  return (dispatch) => {
+    const next = "getratings"
+    const nextargs = {}
+    let args = []
+    if (userId != undefined)
+      args = [`author=${userId}`]
+    api.getCollection(dispatch, "ratings", page, args, next, nextargs)
+  }
+}
+
+export const getOwnRatings = (page, userId) => {
+  return (dispatch) => {
+    const next = "getownratings"
+    const nextargs = { userId }
+    api.getCollection(dispatch, "ownratings", page, [], next, nextargs)
+  }
+}
+
 
 export const getResources = (bigpictureId) => {
   return (dispatch) => {
@@ -101,20 +135,6 @@ export const getBigPictureRatings = (page, targetId, userId) => {
 export const getRatingRatings = (page, targetId, userId) => {
   return (dispatch) => {
     api.getCollection(dispatch, "ratings", page, [`rating=${targetId}`])
-  }
-}
-
-export const getOwnSubjects = (page) => {
-  return (dispatch) => {
-    api.getCollection(dispatch, "ownsubjects", page, [])
-  }
-}
-
-export const getRatedSubjects = (userId, page) => {
-  return (dispatch) => {
-    const next = "getratedsubjects"
-    const nextargs = { userId }
-    api.getCollection(dispatch, "subjects", page, [`ratingauthor=${userId}`], next, nextargs)
   }
 }
 

@@ -6,18 +6,10 @@ from api.models import BigPicture, Rating, SUBJECT_CODE, BaseUser
 
 class UserSerializer(serializers.ModelSerializer):
     image = serializers.ImageField()
-    ratedSubjectCount = serializers.SerializerMethodField()
-    ownSubjectCount = serializers.SerializerMethodField()
 
     class Meta:
         model = BaseUser
-        fields = ("id", "username", "groups", "image", "ratedSubjectCount", "ownSubjectCount")
-
-    def get_ratedSubjectCount(self, obj):
-        return Rating.objects.filter(author=obj.id).exclude(subject__author=obj.id).exclude(subject__private=True).distinct("subject").count()
-
-    def get_ownSubjectCount(self, obj):
-        return BigPicture.objects.filter(author=obj.id, kind=SUBJECT_CODE, private=False).count()
+        fields = ("id", "username", "groups", "image", "bio")
 
 
 class GroupSerializer(serializers.ModelSerializer):

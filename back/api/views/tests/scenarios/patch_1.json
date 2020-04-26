@@ -31,7 +31,8 @@
         },
         "expectation": {
             "status": 201
-        }
+        },
+        "response": "bp_projet_vde"
     },
     {
         "name": "Diplo creates the ressource 'Les fonctionnalités de la plateforme VDE', son of 'le projet VDE'.",
@@ -41,13 +42,17 @@
         "data": {
             "kind": 4,
             "author_id": 1,
-            "parent": 1,
+            "parent": {
+                "_meta": "response",
+                "bp_projet_vde": "id"
+            },
             "title": "Les fonctionnalités de la plateforme VDE",
             "private": false
         },
         "expectation": {
             "status": 201
-        }
+        },
+        "response": "bp_projet_vde_son1"
     },
     {
         "name": "Diplo creates the ressource 'Créer une analyse politique', son of 'Les fonctionnalités...'.",
@@ -57,12 +62,120 @@
         "data": {
             "kind": 4,
             "author_id": 1,
-            "parent": 2,
+            "parent": {
+                "_meta": "response",
+                "bp_projet_vde_son1": "id"
+            },
             "title": "Créer une analyse politique",
             "private": false
         },
         "expectation": {
             "status": 201
-        }
+        },
+        "response": "thegrandson"
+    },
+    {
+        "name": "Diplo patches the kind field",
+        "action": "send_api",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/bigpictures/ID/",
+            "ID": {
+                "_meta": "response",
+                "bp_projet_vde_son1": "id"
+            }
+        },
+        "verb": "patch",
+        "data": {
+            "kind": 3
+        },
+        "expectation": {
+            "status": 200,
+            "response": {
+                "id": {
+                    "_meta": "response",
+                    "bp_projet_vde_son1": "id"
+                },
+                "kind": 3
+            }
+        },
+        "response": "bp_projet_patched"
+    },
+    {
+        "name": "Diplo creates the bp 'other subject'.",
+        "action": "send_api",
+        "path": "/api/bigpictures/",
+        "verb": "post",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "The other subject",
+            "body": "blabla.",
+            "private": false
+        },
+        "expectation": {
+            "status": 201
+        },
+        "response": "bp_other_subject"
+    },
+    {
+        "name": "Diplo patches the parent field",
+        "action": "send_api",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/bigpictures/ID/",
+            "ID": {
+                "_meta": "response",
+                "bp_projet_vde_son1": "id"
+            }
+        },
+        "verb": "patch",
+        "data": {
+            "parent": {
+                "_meta": "response",
+                "bp_other_subject": "id"
+            },
+            "subject": {
+                "_meta": "response",
+                "bp_projet_vde": "id"
+            }
+        },
+        "expectation": {
+            "status": 200,
+            "response": {
+                "id": {
+                    "_meta": "response",
+                    "bp_projet_vde_son1": "id"
+                },
+                "parent": {
+                    "_meta": "response",
+                    "bp_other_subject": "id"
+                }
+            }
+        },
+        "response": "bp_parent_patched"
+    },
+    {
+        "name": "Diplo checks that the last parent patch also patched the son",
+        "action": "send_api",
+        "verb": "get",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/bigpictures/ID/",
+            "ID": {
+                "_meta": "response",
+                "thegrandson": "id"
+            }
+        },
+        "expectation": {
+            "status": 200,
+            "response": {
+                "subject": {
+                    "_meta": "response",
+                    "bp_other_subject": "id"
+                }
+            }
+        },
+        "response": "grandsonpatched"
     }
 ]
