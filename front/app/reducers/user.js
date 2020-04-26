@@ -46,6 +46,14 @@ const initial_state = {
 const user = (state = initial_state, action) => {
   switch (action.type) {
 
+    case cst.ADD_USER:
+      if (action.user.id == state.id)
+        return {
+          ...state,
+          ...action.user
+        }
+      return state
+
     case cst.LOGIN:
       return {
         ...action.user,
