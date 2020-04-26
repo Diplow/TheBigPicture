@@ -6,6 +6,7 @@ import "./style.scss"
 
 const createPagination = (items, count, getPage, size, loadFirstPage) => {
   const [pageNb, setPageNb] = useState(0)
+  const [currentPage, setCurrentPage] = useState(items)
   const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
 
   const loadMore = () => {
@@ -14,16 +15,20 @@ const createPagination = (items, count, getPage, size, loadFirstPage) => {
   }
 
   useEffect(() => {
+    setCurrentPage(items)
+  }, [items])
+
+  useEffect(() => {
     if (loadFirstPage)
       loadMore()
   }, [])
 
-  const res = count > items.length ? (
+  const res = currentPage.length < count && count > pageNb*size ? (
     <a className="subtitle vde-loadmore" onClick={loadMore}>
       Charger plus de contenus...
     </a>
   ) : null
-  return [res, items]
+  return [res, currentPage]
 }
 
 export default createPagination
