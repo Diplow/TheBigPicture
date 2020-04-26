@@ -8,14 +8,11 @@ const NEXTS = {
   "getallsubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setSubjectCount(result.count)) }
   },
-  "getratedsubjects": (dispatch, nextargs) => {
-    return (resp) => {
-      for (let i = 0; i < resp.results.length; ++i) {
-        const bp = resp.results[i]
-        dispatch(basics.addBigPicture(bp))
-        dispatch(basics.addRatedSubject(bp, nextargs.userId))
-      }
-    }
+  "getownsubjects": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
+  },
+  "getownratings": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.userId, result.count)) }
   },
   "getreferences": (dispatch, nextargs) => {
     return (resp) => {
@@ -100,6 +97,9 @@ const getCookie = (name) => {
 }
 
 export const buildRequest = (body, method) => {
+  if (typeof(body.image) == "string") {
+    delete body.image
+  }
   const csrftoken = getCookie('csrftoken');
   const isAuthenticated = localStorage.getItem('token') != undefined
   const res = {
@@ -112,6 +112,15 @@ export const buildRequest = (body, method) => {
     credentials: 'include',
     body: JSON.stringify(body),
     method
+  }
+  if (body.image !== undefined) {
+    // oh boy
+    delete res.headers['Content-Type']
+    let newbody = new FormData();
+    for (const k of Object.keys(body)) {
+      newbody.append(k, body[k])
+    }
+    res.body = newbody
   }
   if (cst.SAFE_METHODS.indexOf(method) != -1)
     delete res.body

@@ -24,7 +24,6 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
       getBigPicture(match.params.subjectId)
   }, [match])
 
-
   useEffect(() => {
     if (bigPicture != undefined)
       setter(bigPicture)
@@ -35,7 +34,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
       { init == undefined ? <div className="container vde section section-field"><div className="loader" style={{width:"5rem", height:"5rem"}}></div></div> : null }
       { header(init) }
       { content(init, user, setter) }
-      { analyse(init) }
+      { analyse(init, user) }
       { comments(init, getRatingsPage, user) }
       { references(init, getReferences) }
       { results(init) }
@@ -118,7 +117,7 @@ const editButton = (init, setter) => {
   )
 }
 
-const analyse = (bigPicture) => {
+const analyse = (bigPicture, user) => {
   if (bigPicture == undefined)
     return null
 
@@ -131,8 +130,11 @@ const analyse = (bigPicture) => {
       showHeader={true}
       title={"Analyse"}
       loadFirstPage={true}
-      emptyMessage={"Aucun élément d'analyse n'a encore été apporté pour préciser cette vue d'ensemble."}
-      buttons={[() => backButton(bigPicture), () => addBigPictureButton(bigPicture)]}
+      emptyMessage={"Aucun élément n'a encore été apporté pour préciser cette vue d'ensemble."}
+      buttons={[
+        () => { return backButton(bigPicture) },
+        () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
+      ]}
     />
   )
 }

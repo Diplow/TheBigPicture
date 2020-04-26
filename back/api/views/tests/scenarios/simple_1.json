@@ -33,7 +33,7 @@
             "status": 201,
             "response": {
                 "id": {
-                    "_meta": "isInteger"
+                    "_meta_validate": "isInteger"
                 },
                 "author_id": 1,
                 "title": "Le projet VDE",

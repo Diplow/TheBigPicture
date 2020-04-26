@@ -4,7 +4,18 @@ from django.http import HttpResponse
 import json
 from api.models import Rating
 from api.serializers import RatingSerializer
-from api.permissions import IsAuthorOrReadOnly
+from api.permissions import IsAuthorOrReadOnly, IsAuthor
+
+
+
+class OwnRatingViewSet(ModelViewSet):
+	queryset = Rating.objects.all().order_by('-date')
+	serializer_class = RatingSerializer
+	permission_classes = [IsAuthor]
+
+	def get_queryset(self):
+		return self.queryset.filter(author=self.request.user)
+
 
 
 class RatingViewSet(ModelViewSet):

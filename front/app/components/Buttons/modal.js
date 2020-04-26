@@ -8,7 +8,7 @@ import "./style.scss"
 const EditionModalButtonLook = ({ user, classname, init, setter, icon, EditionModal, NewItem }) => {
   const [isActive, setIsActive] = useState(false)
 
-  if (user.id == 0 || (init.id != undefined && init.author != user.id))
+  if (user.id == 0)
   	return null
 
   return (

@@ -26,11 +26,15 @@ const EditionModalLook = ({ post, del, construct, active, setActive, data }) => 
               onClick={() => { setActive(false); post(data) }}>
               Publier
             </button>
-            <button
-              className="button is-dark"
-              onClick={() => { setActive(false); del(data) }}>
-              {data.id == undefined ? "Annuler" : "Supprimer"}
-            </button>
+            {
+              del != undefined
+              ? <button
+                  className="button is-dark"
+                  onClick={() => { setActive(false); del(data) }}>
+                  {data.id == undefined ? "Annuler" : "Supprimer"}
+                </button>
+              : null
+            }
           </div>
         </footer>
       </div>
@@ -40,7 +44,7 @@ const EditionModalLook = ({ post, del, construct, active, setActive, data }) => 
 
 EditionModalLook.propTypes = {
   post: PropTypes.func.isRequired,
-  del: PropTypes.func.isRequired,
+  del: PropTypes.func,
   active: PropTypes.bool.isRequired,
   setActive: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
