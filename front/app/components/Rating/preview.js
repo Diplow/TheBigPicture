@@ -56,7 +56,7 @@ const valueIcons = {
 
 const ratingLeftLevel = (rating) => {
 	return (
-    <div className="level-left">
+    <div style={{maxWidth:"100%"}} className="level-left">
       <figure className="vde rating-image level-item image is-48x48">
         <img src={staticStorage + valueIcons[rating.value]} />
       </figure>
