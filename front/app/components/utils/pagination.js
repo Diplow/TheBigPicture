@@ -73,10 +73,14 @@ const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
 
 const SearchBar = ({ search, setSearch, getPage, setPageNb, setLastRequest }) => {
   const onClick = () => {
+    const options = {}
+    if (search !== "")
+      options.search = search
     setLastRequest(true)
-    getPage(1, { search })
+    getPage(1, options)
     setPageNb(1)
   }
+
   return (
     <div className="field">
       <div className="vde level is-mobile">
@@ -84,6 +88,7 @@ const SearchBar = ({ search, setSearch, getPage, setPageNb, setLastRequest }) =>
           <input
             className="input"
             type="text"
+            onKeyDown={(e) => { e.key === 'Enter' ? onClick() : null }}
             placeholder="Recherche..."
             name="search"
             value={search}
