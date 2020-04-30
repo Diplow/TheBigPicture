@@ -15,8 +15,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getReferences: (page, bpId) => { dispatch(getSubjects(page, { reference: bpId })) },
-    getRatingsPage: (page, bpId) => { dispatch(getRatings(page, { bigpicture: bpId })) }
+    getReferences: (page, bpId, options) => { dispatch(getSubjects(page, { ...options, reference: bpId })) },
+    getRatingsPage: (page, bpId, options) => { dispatch(getRatings(page, { ...options, bigpicture: bpId })) }
   }
 }
 
