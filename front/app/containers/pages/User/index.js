@@ -21,10 +21,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const userId = ownProps.match.params.id
   return {
     getUser: (id) => { dispatch(getUser(id)) },
-    getOwnSubjects: (page) => { dispatch(getOwnSubjects(page, userId)) },
-    getSubjects: (page) => { dispatch(getSubjects(page, userId)) },
-    getOwnRatings: (page) => { dispatch(getOwnRatings(page, userId)) },
-    getRatings: (page) => { dispatch(getRatings(page, userId)) }
+    getOwnSubjects: (page, options) => { dispatch(getOwnSubjects(page, { ...options, author: userId })) },
+    getSubjects: (page, options) => { dispatch(getSubjects(page, { ...options, author: userId })) },
+    getOwnRatings: (page, options) => { dispatch(getOwnRatings(page, { ...options, author: userId })) },
+    getRatings: (page, options) => { dispatch(getRatings(page, { ...options, author: userId })) }
   }
 }
 

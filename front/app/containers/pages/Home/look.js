@@ -15,6 +15,7 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
         parent={null}
         count={count}
+        search={true}
         getPage={getBigPictures}
         showHeader={false}
         title={"SUJETS"}

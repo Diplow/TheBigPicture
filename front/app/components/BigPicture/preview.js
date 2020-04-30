@@ -6,7 +6,7 @@ import BigPictureModal from './modal'
 import Results from './results'
 import RatingModal from '../Rating/modal'
 import RatingPreview from '../Rating/preview'
-import { getBigPicture, getBigPictureRatings } from '../../actions/index'
+import { getBigPicture, getRatings } from '../../actions/index'
 import AuthorIcon from '../User/authorIcon'
 import NewBigPicture from './new'
 import NewRating from '../Rating/new'
@@ -307,7 +307,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: (page, bpId) => { dispatch(getBigPictureRatings(page, bpId)) }
+    getBigPictureRatings: (page, bpId) => { dispatch(getRatings(page, { bigpicture: bpId })) }
   }
 }
 
