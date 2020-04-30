@@ -28,7 +28,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   }, [items, sort])
 
   useEffect(() => {
-    // If a search request is send, lastRequest will be set to True,
+    // If a search request is sent, lastRequest will be set to true,
     // and items will be sorted according to their rank in this request
     if (lastRequest) {
       setLastRequest(false)
