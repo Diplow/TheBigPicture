@@ -9,7 +9,8 @@ const GUEST = {
   "groups": [],
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
-  "id": 0
+  "id": 0,
+  "last_request": null
 }
 
 
@@ -59,6 +60,18 @@ const user = (state = initial_state, action) => {
         ...action.user,
         image: action.user.image,
         token: action.token
+      }
+
+    case cst.ADD_BIG_PICTURE:
+      return {
+        ...state,
+        last_request: action.bigpicture.request
+      }
+
+    case cst.ADD_RATING:
+      return {
+        ...state,
+        last_request: action.rating.request
       }
 
     case cst.LOGOUT:

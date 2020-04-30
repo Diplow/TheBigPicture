@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getSubjects, getOwnSubjects } from '../../../actions/'
+import { getSubjects } from '../../../actions/'
 import HomeLook from './look'
 
 
@@ -12,8 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    getBigPictures: (page) => { dispatch(getSubjects(page)) },
-    getOwnSubjects: (page, userId) => { dispatch(getOwnSubjects(userId, page)) },
+    getBigPictures: (page, options) => { dispatch(getSubjects(page, options)) },
   }
 }
 

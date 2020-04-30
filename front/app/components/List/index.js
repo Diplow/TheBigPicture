@@ -23,19 +23,17 @@ const List = (props) => {
     showHeader,
     title,
     buttons,
+    search
   } = props
 
-  useEffect(() => {
-    items.sort(sortFunc)
-  }, [items])
-
-  const [pagination, page] = usePagination(items, count, getPage, cst.PAGE_SIZE, loadFirstPage)
+  const [pagination, searchbar, page] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc)
   const [hidden, setHidden] = useState(!loadFirstPage)
 
   return (
     <div className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(buttons, user, title, hidden, setHidden, getPage) : null }
       { !hidden ? <div>
+        { search ? searchbar : null }
         { count == 0 && items.length == 0 ? <p className="vde subtitle">{emptyMessage}</p> : null }
         { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
         { pagination }
@@ -56,6 +54,7 @@ List.propTypes = {
   showHeader: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   buttons: PropTypes.arrayOf(PropTypes.func).isRequired,
+  search: PropTypes.bool
 }
 
 const header = (buttons, user, title, hidden, setHidden, getPage) => {

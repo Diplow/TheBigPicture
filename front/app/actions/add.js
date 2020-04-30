@@ -39,7 +39,11 @@ export const add = (request) => {
 			&& request.response.count != undefined) {
 			const results = request.response.results
 			for (let i = 0; i < results.length; ++i) {
-				addAction(dispatch, results[i])
+				addAction(dispatch, {
+					...results[i],
+					[request.id]: i,
+					request: request.id,
+				})
 			}
 		}
 		else {

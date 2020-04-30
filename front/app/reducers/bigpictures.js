@@ -46,6 +46,7 @@ const bigpictures = (state = [], action) => {
           && (old_parent == null || element.id != old_parent.id)
           && (new_parent == null || element.id != new_parent.id)),
         {
+          ...old,
           id: bp.id,
           title: bp.title,
           kind: bp.kind,
@@ -61,6 +62,7 @@ const bigpictures = (state = [], action) => {
           ratingCount: bp.ratingCount,
           referenceCount: bp.referenceCount,
           references: old == null ? [] : old.references,
+          [bp.request]: bp[bp.request],
           private: bp.private,
         }
       ]

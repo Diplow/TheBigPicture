@@ -5,16 +5,16 @@ import uuid from 'uuid/v4'
 
 
 const NEXTS = {
-  "getallsubjects": (dispatch, nextargs) => {
+  "getSubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setSubjectCount(result.count)) }
   },
-  "getownsubjects": (dispatch, nextargs) => {
+  "getOwnSubjects": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
   },
-  "getownratings": (dispatch, nextargs) => {
+  "getOwnRatings": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setOwnRatingCount(nextargs.userId, result.count)) }
   },
-  "getreferences": (dispatch, nextargs) => {
+  "getReferences": (dispatch, nextargs) => {
     return (resp) => {
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
@@ -23,12 +23,12 @@ const NEXTS = {
       }
     }
   },
-  "getbpresults": (dispatch, nextargs) => {
+  "getBigPictureResults": (dispatch, nextargs) => {
     return (resp) => {
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
     }
   },
-  "getratingresults": (dispatch, nextargs) => {
+  "getRatingResults": (dispatch, nextargs) => {
     return (resp) => {
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
@@ -143,8 +143,16 @@ export const deleteItem = (dispatch, itemId, itemAPI) => {
 }
 
 
-export const get = (dispatch, endpoint, options, next, nextargs) => {
-  const url = `${endpoint}/?${options.concat(["format=json"]).join('&')}`
+const formatOptions = (options) => {
+  const res = ["format=json"]
+  for (let key of Object.keys(options))
+    res.push(`${key}=${options[key]}`)
+  return res
+}
+
+export const get = (dispatch, endpoint, options, next) => {
+  const opts = formatOptions(options)
+  const url = endpoint
   const method = "GET"
   const body = {}
   dispatch(basics.make({
@@ -152,20 +160,21 @@ export const get = (dispatch, endpoint, options, next, nextargs) => {
     body,
     method,
     next,
-    nextargs,
-    id: [method].concat(endpoint.split('/')).concat(options).concat([uuid()]).join('-')
+    nextargs: options,
+    id: [method].concat(endpoint.split('/')).concat(opts).concat([uuid()]).join('-')
   }))
 }
 
 export const getItem = (dispatch, itemId, itemAPI, options) => {
-  const url = `${itemAPI}/${itemId}/?${options.concat(["format=json"]).join('&')}`
+  const opts = formatOptions(options)
+  const url = `${itemAPI}/${itemId}/?${opts.join('&')}`
   const method = "GET"
   const body = {}
   dispatch(basics.make({
     url,
     body,
     method,
-    id: [method, itemAPI, itemId].concat(options).join('-'),
+    id: [method, itemAPI, itemId].concat(opts).join('-'),
   }))
 }
 
@@ -206,14 +215,10 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(next)
 }
 
-export const getCollection = (dispatch, itemAPI, page, options, next, nextargs) => {
-  if (!page) {
-    options.push(["page=1"])
-  }
-  else {
-    options.push("page="+page)
-  }
-  const url = itemAPI + "/?" + options.concat(["format=json"]).join('&');
+export const getCollection = (dispatch, itemAPI, page, options, next) => {
+  options.page = !page ? 1 : page
+  const opts = formatOptions(options)
+  const url = `${itemAPI}/?${opts.join('&')}`
   const method = "GET"
   const body = {}
   dispatch(basics.make({
@@ -221,8 +226,8 @@ export const getCollection = (dispatch, itemAPI, page, options, next, nextargs) 
     body,
     method,
     next,
-    nextargs,
-    id: [method, itemAPI].concat(options).join('-')
+    options,
+    id: [method, itemAPI].concat(opts).join('-')
   }, next))
 }
 
