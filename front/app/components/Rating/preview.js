@@ -6,7 +6,7 @@ import * as cst from '../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useToggle } from '../utils/hooks'
 import "./style.scss"
-import { getRatingRatings } from '../../actions'
+import { getRatings } from '../../actions'
 import { RatingButton, EditRatingButton } from './buttons'
 import List from '../List'
 import RadioButton from '../Buttons/radio'
@@ -154,7 +154,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPage: (page, ratingId) => dispatch(getRatingRatings(page, ratingId))
+    getPage: (page, ratingId) => dispatch(getRatings(page, { rating: ratingId }))
   }
 }
 

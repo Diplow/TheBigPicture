@@ -126,7 +126,7 @@ const analyse = (bigPicture, user) => {
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
-      getPage={(page) => {}}
+      getPage={(page, options) => {}}
       showHeader={true}
       title={"Analyse"}
       loadFirstPage={true}
@@ -164,10 +164,10 @@ const comments = (bigPicture, getRatingsPage, user) => {
     <RatingList
       margin={cst.BASE_MARGIN}
       showHeader={true}
-      loadFirstPage={true}
+      loadFirstPage={false}
       filter={(rating) => rating.target_bp == bigPicture.id}
       count={bigPicture.ratingCount}
-      getPage={(page) => { getRatingsPage(page, bigPicture.id) }}
+      getPage={(page, options) => { getRatingsPage(page, bigPicture.id, options) }}
       title={"Raisons"}
       emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
       buttons={[() => addRatingButton(bigPicture, user)]}
