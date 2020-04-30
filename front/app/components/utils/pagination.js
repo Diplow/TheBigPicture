@@ -13,7 +13,10 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const [lastRequest, setLastRequest] = useState(false)
 
   const loadMore = () => {
-    getPage(pageNb+1, { search })
+    const options = {}
+    if (search !== "")
+      options.search = search
+    getPage(pageNb+1, options)
     setPageNb(pageNb+1)
   }
 
