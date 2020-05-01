@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import usePagination from '../utils/pagination'
+import HideAndShowButton from '../Buttons/hideandshow'
 import uuid from 'uuid/v4'
 
 import * as cst from '../../constants'
@@ -62,8 +63,7 @@ const header = (buttons, user, title, hidden, setHidden, getPage) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
-        { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => { getPage(0); setHidden(!hidden)}}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-        { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
         <p className="vde subtitle level-item">{title}</p>
         { buttons.map((button) => <div key={uuid()}>{button()}</div>) }
       </div>

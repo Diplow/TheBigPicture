@@ -74,9 +74,13 @@ const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
 const SearchBar = ({ search, setSearch, getPage, setPageNb, setLastRequest }) => {
   const onClick = () => {
     const options = {}
-    if (search !== "")
+    if (search !== "") {
+      setLastRequest(true)
       options.search = search
-    setLastRequest(true)
+    } else {
+      // Empty search serves as a reset button for sorting
+      setSearch("default")
+    }
     getPage(1, options)
     setPageNb(1)
   }
