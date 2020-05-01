@@ -1,7 +1,9 @@
 /**
- * This action is triggered when processing (see /components/Api/executor.js)
- *
- *
+ * This action is triggered when processing requests.
+ * Basically it adds items to the store by dispatching actions based
+ * on the server response to the request. The reason it is done here,
+ * and not in a premise right after the request is answered,
+ * is because of a specific request handling design /reducers/requests.js
  **/
 
 import * as cst from "../constants"

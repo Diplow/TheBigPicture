@@ -23,16 +23,23 @@ export const make = (request) => {
   }
 }
 
+export const ongoing = (request) => {
+  return {
+    type: cst.REQUEST_ONGOING,
+    request
+  }
+}
+
 export const done = (request) => {
   return {
-    ...request,
+    request,
     type: cst.REQUEST_DONE
   }
 }
 
 export const processed = (request) => {
   return {
-    ...request,
+    request,
     type: cst.REQUEST_PROCESSED
   }
 }
