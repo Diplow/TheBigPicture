@@ -87,7 +87,7 @@ const header = (user) => {
 const content = (user, setUser, visitor, hidden, setHidden) => {
   return (
     <div className="container vde section section-field">
-
+      { contentHeader(user, visitor, setUser, hidden, setHidden) }
       {
         !hidden
         ? <div className={"card vde tbp-description"}>
@@ -101,7 +101,7 @@ const content = (user, setUser, visitor, hidden, setHidden) => {
   )
 }
 
-const contentHeader = (user, hidden, setHidden) => {
+const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
   return (
     <div className="level is-mobile vde-header">
       <div className="level-left">

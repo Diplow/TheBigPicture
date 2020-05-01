@@ -9,17 +9,17 @@ const NEXTS = {
     return (result) => { dispatch(basics.setSubjectCount(result.count)) }
   },
   "getOwnSubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
+    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.author, result.count)) }
   },
   "getOwnRatings": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.userId, result.count)) }
+    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.author, result.count)) }
   },
   "getReferences": (dispatch, nextargs) => {
     return (resp) => {
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
         dispatch(basics.addBigPicture(bp))
-        dispatch(basics.addBigPictureReference(nextargs.bpId, bp.id))
+        dispatch(basics.addBigPictureReference(nextargs.reference, bp.id))
       }
     }
   },
@@ -226,7 +226,7 @@ export const getCollection = (dispatch, itemAPI, page, options, next) => {
     body,
     method,
     next,
-    options,
+    nextargs: options,
     id: [method, itemAPI].concat(opts).join('-')
   }, next))
 }

@@ -81,6 +81,11 @@ export const addBigPicture = (bigpicture) => {
   }
 }
 
+
+// note that bpId is called "reference" in the querystring of
+// the server request. It makes sense when you are server side
+// and you understand "reference" as "who is referring to this bp"
+// but here reference represents something else: the result of this request.
 export const addBigPictureReference = (bpId, referenceId) => {
   return {
     type: cst.ADD_BIG_PICTURE_REFERENCE,
