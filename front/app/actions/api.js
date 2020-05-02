@@ -37,10 +37,6 @@ const NEXTS = {
 
 export const make = (request) => {
   return (dispatch) => {
-    dispatch(basics.ongoing({
-      ...request,
-      status: cst.REQUEST_ONGOING
-    }))
     const host = cst.SERVER_ADDR + request.url
     fetch(host, buildRequest(request.body, request.method))
     .then(res => {
