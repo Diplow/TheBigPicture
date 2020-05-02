@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import BigPictureModal from './modal'
 import Results from './results'
@@ -22,19 +21,31 @@ import "./style.scss"
 import * as cst from '../../constants'
 
 
-const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings, bigPictureId, getBigPicture, getBigPictureRatings, margin }) => {
+const BigPicturePreviewLook = (props) => {
+
+  const {
+    bigPicture,
+    children,
+    user,
+    hyperlink,
+    ratings,
+    bigPictureId,
+    getBigPicture,
+    getBigPictureRatings,
+    // all children of a given BP share the same margin,
+    // larger than their parent
+    margin
+  } = props
 
   useEffect(() => {
     if (bigPicture == undefined)
       getBigPicture(bigPictureId)
-    if (bigPicture != undefined && bigPicture.hyperlink_id != null && hyperlink == null)
-      getBigPicture(bigPicture.hyperlink_id)
   }, [])
 
-  const [init, setter] = useState(bigPicture)
+  const [bpDataEditionBuffer, setBpDataEditionBuffer] = useState(bigPicture)
 
   useEffect(() => {
-    setter(bigPicture)
+    setBpDataEditionBuffer(bigPicture)
   }, [bigPicture])
 
   const [showChildren, toggleChildren] = useToggle(false)
@@ -63,8 +74,8 @@ const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings,
             toggleRatings,
             toggleChildren,
             toggleResults,
-            init,
-            setter,
+            bpDataEditionBuffer,
+            setBpDataEditionBuffer,
             user) }
       </div>
       {
@@ -86,23 +97,23 @@ const BigPicturePreviewLook = ({ bigPicture, children, user, hyperlink, ratings,
   )
 }
 
-BigPicturePreviewLook.propTypes = {  
-  bigPicture: PropTypes.object,
-  ratings: PropTypes.arrayOf(PropTypes.object),
-  bigPictureId: PropTypes.number.isRequired, // used by connect
-  getBigPicture: PropTypes.func.isRequired, // action to trigger if the bigpicture to preview is not loaded yet
-  margin: PropTypes.number, // leftmargin in case of a child bppreview
-}
-
-
 const bpLeftLevel = (bigPicture) => {
+
+  const bpFigure = (icon) => {
+    return (
+      <figure className="vde bp-icons level-item image is-32x32">
+        <i className={`fas ${icon}`}></i>
+      </figure>
+    )    
+  }
+
 	return (
     <div style={{maxWidth:"100%"}} className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
-      { bigPicture.kind == cst.PROBLEM ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
-      { bigPicture.kind == cst.SOLUTION ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-lightbulb"></i></figure> : null }
-      { bigPicture.kind == cst.RESOURCE ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-folder"></i></figure> : null }
-      { bigPicture.hyperlink_id != null ? <figure className="vde bp-icons level-item image is-32x32"><i style={{height: "100%"}} className="level-item fas fa-directions"></i></figure> : null }
+      { bigPicture.kind == cst.PROBLEM ? bpFigure("fa-exclamation-circle") : null }
+      { bigPicture.kind == cst.SOLUTION ? bpFigure("fa-lightbulb") : null }
+      { bigPicture.kind == cst.RESOURCE ? bpFigure("fa-folder") : null }
+      { bigPicture.hyperlink_id != null ? bpFigure("fa-directions") : null }
       <p className="vde title">{bigPicture.title}</p>
     </div>
 	)

@@ -51,5 +51,6 @@ export const SUBMARGIN = 5
 export const ADD_USER = "ADD_USER"
 export const ADD_REQUEST = "ADD_REQUEST"
 export const REQUEST_CREATED = "REQUEST_CREATED"
+export const REQUEST_ONGOING = "REQUEST_ONGOING"
 export const REQUEST_DONE = "REQUEST_DONE"
 export const REQUEST_PROCESSED = "REQUEST_PROCESSED"

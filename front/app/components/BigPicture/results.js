@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Chart from "react-apexcharts";
 import RefreshButton from '../Buttons/refresh'
+import HideAndShowButton from '../Buttons/hideandshow'
 import { getBigPictureResults } from '../../actions'
 import "./style.scss"
 import * as cst from '../../constants'
@@ -32,8 +33,7 @@ const header = (bigPicture, hidden, setHidden) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
-        { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-        { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
         <p className="vde subtitle level-item">Résultats</p>
       </div>
     </div>

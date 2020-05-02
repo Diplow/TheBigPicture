@@ -33,6 +33,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   useEffect(() => {
     // If a search request is sent, lastRequest will be set to true,
     // and items will be sorted according to their rank in this request
+    // TODO: This design is probably bad and will produce weird side effects.
     if (lastRequest) {
       setLastRequest(false)
       setSort(user.last_request)
@@ -71,12 +72,16 @@ const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
   ) : null
 }
 
-const SearchBar = ({ search, setSearch, getPage, setPageNb, setLastRequest }) => {
+const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequest }) => {
   const onClick = () => {
     const options = {}
-    if (search !== "")
+    if (search !== "") {
+      setLastRequest(true)
       options.search = search
-    setLastRequest(true)
+    } else {
+      // Empty search serves as a reset button for sorting
+      setSort("default")
+    }
     getPage(1, options)
     setPageNb(1)
   }

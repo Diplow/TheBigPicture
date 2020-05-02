@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
@@ -12,6 +13,8 @@ import EditionModalButton from '../../../components/Buttons/modal'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
+import HideAndShowButton from '../../../components/Buttons/hideandshow'
+
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -84,8 +87,7 @@ const content = (bigPicture, user, setter) => {
     <div className="container vde section section-field">
       <div className="level is-mobile vde-header">
         <div className="level-left">
-          { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-          { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+          <HideAndShowButton hidden={hidden} setHidden={setHidden} />
           <p className="vde subtitle level-item">Contenu</p>
           { user.id == bigPicture.author ? editButton(bigPicture, setter) : null}
         </div>
@@ -143,7 +145,7 @@ const analyse = (bigPicture, user) => {
 const backButton = (bp) => {
   const to = bp.parent == null ? "/" : `/subject/${bp.subject}/bigPicture/${bp.parent}`
   return (
-    <div className="button tbp-radio title-button vde-add-comment is-narrow" key={`back${bp.id}`}>
+    <div className="button tbp-radio title-button is-narrow" key={`back${bp.id}`}>
       <Link to={to}>
         <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
       </Link>

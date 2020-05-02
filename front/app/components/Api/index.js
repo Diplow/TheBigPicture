@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import React, { useState, useEffect } from 'react'
 import { make } from '../../actions/api'
+import * as basics from '../../actions/basics'
 import * as cst from '../../constants'
 
 
@@ -12,11 +13,14 @@ import * as cst from '../../constants'
 const ApiEngine = (props) => {
   const {
     todo, // a request (see the requests reducer for a request fields description)
-    make // a function to execute a request
+    make, // a function to execute a request
+    ongoing // set the request on a special state indicating that it is... ongoing
   } = props
 
-  if (todo != undefined)
+  if (todo != undefined) {
+    ongoing(todo)
     make(todo)
+  }
 
   return null
 }
@@ -29,6 +33,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    ongoing: (request) => {
+      dispatch(basics.ongoing(request))
+    },
     make: (request) => { dispatch(make(request)) },
   }
 }

@@ -36,7 +36,7 @@ export const deleteBigPicture = (id) => {
 
 export const getSubjects = (page, options) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subjects", page, options, "getSubjects")
+    api.getCollection(dispatch, "subjects", page, options, options.reference == undefined ? "getSubjects" : "getReferences")
   }
 }
 

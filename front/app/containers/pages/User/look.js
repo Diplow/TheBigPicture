@@ -10,15 +10,16 @@ import NewUser from '../../../components/User/new'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
+import HideAndShowButton from '../../../components/Buttons/hideandshow'
 import "./style.scss"
 
 
 const UserViewLook = (props) => {
 
   const {
-    user,
-    visitor,
-    ratings,
+    user, // this page is about this user
+    visitor, // the logged in user
+    ratings, // this user's ratings
     getUser,
     getOwnSubjects,
     getSubjects,
@@ -27,8 +28,14 @@ const UserViewLook = (props) => {
     match
   } = props
 
-  const [hidden, setHidden] = useState(false)
+  // to hide/show the bio
+  const [hiddenBiography, setHiddenBiography] = useState(false)
+  // data is a buffer used when editing the user
   const [data, setData] = useState(user)
+
+  useEffect(() => {
+    setData(user)
+  }, [user])
 
   useEffect(() => {
     const userId = parseInt(match.params.id)
@@ -36,28 +43,13 @@ const UserViewLook = (props) => {
       getUser(userId)
   }, [match])
 
-  useEffect(() => {
-    setData(user)
-  }, [user])
-
   if (data == undefined)
     return null
 
   return (
     <div>
-      <div className="hero subject">
-        <div className="vde container section">
-          <div className="vde level is-mobile">
-            <div style={{maxWidth: "100%"}} className="level-left">
-              <span className="level-item author-icon">
-                <AuthorIcon userId={data.id}/>
-              </span>
-              <h1 className="vde title">{data.username}</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      { content(data, setData, visitor, hidden, setHidden) }
+      { header(data) }
+      { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
       { subjectsList(data, user, visitor, getOwnSubjects, getSubjects) }
       { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
     </div>
@@ -75,18 +67,27 @@ UserViewLook.propTypes = {
   getRatings: PropTypes.func.isRequired
 }
 
-
-const content = (user, setUser, visitor, hidden, setHidden) => {
+const header = (user) => {
   return (
-    <div className="container vde section section-field">
-      <div className="level is-mobile vde-header">
-        <div className="level-left">
-          { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-          { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
-          <p className="vde subtitle level-item">Bio</p>
-          { user.id == visitor.id ? editButton(user, setUser) : null}
+    <div className="hero subject">
+      <div className="vde container section">
+        <div className="vde level is-mobile">
+          <div style={{maxWidth: "100%"}} className="level-left">
+            <span className="level-item author-icon">
+              <AuthorIcon userId={user.id}/>
+            </span>
+            <h1 className="vde title">{user.username}</h1>
+          </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+const biography = (user, setUser, visitor, hidden, setHidden) => {
+  return (
+    <div className="container vde section section-field">
+      { contentHeader(user, visitor, setUser, hidden, setHidden) }
       {
         !hidden
         ? <div className={"card vde tbp-description"}>
@@ -96,6 +97,18 @@ const content = (user, setUser, visitor, hidden, setHidden) => {
           </div>
         : null
       }
+    </div>
+  )
+}
+
+const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
+  return (
+    <div className="level is-mobile vde-header">
+      <div className="level-left">
+        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+        <p className="vde subtitle level-item">Bio</p>
+        { user.id == visitor.id ? editButton(user, setUser) : null}
+      </div>
     </div>
   )
 }
