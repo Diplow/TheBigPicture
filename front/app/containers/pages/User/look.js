@@ -29,7 +29,7 @@ const UserViewLook = (props) => {
   } = props
 
   // to hide/show the bio
-  const [hidden, setHidden] = useState(false)
+  const [hiddenBiography, setHiddenBiography] = useState(false)
   // data is a buffer used when editing the user
   const [data, setData] = useState(user)
 
@@ -49,7 +49,7 @@ const UserViewLook = (props) => {
   return (
     <div>
       { header(data) }
-      { content(data, setData, visitor, hidden, setHidden) }
+      { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
       { subjectsList(data, user, visitor, getOwnSubjects, getSubjects) }
       { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
     </div>
@@ -84,7 +84,7 @@ const header = (user) => {
   )
 }
 
-const content = (user, setUser, visitor, hidden, setHidden) => {
+const biography = (user, setUser, visitor, hidden, setHidden) => {
   return (
     <div className="container vde section section-field">
       { contentHeader(user, visitor, setUser, hidden, setHidden) }
