@@ -14,8 +14,8 @@ import * as cst from "../constants"
     for the homepage for example), a request object is created (with the state
     cst.REQUEST_CREATED), encapsulating all information needed to send the
     request (/actions/basics.js:make).
-    2- An "APIEngine" (/components/Api/index.js) send every request with the
-    state cst.REQUEST_CREATED and set the current request state to
+    2- An "APIEngine" (/components/Api/index.js) sends every request with the
+    state cst.REQUEST_CREATED and sets the current request state to
     cst.REQUEST_ONGOING (see /actions/api.js:make).
     3- Once it has received the server response (still /actions/api.js:make),
     it stores it in the request data and sets the request state to
