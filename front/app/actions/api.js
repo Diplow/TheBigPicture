@@ -233,7 +233,8 @@ export const getCollection = (dispatch, itemAPI, page, options, next) => {
 
 const computeTokenTimeout = () => {
   const expirationDate = new Date()
-  expirationDate.setDate(expirationDate.getDate() + 1)
+  // token expire after 7 days. This value has to match the server value
+  expirationDate.setDate(expirationDate.getDate() + 7)
   return expirationDate.getTime()
 }
 
