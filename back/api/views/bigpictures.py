@@ -19,6 +19,15 @@ class OwnSubjectViewSet(ModelViewSet):
 		return self.queryset.filter(author=self.request.user)
 
 
+class NewsSet(ModelViewSet):
+	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE, private=False).order_by('-creation_date')
+	serializer_class = BigPictureSerializer
+	permission_classes = [IsReadOnly]
+
+	def get_queryset(self):
+		return self.queryset.filter(author__in=self.request.user.following.all())
+
+
 class SubjectViewSet(ModelViewSet):
 	queryset = BigPicture.objects.filter(kind=SUBJECT_CODE, private=False).order_by('-modification_date')
 	serializer_class = BigPictureSerializer

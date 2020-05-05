@@ -7,8 +7,8 @@ from django_registration.backends.activation.views import RegistrationView
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from api.views.users import UserViewSet, GroupViewSet, AuthViewSet
-from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet
+from api.views.users import UserViewSet, GroupViewSet, AuthViewSet, SubscriptionViewSet
+from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet, NewsSet
 from api.views.ratings import RatingViewSet, OwnRatingViewSet
 from api.views.results import bigPictureResults, ratingResults
 
@@ -17,6 +17,7 @@ from api.forms.base_user import BaseUserForm
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'subscriptions', SubscriptionViewSet)
 router.register(r'auth', AuthViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
@@ -24,6 +25,7 @@ router.register(r'subjects', SubjectViewSet)
 router.register(r'ownsubjects', OwnSubjectViewSet)
 router.register(r'ratings', RatingViewSet)
 router.register(r'ownratings', OwnRatingViewSet)
+router.register(r'news', NewsSet)
 
 urlpatterns = [
     path('api/bigpictures/<int:pk>/results/', bigPictureResults),

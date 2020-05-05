@@ -1,0 +1,375 @@
+[
+    {
+        "name": "Create user Diplo",
+        "action": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Create author Test1",
+        "action": "create_user",
+        "data": {
+            "id": 2,
+            "username": "Test1",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Create author Test2",
+        "action": "create_user",
+        "data": {
+            "id": 3,
+            "username": "Test2",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Test1 logs in",
+        "action": "login",
+        "data": {
+            "username": "Test1",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Test1 posts subject 'BP1'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP1",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 2,
+                "title": "BP1",
+                "private": false
+            }
+        },
+        "response": "BP1"
+    },
+    {
+        "name": "Test1 posts subject 'BP2'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP2",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 2,
+                "title": "BP2",
+                "private": false
+            }
+        },
+        "response": "BP2"
+    },
+    {
+        "name": "Test2 logs in",
+        "action": "login",
+        "data": {
+            "username": "Test2",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Test2 posts subject 'BP3'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP3",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP3",
+                "private": false
+            }
+        },
+        "response": "BP3"
+    },
+    {
+        "name": "Test2 posts subject 'BP4'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP4",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP4",
+                "private": false
+            }
+        },
+        "response": "BP4"
+    },
+    {
+        "name": "Test2 posts subject 'BP5'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP5",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP5",
+                "private": false
+            }
+        },
+        "response": "BP5"
+    },
+    {
+        "name": "Diplo logs in",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo wants to know who he follows (spoiler: no one)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subscriptions/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 0
+            }
+        },
+        "response": "subscriptions1"
+    },
+    {
+        "name": "Diplo follows Test1",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/subscriptions/",
+        "data": {
+            "target": 2,
+            "author": 1
+        },
+        "expectation": {
+            "status": 201
+        },
+        "response": "subscriptionToTest1"
+    },
+    {
+        "name": "Diplo wants to know who he follows (spoiler: only Test1)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subscriptions/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 1
+            }
+        },
+        "response": "diplofollowsonlytest1"
+    },
+    {
+        "name": "Diplo unfollows Test1",
+        "action": "send_api",
+        "verb": "delete",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/subscriptions/ID/",
+            "ID": {
+                "_meta": "response",
+                "subscriptionToTest1": "id"
+            }
+        },
+        "expectation": {
+            "status": 204
+        }
+    },
+    {
+        "name": "Diplo wants to know who he follows (spoiler: no one again)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subscriptions/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 0
+            }
+        },
+        "response": "diplofollowsnoone"
+    },
+    {
+        "name": "Diplo follows Test1 again",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/subscriptions/",
+        "data": {
+            "target": 2,
+            "author": 1
+        },
+        "expectation": {
+            "status": 201
+        },
+        "response": "secondSubscriptionToTest1"
+    },
+    {
+        "name": "Diplo wants to know what is new (when following only Test1)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/news/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 2
+            }
+        },
+        "response": "mynewsubjects"
+    },
+    {
+        "name": "Diplo follows Test2",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/subscriptions/",
+        "data": {
+            "target": 3,
+            "author": 1
+        },
+        "expectation": {
+            "status": 201
+        },
+        "response": "subscriptionToTest2"
+    },
+    {
+        "name": "Diplo wants to know who he follows (spoiler: Test1 and Test2)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/subscriptions/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 2
+            }
+        },
+        "response": "diplosubscriptions"
+    },
+    {
+        "name": "Diplo wants to know what is new (when following Test1 and Test2)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/news/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 5
+            }
+        },
+        "response": "mynewsubjects2"
+    },
+    {
+        "name": "Diplo unfollows Test1 again",
+        "action": "send_api",
+        "verb": "delete",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/subscriptions/ID/",
+            "ID": {
+                "_meta": "response",
+                "secondSubscriptionToTest1": "id"
+            }
+        },
+        "expectation": {
+            "status": 204
+        }
+    },
+    {
+        "name": "Diplo wants to know what is new (when following only Test2)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/news/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 3
+            }
+        },
+        "response": "mynewsubjects2"
+    },
+    {
+        "name": "Diplo unfollows Test2",
+        "action": "send_api",
+        "verb": "delete",
+        "path": {
+            "_meta": "str_replace",
+            "str": "/api/subscriptions/ID/",
+            "ID": {
+                "_meta": "response",
+                "subscriptionToTest2": "id"
+            }
+        },
+        "expectation": {
+            "status": 204
+        }
+    },
+    {
+        "name": "Diplo wants to know what is new (when following no one)",
+        "action": "send_api",
+        "verb": "get",
+        "path": "/api/news/",
+        "expectation": {
+            "status": 200,
+            "response": {
+                "count": 0
+            }
+        },
+        "response": "mynewsubjects3"
+    }
+]
