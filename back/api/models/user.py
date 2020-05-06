@@ -11,3 +11,8 @@ class Subscription(models.Model):
 	author = models.ForeignKey(BaseUser, on_delete=models.CASCADE, related_name="own_subscriptions")
 	target = models.ForeignKey(BaseUser, on_delete=models.CASCADE, related_name="follower_subscriptions")
 	date = models.DateField(auto_now_add=True)
+
+	class Meta:
+		constraints = [
+			models.UniqueConstraint(fields=['target', 'author'], name='unique_subscriptions'),
+		]

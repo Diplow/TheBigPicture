@@ -65,6 +65,13 @@ export const setSubjectCount = (count) => {
   }
 }
 
+export const setSubscriptionCount = (count) => {
+  return {
+    type: cst.SET_SUBSCRIPTION_COUNT,
+    count
+  }
+}
+
 export const setOwnSubjectCount = (userId, count) => {
   return {
     type: cst.SET_OWN_SUBJECT_COUNT,
@@ -123,6 +130,13 @@ export const addRating = (rating) => {
   }
 }
 
+export const addSubscription = (subscription) => {
+  return {
+    type: cst.ADD_SUBSCRIPTION,
+    subscription
+  }
+}
+
 export const addRatingResults = (ratingId, results) => {
   return {
     type: cst.ADD_RATING_RESULTS,
@@ -141,6 +155,13 @@ export const removeBigPicture = (id) => {
 export const removeRating = (id) => {
   return {
     type: cst.DELETE_RATING,
+    id
+  }
+}
+
+export const removeSubscription = (id) => {
+  return {
+    type: cst.DELETE_SUBSCRIPTION,
     id
   }
 }

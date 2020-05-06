@@ -10,6 +10,7 @@ const GUEST = {
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
   "id": 0,
+  "subscriptionCount": 1,
   "last_request": null
 }
 
@@ -40,6 +41,7 @@ const initialUser = () => {
 
 const initial_state = {
   ...initialUser(),
+  "subscriptionCount": 1,
   "token": localStorage.getItem('token')
 };
 
@@ -59,7 +61,14 @@ const user = (state = initial_state, action) => {
       return {
         ...action.user,
         image: action.user.image,
-        token: action.token
+        token: action.token,
+        subscriptionCount: 1
+      }
+
+    case cst.SET_SUBSCRIPTION_COUNT:
+      return {
+        ...state,
+        subscriptionCount: action.count
       }
 
     case cst.ADD_BIG_PICTURE:

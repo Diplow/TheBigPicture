@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import React, { useState, useEffect } from 'react'
-import { remove } from '../../actions/delete'
 import { add } from '../../actions/add'
 import * as cst from '../../constants'
 
@@ -9,28 +8,19 @@ import * as cst from '../../constants'
   See the requests reducers for an explanation over the purpose of "requests"
   in this application.
 **/
-const ExecutionEngine = ({ todo, remove, add }) => {
+const ExecutionEngine = ({ todo, add }) => {
 
   useEffect(() => {
 	if (todo != undefined) {
 		switch (todo.method) {
 
-			// for the same reason there are no "POST" or
-			// "PATCH" case (see below), there really should
-			// not be a "DELETE" case...
-			// TODO: remove this or use this design for more
-			// than just reducing server load
-			case "DELETE":
-				remove(todo)
-				break;
-
 			case "GET":
 				add(todo)
 				break;
 
-			// there is no "POST" or "PATCH" case for now
-			// because these requests are not meant to be
-			// executed multiple times
+			// there is no "POST" / "PATCH" / "DELETE" case for now
+			// because these requests have no reason to be executed
+			// multiple times.
 
 			default:
 				throw Error("unhandled method " + req.method)
@@ -49,7 +39,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	remove: (request) => { dispatch(remove(request))},
   	add: (request) => { dispatch(add(request))},
   }
 }

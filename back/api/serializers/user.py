@@ -13,6 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
+    target = UserSerializer(read_only=True)
+    target_id = serializers.PrimaryKeyRelatedField(source='target',  queryset=BaseUser.objects.all(), )
 
     class Meta:
         model = Subscription

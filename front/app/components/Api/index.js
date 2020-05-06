@@ -17,10 +17,14 @@ const ApiEngine = (props) => {
     ongoing // set the request on a special state indicating that it is... ongoing
   } = props
 
-  if (todo != undefined) {
-    ongoing(todo)
-    make(todo)
-  }
+
+  useEffect(() => {
+    if (todo != undefined) {
+      ongoing(todo)
+      make(todo)
+    }
+  }, [todo])
+
 
   return null
 }

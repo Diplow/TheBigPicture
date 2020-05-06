@@ -9,7 +9,12 @@ export const itemCreation = {
       title: "Vue créée",
       message: "Votre vue a bien été créée.",
       type: "success"
-    }
+    },
+  subscriptions: {
+    title: "Nouvel abonnement",
+    message: "Vous avez un nouvel abonnement.",
+    type: "success"
+  }
 }
 
 export const itemModification = {
@@ -39,6 +44,11 @@ export const itemDeletion = {
   ratings: {
     title: "Vote supprimé",
     message: "Votre vote a bien été supprimé.",
+    type: "success"
+  },
+  subscriptions: {
+    title: "Abonnement annulé",
+    message: "Votre abonnement a bien été annulé.",
     type: "success"
   }
 }

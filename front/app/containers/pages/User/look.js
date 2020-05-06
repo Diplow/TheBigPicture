@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import BigPictureList from '../../../components/BigPicture/list'
+import SubscriptionPreview from '../../../components/Subscription/preview'
 import RatingList from '../../../components/Rating/list'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import UserModal from '../../../components/User/modal'
 import NewUser from '../../../components/User/new'
+import List from '../../../components/List'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
@@ -20,11 +22,14 @@ const UserViewLook = (props) => {
     user, // this page is about this user
     visitor, // the logged in user
     ratings, // this user's ratings
+    subscriptions,
     getUser,
+    follow,
     getOwnSubjects,
     getSubjects,
     getOwnRatings,
     getRatings,
+    getSubscriptions,
     match
   } = props
 
@@ -50,8 +55,9 @@ const UserViewLook = (props) => {
     <div>
       { header(data) }
       { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
-      { subjectsList(data, user, visitor, getOwnSubjects, getSubjects) }
+      { subjectsList(data, user, visitor, getOwnSubjects, getSubjects, follow) }
       { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
+      { user.id == visitor.id ? subscriptionList(subscriptions, getSubscriptions, visitor) : null }
     </div>
   )
 }
@@ -128,7 +134,7 @@ const editButton = (init, setter) => {
 }
 
 
-const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects) => {
+const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, follow) => {
   return (
     <BigPictureList
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
@@ -139,7 +145,7 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects) => {
       title={"Sujets créés"}
       loadFirstPage={false}
       emptyMessage={`Aucun sujet n'a encore été créé publiquement par ${user.username}`}
-      buttons={visitor.id == user.id ? [addBigPictureButton] : []}
+      buttons={visitor.id == user.id ? [addBigPictureButton] : [() => followButton(follow, visitor)]}
     />
   )
 }
@@ -160,8 +166,43 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
   )
 }
 
+const subscriptionList = (subscriptions, getSubscriptions, user) => {
+  return (
+    <List
+      items={subscriptions}
+      container={(sub) => <SubscriptionPreview key={`previewsub-${sub.id}`} subscriptionId={sub.id} />}
+      user={user}
+      emptyMessage={"Vous ne vous êtes encore abonné à personne."}
+      sortFunc={(a, b) => {
+        const aDate = new Date(a.date)
+        const bDate = new Date(b.date)
+        if (aDate < bDate)
+          return 1
+        return aDate == bDate ? 0 : -1
+      }}
+      count={user.subscriptionCount}
+      getPage={getSubscriptions}
+      loadFirstPage={false}
+      showHeader={true}
+      title={"Abonnements"}
+      buttons={[]}
+      search={false}
+    />
+  )
+}
+
 const addBigPictureButton = () => {
   return <AddBigPictureButton key={`addhome`} bigPicture={null} />
+}
+
+const followButton = (follow, visitor) => {
+  return (
+    <div className="vde toolbar button level-item">
+      <a onClick={() => follow(visitor.id)}>
+        <span className="icon is-small"><i className="fas fa-heart"></i></span>
+      </a>
+    </div>
+  )
 }
 
 export default UserViewLook

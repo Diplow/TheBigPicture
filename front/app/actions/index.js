@@ -112,6 +112,31 @@ export const patchUser = (user) => {
 }
 
 
+/**
+ *
+ * ---- SUBSCRIPTIONS ----
+ * 
+ **/
+
+export const getSubscriptions = (page, options) => {
+  return (dispatch) => {
+    api.getCollection(dispatch, "subscriptions", page, options, "getSubscriptions")
+  }
+}
+
+export const unfollow = (subscriptionId) => {
+  return (dispatch) => {
+    api.deleteItem(dispatch, subscriptionId, "subscriptions")
+  }
+}
+
+export const follow = (author, target_id) => {
+  return (dispatch) => {
+    api.sendItem(dispatch, { author, target_id }, "subscriptions", basics.addSubscription, "/", "POST")
+  }
+}
+
+
 
 const removeEmptyKeys = (obj) => {
   let res = {}

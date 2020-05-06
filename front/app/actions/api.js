@@ -14,6 +14,9 @@ const NEXTS = {
   "getOwnRatings": (dispatch, nextargs) => {
     return (result) => { dispatch(basics.setOwnRatingCount(nextargs.author, result.count)) }
   },
+  "getSubscriptions": (dispatch, nextargs) => {
+    return (result) => { dispatch(basics.setSubscriptionCount(result.count)) }
+  },
   "getReferences": (dispatch, nextargs) => {
     return (resp) => {
       for (let i = 0; i < resp.results.length; ++i) {
@@ -61,15 +64,6 @@ export const make = (request) => {
             }))
             return result
           }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
-          break;
-
-        case "DELETE":
-          dispatch(basics.done({
-            ...request,
-            success,
-            response: {},
-            status: res.status,
-          }))
           break;
 
         default:
@@ -131,15 +125,24 @@ export const buildRequest = (body, method) => {
 
 
 export const deleteItem = (dispatch, itemId, itemAPI) => {
-  const url = itemAPI + "/" + itemId + "/?format=json";
-  const method = "DELETE"
-  const body = {}
-  dispatch(basics.make({
-    url,
-    body,
-    method,
-    id: [method, itemAPI, itemId].join('-'),
-  }))
+  const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}`
+  fetch(host, buildRequest({}, "DELETE"))
+    .then((res) => {
+      if (res.status == 204) {
+        if (itemAPI == "bigpictures") {
+          dispatch(basics.removeBigPicture(itemId))
+        }
+        if (itemAPI == "ratings") {
+          dispatch(basics.removeRating(itemId))
+        }
+        if (itemAPI == "subscriptions") {
+          dispatch(basics.removeSubscription(itemId))
+        }
+      }
+      else {
+        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
+      }
+  })
 }
 
 
