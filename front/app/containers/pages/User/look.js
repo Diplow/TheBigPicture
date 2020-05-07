@@ -182,19 +182,21 @@ const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
   if (user == undefined || user.id != visitor.id)
     return null
 
+  const sort = (a, b) => {
+    const aDate = new Date(a.date)
+    const bDate = new Date(b.date)
+    if (aDate < bDate)
+      return 1
+    return aDate == bDate ? 0 : -1
+  }
+
   return (
     <List
       items={subscriptions}
       container={(sub) => <SubscriptionPreview key={`previewsub-${sub.id}`} subscriptionId={sub.id} />}
       user={visitor}
       emptyMessage={"Vous ne vous êtes encore abonné à personne."}
-      sortFunc={(a, b) => {
-        const aDate = new Date(a.date)
-        const bDate = new Date(b.date)
-        if (aDate < bDate)
-          return 1
-        return aDate == bDate ? 0 : -1
-      }}
+      sortFunc={sort}
       count={visitor.subscriptionCount}
       getPage={getSubscriptions}
       loadFirstPage={false}
@@ -212,7 +214,7 @@ const addBigPictureButton = () => {
 
 const followButton = (follow, visitor) => {
   return (
-    <div className="vde toolbar button level-item">
+    <div className="button tbp-radio title-button is-narrow">
       <a onClick={() => follow(visitor.id)}>
         <span className="icon is-small"><i className="fas fa-heart"></i></span>
       </a>

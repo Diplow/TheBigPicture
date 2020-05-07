@@ -18,8 +18,10 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
     if (search !== "") {
       options.search = search
     }
-    setWaitingForResponse("loadmore")
-    getPage(pageNb+1, options)
+    if (getPage !== null) {
+      setWaitingForResponse("loadmore")
+      getPage(pageNb+1, options)
+    }
     setPageNb(pageNb+1)
   }
 
@@ -79,6 +81,8 @@ const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
 }
 
 const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequest, setWaitingForResponse}) => {
+  if (getPage == null)
+    return null
   const onClick = () => {
     const options = {}
     if (search !== "") {

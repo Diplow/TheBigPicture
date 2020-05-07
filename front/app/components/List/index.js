@@ -40,7 +40,7 @@ const List = (props) => {
           <Loader condition={waitingForResponse == "full"}>
             { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
             { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
-            <Loader condition={waitingForResponse == "loadmore"}>
+            <Loader condition={waitingForResponse == "loadmore" && getPage !== null}>
               { pagination }
             </Loader>
           </Loader>
@@ -57,7 +57,7 @@ List.propTypes = {
   emptyMessage: PropTypes.string.isRequired,
   sortFunc: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
-  getPage: PropTypes.func.isRequired,
+  getPage: PropTypes.func,
   loadFirstPage: PropTypes.bool.isRequired,
   showHeader: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,

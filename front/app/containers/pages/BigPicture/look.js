@@ -130,7 +130,7 @@ const analyse = (bigPicture, user) => {
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
-      getPage={(page, options) => {}}
+      getPage={null}
       showHeader={true}
       title={"Analyse"}
       loadFirstPage={true}
