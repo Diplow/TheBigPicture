@@ -58,33 +58,46 @@ export const popNotification = (id) => {
   }
 }
 
-export const setSubjectCount = (count) => {
+export const setSubjectCount = (count, requestId) => {
   return {
     type: cst.SET_GLOBAL_SUBJECT_COUNT,
-    count
+    count,
+    requestId
   }
 }
 
-export const setSubscriptionCount = (count) => {
+export const setSubscriptionCount = (count, requestId) => {
   return {
     type: cst.SET_SUBSCRIPTION_COUNT,
-    count
+    count,
+    requestId
   }
 }
 
-export const setOwnSubjectCount = (userId, count) => {
+export const setOwnSubjectCount = (userId, count, requestId) => {
   return {
     type: cst.SET_OWN_SUBJECT_COUNT,
     count,
-    userId
+    userId,
+    requestId
   }
 }
 
-export const setOwnRatingCount = (userId, count) => {
+export const setOwnRatingCount = (userId, count, requestId) => {
   return {
     type: cst.SET_OWN_RATING_COUNT,
     count,
-    userId
+    userId,
+    requestId
+  }
+}
+
+export const setRatingCount = (userId, count, requestId) => {
+  return {
+    type: cst.SET_RATING_COUNT,
+    count,
+    userId,
+    requestId
   }
 }
 

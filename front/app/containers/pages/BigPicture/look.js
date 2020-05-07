@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+import Loader from '../../../components/Loader'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
@@ -34,13 +35,14 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
 
   return (
     <div className="vde-bigpicture-page">
-      { init == undefined ? <div className="container vde section section-field"><div className="loader" style={{width:"5rem", height:"5rem"}}></div></div> : null }
-      { header(init) }
-      { content(init, user, setter) }
-      { analyse(init, user) }
-      { comments(init, getRatingsPage, user) }
-      { references(init, getReferences) }
-      { results(init) }
+      <Loader condition={bigPicture == undefined}>
+        { header(init) }
+        { content(init, user, setter) }
+        { analyse(init, user) }
+        { comments(init, getRatingsPage, user) }
+        { references(init, getReferences) }
+        { results(init) }
+      </Loader>
     </div>
   )
 }

@@ -107,7 +107,7 @@ const bpLeftLevel = (bigPicture) => {
     )    
   }
 
-	return (
+  return (
     <div style={{maxWidth:"100%"}} className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
       { bigPicture.kind == cst.PROBLEM ? bpFigure("fa-exclamation-circle") : null }
@@ -116,7 +116,7 @@ const bpLeftLevel = (bigPicture) => {
       { bigPicture.hyperlink_id != null ? bpFigure("fa-directions") : null }
       <p className="vde title">{bigPicture.title}</p>
     </div>
-	)
+  )
 }
 
 const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, showResults, toggleDetails, toggleRatings, toggleChildren, toggleResults, init, setter, user) => {
@@ -232,19 +232,19 @@ const lookButton = (bigPicture) => {
 }
 
 const bpDetails = (showDetails, body) => {
-	if (!showDetails)
-		return null
-	
-	if (body == undefined || body == "")
-		return null
+  if (!showDetails)
+    return null
+  
+  if (body == undefined || body == "")
+    return null
 
-	return (
-		<div className="vde card-content">
-			<div className="content">
-				<ReactMarkdown source={body} />
-			</div>
-		</div>
-	)
+  return (
+    <div className="vde card-content">
+      <div className="content">
+        <ReactMarkdown source={body} />
+      </div>
+    </div>
+  )
 }
 
 const bpChildren = (bigPicture, children, parentMargin, user) => {

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import BigPictureList from '../../../components/BigPicture/list'
 import SubscriptionPreview from '../../../components/Subscription/preview'
 import RatingList from '../../../components/Rating/list'
+import Loader from '../../../components/Loader'
 import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import UserModal from '../../../components/User/modal'
@@ -48,17 +49,14 @@ const UserViewLook = (props) => {
       getUser(userId)
   }, [match])
 
-  if (data == undefined)
-    return null
-
   return (
-    <div>
+    <Loader condition={user == undefined}>
       { header(data) }
       { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
       { subjectsList(data, user, visitor, getOwnSubjects, getSubjects, follow) }
       { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
-      { user.id == visitor.id ? subscriptionList(subscriptions, getSubscriptions, visitor) : null }
-    </div>
+      { subscriptionList(subscriptions, getSubscriptions, user, visitor) }
+    </Loader>
   )
 }
 
@@ -74,6 +72,8 @@ UserViewLook.propTypes = {
 }
 
 const header = (user) => {
+  if (user == undefined)
+    return null
   return (
     <div className="hero subject">
       <div className="vde container section">
@@ -91,6 +91,9 @@ const header = (user) => {
 }
 
 const biography = (user, setUser, visitor, hidden, setHidden) => {
+  if (user == undefined)
+    return null
+
   return (
     <div className="container vde section section-field">
       { contentHeader(user, visitor, setUser, hidden, setHidden) }
@@ -108,6 +111,9 @@ const biography = (user, setUser, visitor, hidden, setHidden) => {
 }
 
 const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
+  if (user == undefined)
+    return null
+
   return (
     <div className="level is-mobile vde-header">
       <div className="level-left">
@@ -135,6 +141,9 @@ const editButton = (init, setter) => {
 
 
 const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, follow) => {
+  if (user == undefined)
+    return null
+
   return (
     <BigPictureList
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
@@ -151,6 +160,9 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
 }
 
 const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
+  if (user == undefined)
+    return null
+
   return (
     <RatingList
       filter={(rating) => rating.author == user.id}
@@ -166,12 +178,15 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
   )
 }
 
-const subscriptionList = (subscriptions, getSubscriptions, user) => {
+const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
+  if (user == undefined || user.id != visitor.id)
+    return null
+
   return (
     <List
       items={subscriptions}
       container={(sub) => <SubscriptionPreview key={`previewsub-${sub.id}`} subscriptionId={sub.id} />}
-      user={user}
+      user={visitor}
       emptyMessage={"Vous ne vous êtes encore abonné à personne."}
       sortFunc={(a, b) => {
         const aDate = new Date(a.date)
@@ -180,7 +195,7 @@ const subscriptionList = (subscriptions, getSubscriptions, user) => {
           return 1
         return aDate == bDate ? 0 : -1
       }}
-      count={user.subscriptionCount}
+      count={visitor.subscriptionCount}
       getPage={getSubscriptions}
       loadFirstPage={false}
       showHeader={true}

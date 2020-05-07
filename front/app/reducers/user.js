@@ -68,7 +68,17 @@ const user = (state = initial_state, action) => {
     case cst.SET_SUBSCRIPTION_COUNT:
       return {
         ...state,
-        subscriptionCount: action.count
+        subscriptionCount: action.count,
+        last_request: action.requestId
+      }
+
+    case cst.SET_GLOBAL_SUBJECT_COUNT:
+    case cst.SET_OWN_SUBJECT_COUNT:
+    case cst.SET_OWN_RATING_COUNT:
+    case cst.SET_RATING_COUNT:
+      return {
+        ...state,
+        last_request: action.requestId
       }
 
     case cst.ADD_BIG_PICTURE:
@@ -81,6 +91,12 @@ const user = (state = initial_state, action) => {
       return {
         ...state,
         last_request: action.rating.request
+      }
+
+    case cst.ADD_SUBSCRIPTION:
+      return {
+        ...state,
+        last_request: action.subscription.request
       }
 
     case cst.LOGOUT:

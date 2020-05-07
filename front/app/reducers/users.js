@@ -21,6 +21,7 @@ const users = (state = [], action) => {
         }
       ]
 
+    case cst.SET_RATING_COUNT:
     case cst.SET_OWN_RATING_COUNT:
       usrId = action.userId
       count = action.count

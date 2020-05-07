@@ -23,7 +23,8 @@ const ratings = (state = [], action) => {
           ratingCount: rating.ratingCount,
           reason: rating.reason,
           subject: rating.subject,
-          date: rating.date
+          date: rating.date,
+          [rating.request]: rating[rating.request]
         }
       ]
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import usePagination from '../utils/pagination'
 import HideAndShowButton from '../Buttons/hideandshow'
+import Loader from '../Loader'
 import uuid from 'uuid/v4'
 
 import * as cst from '../../constants'
@@ -27,18 +28,24 @@ const List = (props) => {
     search
   } = props
 
-  const [pagination, searchbar, page] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc)
+  const [pagination, searchbar, page, waitingForResponse] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc)
   const [hidden, setHidden] = useState(!loadFirstPage)
 
   return (
     <div className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(buttons, user, title, hidden, setHidden, getPage) : null }
-      { !hidden ? <div>
-        { search ? searchbar : null }
-        { count == 0 && items.length == 0 ? <p className="vde subtitle">{emptyMessage}</p> : null }
-        { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
-        { pagination }
-      </div> : null }
+      { !hidden && search ? searchbar : null }
+      {
+        !hidden ? 
+          <Loader condition={waitingForResponse == "full"}>
+            { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
+            { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
+            <Loader condition={waitingForResponse == "loadmore"}>
+              { pagination }
+            </Loader>
+          </Loader>
+        : null
+      }
     </div>
   )
 }

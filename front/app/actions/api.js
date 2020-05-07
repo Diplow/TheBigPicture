@@ -5,19 +5,22 @@ import uuid from 'uuid/v4'
 
 
 const NEXTS = {
-  "getSubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setSubjectCount(result.count)) }
+  "getSubjects": (dispatch, nextargs, requestId) => {
+    return (result) => { dispatch(basics.setSubjectCount(result.count, requestId)) }
   },
-  "getOwnSubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.author, result.count)) }
+  "getRatings": (dispatch, nextargs, requestId) => {
+    return (result) => { dispatch(basics.setRatingCount(nextargs.author, result.count, requestId)) }
   },
-  "getOwnRatings": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.author, result.count)) }
+  "getOwnSubjects": (dispatch, nextargs, requestId) => {
+    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId)) }
   },
-  "getSubscriptions": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setSubscriptionCount(result.count)) }
+  "getOwnRatings": (dispatch, nextargs, requestId) => {
+    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.author, result.count, requestId)) }
   },
-  "getReferences": (dispatch, nextargs) => {
+  "getSubscriptions": (dispatch, nextargs, requestId) => {
+    return (result) => { dispatch(basics.setSubscriptionCount(result.count, requestId)) }
+  },
+  "getReferences": (dispatch, nextargs, requestId) => {
     return (resp) => {
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
@@ -26,12 +29,12 @@ const NEXTS = {
       }
     }
   },
-  "getBigPictureResults": (dispatch, nextargs) => {
+  "getBigPictureResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
     }
   },
-  "getRatingResults": (dispatch, nextargs) => {
+  "getRatingResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
@@ -63,7 +66,7 @@ export const make = (request) => {
               status: res.status,
             }))
             return result
-          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
+          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs, request.id) : null)
           break;
 
         default:

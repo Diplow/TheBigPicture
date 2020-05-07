@@ -11,11 +11,14 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState("default")
   const [lastRequest, setLastRequest] = useState(false)
+  const [waitingForResponse, setWaitingForResponse] = useState("")
 
   const loadMore = () => {
     const options = {}
-    if (search !== "")
+    if (search !== "") {
       options.search = search
+    }
+    setWaitingForResponse("loadmore")
     getPage(pageNb+1, options)
     setPageNb(pageNb+1)
   }
@@ -38,6 +41,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
       setLastRequest(false)
       setSort(user.last_request)
     }
+    setWaitingForResponse("")
   }, [user.last_request])
 
 
@@ -59,8 +63,10 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
       getPage={getPage}
       setPageNb={setPageNb}
       setLastRequest={setLastRequest}
+      setWaitingForResponse={setWaitingForResponse}
       setSort={setSort} />,
-    currentPage
+    currentPage,
+    waitingForResponse
   ]
 }
 
@@ -72,7 +78,7 @@ const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
   ) : null
 }
 
-const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequest }) => {
+const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequest, setWaitingForResponse}) => {
   const onClick = () => {
     const options = {}
     if (search !== "") {
@@ -82,26 +88,25 @@ const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequ
       // Empty search serves as a reset button for sorting
       setSort("default")
     }
+    setWaitingForResponse("full")
     getPage(1, options)
     setPageNb(1)
   }
 
   return (
-    <div className="field">
-      <div className="vde level is-mobile">
-        <div className="level-item control">
-          <input
-            className="input"
-            type="text"
-            onKeyDown={(e) => { e.key === 'Enter' ? onClick() : null }}
-            placeholder="Recherche..."
-            name="search"
-            value={search}
-            onChange={(e) => { setSearch(e.target.value) }} />
-        </div>
-        <div className="button tbp-radio title-button" onClick={onClick}>
-          <span className="icon is-small"><i className="fas fa-search"></i></span>
-        </div>
+    <div className="vde level is-mobile searchbar">
+      <div className="level-item control">
+        <input
+          className="input"
+          type="text"
+          onKeyDown={(e) => { e.key === 'Enter' ? onClick() : null }}
+          placeholder="Recherche..."
+          name="search"
+          value={search}
+          onChange={(e) => { setSearch(e.target.value) }} />
+      </div>
+      <div className="level-item button tbp-radio title-button is-narrow" onClick={onClick}>
+        <span className="icon is-small"><i className="fas fa-search"></i></span>
       </div>
     </div>
   )
