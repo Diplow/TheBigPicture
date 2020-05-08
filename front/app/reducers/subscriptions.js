@@ -18,7 +18,7 @@ const subscriptions = (state = [], action) => {
           target_id: subscription.target.id,
           author: subscription.author,
           date: subscription.date,
-          [subscription.request]: subscription[subscription.request]
+          [subscription.requestId]: subscription[subscription.requestId]
         }
       ]
 

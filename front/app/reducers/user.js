@@ -10,8 +10,7 @@ const GUEST = {
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
   "id": 0,
-  "subscriptionCount": 1,
-  "last_request": null
+  "subscriptionCount": 1
 }
 
 
@@ -68,35 +67,7 @@ const user = (state = initial_state, action) => {
     case cst.SET_SUBSCRIPTION_COUNT:
       return {
         ...state,
-        subscriptionCount: action.count,
-        last_request: action.requestId
-      }
-
-    case cst.SET_GLOBAL_SUBJECT_COUNT:
-    case cst.SET_OWN_SUBJECT_COUNT:
-    case cst.SET_OWN_RATING_COUNT:
-    case cst.SET_RATING_COUNT:
-      return {
-        ...state,
-        last_request: action.requestId
-      }
-
-    case cst.ADD_BIG_PICTURE:
-      return {
-        ...state,
-        last_request: action.bigpicture.request
-      }
-
-    case cst.ADD_RATING:
-      return {
-        ...state,
-        last_request: action.rating.request
-      }
-
-    case cst.ADD_SUBSCRIPTION:
-      return {
-        ...state,
-        last_request: action.subscription.request
+        subscriptionCount: action.count
       }
 
     case cst.LOGOUT:

@@ -9,6 +9,11 @@ import "./style.scss"
 
 
 const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="vde container section">
       <BigPictureList

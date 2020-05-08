@@ -49,6 +49,7 @@ const requests = (state = [], action) => {
           ...state.filter(elt => elt.id != request.id),
           {
             ...old,
+            requestId: request.requestId,
             state: cst.REQUEST_DONE
           }
         ]
@@ -57,7 +58,8 @@ const requests = (state = [], action) => {
       return [
         ...state.filter(elt => elt.id != request.id),
         {
-          id: request.id,
+          id: request.id, // this ID is used to identify what a request is doing
+          requestId: request.requestId, // this ID is an uuid used by "getCollections"
           sender: request.sender,
           url: request.url,
           body: request.body,

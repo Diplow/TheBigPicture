@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import usePagination from '../utils/pagination'
 import HideAndShowButton from '../Buttons/hideandshow'
 import Loader from '../Loader'
@@ -9,7 +9,7 @@ import uuid from 'uuid/v4'
 import * as cst from '../../constants'
 import "./style.scss"
 
-const List = (props) => {
+const ListLook = (props) => {
 
   const {
     items,
@@ -25,10 +25,11 @@ const List = (props) => {
     showHeader,
     title,
     buttons,
-    search
+    search,
+    processedRequests
   } = props
 
-  const [pagination, searchbar, page, waitingForResponse] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc)
+  const [pagination, searchbar, page, waitingForResponse, searchStr] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc, processedRequests)
   const [hidden, setHidden] = useState(!loadFirstPage)
 
   return (
@@ -37,10 +38,10 @@ const List = (props) => {
       { !hidden && search ? searchbar : null }
       {
         !hidden ? 
-          <Loader condition={waitingForResponse == "full"}>
+          <Loader condition={waitingForResponse !== "" && searchStr !== ""}>
             { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
             { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
-            <Loader condition={waitingForResponse == "loadmore" && getPage !== null}>
+            <Loader condition={waitingForResponse !== "" && getPage !== null}>
               { pagination }
             </Loader>
           </Loader>
@@ -48,21 +49,6 @@ const List = (props) => {
       }
     </div>
   )
-}
-
-List.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  container: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  emptyMessage: PropTypes.string.isRequired,
-  sortFunc: PropTypes.func.isRequired,
-  count: PropTypes.number.isRequired,
-  getPage: PropTypes.func,
-  loadFirstPage: PropTypes.bool.isRequired,
-  showHeader: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  buttons: PropTypes.arrayOf(PropTypes.func).isRequired,
-  search: PropTypes.bool
 }
 
 const header = (buttons, user, title, hidden, setHidden, getPage) => {
@@ -77,5 +63,14 @@ const header = (buttons, user, title, hidden, setHidden, getPage) => {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.get("user"),
+    processedRequests: state.get("requests").filter(req => req.state == cst.REQUEST_PROCESSED)
+  }
+}
+
+const List = connect(mapStateToProps)(ListLook)
 
 export default List

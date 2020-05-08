@@ -62,7 +62,7 @@ const bigpictures = (state = [], action) => {
           ratingCount: bp.ratingCount,
           referenceCount: bp.referenceCount,
           references: old == null ? [] : old.references,
-          [bp.request]: bp[bp.request],
+          [bp.requestId]: bp[bp.requestId],
           private: bp.private,
         }
       ]

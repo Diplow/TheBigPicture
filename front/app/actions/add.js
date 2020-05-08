@@ -66,8 +66,8 @@ const handleCollection = (dispatch, request, addAction) => {
   for (let i = 0; i < results.length; ++i) {
     addAction(dispatch, {
       ...results[i],
-      [request.id]: i,
-      request: request.id,
+      [request.requestId]: i,
+      requestId: request.requestId,
     })
   }
 }

@@ -40,6 +40,10 @@ const UserViewLook = (props) => {
   const [data, setData] = useState(user)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     setData(user)
   }, [user])
 

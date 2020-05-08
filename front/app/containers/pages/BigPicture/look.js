@@ -24,6 +24,10 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
   const [init, setter] = useState(bigPicture)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     if (bigPicture == undefined)
       getBigPicture(match.params.subjectId)
   }, [match])

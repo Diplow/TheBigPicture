@@ -1,10 +1,10 @@
 @import "../../../styles/theme.scss";
 
 .checkbox {
-	padding-right: 1rem;
-	:hover {
-		color: $light;
-	}
+  padding-right: 1rem;
+  :hover {
+    color: $light;
+  }
 }
 
 p.subtitle.level-item {
@@ -14,32 +14,32 @@ p.subtitle.level-item {
 }
 
 span.vde-button.is-narrow.level-item.button.tbp-radio {
-	color: $dark;
-	background-color: $primary-5;
+  color: $dark;
+  background-color: $primary-5;
 }
 
 .button.tbp-radio {
-	color: $dark;
-	background-color: $primary-5;
-	margin-right: 0.5rem;
-	border-width: inherit;
+  color: $dark;
+  background-color: $primary-5;
+  margin-right: 0.5rem;
+  border-width: inherit;
 }
 
 .author-icon {
-	padding-right: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .hero {
-	.title {
-		color: $primary-1;
-	}
-	background-color: $primary-4;
-	padding: 0.7rem 0;
-	margin-top: 7rem;
+  .title {
+    color: $primary-1;
+  }
+  top: 1rem;
+  background-color: $primary-4;
+  padding: 0.7rem 0;
 }
 
 .filter.checkbox:hover {
-	color: $light;
+  color: $light;
 }
 
 div.vde-bigpicture-page {

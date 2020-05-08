@@ -141,9 +141,14 @@ export const deleteItem = (dispatch, itemId, itemAPI) => {
         if (itemAPI == "subscriptions") {
           dispatch(basics.removeSubscription(itemId))
         }
+        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
       }
       else {
-        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
+        dispatch(basics.notification({
+          title: "Erreur de communication avec le serveur - L'objet n'a pas probablement pas été supprimé.",
+          message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr",
+          type: "warning"
+        }))
       }
   })
 }
@@ -221,7 +226,7 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(next)
 }
 
-export const getCollection = (dispatch, itemAPI, page, options, next) => {
+export const getCollection = (dispatch, itemAPI, page, options, next, requestId) => {
   options.page = !page ? 1 : page
   const opts = formatOptions(options)
   const url = `${itemAPI}/?${opts.join('&')}`
@@ -232,6 +237,7 @@ export const getCollection = (dispatch, itemAPI, page, options, next) => {
     body,
     method,
     next,
+    requestId,
     nextargs: options,
     id: [method, itemAPI].concat(opts).join('-')
   }, next))

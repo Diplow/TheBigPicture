@@ -34,15 +34,15 @@ export const deleteBigPicture = (id) => {
   }
 }
 
-export const getSubjects = (page, options) => {
+export const getSubjects = (page, options, requestId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subjects", page, options, options.reference == undefined ? "getSubjects" : "getReferences")
+    api.getCollection(dispatch, "subjects", page, options, options.reference == undefined ? "getSubjects" : "getReferences", requestId)
   }
 }
 
-export const getOwnSubjects = (page, options) => {
+export const getOwnSubjects = (page, options, requestId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "ownsubjects", page, options, "getOwnSubjects")
+    api.getCollection(dispatch, "ownsubjects", page, options, "getOwnSubjects", requestId)
   }
 }
 
@@ -73,15 +73,15 @@ export const deleteVote = (id) => {
   }
 }
 
-export const getRatings = (page, options) => {
+export const getRatings = (page, options, requestId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "ratings", page, options, "getRatings")
+    api.getCollection(dispatch, "ratings", page, options, "getRatings", requestId)
   }
 }
 
-export const getOwnRatings = (page, options) => {
+export const getOwnRatings = (page, options, requestId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "ownratings", page, options, "getOwnRatings")
+    api.getCollection(dispatch, "ownratings", page, options, "getOwnRatings", requestId)
   }
 }
 
@@ -118,9 +118,9 @@ export const patchUser = (user) => {
  * 
  **/
 
-export const getSubscriptions = (page, options) => {
+export const getSubscriptions = (page, options, requestId) => {
   return (dispatch) => {
-    api.getCollection(dispatch, "subscriptions", page, options, "getSubscriptions")
+    api.getCollection(dispatch, "subscriptions", page, options, "getSubscriptions", requestId)
   }
 }
 

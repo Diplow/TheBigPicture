@@ -4,7 +4,7 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const createPagination = (user, items, count, getPage, size, loadFirstPage, sortFunc) => {
+const createPagination = (user, items, count, getPage, size, loadFirstPage, sortFunc, processedRequests) => {
   const [pageNb, setPageNb] = useState(0)
   const [currentPage, setCurrentPage] = useState(items)
   const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
@@ -19,8 +19,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
       options.search = search
     }
     if (getPage !== null) {
-      setWaitingForResponse("loadmore")
-      getPage(pageNb+1, options)
+      setWaitingForResponse(getPage(pageNb+1, options))
     }
     setPageNb(pageNb+1)
   }
@@ -36,21 +35,20 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   }, [items, sort])
 
   useEffect(() => {
-    // If a search request is sent, lastRequest will be set to true,
-    // and items will be sorted according to their rank in this request
-    // TODO: This design is probably bad and will produce weird side effects.
-    if (lastRequest) {
-      setLastRequest(false)
-      setSort(user.last_request)
+    const req = processedRequests.find(elt => elt.requestId == waitingForResponse)
+    if (req != null) {
+      setWaitingForResponse("")
     }
-    setWaitingForResponse("")
-  }, [user.last_request])
+  }, [processedRequests])
 
 
   useEffect(() => {
     if (loadFirstPage)
       loadMore()
   }, [])
+
+  const globalLoader = waitingForResponse !== "" && search !== ""
+  const localLoader = waitingForResponse !== ""
  
   return [
     <LoadMore
@@ -68,7 +66,8 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
       setWaitingForResponse={setWaitingForResponse}
       setSort={setSort} />,
     currentPage,
-    waitingForResponse
+    waitingForResponse,
+    search
   ]
 }
 
@@ -86,15 +85,17 @@ const SearchBar = ({ search, setSearch, setSort, getPage, setPageNb, setLastRequ
   const onClick = () => {
     const options = {}
     if (search !== "") {
-      setLastRequest(true)
       options.search = search
+      const reqId = getPage(1, options)
+      setSort(reqId)
+      setWaitingForResponse(reqId)    
+      setPageNb(1)
     } else {
       // Empty search serves as a reset button for sorting
       setSort("default")
+      setWaitingForResponse(getPage(1, options))    
+      setPageNb(1)
     }
-    setWaitingForResponse("full")
-    getPage(1, options)
-    setPageNb(1)
   }
 
   return (

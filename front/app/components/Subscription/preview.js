@@ -32,19 +32,19 @@ const SubscriptionPreviewLook = (props) => {
 }
 
 const leftLevel = (target) => {
-	return (
+  return (
     <div style={{maxWidth:"95%"}} className="level-left">
       <AuthorIcon userId={target.id} showIcon={true} clickable={true}/>
       <p className="vde title">{target.username}</p>
     </div>
-	)
+  )
 }
 
 
 const rightLevel = (subscription, unfollow) => {
   return (
     <div className="level-right">
-      <div className="vde toolbar button level-item">
+      <div className="button tbp-radio title-button is-narrow unfollow">
         <a onClick={() => unfollow(subscription.id)}>
           <span className="icon is-small"><i className="fas fa-times"></i></span>
         </a>
