@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import usePagination from '../utils/pagination'
+import usePagination from './pagination'
 import HideAndShowButton from '../Buttons/hideandshow'
 import Loader from '../Loader'
 import uuid from 'uuid/v4'
@@ -29,21 +29,34 @@ const ListLook = (props) => {
     processedRequests
   } = props
 
-  const [pagination, searchbar, page, waitingForResponse, searchStr] = usePagination(user, items, count, getPage, cst.PAGE_SIZE, loadFirstPage, sortFunc, processedRequests)
+  const [
+    pagination,
+    searchbar,
+    page,
+    waitingForResponse,
+    searchStr
+  ] = usePagination(
+    user,
+    items,
+    count,
+    getPage,
+    cst.PAGE_SIZE,
+    loadFirstPage,
+    sortFunc,
+    processedRequests
+  )
+
   const [hidden, setHidden] = useState(!loadFirstPage)
 
   return (
     <div className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(buttons, user, title, hidden, setHidden, getPage) : null }
       { !hidden && search ? searchbar : null }
-      {
-        !hidden ? 
-          <Loader condition={waitingForResponse !== "" && searchStr !== ""}>
-            { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
-            { page.map((item) => <div key={"listItem"+item.id}>{container(item)}</div>) }
-            <Loader condition={waitingForResponse !== "" && getPage !== null}>
-              { pagination }
-            </Loader>
+      { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
+      { page.map((item) => !hidden ? <div key={"listItem"+item.id}>{container(item)}</div> : null) }
+      { !hidden ?
+          <Loader condition={waitingForResponse !== "" && getPage !== null}>
+            { !hidden ? pagination : null }
           </Loader>
         : null
       }

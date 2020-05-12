@@ -69,9 +69,6 @@ const header = (bigPicture) => {
           <div style={{maxWidth: "100%"}} className="level-left">
             <span className="level-item author-icon">
               <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
-              { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
-              { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-lightbulb"></i></figure> : null }
-              { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-folder"></i></figure> : null }
             </span>
             <h1 className="vde title">
               {bigPicture.title}
@@ -175,7 +172,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
       loadFirstPage={false}
       filter={(rating) => rating.target_bp == bigPicture.id}
       count={bigPicture.ratingCount}
-      getPage={(page, options) => { getRatingsPage(page, bigPicture.id, options) }}
+      getPage={(page, options) => { return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }) }}
       title={"Raisons"}
       emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
       buttons={[() => addRatingButton(bigPicture, user)]}
@@ -210,7 +207,7 @@ const references = (bigPicture, getReferences) => {
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
-      getPage={(page) => {getReferences(page, bigPicture.id)}}
+      getPage={(page, options) => { return getReferences(page, { ...options, reference: bigPicture.id }) }}
       showHeader={true}
       title={"Références"}
       loadFirstPage={false}

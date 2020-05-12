@@ -197,7 +197,7 @@
         "verb": "post",
         "path": "/api/subscriptions/",
         "data": {
-            "target": 2,
+            "target_id": 2,
             "author": 1
         },
         "expectation": {
@@ -253,7 +253,7 @@
         "verb": "post",
         "path": "/api/subscriptions/",
         "data": {
-            "target": 2,
+            "target_id": 2,
             "author": 1
         },
         "expectation": {
@@ -265,7 +265,7 @@
         "name": "Diplo wants to know what is new (when following only Test1)",
         "action": "send_api",
         "verb": "get",
-        "path": "/api/news/",
+        "path": "/api/subjects/?favorites=true",
         "expectation": {
             "status": 200,
             "response": {
@@ -280,7 +280,7 @@
         "verb": "post",
         "path": "/api/subscriptions/",
         "data": {
-            "target": 3,
+            "target_id": 3,
             "author": 1
         },
         "expectation": {
@@ -305,7 +305,7 @@
         "name": "Diplo wants to know what is new (when following Test1 and Test2)",
         "action": "send_api",
         "verb": "get",
-        "path": "/api/news/",
+        "path": "/api/subjects/?favorites=true",
         "expectation": {
             "status": 200,
             "response": {
@@ -334,7 +334,7 @@
         "name": "Diplo wants to know what is new (when following only Test2)",
         "action": "send_api",
         "verb": "get",
-        "path": "/api/news/",
+        "path": "/api/subjects/?favorites=true",
         "expectation": {
             "status": 200,
             "response": {
@@ -363,7 +363,7 @@
         "name": "Diplo wants to know what is new (when following no one)",
         "action": "send_api",
         "verb": "get",
-        "path": "/api/news/",
+        "path": "/api/subjects/?favorites=true",
         "expectation": {
             "status": 200,
             "response": {

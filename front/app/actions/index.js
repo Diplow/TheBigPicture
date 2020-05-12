@@ -48,7 +48,7 @@ export const getOwnSubjects = (page, options, requestId) => {
 
 export const getBigPictureResults = (bigpictureId) => {
   return (dispatch) => {
-    api.get(dispatch, `bigpictures/${bigpictureId}/results`, { bigpictureId }, "getBigPictureResults")
+    api.get(dispatch, `bigpictures/${bigpictureId}/results/`, { bigpictureId }, "getBigPictureResults")
   }
 }
 
@@ -87,7 +87,7 @@ export const getOwnRatings = (page, options, requestId) => {
 
 export const getRatingResults = (ratingId) => {
   return (dispatch) => {
-    api.get(dispatch, `ratings/${ratingId}/results`, { ratingId }, "getRatingResults")
+    api.get(dispatch, `ratings/${ratingId}/results/`, { ratingId }, "getRatingResults")
   }
 }
 

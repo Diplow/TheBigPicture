@@ -61,6 +61,7 @@ const bigpictures = (state = [], action) => {
           modification_date: bp.modification_date,
           ratingCount: bp.ratingCount,
           referenceCount: bp.referenceCount,
+          favorite: old == null ? bp.favorite : old.favorite,
           references: old == null ? [] : old.references,
           [bp.requestId]: bp[bp.requestId],
           private: bp.private,

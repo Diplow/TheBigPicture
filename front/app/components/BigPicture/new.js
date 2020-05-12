@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import usePagination from '../utils/pagination'
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -40,12 +38,6 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
       {data.kind == cst.SUBJECT ? privacyField(privacy, edit) : null}
     </div>
   )
-}
-
-NewBigPictureLook.propTypes = {
-  data: PropTypes.object,
-  parent: PropTypes.object,
-  setData: PropTypes.func
 }
 
 const radioButton = (name, checked, value, onChange, label) => {

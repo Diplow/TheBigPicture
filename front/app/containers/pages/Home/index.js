@@ -13,8 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    getBigPictures: (page, options) => {
-      const requestId = uuid()
+    getBigPictures: (page, options, request_id) => {
+      const requestId = request_id || uuid()
       dispatch(getSubjects(page, options, requestId));
       return requestId
     }

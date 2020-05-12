@@ -46,6 +46,7 @@ const users = (state = [], action) => {
           bio: usr.bio,
           ownSubjectCount: old != null ? old.ownSubjectCount : 1,
           ownRatingCount: old != null ? old.ownSubjectCount : 1,
+          favorite: old == null ? usr.favorite : old.favorite
         }
       ]
 

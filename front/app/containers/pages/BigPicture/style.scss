@@ -33,9 +33,17 @@ span.vde-button.is-narrow.level-item.button.tbp-radio {
   .title {
     color: $primary-1;
   }
-  top: 1rem;
+  margin-top: 0.6rem;
   background-color: $primary-4;
   padding: 0.7rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  .hero {
+    .title {
+      font-size: x-large;
+    }
+  }
 }
 
 .filter.checkbox:hover {

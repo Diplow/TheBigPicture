@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import usePagination from '../utils/pagination'
 import BigPicturePreview from './preview'
 import List from '../List'
 import * as cst from '../../constants'

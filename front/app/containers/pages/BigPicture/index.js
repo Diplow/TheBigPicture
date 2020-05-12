@@ -16,14 +16,14 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getReferences: (page, bpId, options) => {
-      const requestId = uuid()
-      dispatch(getSubjects(page, { ...options, reference: bpId }, requestId))
+    getReferences: (page, options, request_id) => {
+      const requestId = request_id || uuid()
+      dispatch(getSubjects(page, options, requestId))
       return requestId
     },
-    getRatingsPage: (page, bpId, options) => {
-      const requestId = uuid()
-      dispatch(getRatings(page, { ...options, bigpicture: bpId }, requestId));
+    getRatingsPage: (page, options, request_id) => {
+      const requestId = request_id || uuid()
+      dispatch(getRatings(page, options, requestId));
       return requestId
     }
   }
