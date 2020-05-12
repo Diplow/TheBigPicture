@@ -34,6 +34,17 @@ const users = (state = [], action) => {
         }
       ]
 
+    case cst.ADD_SUBSCRIPTION:
+      const subscription = action.subscription
+      const target = state.find(user => user.id == subscription.target_id)
+      return [
+        ...state.filter(user => user.id != target.id),
+        {
+          ...target,
+          favorite: true
+        }
+      ]
+
     case cst.ADD_USER:
       let usr = action.user
       old = state.find(element => element.id == usr.id)

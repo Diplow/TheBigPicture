@@ -3,7 +3,7 @@
  * Basically it adds items to the store by dispatching actions based
  * on the server response to the request. The reason it is done here,
  * and not in a premise right after the request is answered,
- * is because of a specific request handling design /reducers/requests.js
+ * is because of a specific request handling design front/app/reducers/requests.js
  **/
 
 import * as cst from "../constants"
@@ -21,7 +21,7 @@ export const add = (request) => {
         "subjects": addBigPicture,
         "ownsubjects": addBigPicture,
         "subscriptions": (request, dispatch, subscription) => {
-          dispatch(basics.addUser(subscription.target))
+          dispatch(basics.addUser({ ...subscription.target, favorite: true }))
           dispatch(basics.addSubscription(subscription))
         },
         "ownratings": (request, dispatch, rating) => { dispatch(basics.addRating(rating)) },
@@ -48,6 +48,10 @@ export const add = (request) => {
 }
 
 const addBigPicture = (request, dispatch, bigPicture) => {
+  // When adding a new bigPicture, a favorite field is added depending on the request
+  // Specifically if the querystring includes "favorites=true", the server will only
+  // return elements to which the user is subscribed.
+  // see front/app/components/List/pagination.js:SearchBar
   if (bigPicture.family != null) {
     for (let i = 0; i < bigPicture.family.length; ++i) {
       const child = bigPicture.family[i]
@@ -56,8 +60,15 @@ const addBigPicture = (request, dispatch, bigPicture) => {
       }
     }
   }
-  if (bigPicture.author.id != undefined)
+  if (bigPicture.author.id != undefined) {
+    if (request.nextargs.favorites) {
+      dispatch(basics.addSubscription({
+        author: request.user,
+        target_id: bigPicture.author.id
+      }))
+    }
     dispatch(basics.addUser({ ...bigPicture.author, favorite: request.nextargs.favorites }))
+  }
   dispatch(basics.addBigPicture({ ...bigPicture, favorite: request.nextargs.favorites }))
 }
 
@@ -66,7 +77,13 @@ const handleCollection = (request, dispatch, addAction) => {
   for (let i = 0; i < results.length; ++i) {
     addAction(request, dispatch, {
       ...results[i],
-      [request.requestId]: i + 10 * request.nextargs.page,
+      // requestIds are used to remember a server ranking that can not
+      // be reproduced here (e.g full text search)
+      // A unique requestId is used for different pages.
+      // ranks are adjusted according to the pagination.
+      // fifth result from the first page is supposed to be more fitting
+      // than the first result from the second page.
+      [request.requestId]: i + cst.PAGE_SIZE * request.nextargs.page,
       requestId: request.requestId,
     })
   }

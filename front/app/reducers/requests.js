@@ -60,7 +60,7 @@ const requests = (state = [], action) => {
         {
           id: request.id, // this ID is used to identify what a request is doing
           requestId: request.requestId, // this ID is an uuid used by "getCollections"
-          sender: request.sender,
+          user: localStorage.user !== undefined ? JSON.parse(localStorage.user).id : 0,
           url: request.url,
           body: request.body,
           method: request.method,
@@ -90,7 +90,6 @@ const requests = (state = [], action) => {
           success: request.success,
           status: request.status,
           response: request.response
-
         }
       ]
 

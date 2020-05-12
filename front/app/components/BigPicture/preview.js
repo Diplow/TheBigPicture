@@ -270,7 +270,7 @@ const bpChildren = (bigPicture, children, parentMargin, user) => {
       emptyMessage={""}
       sortFunc={sortBigPictures}
       count={bigPicture.children.length}
-      getPage={(page) => {}}
+      getPage={null}
       loadFirstPage={true}
       showHeader={false}
       title={""}

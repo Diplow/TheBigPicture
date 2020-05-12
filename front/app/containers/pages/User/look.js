@@ -148,6 +148,12 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
   if (user == undefined)
     return null
 
+  let buttons = []
+  if (visitor.id !== 0 && visitor.favorite !== true)
+    buttons = [() => followButton(follow, visitor)]
+  if (visitor.id == user.id)
+    buttons = [addBigPictureButton]
+
   return (
     <BigPictureList
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
@@ -158,7 +164,7 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
       title={"Sujets créés"}
       loadFirstPage={false}
       emptyMessage={`Aucun sujet n'a encore été créé publiquement par ${user.username}`}
-      buttons={visitor.id == user.id ? [addBigPictureButton] : [() => followButton(follow, visitor)]}
+      buttons={buttons}
     />
   )
 }
