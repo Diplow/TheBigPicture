@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import * as cst from '../../constants'
+import * as utils from '../utils'
 import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
 
@@ -23,7 +24,7 @@ const NewRatingLook = (props) => {
   return (
     <div className="newRatingModal">
       {starField(data, edit, target_bp)}
-      {data.value != 6 ? reasonField(data, edit) : null}
+      {data.value != cst.ENDORSMENT_VALUE ? reasonField(data, edit) : null}
     </div>
   )
 }
@@ -37,8 +38,8 @@ const starField = (data, edit, target_bp) => {
   return (
     <div className="field">
       <p className="subtitle-modal">Évaluation</p>
-        { stars(data, edit) }
-        { explicit(data, edit, target_bp) }
+      { stars(data, edit) }
+      { explicit(data, edit, target_bp) }
     </div>
   )
 }
@@ -46,11 +47,13 @@ const starField = (data, edit, target_bp) => {
 
 const stars = (data, edit) => {
   const setV = (nb) => edit({ target: { name: "value", value: nb }})
-  const nbStars = data.target_rating != null ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5]
+  const nbStars = data.target_rating != null ? utils.range(1, cst.ENDORSMENT_VALUE + 1) : utils.range(1, cst.MAX_EVAL + 1)
 
   const Star = ({ value, setValue, nb }) => {
     return (
-      <div className={"level-item is-narrow" + (value >= nb ? " selected" : "")} onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
+      <div
+        className={"level-item is-narrow" + (value >= nb ? " selected" : "")}
+        onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
         <span className="tbp-star tbp-eval fa fa-star"/>
       </div>
     )
@@ -59,7 +62,12 @@ const stars = (data, edit) => {
   return (
     <div className="level star-level is-mobile">
       {
-        nbStars.map(key => <Star key={`star-${key}-${data.id}`} value={data.value} setValue={setV} nb={key} />)
+        nbStars.map(key =>
+          <Star
+            key={`star-${key}-${data.id}`}
+            value={data.value}
+            setValue={setV}
+            nb={key} />)
       }
     </div>
   )

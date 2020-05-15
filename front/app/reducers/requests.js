@@ -64,8 +64,10 @@ const requests = (state = [], action) => {
           url: request.url,
           body: request.body,
           method: request.method,
-          next: request.next,
-          nextargs: request.nextargs,
+          next: request.next, // an identifier to execute specifics followup asynschronously
+          nextargs: request.nextargs, // args given to the specified followup 
+          // set mustprocess to false if the request must be ignored by the ApiExecutor
+          mustprocess: request.mustprocess !== undefined ? request.mustprocess : true,
           state: cst.REQUEST_CREATED
         }
       ]

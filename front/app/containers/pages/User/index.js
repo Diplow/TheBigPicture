@@ -7,6 +7,7 @@ import {
   getOwnRatings,
   getRatings,
   getSubscriptions } from '../../../actions'
+import { getPageFormatter } from '../../../components/List'
 import UserViewLook from './look'
 import uuid from 'uuid/v4'
 
@@ -23,34 +24,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const userId = ownProps.match.params.id
+  const addAuthorToOptions = (func) => {
+    return (page, options, requestId) => {
+      return func(page, { ...options, author: userId }, requestId)
+    }
+  }
   return {
     getUser: (id) => { dispatch(getUser(id)) },
     follow: (author) => { dispatch(follow(author, userId)) },
-    getOwnSubjects: (page, options) => {
-      const requestId = uuid()
-      dispatch(getOwnSubjects(page, { ...options, author: userId }, requestId))
-      return requestId
-    },
-    getSubjects: (page, options) => {
-      const requestId = uuid()
-      dispatch(getSubjects(page, { ...options, author: userId }, requestId))
-      return requestId
-    },
-    getOwnRatings: (page, options) => {
-      const requestId = uuid()
-      dispatch(getOwnRatings(page, { ...options, author: userId }, requestId))
-      return requestId
-    },
-    getRatings: (page, options) => {
-      const requestId = uuid()
-      dispatch(getRatings(page, { ...options, author: userId }, requestId))
-      return requestId
-    },
-    getSubscriptions: (page, options) => {
-      const requestId = uuid()
-      dispatch(getSubscriptions(page, { ...options, author: userId }, requestId))
-      return requestId
-    }
+    getOwnSubjects: addAuthorToOptions(getPageFormatter(dispatch, getOwnSubjects)),
+    getSubjects: addAuthorToOptions(getPageFormatter(dispatch, getSubjects)),
+    getOwnRatings: addAuthorToOptions(getPageFormatter(dispatch, getOwnRatings)),
+    getRatings: addAuthorToOptions(getPageFormatter(dispatch, getRatings)),
+    getSubscriptions: addAuthorToOptions(getPageFormatter(dispatch, getSubscriptions))
   }
 }
 

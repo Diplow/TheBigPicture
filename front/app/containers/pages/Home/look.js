@@ -22,11 +22,8 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         count={count}
         search={true}
         getPage={getBigPictures}
-        showHeader={false}
-        title={"SUJETS"}
         loadFirstPage={true}
-        emptyMessage={"Aucun sujet n'a encore été créé."}
-        buttons={[]}
+        emptyMessage={cst.MSG_NO_SUBJECT}
       />
     </div>
   )

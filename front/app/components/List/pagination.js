@@ -9,51 +9,43 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const [favorites, setFavorites] = useState(false)
   const [currentPage, setCurrentPage] = useState(items)
   const [pageCount, setCurrentPageCount] = useState(Math.ceil(count / size))
-  const [currentSearchId, setCurrentSearchId] = useState(null)
+  const [currentSearchId, setCurrentSearchId] = useState(undefined)
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState("default")
   const [lastRequest, setLastRequest] = useState(false)
   const [waitingForResponse, setWaitingForResponse] = useState("")
 
   const loadMore = () => {
-    const options = { favorites }
-    if (search !== "") {
-      options.search = search
-    }
-    if (getPage !== null) {
-      setPageNb(pageNb+1)
-      if (pageNb != 0) {
-        getPage(pageNb+1, options, currentSearchId)
-        setWaitingForResponse(currentSearchId)
-      }
-      else {
-        const sId = getPage(1, options)
-        setWaitingForResponse(sId)
-        setCurrentSearchId(sId)
-      }
-    }
+    if (getPage == null) return
+    const options = { favorites, search }
+    const newPageNb = pageNb+1
+    setPageNb(newPageNb)
+    const searchRequestId = getPage(pageNb+1, options, currentSearchId) 
+    setWaitingForResponse(searchRequestId)
+    setCurrentSearchId(searchRequestId)
   }
 
   useEffect(() => {
-    if (sort == "default") {
-      setCurrentPage(items.filter(elt => favorites ? elt.favorite == true : true).sort(sortFunc))
-    }
-    else {
-      const lastSearchItems = items.filter(item => item[sort] !== undefined && (favorites ? item.favorite : true ))
-      setCurrentPage(lastSearchItems.sort((a, b) => a[sort] > b[sort] ? 1 : -1))
-    }
+    // Sort and filter items 
+    const favoritesFilter = elt => !favorites || elt.favorite
+    const searchSort = (a, b) => a[sort] > b[sort] ? 1 : -1
+    setCurrentPage(
+      items
+        .filter(favoritesFilter)
+        .filter(item => sort == "default" || item[sort])
+        .sort(sort == "default" ? sortFunc : searchSort)
+    )
   }, [items, sort, favorites])
 
   useEffect(() => {
-    const req = processedRequests.find(elt => elt.requestId == waitingForResponse && elt.nextargs.page == pageNb)
-    if (req != null) {
-      setWaitingForResponse("")
-    }
+    // Watch current request and stop waiting for a response if it is processed
+    const isCurrentPage = (elt) => elt.nextargs == undefined || elt.nextargs.page == pageNb
+    const currentRequest = (elt) => elt.requestId == waitingForResponse && isCurrentPage(elt)
+    processedRequests.find(currentRequest) && setWaitingForResponse("")
   }, [processedRequests])
 
   useEffect(() => {
-    if (loadFirstPage)
-      loadMore()
+    loadFirstPage && loadMore()
   }, [])
  
   return [
@@ -66,6 +58,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
     <SearchBar
       search={search}
       setSearch={setSearch}
+      user={user}
       getPage={getPage}
       setPageNb={setPageNb}
       setLastRequest={setLastRequest}
@@ -93,6 +86,7 @@ const SearchBar = (props) => {
     search,
     setSearch,
     setSort,
+    user,
     getPage,
     setPageNb,
     setLastRequest,
@@ -102,8 +96,8 @@ const SearchBar = (props) => {
     setCurrentSearchId
   } = props
 
-  if (getPage == null)
-    return null
+  if (getPage == null) return null
+
   const onClick = (options) => {
     if (search !== "") {
       options.search = search
@@ -135,14 +129,18 @@ const SearchBar = (props) => {
       <div className="level-item button tbp-radio title-button is-narrow" onClick={() => onClick({ favorites })}>
         <span className="icon is-small"><i className="fas fa-search"></i></span>
       </div>
-      <div
-        className={`level-item button tbp-radio title-button favorites-button is-narrow ${favorites ? "is-active" : ""}`}
-        onClick={() => {
-          onClick({ favorites: !favorites })
-          setFavorites(!favorites)}
-        }>
-        <span className="icon is-small"><i className="fas fa-heart"></i></span>
-      </div>
+      {
+        user.id !== cst.GUEST_ID
+          ? <div
+            className={`level-item button tbp-radio title-button favorites-button is-narrow ${favorites ? "is-active" : ""}`}
+            onClick={() => {
+              onClick({ favorites: !favorites })
+              setFavorites(!favorites)}
+            }>
+            <span className="icon is-small"><i className="fas fa-heart"></i></span>
+          </div>
+          : null
+      }
     </div>
   )
 }

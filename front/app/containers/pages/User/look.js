@@ -5,8 +5,6 @@ import BigPictureList from '../../../components/BigPicture/list'
 import SubscriptionPreview from '../../../components/Subscription/preview'
 import RatingList from '../../../components/Rating/list'
 import Loader from '../../../components/Loader'
-import PropTypes from 'prop-types'
-import * as cst from '../../../constants'
 import UserModal from '../../../components/User/modal'
 import NewUser from '../../../components/User/new'
 import List from '../../../components/List'
@@ -14,6 +12,7 @@ import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
+import * as cst from '../../../constants'
 import "./style.scss"
 
 
@@ -62,17 +61,6 @@ const UserViewLook = (props) => {
       { subscriptionList(subscriptions, getSubscriptions, user, visitor) }
     </Loader>
   )
-}
-
-UserViewLook.propTypes = {
-  visitor: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  user: PropTypes.object,
-  getUser: PropTypes.func.isRequired,
-  getOwnSubjects: PropTypes.func.isRequired,
-  getSubjects: PropTypes.func.isRequired,
-  getOwnRatings: PropTypes.func.isRequired,
-  getRatings: PropTypes.func.isRequired
 }
 
 const header = (user) => {
@@ -145,8 +133,7 @@ const editButton = (init, setter) => {
 
 
 const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, follow) => {
-  if (user == undefined)
-    return null
+  if (user == undefined) return null
 
   let buttons = []
   if (visitor.id !== 0 && visitor.favorite !== true)
@@ -160,10 +147,9 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
       parent={null}
       count={fullUser.ownSubjectCount}
       getPage={visitor.id == user.id ? getOwnSubjects : getSubjects}
-      showHeader={true}
-      title={"Sujets créés"}
+      title={cst.CREATED_SUBJECT_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={`Aucun sujet n'a encore été créé publiquement par ${user.username}`}
+      emptyMessage={cst.USER_HAS_NO_SUBJECT(user.username)}
       buttons={buttons}
     />
   )
@@ -179,18 +165,15 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
       parent={null}
       count={fullUser.ownRatingCount}
       getPage={visitor.id == user.id ? getOwnRatings : getRatings}
-      showHeader={true}
-      title={"Raisons données"}
+      title={cst.CREATED_REASON_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={`Aucune raison n'a encore été donnée publiquement par ${user.username}`}
-      buttons={[]}
+      emptyMessage={cst.USER_HAS_NO_REASON(user.username)}
     />
   )
 }
 
 const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
-  if (user == undefined || user.id != visitor.id)
-    return null
+  if (user == undefined || user.id != visitor.id) return null
 
   const sort = (a, b) => {
     const aDate = new Date(a.date)
@@ -205,15 +188,12 @@ const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
       items={subscriptions}
       container={(sub) => <SubscriptionPreview key={`previewsub-${sub.id}`} subscriptionId={sub.id} />}
       user={visitor}
-      emptyMessage={"Vous ne vous êtes encore abonné à personne."}
+      emptyMessage={cst.USER_HAS_NO_SUBSCRIPTION}
       sortFunc={sort}
       count={visitor.subscriptionCount}
       getPage={getSubscriptions}
       loadFirstPage={false}
-      showHeader={true}
-      title={"Abonnements"}
-      buttons={[]}
-      search={false}
+      title={cst.SUBSCRIPTION_LIST_TITLE}
     />
   )
 }

@@ -15,7 +15,7 @@ const subscriptions = (state = [], action) => {
         ...state.filter(sub => sub.id != subscription.id),
         {
           id: subscription.id,
-          target_id: subscription.target_id !== undefined ? subscription.target_id : subscription.target.id,
+          target_id: subscription.target !== undefined ? subscription.target.id : subscription.target_id,
           author: subscription.author,
           date: subscription.date,
           [subscription.requestId]: subscription[subscription.requestId]

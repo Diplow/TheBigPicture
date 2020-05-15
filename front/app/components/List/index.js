@@ -22,7 +22,6 @@ const ListLook = (props) => {
     getPage,
     loadFirstPage,
     // header
-    showHeader,
     title,
     buttons,
     search,
@@ -47,31 +46,50 @@ const ListLook = (props) => {
   )
 
   const [hidden, setHidden] = useState(!loadFirstPage)
+  const loading = waitingForResponse !== ""
 
   return (
-    <div className={showHeader ? "container vde section section-field" : ""}>
-      { showHeader ? header(buttons, user, title, hidden, setHidden, getPage) : null }
-      { !hidden && search ? searchbar : null }
-      { count == 0 && items.length == 0 && waitingForResponse == "" ? <p className="vde subtitle">{emptyMessage}</p> : null }
-      { page.map((item) => !hidden ? <div key={"listItem"+item.id}>{container(item)}</div> : null) }
-      { !hidden ?
-          <Loader condition={waitingForResponse !== "" && getPage !== null}>
-            { !hidden ? pagination : null }
-          </Loader>
-        : null
+    <div className={title ? "container vde section section-field" : ""}>
+      {
+        title
+          ? header(buttons, user, title, hidden, setHidden, getPage)
+          : null
+      }
+      {
+        !hidden && search
+          ? searchbar
+          : null
+      }
+      {
+        !hidden && count == 0 && items.length == 0 && !loading
+          ? <p className="vde subtitle">{emptyMessage}</p>
+          : null
+      }
+      {
+        page.map((item) => {
+          return !hidden
+            ? <div key={"listItem"+item.id}>{container(item)}</div>
+            : null
+        })
+      }
+      {
+        !hidden
+          ? <Loader condition={loading && getPage !== null}>
+              { !hidden ? pagination : null }
+            </Loader>
+          : null
       }
     </div>
   )
 }
 
 const header = (buttons, user, title, hidden, setHidden, getPage) => {
-
   return (
     <div className="level is-mobile">
       <div className="level-left">
         <HideAndShowButton hidden={hidden} setHidden={setHidden} />
         <p className="vde subtitle level-item">{title}</p>
-        { buttons.map((button) => <div key={uuid()}>{button()}</div>) }
+        { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
       </div>
     </div>
   )
@@ -85,5 +103,15 @@ const mapStateToProps = (state) => {
 }
 
 const List = connect(mapStateToProps)(ListLook)
+
+// this function must be called when giving a not-null getPage argument to a List
+// it makes sure it is possible to keep track of the requests sent to get a page
+export const getPageFormatter = (dispatch, action) => {
+  return (page, options, request_id) => {
+    const requestId = request_id || uuid()
+    dispatch(action(page, options, requestId))
+    return requestId
+  }
+}
 
 export default List

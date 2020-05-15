@@ -25,7 +25,7 @@ a.vde-loadmore.subtitle {
   margin-top: 0;
 
   .level-item.control {
-    max-width: calc(100% - 6rem);
+    flex-shrink: 1;
   }
 }
 

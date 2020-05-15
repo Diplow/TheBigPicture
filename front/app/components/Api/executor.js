@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import React, { useState, useEffect } from 'react'
 import { add } from '../../actions/add'
+import * as basics from '../../actions/basics'
 import * as cst from '../../constants'
 
 /**
@@ -8,24 +9,26 @@ import * as cst from '../../constants'
   See the requests reducers for an explanation over the purpose of "requests"
   in this application.
 **/
-const ExecutionEngine = ({ todo, add }) => {
+const ExecutionEngine = ({ todo, add, processed }) => {
 
   useEffect(() => {
-	if (todo != undefined) {
-		switch (todo.method) {
+  if (todo != undefined) {
+    switch (todo.method) {
 
-			case "GET":
-				add(todo)
-				break;
+      case "GET":
+        if (todo.mustprocess)
+          add(todo)
+        break;
 
-			// there is no "POST" / "PATCH" / "DELETE" case for now
-			// because these requests have no reason to be executed
-			// multiple times.
+      // there is no "POST" / "PATCH" / "DELETE" case for now
+      // because these requests have no reason to be executed
+      // multiple times.
 
-			default:
-				throw Error("unhandled method " + req.method)
-		}	
-	}
+      default:
+        throw Error("unhandled method " + req.method)
+    }
+    processed(todo)
+  }
   }, [todo])
 
   return null
@@ -39,7 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	add: (request) => { dispatch(add(request))},
+    add: (request) => { dispatch(add(request)) },
+    processed: (request) => { dispatch(basics.processed(request)) }
   }
 }
 

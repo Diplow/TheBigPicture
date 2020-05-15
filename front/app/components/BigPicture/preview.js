@@ -13,7 +13,7 @@ import RatingList from '../Rating/list'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { RatingButton } from '../Rating/buttons'
 import { useToggle } from '../utils/hooks'
-import List from '../List'
+import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
@@ -209,34 +209,28 @@ const ratingButton = (bigPicture, user) => {
   return (
     <RatingButton
       initRating={initRating}
-      classname={"vde toolbar"} />
+      classname="vde toolbar"
+      icon="fas fa-star" />
   )
 }
 
 const lookButton = (bigPicture) => {
-  let bp = bigPicture
-  if (bp.hyperlink != null) {
-    if (bp.hyperlink.id != undefined)
-      bp = bp.hyperlink
-    else
-      bp = { id: bp.hyperlink, subject: null }
-  }
+  const bpSubject = bigPicture.subject || bigPicture.id
+  const subjectId = bigPicture.hyperlink ||  bpSubject
+  const bpId = bigPicture.hyperlink || bigPicture.id
+
   return (
     <LinkButton
       icon="fas fa-search "
-      to={
-        `/subject/${bp.subject == null ? bp.id : bp.subject}/bigPicture/${bp.id}`
-      }
-      classname="vde toolbar" />
+      to={`/subject/${subjectId}/bigPicture/${bpId}`}
+      classname="vde toolbar"
+    />
   )
 }
 
 const bpDetails = (showDetails, body) => {
-  if (!showDetails)
-    return null
-  
-  if (body == undefined || body == "")
-    return null
+  if (!showDetails) return null
+  if (body == undefined || body == "") return null
 
   return (
     <div className="vde card-content">
@@ -295,7 +289,11 @@ const bpRatings = (bigPicture, ratings, parentMargin, getPage) => {
       emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
       count={bigPicture.ratingCount}
       title={""}
-      getPage={(page) => getPage(page, bigPicture.id)}
+      getPage={
+        (page, options, reqId) => {
+          getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        }
+      }
       buttons={[]}
       margin={margin}
     />
@@ -314,11 +312,10 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: (page, bpId) => { dispatch(getRatings(page, { bigpicture: bpId })) }
+    getBigPictureRatings: getPageFormatter(dispatch, getRatings)
   }
 }
 

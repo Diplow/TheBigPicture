@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { getSubjects } from '../../../actions/'
 import HomeLook from './look'
+import { getPageFormatter } from '../../../components/List'
 import uuid from 'uuid/v4'
 
 
@@ -13,11 +14,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    getBigPictures: (page, options, request_id) => {
-      const requestId = request_id || uuid()
-      dispatch(getSubjects(page, options, requestId));
-      return requestId
-    }
+    getBigPictures: getPageFormatter(dispatch, getSubjects)
   }
 }
 

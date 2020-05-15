@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useToggle } from '../utils/hooks'
 import "./style.scss"
 import { getRatings } from '../../actions'
-import { RatingButton, EditRatingButton } from './buttons'
-import List from '../List'
+import { RatingButton } from './buttons'
+import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import ReactMarkdown from 'react-markdown'
 import RatingResults from './results'
@@ -30,7 +30,7 @@ const RatingPreviewLook = ({ rating, ratings, user, ratingId, margin, getPage })
         { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
-      { showRatings ? ratingChildren(rating, ratings, margin, user, getPage) : null }
+      { showRatings ? ratingChildren(rating, ratings, margin, getPage) : null }
     </div>
   )
 }
@@ -44,21 +44,11 @@ RatingPreviewLook.propTypes = {
   margin: PropTypes.number, // leftmargin in case of rating / bp nesting
 }
 
-const staticStorage = "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/static/icons/"
-const valueIcons = {
-  0: "information.svg",
-  1: "star-for-number-one.svg",
-  2: "star-with-number-two.svg",
-  3: "star-number-3.svg",
-  4: "star-with-number-4.svg",
-  5: "star-number-five.svg"
-}
-
 const ratingLeftLevel = (rating) => {
-	return (
+  return (
     <div style={{maxWidth:"100%"}} className="level-left">
       <figure className="vde rating-image level-item image is-48x48">
-        <img src={staticStorage + valueIcons[rating.value]} />
+        <img src={cst.STATIC_STORAGE + cst.VALUE_ICONS[rating.value]} />
       </figure>
       <div className="vde card-content vde-preview-content">
         <div className="content">
@@ -66,7 +56,7 @@ const ratingLeftLevel = (rating) => {
         </div>
       </div>
     </div>
-	)
+  )
 }
 
 const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) => {
@@ -78,28 +68,33 @@ const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggl
     reason: "",
     subject: rating.subject
   }
-	return (
+  return (
     <div className="vde toolbar level is-mobile">
       <div className="level-left">
         <p>{rating.date}</p>
       </div>
       <div className="level-right">
-        <EditRatingButton initRating={rating} classname="vde toolbar" />
-        <RatingButton initRating={initRating} />
-        { rating.ratingCount != 0 ? <RadioButton
+        <RatingButton
+          initRating={rating}
+          classname="vde toolbar"
+          icon="fas fa-edit" />
+        <RatingButton
+          initRating={initRating}
+          classname="vde toolbar"
+          icon="fas fa-star" />
+        <RadioButton
           classname="vde toolbar"
           isPushed={showRatings}
           setIsPushed={toggleRatings}
-          icon={"fas fa-comments"}
-        /> : null }
+          icon="fas fa-comments" />
         <RadioButton
           classname="vde toolbar"
           isPushed={showResults}
           setIsPushed={toggleResults}
-          icon={"far fa-chart-bar"} />
+          icon="far fa-chart-bar" />
       </div>
     </div>
-	)
+  )
 }
 
 
@@ -114,7 +109,7 @@ const toggleResults = (showResults, toggleResults) => {
   )
 }
 
-const ratingChildren = (rating, children, parentMargin, user, getPage) => {
+const ratingChildren = (rating, children, parentMargin, getPage) => {
 
   const margin = (
     parentMargin == 0
@@ -130,15 +125,15 @@ const ratingChildren = (rating, children, parentMargin, user, getPage) => {
     <List
       items={children}
       container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} margin={margin} />}
-      user={user}
-      emptyMessage={""}
+      emptyMessage={"Cette raison n'a pas encore été raisonnée..."}
       sortFunc={ratingsSort}
       count={rating.ratingCount}
-      getPage={(page) => getPage(page, rating.id)}
+      getPage={
+        (page, options, reqId) => {
+          getPage(page, { ...options, rating: rating.id }, reqId)
+        }
+      }
       loadFirstPage={true}
-      showHeader={false}
-      title={""}
-      buttons={[]}
     />
   )
 }
@@ -154,7 +149,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPage: (page, ratingId) => dispatch(getRatings(page, { rating: ratingId }))
+    getPage: getPageFormatter(dispatch, getRatings)
   }
 }
 

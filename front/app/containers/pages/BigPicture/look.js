@@ -59,8 +59,7 @@ BigPictureViewLook.propTypes = {
 }
 
 const header = (bigPicture) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
@@ -83,8 +82,7 @@ const header = (bigPicture) => {
 const content = (bigPicture, user, setter) => {
   const [hidden, setHidden] = useState(false)
 
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <div className="container vde section section-field">
@@ -123,8 +121,7 @@ const editButton = (init, setter) => {
 }
 
 const analyse = (bigPicture, user) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <BigPictureList
@@ -132,7 +129,6 @@ const analyse = (bigPicture, user) => {
       parent={bigPicture}
       count={bigPicture.children.length}
       getPage={null}
-      showHeader={true}
       title={"Analyse"}
       loadFirstPage={true}
       emptyMessage={"Aucun élément n'a encore été apporté pour préciser cette vue d'ensemble."}
@@ -162,19 +158,21 @@ const addBigPictureButton = (bigPicture) => {
 
 
 const comments = (bigPicture, getRatingsPage, user) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <RatingList
       margin={cst.BASE_MARGIN}
-      showHeader={true}
       loadFirstPage={false}
       filter={(rating) => rating.target_bp == bigPicture.id}
       count={bigPicture.ratingCount}
-      getPage={(page, options) => { return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }) }}
-      title={"Raisons"}
-      emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
+      getPage={
+        (page, options, requestId) => {
+          return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }, requestId)
+        }
+      }
+      title={cst.REASON_LIST_TITLE}
+      emptyMessage={cst.MSG_NO_REASON}
       buttons={[() => addRatingButton(bigPicture, user)]}
     />
   )
@@ -193,33 +191,33 @@ const addRatingButton = (bigPicture, user) => {
   if (initRating.subject == null)
     initRating.subject = bigPicture.id
   return (
-    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} />
+    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} icon="fas fa-star" />
   )
 }
 
 
 const references = (bigPicture, getReferences) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <BigPictureList
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
-      getPage={(page, options) => { return getReferences(page, { ...options, reference: bigPicture.id }) }}
-      showHeader={true}
-      title={"Références"}
+      getPage={
+        (page, options, requestId) => {
+          return getReferences(page, { ...options, reference: bigPicture.id }, requestId)
+        }
+      }
+      title={cst.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
-      buttons={[]}
+      emptyMessage={cst.MSG_NO_REFERENCE}
     />
   )
 }
 
 const results = (bigPicture) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <Results showHeader={true} bigPictureId={bigPicture.id} />
