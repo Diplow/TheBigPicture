@@ -97,6 +97,9 @@ class BigPictureViewTestCase(TestCase):
             if k != "_meta":
                 return self.responses[k][self.prepare(v)]
 
+    def test_init_simple_1(self):
+        self.play("init_simple_1.json")
+
     def test_simple_1(self):
         self.play("simple_1.json")
 
@@ -111,3 +114,7 @@ class BigPictureViewTestCase(TestCase):
 
     def test_followers_1(self):
         self.play("followers_1.json")
+
+    def test_ratings_1(self):
+        self.play("init_simple_1.json")
+        self.play("ratings_1.json")
