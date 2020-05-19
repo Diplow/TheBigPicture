@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import AuthorIcon from '../User/authorIcon'
-import * as cst from '../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useToggle } from '../utils/hooks'
-import "./style.scss"
 import { getRatings, getEndorsments } from '../../actions'
 import { RatingButton } from './buttons'
 import { EndorsmentButton } from '../Endorsment/buttons'
@@ -14,6 +11,8 @@ import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import ReactMarkdown from 'react-markdown'
 import RatingResults from './results'
+import * as cst from '../../constants'
+import "./style.scss"
 
 
 const RatingPreviewLook = (props) => {

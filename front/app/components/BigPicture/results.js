@@ -10,7 +10,13 @@ import * as cst from '../../constants'
 import EXPLICATIONS from '../../constants/explications'
 
 
-const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
+const ResultsLook = (props) => {
+  const {
+    showHeader,
+    bigPicture,
+    getResults,
+    margin
+  } = props
   const [hidden, setHidden] = useState(showHeader)
 
   useEffect(() => {
@@ -18,11 +24,13 @@ const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
       getResults(bigPicture.id)
   }, [hidden])
 
-  if (bigPicture == undefined)
-    return null
+  if (!bigPicture) return null
 
+  const marg = margin == undefined ? cst.SUBMARGIN : margin
   return (
-    <div className="container vde section section-field">
+    <div
+      style={{marginLeft: marg +"%"}}
+      className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(bigPicture, hidden, setHidden) : null }
       { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
     </div>
@@ -116,7 +124,7 @@ const chart = (bigPicture) => {
     <div id="chart">
     {
       bigPicture.results.count == 0
-      ? <p className="vde vde-no-comment subtitle">Personne n'a encore évalué ce contenu.</p>
+      ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
       : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>

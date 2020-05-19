@@ -10,13 +10,14 @@
   color: $primary-4;
 }
 
-a.vde-loadmore.subtitle {
+.vde-loadmore.subtitle {
   color: $light;
-    text-align: center;
-    font-size: medium;
-    margin: 0 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 1rem;
+  text-align: left;
+  font-size: medium;
+  margin: 0 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+
 }
 
 .vde.level.is-mobile.searchbar {

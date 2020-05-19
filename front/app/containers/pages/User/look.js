@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import BigPictureList from '../../../components/BigPicture/list'
 import SubscriptionPreview from '../../../components/Subscription/preview'
+import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import Loader from '../../../components/Loader'
 import UserModal from '../../../components/User/modal'
@@ -23,6 +24,7 @@ const UserViewLook = (props) => {
     visitor, // the logged in user
     ratings, // this user's ratings
     subscriptions,
+    endorsments,
     getUser,
     follow,
     getOwnSubjects,
@@ -30,6 +32,7 @@ const UserViewLook = (props) => {
     getOwnRatings,
     getRatings,
     getSubscriptions,
+    getEndorsments,
     match
   } = props
 
@@ -55,10 +58,13 @@ const UserViewLook = (props) => {
   return (
     <Loader condition={user == undefined}>
       { header(data) }
-      { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
-      { subjectsList(data, user, visitor, getOwnSubjects, getSubjects, follow) }
-      { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
-      { subscriptionList(subscriptions, getSubscriptions, user, visitor) }
+      <div className="vde container section">
+        { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
+        { subjectsList(data, user, visitor, getOwnSubjects, getSubjects, follow) }
+        { ratingsList(data, user, visitor, getOwnRatings, getRatings) }
+        { endorsmentList(endorsments, getEndorsments, user) }
+        { subscriptionList(subscriptions, getSubscriptions, user, visitor) }
+      </div>
     </Loader>
   )
 }
@@ -83,8 +89,7 @@ const header = (user) => {
 }
 
 const biography = (user, setUser, visitor, hidden, setHidden) => {
-  if (user == undefined)
-    return null
+  if (!user) return null
 
   return (
     <div className="container vde section section-field">
@@ -103,8 +108,7 @@ const biography = (user, setUser, visitor, hidden, setHidden) => {
 }
 
 const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
-  if (user == undefined)
-    return null
+  if (!user) return null
 
   return (
     <div className="level is-mobile vde-header">
@@ -133,7 +137,7 @@ const editButton = (init, setter) => {
 
 
 const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, follow) => {
-  if (user == undefined) return null
+  if (!user || !fullUser) return null
 
   let buttons = []
   if (visitor.id !== 0 && visitor.favorite !== true)
@@ -151,13 +155,13 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
       loadFirstPage={false}
       emptyMessage={cst.USER_HAS_NO_SUBJECT(user.username)}
       buttons={buttons}
+      margin={0}
     />
   )
 }
 
 const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
-  if (user == undefined)
-    return null
+  if (!user) return null
 
   return (
     <RatingList
@@ -168,12 +172,13 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
       title={cst.CREATED_REASON_LIST_TITLE}
       loadFirstPage={false}
       emptyMessage={cst.USER_HAS_NO_REASON(user.username)}
+      margin={0}
     />
   )
 }
 
 const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
-  if (user == undefined || user.id != visitor.id) return null
+  if (!user || user.id != visitor.id) return null
 
   const sort = (a, b) => {
     const aDate = new Date(a.date)
@@ -194,6 +199,31 @@ const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
       getPage={getSubscriptions}
       loadFirstPage={false}
       title={cst.SUBSCRIPTION_LIST_TITLE}
+      margin={0}
+    />
+  )
+}
+
+const endorsmentList = (endorsments, getEndorsments, user) => {
+  if (!user) return null
+
+  const endorsmentsSort = (endorsmentA, endorsmentB) => {
+    const dateA = new Date(endorsmentA.date)
+    const dateB = new Date(endorsmentB.date)
+    return dateA >= dateB ? 1 : -1
+  }
+
+  return (
+    <List
+      items={endorsments}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
+      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      sortFunc={endorsmentsSort}
+      count={user.endorsmentCount}
+      getPage={getEndorsments}
+      loadFirstPage={false}
+      title={"Évaluations"}
+      margin={0}
     />
   )
 }
@@ -206,7 +236,7 @@ const followButton = (follow, visitor) => {
   return (
     <div className="button tbp-radio title-button is-narrow">
       <a onClick={() => follow(visitor.id)}>
-        <span className="icon is-small"><i className="fas fa-heart"></i></span>
+        <span className="icon is-small"><i className={cst.FOLLOW_ICON}></i></span>
       </a>
     </div>
   )

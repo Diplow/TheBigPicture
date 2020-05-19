@@ -151,7 +151,7 @@ const toolBar = (props) => {
   // conditions to display toolbar's buttons
   const endorsmentCondition = true
   const resultsCondition = true
-  const ratingsCondition = bigPicture.ratingCount != 0 || ratings.length != 0
+  const ratingsCondition = true
   const childrenCondition = bigPicture.children.length != 0
   const detailsCondition = bigPicture.body != ""
   const editCondition = user.id == bigPicture.author

@@ -18,11 +18,8 @@ const ResultsLook = ({ rating, getResults }) => {
   if (rating == undefined)
     return null
 
-  return (
-    <div className="container vde section section-field">
-      { rating.results != undefined ? chart(rating) : null}
-    </div>
-  )
+  if (rating.results == undefined) return null
+  return chart(rating)
 }
 
 const chart = (rating) => {
@@ -98,10 +95,10 @@ const chart = (rating) => {
     }
   }
   return (
-    <div id="chart">
+    <div style={{marginLeft: cst.SUBMARGIN +"%"}}  id="chart">
     {
       rating.results.count == 0
-      ? <p className="vde subtitle">Personne n'a encore évalué ce commentaire.</p>
+      ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce commentaire.</p>
       : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>

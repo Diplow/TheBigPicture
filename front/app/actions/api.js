@@ -9,6 +9,8 @@ import uuid from 'uuid/v4'
 const NEXTS = {
   "getSubjects": (dispatch, nextargs, requestId) => {
     return (result) => {
+      if (nextargs.author)
+        dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
       dispatch(basics.setSubjectCount(result.count, requestId))
     }
   },
@@ -28,6 +30,8 @@ const NEXTS = {
         dispatch(basics.setBpEndorsmentCount(nextargs.bigpicture, result.count, requestId))
       if (nextargs.rating)
         dispatch(basics.setEndorsmentCount(nextargs.rating, result.count, requestId))
+      if (nextargs.author)
+        dispatch(basics.setUserEndorsmentCount(nextargs.author, result.count, requestId))
     }
   },
   "getOwnSubjects": (dispatch, nextargs, requestId) => {

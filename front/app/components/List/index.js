@@ -69,7 +69,7 @@ const ListLook = (props) => {
       }
       {
         !hidden && count == 0 && items.length == 0 && !loading
-          ? <p className="vde subtitle">{emptyMessage}</p>
+          ? <p className="vde subtitle vde-loadmore">{emptyMessage}</p>
           : null
       }
       {

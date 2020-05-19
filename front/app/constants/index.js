@@ -30,6 +30,7 @@ export const SOLUTION_ICON = "fas fa-lightbulb"
 export const RESOURCE_ICON = "fas fa-folder"
 export const HYPERLINK_ICON = "fas fa-directions"
 export const SEARCH_ICON = "fas fa-search"
+export const FOLLOW_ICON = "fas fa-heart"
 
 
 // Ratings
@@ -61,6 +62,7 @@ export const SET_BP_RATING_COUNT = "SET_BP_RATING_COUNT"
 export const SET_SUBSCRIPTION_COUNT = "SET_SUBSCRIPTION_COUNT"
 export const SET_ENDORSMENT_COUNT = "SET_ENDORSMENT_COUNT"
 export const SET_BP_ENDORSMENT_COUNT = "SET_BP_ENDORSMENT_COUNT"
+export const SET_USER_ENDORSMENT_COUNT = "SET_USER_ENDORSMENT_COUNT"
 
 // Big Pictures
 

@@ -53,12 +53,14 @@ const BigPictureViewLook = (props) => {
     <div className="vde-bigpicture-page">
       <Loader condition={bigPicture == undefined}>
         { header(init) }
-        { content(init, user, setter) }
-        { analyse(init, user) }
-        { comments(init, getRatingsPage, user) }
-        { references(init, getReferences) }
-        { results(init) }
-        { endorsmentsList(init, endorsments, getEndorsmentsPage) }
+        <div className="vde container section">
+          { content(init, user, setter) }
+          { analyse(init, user) }
+          { comments(init, getRatingsPage, user) }
+          { references(init, getReferences) }
+          { results(init) }
+          { endorsmentsList(init, endorsments, getEndorsmentsPage) }
+        </div>
       </Loader>
     </div>
   )
@@ -149,6 +151,7 @@ const analyse = (bigPicture, user) => {
         () => { return backButton(bigPicture) },
         () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
       ]}
+      margin={0}
     />
   )
 }
@@ -187,7 +190,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
       title={cst.REASON_LIST_TITLE}
       emptyMessage={cst.MSG_NO_REASON}
       buttons={[() => addRatingButton(bigPicture, user)]}
-      margin={cst.BASE_MARGIN}
+      margin={0}
     />
   )
 }
@@ -226,6 +229,7 @@ const references = (bigPicture, getReferences) => {
       title={cst.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
       emptyMessage={cst.MSG_NO_REFERENCE}
+      margin={0}
     />
   )
 }
@@ -243,7 +247,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
   return (
     <List
       items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} margin={0} />}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}
@@ -254,6 +258,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
       }
       loadFirstPage={false}
       title={"Évaluations"}
+      margin={0}
     />
   )
 }
@@ -262,7 +267,7 @@ const results = (bigPicture) => {
   if (bigPicture == undefined) return null
 
   return (
-    <Results showHeader={true} bigPictureId={bigPicture.id} />
+    <Results showHeader={true} bigPictureId={bigPicture.id} margin={0} />
   )
 }
 

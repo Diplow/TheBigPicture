@@ -137,6 +137,15 @@ export const setBpEndorsmentCount = (bpId, count, requestId) => {
   }
 }
 
+export const setUserEndorsmentCount = (userId, count, requestId) => {
+  return {
+    type: cst.SET_USER_ENDORSMENT_COUNT,
+    count,
+    userId,
+    requestId
+  }
+}
+
 export const addBigPicture = (bigpicture) => {
   return {
     type: cst.ADD_BIG_PICTURE,

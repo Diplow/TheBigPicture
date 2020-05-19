@@ -6,7 +6,8 @@ import {
   getSubjects,
   getOwnRatings,
   getRatings,
-  getSubscriptions } from '../../../actions'
+  getSubscriptions,
+  getEndorsments } from '../../../actions'
 import { getPageFormatter } from '../../../components/List'
 import UserViewLook from './look'
 import uuid from 'uuid/v4'
@@ -18,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     user,
     visitor: state.get("user"),
     ratings: user == null ? [] : state.get("ratings").filter(rating => rating.author == user.id),
-    subscriptions: state.get("subscriptions")
+    subscriptions: state.get("subscriptions"),
+    endorsments: state.get("endorsments").filter(item => item.author_id == ownProps.match.params.id)
   }
 }
 
@@ -36,7 +38,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getSubjects: addAuthorToOptions(getPageFormatter(dispatch, getSubjects)),
     getOwnRatings: addAuthorToOptions(getPageFormatter(dispatch, getOwnRatings)),
     getRatings: addAuthorToOptions(getPageFormatter(dispatch, getRatings)),
-    getSubscriptions: addAuthorToOptions(getPageFormatter(dispatch, getSubscriptions))
+    getSubscriptions: addAuthorToOptions(getPageFormatter(dispatch, getSubscriptions)),
+    getEndorsments: addAuthorToOptions(getPageFormatter(dispatch, getEndorsments))
   }
 }
 

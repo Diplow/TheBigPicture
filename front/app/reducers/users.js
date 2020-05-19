@@ -24,6 +24,13 @@ const users = (state = [], action) => {
         { ownRatingCount: action.count }
       )
 
+    case cst.SET_USER_ENDORSMENT_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.userId,
+        { endorsmentCount: action.count }
+      )
+
     case cst.ADD_SUBSCRIPTION:
       const subscription = action.subscription
       const target = state.find(user => user.id == subscription.target_id)
@@ -43,8 +50,9 @@ const users = (state = [], action) => {
           username: usr.username,
           image: usr.image,
           bio: usr.bio,
-          ownSubjectCount: old != null ? old.ownSubjectCount : 1,
-          ownRatingCount: old != null ? old.ownSubjectCount : 1,
+          ownSubjectCount: old != null ? old.ownSubjectCount : undefined,
+          ownRatingCount: old != null ? old.ownRatingCount : undefined,
+          endorsmentCount: old != null ? old.endorsmentCount : undefined,
           favorite: old == null ? usr.favorite : old.favorite
         }
       ]
