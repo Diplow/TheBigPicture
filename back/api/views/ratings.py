@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from django.http import HttpResponse
+from django.db.models import Count
 
 import json
 from api.models import Rating, Endorsment
@@ -9,12 +10,15 @@ from api.permissions import IsAuthorOrReadOnly, IsAuthor
 
 
 class OwnRatingViewSet(ModelViewSet):
-  queryset = Rating.objects.all().order_by('-date')
+  queryset = Rating.objects.all()
   serializer_class = RatingSerializer
   permission_classes = [IsAuthor]
 
   def get_queryset(self):
-    return self.queryset.filter(author=self.request.user)
+    return self.queryset \
+                .filter(author=self.request.user) \
+                .annotate(endorsmentCount=Count('endorsments')) \
+                .order_by('-endorsmentCount')
 
 
 class EndorsmentViewSet(ModelViewSet):
@@ -57,7 +61,7 @@ class RatingViewSet(ModelViewSet):
       queryset = queryset.filter(target_bp=bp)
     if rating is not None:
       queryset = queryset.filter(target_rating=rating)
-    return queryset
+    return queryset.annotate(endorsmentCount=Count('endorsments')).order_by('-endorsmentCount')
 
   def create(self, request):
     if request.user.id != int(request.data["author_id"]):
