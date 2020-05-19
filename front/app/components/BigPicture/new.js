@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import usePagination from '../utils/pagination'
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -12,22 +10,22 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
   const [privacy, setPrivacy] = useState(data.private)
 
   useEffect(() => {
-  	setKind(data.kind)
-  	setPrivacy(data.private)
+    setKind(data.kind)
+    setPrivacy(data.private)
   }, [data])
 
   const edit = (e) => {
-  	if (e.target.name == "private") {
-  		if (e.target.value === "false" || e.target.value === false) {
-    		setData({ ...data, [e.target.name]: false})
+    if (e.target.name == "private") {
+      if (e.target.value === "false" || e.target.value === false) {
+        setData({ ...data, [e.target.name]: false})
       }
-    	else if (e.target.value === "true" || e.target.value === true) {
-    		setData({ ...data, [e.target.name]: true})
+      else if (e.target.value === "true" || e.target.value === true) {
+        setData({ ...data, [e.target.name]: true})
       }
-  	}
-  	else {
-	    setData({ ...data, [e.target.name]: e.target.value})
-  	}
+    }
+    else {
+      setData({ ...data, [e.target.name]: e.target.value})
+    }
   }
 
   return (
@@ -40,12 +38,6 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
       {data.kind == cst.SUBJECT ? privacyField(privacy, edit) : null}
     </div>
   )
-}
-
-NewBigPictureLook.propTypes = {
-  data: PropTypes.object,
-  parent: PropTypes.object,
-  setData: PropTypes.func
 }
 
 const radioButton = (name, checked, value, onChange, label) => {
@@ -151,7 +143,7 @@ const contentField = (data, edit) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-  	parent: state.get("bigpictures").find(elt => elt.id == ownProps.data.parent)
+    parent: state.get("bigpictures").find(elt => elt.id == ownProps.data.parent)
   }
 }
 

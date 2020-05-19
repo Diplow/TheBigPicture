@@ -3,7 +3,6 @@ import * as cst from "../constants"
 
 
 const initial_state = {
-  subjectCount: 0
 };
 
 

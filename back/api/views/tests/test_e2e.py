@@ -72,27 +72,33 @@ class BigPictureViewTestCase(TestCase):
     def prepare(self, data):
         if type(data) is dict and "_meta" in data.keys():
             if data["_meta"] == "response":
-                self.assertEqual(len(data.keys()) == 2, True, "Objects with 'response' as '_meta' field must have exactly one other key.")
-                for k, v in data.items():
-                    if k != "_meta":
-                        return self.responses[k][self.prepare(v)]
+                return self.prepare_meta_response(data)
             if data["_meta"] == "str_replace":
-                self.assertEqual("str" in data.keys(), True, "Objects with 'str_replace' as '_meta' field must have a 'str' field.")
-                res = data["str"]
-                for k, v in data.items():
-                    if k in ["_meta", "str"]:
-                        pass
-                    else:
-                        res = res.replace(k, str(self.prepare(v)))
-                return res
+                return self.prepare_meta_str_replace(data)
             raise Exception("Unexpected _meta field: {field}".format(field=data["_meta"]))
         elif type(data) is dict:
-            res = {}
-            for k, v in data.items():
-                res[k] = self.prepare(data[k])
-            return res
+            return { k: self.prepare(data[k]) for k, v in data.items() }
         else:
             return data
+
+    def prepare_meta_str_replace(self, data):
+        self.assertEqual("str" in data.keys(), True, "Objects with 'str_replace' as '_meta' field must have a 'str' field.")
+        res = data["str"]
+        for k, v in data.items():
+            if k in ["_meta", "str"]:
+                pass
+            else:
+                res = res.replace(k, str(self.prepare(v)))
+        return res
+
+    def prepare_meta_response(self, data):
+        self.assertEqual(len(data.keys()) == 2, True, "Objects with 'response' as '_meta' field must have exactly one other key.")
+        for k, v in data.items():
+            if k != "_meta":
+                return self.responses[k][self.prepare(v)]
+
+    def test_init_simple_1(self):
+        self.play("init_simple_1.json")
 
     def test_simple_1(self):
         self.play("simple_1.json")
@@ -105,3 +111,10 @@ class BigPictureViewTestCase(TestCase):
 
     def test_ownsubjects_1(self):
         self.play("ownsubjects_1.json")
+
+    def test_followers_1(self):
+        self.play("followers_1.json")
+
+    def test_ratings_1(self):
+        self.play("init_simple_1.json")
+        self.play("ratings_1.json")

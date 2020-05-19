@@ -9,6 +9,11 @@ import "./style.scss"
 
 
 const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="vde container section">
       <BigPictureList
@@ -17,19 +22,12 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         count={count}
         search={true}
         getPage={getBigPictures}
-        showHeader={false}
-        title={"SUJETS"}
         loadFirstPage={true}
-        emptyMessage={"Aucun sujet n'a encore été créé."}
-        buttons={[]}
+        emptyMessage={cst.MSG_NO_SUBJECT}
+        margin={0}
       />
     </div>
   )
-}
-
-HomeLook.propTypes = {
-  getBigPictures: PropTypes.func.isRequired,
-  count: PropTypes.number.isRequired,
 }
 
 export default HomeLook

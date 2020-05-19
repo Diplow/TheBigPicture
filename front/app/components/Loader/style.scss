@@ -1,0 +1,16 @@
+
+@import "../../styles/theme.scss";
+
+
+.loader {
+  border: 16px solid $light;
+  border-top: 16px solid;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  margin-left: calc(50% - 60px);
+  margin-right: calc(50% - 60px);
+  width: 120px;
+  height: 120px;
+  animation: spinAround 1s infinite linear;
+}

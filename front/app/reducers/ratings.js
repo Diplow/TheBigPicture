@@ -1,41 +1,57 @@
 
+import * as reducer_utils from "./utils"
 import * as cst from "../constants"
 
 
 const ratings = (state = [], action) => {
   let old = null
+  let rating = null
+  let ratingId = null
+  let count = null
 
   switch (action.type) {
 
     case cst.ADD_RATING:
-      const rating = action.rating
-      if (rating.author == null || rating.endorsment != null || rating.reason == "")
-        return state
+      rating = action.rating
+      old = state.find(element => element.id == rating.id)
+      if (rating.reason == "") return state
       return [
         ...state.filter(elt => elt.id != rating.id),
         {
+          ...old,
           id: rating.id,
           author: rating.author.id,
           author_id: rating.author.id,
-          value: parseInt(rating.value),
           target_bp: rating.target_bp,
           target_rating: rating.target_rating,
-          ratingCount: rating.ratingCount,
-          reason: rating.reason,
+          body: rating.body,
           subject: rating.subject,
-          date: rating.date
+          endorsmentCount: rating.endorsmentCount,
+          date: rating.date,
+          [rating.requestId]: rating[rating.requestId]
         }
       ]
 
+    case cst.SET_ENDORSMENT_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.ratingId,
+        { endorsmentCount: action.count }
+      )
+
+    case cst.SET_RATING_RATING_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.ratingId,
+        { ratingCount: action.count }
+      )
+
     case cst.ADD_RATING_RESULTS:
-      old = state.find(element => element.id == action.ratingId)
-      return [
-        ...state.filter(element => element.id != old.id),
-        {
-          ...old,
-          results: action.results
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.ratingId,
+        { results: action.results }
+      )
 
     case cst.DELETE_RATING:
       return state.filter(elt => elt.id != action.id)

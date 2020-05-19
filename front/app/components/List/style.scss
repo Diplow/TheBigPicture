@@ -1,11 +1,42 @@
 @import "../../styles/theme.scss";
 
 .vde.header-button {
-	color: $light;
+  color: $light;
 }
 
 
 .vde.header-button:focus,
 .vde.header-button:hover {
-	color: $primary-4;
+  color: $primary-4;
+}
+
+.vde-loadmore.subtitle {
+  color: $light;
+  text-align: left;
+  font-size: medium;
+  margin: 0 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+
+}
+
+.vde.level.is-mobile.searchbar {
+  margin-bottom: 1rem;
+  padding-top: 0;
+  margin-top: 0;
+
+  .level-item.control {
+    flex-shrink: 1;
+  }
+}
+
+
+.favorites-button.button.tbp-radio.title-button:hover,
+.favorites-button.button.tbp-radio.title-button {
+  color: $primary-1;
+}
+
+.favorites-button.button.tbp-radio.title-button.is-active:hover,
+.favorites-button.button.tbp-radio.title-button.is-active {
+  color: #E83A00;
 }

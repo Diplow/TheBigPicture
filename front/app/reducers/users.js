@@ -1,5 +1,6 @@
 
 import * as cst from "../constants"
+import * as reducer_utils from "./utils"
 
 
 const users = (state = [], action) => {
@@ -10,28 +11,34 @@ const users = (state = [], action) => {
   switch (action.type) {
 
     case cst.SET_OWN_SUBJECT_COUNT:
-      usrId = action.userId
-      count = action.count
-      old = state.find(element => element.id == usrId)
-      return [
-        ...state.filter(user => user.id != usrId),
-        {
-          ...old,
-          ownSubjectCount: count
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.userId,
+        { ownSubjectCount: action.count }
+      )
 
     case cst.SET_OWN_RATING_COUNT:
-      usrId = action.userId
-      count = action.count
-      old = state.find(element => element.id == usrId)
-      return [
-        ...state.filter(user => user.id != usrId),
-        {
-          ...old,
-          ownRatingCount: count
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.userId,
+        { ownRatingCount: action.count }
+      )
+
+    case cst.SET_USER_ENDORSMENT_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.userId,
+        { endorsmentCount: action.count }
+      )
+
+    case cst.ADD_SUBSCRIPTION:
+      const subscription = action.subscription
+      const target = state.find(user => user.id == subscription.target_id)
+      return reducer_utils.update_item(
+        state,
+        subscription.target_id,
+        { favorite: true }
+      )
 
     case cst.ADD_USER:
       let usr = action.user
@@ -43,8 +50,10 @@ const users = (state = [], action) => {
           username: usr.username,
           image: usr.image,
           bio: usr.bio,
-          ownSubjectCount: old != null ? old.ownSubjectCount : 1,
-          ownRatingCount: old != null ? old.ownSubjectCount : 1,
+          ownSubjectCount: old != null ? old.ownSubjectCount : undefined,
+          ownRatingCount: old != null ? old.ownRatingCount : undefined,
+          endorsmentCount: old != null ? old.endorsmentCount : undefined,
+          favorite: old == null ? usr.favorite : old.favorite
         }
       ]
 

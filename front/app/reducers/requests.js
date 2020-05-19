@@ -1,5 +1,6 @@
 
 import * as cst from "../constants"
+import * as reducer_utils from "./utils"
 
 
 /**
@@ -45,62 +46,59 @@ const requests = (state = [], action) => {
       // This way, it will not be sent to the server but the server resp
       // will be processed again.
       if (old != null && old.state == cst.REQUEST_PROCESSED) {
-        return [
-          ...state.filter(elt => elt.id != request.id),
+        return reducer_utils.update_item(
+          state,
+          old.id,
           {
-            ...old,
+            requestId: request.requestId,
             state: cst.REQUEST_DONE
           }
-        ]
+        )
       }
 
       return [
         ...state.filter(elt => elt.id != request.id),
         {
-          id: request.id,
-          sender: request.sender,
+          id: request.id, // this ID is used to identify what a request is doing
+          requestId: request.requestId, // this ID is an uuid used by "getCollections"
+          user: localStorage.user !== undefined ? JSON.parse(localStorage.user).id : 0,
           url: request.url,
           body: request.body,
           method: request.method,
-          next: request.next,
-          nextargs: request.nextargs,
+          next: request.next, // an identifier to execute specifics followup asynschronously
+          nextargs: request.nextargs, // args given to the specified followup 
+          // set mustprocess to false if the request must be ignored by the ApiExecutor
+          mustprocess: request.mustprocess !== undefined ? request.mustprocess : true,
           state: cst.REQUEST_CREATED
         }
       ]
 
     case cst.REQUEST_ONGOING:
-      request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
-        {
-          ...state.find(elt => elt.id == request.id),
-          state: cst.REQUEST_ONGOING
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.request.id,
+        { state: cst.REQUEST_ONGOING }
+      )
 
     case cst.REQUEST_DONE:
       request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
+      return reducer_utils.update_item(
+        state,
+        request.id,
         {
-          ...state.find(elt => elt.id == request.id),
           state: cst.REQUEST_DONE,
           success: request.success,
           status: request.status,
           response: request.response
-
         }
-      ]
+      )
 
     case cst.REQUEST_PROCESSED:
-      request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
-        {
-          ...state.find(elt => elt.id == request.id),
-          state: cst.REQUEST_PROCESSED,
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.request.id,
+        { state: cst.REQUEST_PROCESSED }
+      )
 
     default:
       return state

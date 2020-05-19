@@ -7,49 +7,19 @@ import NewRating from './new'
 import './style.scss'
 
 
-const RatingButtonLook = ({ initRating, classname, ownRating }) => {
-  const [init, setter] = useState(ownRating == null ? initRating : ownRating)
-  useEffect(() => {
-    setter(ownRating == null ? initRating : ownRating)
-  }, [initRating, ownRating])
-  return (
-    <EditionModalButton
-      init={init}
-      setter={setter}
-      classname={classname}
-      icon={"fas fa-star "}
-      EditionModal={RatingModal}
-      NewItem={NewRating}
-    />
-  )
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    ownRating: state.get("ratings").find(rating => {
-      return (
-        rating.author_id == state.get("user").id
-        && ((rating.target_rating == ownProps.initRating.target_rating && ownProps.initRating.target_rating != undefined)
-        || (rating.target_bp == ownProps.initRating.target_bp && ownProps.initRating.target_bp != undefined))
-      )
-    })
-  }
-}
-
-export const RatingButton = connect(mapStateToProps)(RatingButtonLook)
-
-
-export const EditRatingButton = ({ initRating, classname }) => {
+export const RatingButton = ({ initRating, classname, icon }) => {
   const [init, setter] = useState(initRating)
+
   useEffect(() => {
     setter(initRating)
   }, [initRating])
+
   return (
     <EditionModalButton
       init={init}
       setter={setter}
       classname={classname}
-      icon={"fas fa-edit "}
+      icon={icon}
       EditionModal={RatingModal}
       NewItem={NewRating}
     />
