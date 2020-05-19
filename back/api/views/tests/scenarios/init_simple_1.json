@@ -1,0 +1,206 @@
+[
+    {
+        "name": "Create user Diplo",
+        "action": "create_user",
+        "data": {
+            "id": 1,
+            "username": "Diplo",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Create author Test1",
+        "action": "create_user",
+        "data": {
+            "id": 2,
+            "username": "Test1",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Create author Test2",
+        "action": "create_user",
+        "data": {
+            "id": 3,
+            "username": "Test2",
+            "password": "vuedensemble",
+            "image": "http://localhost:8000/media/profile_images/default_user_image.png"
+        }
+    },
+    {
+        "name": "Test1 logs in",
+        "action": "login",
+        "data": {
+            "username": "Test1",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Test1 posts subject 'BP1'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP1",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 2,
+                "title": "BP1",
+                "private": false
+            }
+        },
+        "response": "BP1"
+    },
+    {
+        "name": "Test1 posts subject 'BP2'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 2,
+            "title": "BP2",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 2,
+                "title": "BP2",
+                "private": false
+            }
+        },
+        "response": "BP2"
+    },
+    {
+        "name": "Test2 logs in",
+        "action": "login",
+        "data": {
+            "username": "Test2",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Test2 posts subject 'BP3'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP3",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP3",
+                "private": false
+            }
+        },
+        "response": "BP3"
+    },
+    {
+        "name": "Test2 posts subject 'BP4'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP4",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP4",
+                "private": false
+            }
+        },
+        "response": "BP4"
+    },
+    {
+        "name": "Test2 posts subject 'BP5'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 3,
+            "title": "BP5",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 3,
+                "title": "BP5",
+                "private": false
+            }
+        },
+        "response": "BP5"
+    },
+    {
+        "name": "Diplo logs in",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo posts subject 'BP6'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/bigpictures/",
+        "data": {
+            "kind": 1,
+            "author_id": 1,
+            "title": "BP6",
+            "body": "whatever",
+            "private": false
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "id": {
+                    "_meta_validate": "isInteger"
+                },
+                "author_id": 1,
+                "title": "BP6",
+                "private": false
+            }
+        },
+        "response": "BP6"
+    }
+]

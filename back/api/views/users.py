@@ -1,7 +1,12 @@
 from django.contrib.auth.models import Group
 from rest_framework.viewsets import ModelViewSet
-from api.models import BaseUser
-from api.serializers.user import UserSerializerWithToken, UserSerializer, GroupSerializer
+from api.models import BaseUser, Subscription
+from django.http import HttpResponse
+import json
+from api.serializers.user import UserSerializerWithToken
+from api.serializers.user import UserSerializer
+from api.serializers.user import GroupSerializer
+from api.serializers.user import SubscriptionSerializer
 
 
 class UserViewSet(ModelViewSet):
@@ -11,6 +16,18 @@ class UserViewSet(ModelViewSet):
     queryset = BaseUser.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
+
+class SubscriptionViewSet(ModelViewSet):
+    queryset = Subscription.objects.all().order_by('-date')
+    serializer_class = SubscriptionSerializer
+
+    def get_queryset(self):
+        return self.request.user.own_subscriptions.all().order_by('-date')
+
+    def create(self, request):
+        if request.user.id != int(request.data["author"]):
+            return HttpResponse(json.dumps({"error": "Vous ne pouvez abonner que vous-même à un autre utilisateur."}), status=401)
+        return super().create(request)
 
 class AuthViewSet(ModelViewSet):
     """

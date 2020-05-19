@@ -2,22 +2,42 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
+import Loader from '../../../components/Loader'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
+import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
 import Results from '../../../components/BigPicture/results'
+import List from '../../../components/List'
 import { RatingButton } from '../../../components/Rating/buttons'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
+import HideAndShowButton from '../../../components/Buttons/hideandshow'
+
 import * as cst from '../../../constants'
 import "./style.scss"
 
 
-const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences, getRatingsPage }) => {
+const BigPictureViewLook = (props) => {
+  const {
+    user,
+    match,
+    bigPicture,
+    children,
+    endorsments,
+    getBigPicture,
+    getReferences,
+    getRatingsPage,
+    getEndorsmentsPage } = props
   const [init, setter] = useState(bigPicture)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
     if (bigPicture == undefined)
@@ -31,13 +51,17 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
 
   return (
     <div className="vde-bigpicture-page">
-      { init == undefined ? <div className="container vde section section-field"><div className="loader" style={{width:"5rem", height:"5rem"}}></div></div> : null }
-      { header(init) }
-      { content(init, user, setter) }
-      { analyse(init, user) }
-      { comments(init, getRatingsPage, user) }
-      { references(init, getReferences) }
-      { results(init) }
+      <Loader condition={bigPicture == undefined}>
+        { header(init) }
+        <div className="vde container section">
+          { content(init, user, setter) }
+          { analyse(init, user) }
+          { comments(init, getRatingsPage, user) }
+          { references(init, getReferences) }
+          { results(init) }
+          { endorsmentsList(init, endorsments, getEndorsmentsPage) }
+        </div>
+      </Loader>
     </div>
   )
 }
@@ -50,8 +74,7 @@ BigPictureViewLook.propTypes = {
 }
 
 const header = (bigPicture) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
@@ -60,9 +83,6 @@ const header = (bigPicture) => {
           <div style={{maxWidth: "100%"}} className="level-left">
             <span className="level-item author-icon">
               <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
-              { bigPicture.kind == cst.PROBLEM ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-exclamation-circle"></i></figure> : null }
-              { bigPicture.kind == cst.SOLUTION ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-lightbulb"></i></figure> : null }
-              { bigPicture.kind == cst.RESOURCE ? <figure className="level-item image is-48x48"><i style={{height: "100%", color:"black"}} className="level-item fas fa-folder"></i></figure> : null }
             </span>
             <h1 className="vde title">
               {bigPicture.title}
@@ -77,15 +97,13 @@ const header = (bigPicture) => {
 const content = (bigPicture, user, setter) => {
   const [hidden, setHidden] = useState(false)
 
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <div className="container vde section section-field">
       <div className="level is-mobile vde-header">
         <div className="level-left">
-          { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-          { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+          <HideAndShowButton hidden={hidden} setHidden={setHidden} />
           <p className="vde subtitle level-item">Contenu</p>
           { user.id == bigPicture.author ? editButton(bigPicture, setter) : null}
         </div>
@@ -118,16 +136,14 @@ const editButton = (init, setter) => {
 }
 
 const analyse = (bigPicture, user) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <BigPictureList
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
-      getPage={(page, options) => {}}
-      showHeader={true}
+      getPage={null}
       title={"Analyse"}
       loadFirstPage={true}
       emptyMessage={"Aucun élément n'a encore été apporté pour préciser cette vue d'ensemble."}
@@ -135,6 +151,7 @@ const analyse = (bigPicture, user) => {
         () => { return backButton(bigPicture) },
         () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
       ]}
+      margin={0}
     />
   )
 }
@@ -143,7 +160,7 @@ const analyse = (bigPicture, user) => {
 const backButton = (bp) => {
   const to = bp.parent == null ? "/" : `/subject/${bp.subject}/bigPicture/${bp.parent}`
   return (
-    <div className="button tbp-radio title-button vde-add-comment is-narrow" key={`back${bp.id}`}>
+    <div className="button tbp-radio title-button is-narrow" key={`back${bp.id}`}>
       <Link to={to}>
         <span className="icon is-small"><i className="fas fa-step-backward"></i></span>
       </Link>
@@ -157,20 +174,23 @@ const addBigPictureButton = (bigPicture) => {
 
 
 const comments = (bigPicture, getRatingsPage, user) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <RatingList
-      margin={cst.BASE_MARGIN}
-      showHeader={true}
-      loadFirstPage={false}
+      target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
+      loadFirstPage={false}
       count={bigPicture.ratingCount}
-      getPage={(page, options) => { getRatingsPage(page, bigPicture.id, options) }}
-      title={"Raisons"}
-      emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
+      getPage={
+        (page, options, requestId) => {
+          return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }, requestId)
+        }
+      }
+      title={cst.REASON_LIST_TITLE}
+      emptyMessage={cst.MSG_NO_REASON}
       buttons={[() => addRatingButton(bigPicture, user)]}
+      margin={0}
     />
   )
 }
@@ -188,36 +208,66 @@ const addRatingButton = (bigPicture, user) => {
   if (initRating.subject == null)
     initRating.subject = bigPicture.id
   return (
-    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} />
+    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} icon={cst.RATING_ICON} />
   )
 }
 
 
 const references = (bigPicture, getReferences) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
     <BigPictureList
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
-      getPage={(page) => {getReferences(page, bigPicture.id)}}
-      showHeader={true}
-      title={"Références"}
+      getPage={
+        (page, options, requestId) => {
+          return getReferences(page, { ...options, reference: bigPicture.id }, requestId)
+        }
+      }
+      title={cst.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={"Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."}
-      buttons={[]}
+      emptyMessage={cst.MSG_NO_REFERENCE}
+      margin={0}
+    />
+  )
+}
+
+
+const endorsmentsList = (bigPicture, endorsments, getPage) => {
+  if (bigPicture == undefined) return null
+
+  const endorsmentsSort = (endorsmentA, endorsmentB) => {
+    const dateA = new Date(endorsmentA.date)
+    const dateB = new Date(endorsmentB.date)
+    return dateA >= dateB ? 1 : -1
+  }
+
+  return (
+    <List
+      items={endorsments}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
+      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      sortFunc={endorsmentsSort}
+      count={bigPicture.endorsmentCount}
+      getPage={
+        (page, options, reqId) => {
+          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        }
+      }
+      loadFirstPage={false}
+      title={"Évaluations"}
+      margin={0}
     />
   )
 }
 
 const results = (bigPicture) => {
-  if (bigPicture == undefined)
-    return null
+  if (bigPicture == undefined) return null
 
   return (
-    <Results showHeader={true} bigPictureId={bigPicture.id} />
+    <Results showHeader={true} bigPictureId={bigPicture.id} margin={0} />
   )
 }
 

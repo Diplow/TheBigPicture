@@ -1,19 +1,23 @@
 @import "../../styles/theme.scss";
 
 
+.vde.card.reason {
+  background-color: $primary-4;
+}
+
 .tbp-star {
-	color: $light;
-	border-color: black;
-	width: 1rem;
+  color: $light;
+  border-color: black;
+  width: 1rem;
 }
 
 .selected {
-	.tbp-star {
-		color: gold;
-	}
+  .tbp-star {
+    color: gold;
+  }
 }
 
 .level.star-level.is-mobile {
-	margin-bottom: 0.4rem;
-	display: inline-flex;
+  margin-bottom: 0.4rem;
+  display: inline-flex;
 }

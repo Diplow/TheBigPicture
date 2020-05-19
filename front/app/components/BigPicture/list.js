@@ -1,13 +1,10 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import usePagination from '../utils/pagination'
 import BigPicturePreview from './preview'
 import List from '../List'
 import * as cst from '../../constants'
 import "./style.scss"
-
 
 
 const BigPictureListLook = (props) => {
@@ -22,7 +19,8 @@ const BigPictureListLook = (props) => {
     loadFirstPage,
     title,
     buttons,
-    search
+    search,
+    margin
   } = props
 
   const sortBigPictures = (a, b) => {
@@ -35,7 +33,14 @@ const BigPictureListLook = (props) => {
   return (
     <List
       items={bigPictures}
-      container={(bigPicture) => <BigPicturePreview key={`preview-${bigPicture.id}`} bigPictureId={bigPicture.id} margin={0} />}
+      container={(bigPicture) => {
+        return (
+          <BigPicturePreview
+            key={`preview-${bigPicture.id}`}
+            bigPictureId={bigPicture.id}
+            margin={0} />
+        )
+      }}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={sortBigPictures}
@@ -46,6 +51,7 @@ const BigPictureListLook = (props) => {
       title={title}
       buttons={buttons}
       search={search}
+      margin={margin}
     />
   )
 }

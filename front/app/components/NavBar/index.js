@@ -75,12 +75,13 @@ const RightMenu = (props) => {
             <DropdownMenu linksArray={[
               {
                 leftIcon: <img className="vde navbar menu" src={HomeIcon} alt="Mes contenus" />,
-                name: "Home",
+                name: "Profil",
                 url: `/user/${user.id}`
               },
               {
                 leftIcon: <img className="vde navbar menu" src={DisconnectIcon} alt="Déconnexion" />,
                 name: "Déconnexion",
+                url: "/",
                 onClick: () => logout()
               }
             ]} />

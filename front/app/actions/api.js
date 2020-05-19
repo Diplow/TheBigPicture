@@ -4,32 +4,70 @@ import * as basics from "./basics"
 import uuid from 'uuid/v4'
 
 
+// "NEXTS" funcs are called asynchronously when related servers calls are done
+// see front/app/reducers/requests.js for more details on this design.
 const NEXTS = {
-  "getSubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setSubjectCount(result.count)) }
+  "getSubjects": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      if (nextargs.author)
+        dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
+      dispatch(basics.setSubjectCount(result.count, requestId))
+    }
   },
-  "getOwnSubjects": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnSubjectCount(nextargs.userId, result.count)) }
+  "getBpRatings": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setBpRatingCount(nextargs.bigpicture, result.count, requestId))
+    }
   },
-  "getOwnRatings": (dispatch, nextargs) => {
-    return (result) => { dispatch(basics.setOwnRatingCount(nextargs.userId, result.count)) }
+  "getRatingRatings": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))
+    }
   },
-  "getReferences": (dispatch, nextargs) => {
+  "getEndorsments": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      if (nextargs.bigpicture)
+        dispatch(basics.setBpEndorsmentCount(nextargs.bigpicture, result.count, requestId))
+      if (nextargs.rating)
+        dispatch(basics.setEndorsmentCount(nextargs.rating, result.count, requestId))
+      if (nextargs.author)
+        dispatch(basics.setUserEndorsmentCount(nextargs.author, result.count, requestId))
+    }
+  },
+  "getOwnSubjects": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
+    }
+  },
+  "getOwnRatings": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setOwnRatingCount(nextargs.author, result.count, requestId))
+    }
+  },
+  "getSubscriptions": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setSubscriptionCount(result.count, requestId))
+    }
+  },
+  "getReferences": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setBpReferenceCount(resp.count, nextargs.reference, requestId))
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
         dispatch(basics.addBigPicture(bp))
-        dispatch(basics.addBigPictureReference(nextargs.bpId, bp.id))
+        dispatch(basics.addBigPictureReference(nextargs.reference, bp.id))
       }
     }
   },
-  "getBigPictureResults": (dispatch, nextargs) => {
+  "getBigPictureResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setBpEndorsmentCount(nextargs.bigpictureId, resp.count, requestId))
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
     }
   },
-  "getRatingResults": (dispatch, nextargs) => {
+  "getRatingResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setEndorsmentCount(nextargs.ratingId, resp.count, requestId))
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
   },
@@ -45,11 +83,7 @@ export const make = (request) => {
 
         case "GET":
           if (!success) {
-            dispatch(basics.notification({
-              title: "Erreur de communication avec le serveur",
-              message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr",
-              type: "warning"
-            }))
+            dispatch(basics.notification(notification.GET_FAIL))
             break;
           }
           res.json().then(result => {
@@ -60,16 +94,7 @@ export const make = (request) => {
               status: res.status,
             }))
             return result
-          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs) : null)
-          break;
-
-        case "DELETE":
-          dispatch(basics.done({
-            ...request,
-            success,
-            response: {},
-            status: res.status,
-          }))
+          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs, request.id) : null)
           break;
 
         default:
@@ -130,16 +155,26 @@ export const buildRequest = (body, method) => {
 }
 
 
+const DELETE_ACTIONS = {
+  "bigpictures": basics.removeBigPicture,
+  "ratings": basics.removeRating,
+  "subscriptions": basics.removeSubscription,
+  "endorsments": basics.removeEndorsment
+}
+
 export const deleteItem = (dispatch, itemId, itemAPI) => {
-  const url = itemAPI + "/" + itemId + "/?format=json";
-  const method = "DELETE"
-  const body = {}
-  dispatch(basics.make({
-    url,
-    body,
-    method,
-    id: [method, itemAPI, itemId].join('-'),
-  }))
+  const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}`
+  fetch(host, buildRequest({}, "DELETE"))
+    .then((res) => {
+      if (res.status == 204) {
+        const delete_action = DELETE_ACTIONS[itemAPI]
+        dispatch(delete_action(itemId))
+        dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
+      }
+      else {
+        dispatch(basics.notification(notifications.DELETION_FAIL))
+      }
+  })
 }
 
 
@@ -150,7 +185,8 @@ const formatOptions = (options) => {
   return res
 }
 
-export const get = (dispatch, endpoint, options, next) => {
+export const get = (dispatch, endpoint, options, next, must_process) => {
+  const mustprocess = must_process || false // get requests dont get processed by default
   const opts = formatOptions(options)
   const url = endpoint
   const method = "GET"
@@ -160,6 +196,7 @@ export const get = (dispatch, endpoint, options, next) => {
     body,
     method,
     next,
+    mustprocess,
     nextargs: options,
     id: [method].concat(endpoint.split('/')).concat(opts).concat([uuid()]).join('-')
   }))
@@ -184,26 +221,15 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(handleHttpError(dispatch, "send"))
     .then(res => res.json())
     .then(res => {
+      // TODO: error handling design is not well thought here...
       if (res.error != undefined) {
-        dispatch(basics.notification({
-          title: "Erreur de communication avec le serveur",
-          message: res.error,
-          type: "warning"
-        }))
+        dispatch(basics.notification(notifications.SERVER_ERROR(res.error)))
       }
       else if (Array.isArray(res.title)) {
-        dispatch(basics.notification({
-          title: "La vue n'a pas pu être créée",
-          message: "Le champ titre doit être renseignée et suffisament court.",
-          type: "warning"
-        }))
+        dispatch(basics.notification(notifications.TITLE_ERROR))
       }
       else if (Array.isArray(res.hyperlink_id)) {
-        dispatch(basics.notification({
-          title: "La vue n'a pas pu être créée",
-          message: "La référence n'existe pas (ou alors elle est privée et ne peut donc pas être référencée).",
-          type: "warning"
-        }))
+        dispatch(basics.notification(notifications.REFERENCE_ERROR))
       }
       else {
         dispatch(action(res))
@@ -215,7 +241,7 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
     .then(next)
 }
 
-export const getCollection = (dispatch, itemAPI, page, options, next) => {
+export const getCollection = (dispatch, itemAPI, page, options, next, requestId) => {
   options.page = !page ? 1 : page
   const opts = formatOptions(options)
   const url = `${itemAPI}/?${opts.join('&')}`
@@ -226,14 +252,16 @@ export const getCollection = (dispatch, itemAPI, page, options, next) => {
     body,
     method,
     next,
-    options,
+    requestId,
+    nextargs: options,
     id: [method, itemAPI].concat(opts).join('-')
   }, next))
 }
 
 const computeTokenTimeout = () => {
   const expirationDate = new Date()
-  expirationDate.setDate(expirationDate.getDate() + 1)
+  // token expire after 7 days. This value has to match the server value
+  expirationDate.setDate(expirationDate.getDate() + 7)
   return expirationDate.getTime()
 }
 
@@ -247,11 +275,7 @@ export const login = (credentials) => {
         localStorage.setItem('user', JSON.stringify(json.user));
         localStorage.setItem('expiration', computeTokenTimeout())
         dispatch(basics.login(json.user, json.token))
-        dispatch(basics.notification({
-          title: "Identification réussie",
-          message: "Bienvenue " + json.user.username,
-          type: "success"
-        }))
+        dispatch(basics.notification(notifications.WELCOME(json.user.username)))
       });
   }
 };
@@ -261,11 +285,7 @@ export const logout = () => {
     delete localStorage.token;
     delete localStorage.user;
     dispatch(basics.logout())
-    dispatch(basics.notification({
-      title: "Déconnexion réussie",
-      message: "Vous devrez vous authentifier à nouveau pour utiliser votre compte.",
-      type: "success"
-    }))
+    dispatch(basics.notification(notifications.LOGOUT))
   }
 }
 
@@ -277,32 +297,18 @@ export const permissionDenied = (action) => {
 
 export const handleHttpError = (dispatch, action) => {
   return (res) => {
-    if (res.status == 200)
-      return res
-    if (res.status == 400) {
-      if (action == "login") {
-        dispatch(basics.notification({
-          title: "L'identification a échoué",
-          message: "Êtes-vous certains d'avoir entré la bonne combinaison identifiant / mot de passe ?",
-          type: "warning"
-        }))
-      }
+    switch (res.status) {
+      case 400:
+        if (action == "login")
+          dispatch(basics.notification(notifications.IDENTIFICATION_FAIL))
+      case 401:
+        dispatch(permissionDenied(action))
+        dispatch(basics.notification(notifications.SESSION_EXPIRED))
+      case 500:
+      case 503:
+        dispatch(basics.notification(notifications.SERVER_ERROR_500(action)))
+      default:
+        return res
     }
-    if (res.status == 401) {
-      dispatch(permissionDenied(action))
-      dispatch(basics.notification({
-        title: "Session expirée",
-        message: "Vous devez vous authentifier à nouveau pour réaliser cette action.",
-        type: "warning"
-      }))
-    }
-    if (res.status == 500 || res.status == 503) {
-      dispatch(basics.notification({
-        title: "Erreur de communication avec le serveur",
-        message: "L'action " + action + " n'a pas pu être réalisée, vous pouvez contacter l'administrateur de la plateforme.",
-        type: "warning"
-      }))
-    }
-    return res
   }
 }

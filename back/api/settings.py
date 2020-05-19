@@ -77,7 +77,7 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'api.utils.my_jwt_response_handler',
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=60*60*24)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=60*60*24*7)
 }
 
 ACCOUNT_ACTIVATION_DAYS = 7

@@ -9,6 +9,7 @@ import "./style.scss"
 const LoginModalLook = ({ active, setActive, login }) => {
   const [credentials, setCredentials] = useState({username:"", password:""})
   const edit = (e) => { setCredentials({ ...credentials, [e.target.name]: e.target.value}) }
+  const onClick = () => { setActive(false); login(credentials) }
 
   return (
     <div className={"modal" + (active ? " is-active" : "")}>
@@ -37,6 +38,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
               className="input vde" 
               type="password"
               name="password"
+              onKeyDown={(e) => { e.key === 'Enter' ? onClick() : null }}
               value={credentials.password}
               onChange={edit}
             />
@@ -48,7 +50,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
         <footer className="modal-card-foot">
           <div
             className="button is-dark"
-            onClick={() => { setActive(false); login(credentials) }}>
+            onClick={onClick}>
             S'authentifier
           </div>
         </footer>

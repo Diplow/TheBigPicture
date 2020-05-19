@@ -3,13 +3,20 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Chart from "react-apexcharts";
 import RefreshButton from '../Buttons/refresh'
+import HideAndShowButton from '../Buttons/hideandshow'
 import { getBigPictureResults } from '../../actions'
 import "./style.scss"
 import * as cst from '../../constants'
 import EXPLICATIONS from '../../constants/explications'
 
 
-const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
+const ResultsLook = (props) => {
+  const {
+    showHeader,
+    bigPicture,
+    getResults,
+    margin
+  } = props
   const [hidden, setHidden] = useState(showHeader)
 
   useEffect(() => {
@@ -17,11 +24,13 @@ const ResultsLook = ({ showHeader, bigPicture, getResults }) => {
       getResults(bigPicture.id)
   }, [hidden])
 
-  if (bigPicture == undefined)
-    return null
+  if (!bigPicture) return null
 
+  const marg = margin == undefined ? cst.SUBMARGIN : margin
   return (
-    <div className="container vde section section-field">
+    <div
+      style={{marginLeft: marg +"%"}}
+      className={showHeader ? "container vde section section-field" : ""}>
       { showHeader ? header(bigPicture, hidden, setHidden) : null }
       { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
     </div>
@@ -32,8 +41,7 @@ const header = (bigPicture, hidden, setHidden) => {
   return (
     <div className="level is-mobile">
       <div className="level-left">
-        { hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-plus"></i></figure> : null }
-        { !hidden ? <figure className="vde header-button level-item image is-24x24" onClick={() => setHidden(!hidden)}><i style={{height: "100%"}} className="level-item fas fa-minus"></i></figure> : null }
+        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
         <p className="vde subtitle level-item">Résultats</p>
       </div>
     </div>
@@ -42,22 +50,22 @@ const header = (bigPicture, hidden, setHidden) => {
 
 const chart = (bigPicture) => {
   const series = [{
-    name: EXPLICATIONS[bigPicture.kind][0],
+    name: EXPLICATIONS[0],
     data: [bigPicture.results["0star"]]
   },{
-    name: EXPLICATIONS[bigPicture.kind][1],
+    name: EXPLICATIONS[1],
     data: [bigPicture.results["1star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][2],
+    name: EXPLICATIONS[2],
     data: [bigPicture.results["2star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][3],
+    name: EXPLICATIONS[3],
     data: [bigPicture.results["3star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][4],
+    name: EXPLICATIONS[4],
     data: [bigPicture.results["4star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][5],
+    name: EXPLICATIONS[5],
     data: [bigPicture.results["5star"]]
   }]
   const options = {
@@ -116,7 +124,7 @@ const chart = (bigPicture) => {
     <div id="chart">
     {
       bigPicture.results.count == 0
-      ? <p className="vde vde-no-comment subtitle">Personne n'a encore évalué ce contenu.</p>
+      ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
       : <Chart options={options} series={series} type="bar" height={300} />
     }
     </div>

@@ -1,126 +1,158 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import AuthorIcon from '../User/authorIcon'
-import * as cst from '../../constants'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useToggle } from '../utils/hooks'
-import "./style.scss"
-import { getRatings } from '../../actions'
-import { RatingButton, EditRatingButton } from './buttons'
-import List from '../List'
+import { getRatings, getEndorsments } from '../../actions'
+import { RatingButton } from './buttons'
+import { EndorsmentButton } from '../Endorsment/buttons'
+import EndorsmentPreview from '../Endorsment/preview'
+import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import ReactMarkdown from 'react-markdown'
 import RatingResults from './results'
+import * as cst from '../../constants'
+import "./style.scss"
 
 
-const RatingPreviewLook = ({ rating, ratings, user, ratingId, margin, getPage }) => {
+const RatingPreviewLook = (props) => {
+  const {
+    rating,
+    ratings,
+    endorsments,
+    user,
+    ratingId,
+    getRatingsPage,
+    getEndorsmentsPage
+  } = props
+
   const [showRatings, toggleRatings] = useToggle(false)
   const [showResults, toggleResults] = useToggle(false)
+  const [showEndorsments, toggleEndorsments] = useToggle(false)
 
-  if (rating == undefined || rating == null)
-    return null
+  if (!rating) return null
 
   return (
-    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={`ratingpreview${rating.id}`}>
+    <div key={`ratingpreview${ratingId}`}>
       <div className="vde card reason">
         <header className="vde card-header level preview-item-level is-mobile">
           { ratingLeftLevel(rating) }
         </header>
-        { toolBar(rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) }
+        {
+          toolBar({
+            rating,
+            ratings,
+            endorsments,
+            showRatings,
+            toggleRatings,
+            showResults,
+            toggleResults,
+            showEndorsments,
+            toggleEndorsments,
+            user
+          })
+        }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
-      { showRatings ? ratingChildren(rating, ratings, margin, user, getPage) : null }
+      { showEndorsments ? ratingEndorsments(rating, endorsments, getEndorsmentsPage) : null }
+      { showRatings ? ratingChildren(rating, ratings, getRatingsPage) : null }
     </div>
   )
 }
 
-RatingPreviewLook.propTypes = {
-  ownRating: PropTypes.object, 
-  rating: PropTypes.object,
-  ratings: PropTypes.arrayOf(PropTypes.object),
-  ratingId: PropTypes.number.isRequired, // used by connect
-  ratingUser: PropTypes.number,
-  margin: PropTypes.number, // leftmargin in case of rating / bp nesting
-}
-
-const staticStorage = "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/static/icons/"
-const valueIcons = {
-  0: "information.svg",
-  1: "star-for-number-one.svg",
-  2: "star-with-number-two.svg",
-  3: "star-number-3.svg",
-  4: "star-with-number-4.svg",
-  5: "star-number-five.svg"
-}
-
 const ratingLeftLevel = (rating) => {
-	return (
+  return (
     <div style={{maxWidth:"100%"}} className="level-left">
-      <figure className="vde rating-image level-item image is-48x48">
-        <img src={staticStorage + valueIcons[rating.value]} />
-      </figure>
       <div className="vde card-content vde-preview-content">
         <div className="content">
-          <ReactMarkdown source={rating.reason} />
+          <ReactMarkdown source={rating.body} />
         </div>
       </div>
     </div>
-	)
+  )
 }
 
-const toolBar = (rating, ratings, showRatings, toggleRatings, showResults, toggleResults, user) => {
+const toolBar = (props) => {
+  const {
+    rating,
+    ratings,
+    showRatings,
+    toggleRatings,
+    showResults,
+    toggleResults,
+    showEndorsments,
+    toggleEndorsments,
+    user
+  } = props
+
   const initRating = {
-    value: 0,
     target_bp: null,
     target_rating: rating.id,
     author_id: user.id,
-    reason: "",
+    body: "",
     subject: rating.subject
   }
-	return (
+
+  return (
     <div className="vde toolbar level is-mobile">
       <div className="level-left">
         <p>{rating.date}</p>
       </div>
       <div className="level-right">
-        <EditRatingButton initRating={rating} classname="vde toolbar" />
-        <RatingButton initRating={initRating} />
-        { rating.ratingCount != 0 ? <RadioButton
-          classname="vde toolbar"
-          isPushed={showRatings}
-          setIsPushed={toggleRatings}
-          icon={"fas fa-comments"}
-        /> : null }
-        <RadioButton
-          classname="vde toolbar"
-          isPushed={showResults}
-          setIsPushed={toggleResults}
-          icon={"far fa-chart-bar"} />
+        { editRatingButton(rating) }
+        { toggleButton(showResults, toggleResults, cst.RESULT_ICON) }
+        { toggleButton(showEndorsments, toggleEndorsments, cst.ENDORSMENT_LIST_ICON) }
+        { toggleButton(showRatings, toggleRatings, cst.RATING_LIST_ICON) }
+        { rateThisRatingButton(initRating) }
+        { endorseThisRatingButton(rating, user.id) }
       </div>
     </div>
-	)
+  )
 }
 
-
-const toggleResults = (showResults, toggleResults) => {
+const toggleButton = (show, toggle, icon) => {
   return (
     <RadioButton
-      classname={""}
-      isPushed={showResults}
-      setIsPushed={toggleResults}
-      icon={"fas fa-chart-bar"}
+      classname="vde toolbar"
+      isPushed={show}
+      setIsPushed={toggle}
+      icon={icon}
     />
   )
 }
 
-const ratingChildren = (rating, children, parentMargin, user, getPage) => {
-
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
+const editRatingButton = (initRating) => {
+  return (
+    <RatingButton
+      initRating={initRating}
+      classname="vde toolbar"
+      icon={ cst.EDIT_ICON } />
   )
+}
+
+const rateThisRatingButton = (initRating) => {
+  return (
+    <RatingButton
+      initRating={initRating}
+      classname="vde toolbar"
+      icon={ cst.RATING_ICON } />
+  )
+}
+
+const endorseThisRatingButton = (rating, userId) => {
+  return (
+    <EndorsmentButton
+      ratingId={rating.id}
+      userId={userId}
+      bpId={rating.target_bp}
+      rtgId={rating.target_rating}
+      reason={rating.body}
+      classname="vde toolbar"
+      icon={ cst.ENDORSMENT_ICON } />
+  )
+}
+
+const ratingChildren = (rating, children, getPage) => {
   
   const ratingsSort = (ratingA, ratingB) => {
     return ratingA.median >= ratingB.median ? 1 : -1
@@ -129,32 +161,60 @@ const ratingChildren = (rating, children, parentMargin, user, getPage) => {
   return (
     <List
       items={children}
-      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} margin={margin} />}
-      user={user}
-      emptyMessage={""}
+      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
+      emptyMessage={cst.RATING_HAS_NO_RATING}
       sortFunc={ratingsSort}
       count={rating.ratingCount}
-      getPage={(page) => getPage(page, rating.id)}
+      getPage={
+        (page, options, reqId) => {
+          return getPage(page, { ...options, rating: rating.id }, reqId)
+        }
+      }
       loadFirstPage={true}
-      showHeader={false}
-      title={""}
-      buttons={[]}
+    />
+  )
+}
+
+const ratingEndorsments = (rating, endorsments, getPage) => {
+  
+  const endorsmentsSort = (endorsmentA, endorsmentB) => {
+    const dateA = new Date(endorsmentA.date)
+    const dateB = new Date(endorsmentB.date)
+    return dateA >= dateB ? 1 : -1
+  }
+
+  return (
+    <List
+      items={endorsments}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
+      emptyMessage={cst.RATING_HAS_NO_ENDORSMENT}
+      sortFunc={endorsmentsSort}
+      count={rating.endorsmentCount}
+      getPage={
+        (page, options, reqId) => {
+          return getPage(page, { ...options, rating: rating.id }, reqId)
+        }
+      }
+      loadFirstPage={true}
     />
   )
 }
 
 
 const mapStateToProps = (state, ownProps) => {
+  const thisrating = state.get("ratings").find(rating => rating.id == ownProps.ratingId)
   return {
-    rating: state.get("ratings").find(rating => rating.id == ownProps.ratingId),
+    rating: thisrating,
     ratings: state.get("ratings").filter(rating => rating.target_rating == ownProps.ratingId),
+    endorsments: thisrating ? state.get("endorsments").filter(endorsment => endorsment.rating == thisrating.id) : [],
     user: state.get("user")
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPage: (page, ratingId) => dispatch(getRatings(page, { rating: ratingId }))
+    getRatingsPage: getPageFormatter(dispatch, getRatings),
+    getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
   }
 }
 
