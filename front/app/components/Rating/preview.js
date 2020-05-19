@@ -16,7 +16,17 @@ import ReactMarkdown from 'react-markdown'
 import RatingResults from './results'
 
 
-const RatingPreviewLook = ({ rating, ratings, endorsments, user, ratingId, margin, getRatingsPage, getEndorsmentsPage }) => {
+const RatingPreviewLook = (props) => {
+  const {
+    rating,
+    ratings,
+    endorsments,
+    user,
+    ratingId,
+    getRatingsPage,
+    getEndorsmentsPage
+  } = props
+
   const [showRatings, toggleRatings] = useToggle(false)
   const [showResults, toggleResults] = useToggle(false)
   const [showEndorsments, toggleEndorsments] = useToggle(false)
@@ -24,7 +34,7 @@ const RatingPreviewLook = ({ rating, ratings, endorsments, user, ratingId, margi
   if (!rating) return null
 
   return (
-    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={`ratingpreview${ratingId}`}>
+    <div key={`ratingpreview${ratingId}`}>
       <div className="vde card reason">
         <header className="vde card-header level preview-item-level is-mobile">
           { ratingLeftLevel(rating) }
@@ -45,8 +55,8 @@ const RatingPreviewLook = ({ rating, ratings, endorsments, user, ratingId, margi
         }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
-      { showEndorsments ? ratingEndorsments(rating, endorsments, margin, getEndorsmentsPage) : null }
-      { showRatings ? ratingChildren(rating, ratings, margin, getRatingsPage) : null }
+      { showEndorsments ? ratingEndorsments(rating, endorsments, getEndorsmentsPage) : null }
+      { showRatings ? ratingChildren(rating, ratings, getRatingsPage) : null }
     </div>
   )
 }
@@ -91,9 +101,9 @@ const toolBar = (props) => {
       </div>
       <div className="level-right">
         { editRatingButton(rating) }
-        { toggleButton(showResults, toggleResults, "fas fa-chart-bar") }
-        { toggleButton(showEndorsments, toggleEndorsments, "fas fa-medal") }
-        { toggleButton(showRatings, toggleRatings, "fas fa-comments") }
+        { toggleButton(showResults, toggleResults, cst.RESULT_ICON) }
+        { toggleButton(showEndorsments, toggleEndorsments, cst.ENDORSMENT_LIST_ICON) }
+        { toggleButton(showRatings, toggleRatings, cst.RATING_LIST_ICON) }
         { rateThisRatingButton(initRating) }
         { endorseThisRatingButton(rating, user.id) }
       </div>
@@ -117,7 +127,7 @@ const editRatingButton = (initRating) => {
     <RatingButton
       initRating={initRating}
       classname="vde toolbar"
-      icon="fas fa-edit" />
+      icon={ cst.EDIT_ICON } />
   )
 }
 
@@ -126,7 +136,7 @@ const rateThisRatingButton = (initRating) => {
     <RatingButton
       initRating={initRating}
       classname="vde toolbar"
-      icon="far fa-comment" />
+      icon={ cst.RATING_ICON } />
   )
 }
 
@@ -139,17 +149,11 @@ const endorseThisRatingButton = (rating, userId) => {
       rtgId={rating.target_rating}
       reason={rating.body}
       classname="vde toolbar"
-      icon="fas fa-star" />
+      icon={ cst.ENDORSMENT_ICON } />
   )
 }
 
-const ratingChildren = (rating, children, parentMargin, getPage) => {
-
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
-  )
+const ratingChildren = (rating, children, getPage) => {
   
   const ratingsSort = (ratingA, ratingB) => {
     return ratingA.median >= ratingB.median ? 1 : -1
@@ -158,7 +162,7 @@ const ratingChildren = (rating, children, parentMargin, getPage) => {
   return (
     <List
       items={children}
-      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} margin={margin} />}
+      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
       emptyMessage={cst.RATING_HAS_NO_RATING}
       sortFunc={ratingsSort}
       count={rating.ratingCount}
@@ -172,13 +176,7 @@ const ratingChildren = (rating, children, parentMargin, getPage) => {
   )
 }
 
-const ratingEndorsments = (rating, endorsments, parentMargin, getPage) => {
-
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
-  )
+const ratingEndorsments = (rating, endorsments, getPage) => {
   
   const endorsmentsSort = (endorsmentA, endorsmentB) => {
     const dateA = new Date(endorsmentA.date)
@@ -189,7 +187,7 @@ const ratingEndorsments = (rating, endorsments, parentMargin, getPage) => {
   return (
     <List
       items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} margin={margin} />}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.RATING_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={rating.endorsmentCount}

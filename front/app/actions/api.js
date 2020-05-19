@@ -63,6 +63,7 @@ const NEXTS = {
   },
   "getRatingResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setEndorsmentCount(nextargs.ratingId, resp.count, requestId))
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
   },

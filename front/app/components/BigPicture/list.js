@@ -19,7 +19,8 @@ const BigPictureListLook = (props) => {
     loadFirstPage,
     title,
     buttons,
-    search
+    search,
+    margin
   } = props
 
   const sortBigPictures = (a, b) => {
@@ -50,6 +51,7 @@ const BigPictureListLook = (props) => {
       title={title}
       buttons={buttons}
       search={search}
+      margin={margin}
     />
   )
 }

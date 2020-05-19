@@ -24,14 +24,10 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         getPage={getBigPictures}
         loadFirstPage={true}
         emptyMessage={cst.MSG_NO_SUBJECT}
+        margin={0}
       />
     </div>
   )
-}
-
-HomeLook.propTypes = {
-  getBigPictures: PropTypes.func.isRequired,
-  count: PropTypes.number.isRequired,
 }
 
 export default HomeLook

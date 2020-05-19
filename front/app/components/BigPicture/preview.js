@@ -34,10 +34,7 @@ const BigPicturePreviewLook = (props) => {
     bigPictureId,
     getBigPicture,
     getBigPictureRatings,
-    getBigPictureEndorsments,
-    // all children of a given BP share the same margin,
-    // larger than their parent
-    margin
+    getBigPictureEndorsments
   } = props
 
   useEffect(() => {
@@ -60,7 +57,7 @@ const BigPicturePreviewLook = (props) => {
   if (!bigPicture) return null
 
   return (
-    <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={bigPicture.id}>
+    <div key={bigPicture.id}>
       <div className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
         <header className="vde card-header level preview-item-level is-mobile" onClick={() => toggleDetails()}>
           { bpLeftLevel(bigPicture) }
@@ -87,23 +84,23 @@ const BigPicturePreviewLook = (props) => {
         }
       </div>
       {
+        showChildren && bigPicture.children.length != 0
+        ? bpChildren(bigPicture, children, user)
+        : null
+      }
+      {
         showResults
         ? <Results showHeader={false} bigPictureId={bigPicture.id} />
         : null
       }
       {
         showEndorsments
-        ? bpEndorsments(bigPicture, endorsments, margin, getBigPictureEndorsments)
+        ? bpEndorsments(bigPicture, endorsments, getBigPictureEndorsments)
         : null
       }
       {
         showRatings
-        ? bpRatings(bigPicture, ratings, margin, getBigPictureRatings) 
-        : null
-      }
-      {
-        showChildren && bigPicture.children.length != 0
-        ? bpChildren(bigPicture, children, margin, user)
+        ? bpRatings(bigPicture, ratings, getBigPictureRatings) 
         : null
       }
     </div>
@@ -115,7 +112,7 @@ const bpLeftLevel = (bigPicture) => {
   const bpFigure = (icon) => {
     return (
       <figure className="vde bp-icons level-item image is-32x32">
-        <i className={`fas ${icon}`}></i>
+        <i className={icon}></i>
       </figure>
     )    
   }
@@ -123,10 +120,10 @@ const bpLeftLevel = (bigPicture) => {
   return (
     <div style={{maxWidth:"100%"}} className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
-      { bigPicture.kind == cst.PROBLEM ? bpFigure("fa-exclamation-circle") : null }
-      { bigPicture.kind == cst.SOLUTION ? bpFigure("fa-lightbulb") : null }
-      { bigPicture.kind == cst.RESOURCE ? bpFigure("fa-folder") : null }
-      { bigPicture.hyperlink_id != null ? bpFigure("fa-directions") : null }
+      { bigPicture.kind == cst.PROBLEM ? bpFigure(cst.PROBLEM_ICON) : null }
+      { bigPicture.kind == cst.SOLUTION ? bpFigure(cst.SOLUTION_ICON) : null }
+      { bigPicture.kind == cst.RESOURCE ? bpFigure(cst.RESOURCE_ICON) : null }
+      { bigPicture.hyperlink_id != null ? bpFigure(cst.HYPERLINK_ICON) : null }
       <p className="vde title">{bigPicture.title}</p>
     </div>
   )
@@ -166,11 +163,11 @@ const toolBar = (props) => {
       </div>
       <div className="level-right">
         { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
-        { toggleButton(showDetails, toggleDetails, "fas fa-eye", detailsCondition) }
-        { toggleButton(showChildren, toggleChildren, "fas fa-sitemap", childrenCondition) }
-        { toggleButton(showResults, toggleResults, "far fa-chart-bar", resultsCondition) }
-        { toggleButton(showEndorsments, toggleEndorsments, "fas fa-medal", endorsmentCondition) }
-        { toggleButton(showRatings, toggleRatings, "fas fa-comments", ratingsCondition) }
+        { toggleButton(showDetails, toggleDetails, cst.DETAILS_ICON, detailsCondition) }
+        { toggleButton(showChildren, toggleChildren, cst.CHILDREN_ICON, childrenCondition) }
+        { toggleButton(showResults, toggleResults, cst.RESULT_ICON, resultsCondition) }
+        { toggleButton(showEndorsments, toggleEndorsments, cst.ENDORSMENT_LIST_ICON, endorsmentCondition) }
+        { toggleButton(showRatings, toggleRatings, cst.RATING_LIST_ICON, ratingsCondition) }
         { ratingButton(bigPicture, user) }
         { lookButton(bigPicture) }
       </div>
@@ -220,7 +217,7 @@ const ratingButton = (bigPicture, user) => {
     <RatingButton
       initRating={initRating}
       classname="vde toolbar"
-      icon="far fa-comment" />
+      icon={ cst.RATING_ICON } />
   )
 }
 
@@ -231,7 +228,7 @@ const lookButton = (bigPicture) => {
 
   return (
     <LinkButton
-      icon="fas fa-search "
+      icon={ cst.SEARCH_ICON }
       to={`/subject/${subjectId}/bigPicture/${bpId}`}
       classname="vde toolbar"
     />
@@ -251,13 +248,7 @@ const bpDetails = (showDetails, body) => {
   )
 }
 
-const bpChildren = (bigPicture, children, parentMargin, user) => {
-
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
-  )
+const bpChildren = (bigPicture, children, user) => {
 
   const sortBigPictures = (a, b) => {
     // Sort by modif date
@@ -269,7 +260,7 @@ const bpChildren = (bigPicture, children, parentMargin, user) => {
   return (
     <List
       items={children}
-      container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} margin={margin}/>}
+      container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} />}
       user={user}
       emptyMessage={""}
       sortFunc={sortBigPictures}
@@ -280,12 +271,7 @@ const bpChildren = (bigPicture, children, parentMargin, user) => {
   )
 }
 
-const bpRatings = (bigPicture, ratings, parentMargin, getPage) => {
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
-  )
+const bpRatings = (bigPicture, ratings, getPage) => {
 
   return (
     <RatingList
@@ -299,19 +285,12 @@ const bpRatings = (bigPicture, ratings, parentMargin, getPage) => {
           return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
         }
       }
-      margin={margin}
     />
   )
 }
 
 
-const bpEndorsments = (bigPicture, endorsments, parentMargin, getPage) => {
-
-  const margin = (
-    parentMargin == 0
-    ? cst.SUBMARGIN 
-    : (1+cst.SUBMARGIN/100)*parentMargin
-  )
+const bpEndorsments = (bigPicture, endorsments, getPage) => {
   
   const endorsmentsSort = (endorsmentA, endorsmentB) => {
     const dateA = new Date(endorsmentA.date)
@@ -322,7 +301,7 @@ const bpEndorsments = (bigPicture, endorsments, parentMargin, getPage) => {
   return (
     <List
       items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} margin={margin} />}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}

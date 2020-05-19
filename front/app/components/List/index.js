@@ -25,7 +25,8 @@ const ListLook = (props) => {
     title,
     buttons,
     search,
-    processedRequests
+    processedRequests,
+    margin
   } = props
 
   const [
@@ -53,7 +54,9 @@ const ListLook = (props) => {
   }, [waitingForResponse])
 
   return (
-    <div className={title ? "container vde section section-field" : ""}>
+    <div
+      style={margin == undefined ? {marginLeft: cst.SUBMARGIN +"%"} : {marginLeft: margin +"%"}}
+      className={title ? "container vde section section-field" : ""}>
       {
         title
           ? header(buttons, user, title, hidden, setHidden, getPage)

@@ -19,8 +19,8 @@ const RatingListLook = (props) => {
     showHeader,
     loadFirstPage,
     title,
-    margin,
-    buttons
+    buttons,
+    margin
   } = props
 
   
@@ -66,6 +66,7 @@ const RatingListLook = (props) => {
       loadFirstPage={loadFirstPage}
       title={title}
       buttons={buttons}
+      margin={margin}
     />
   )
 }

@@ -205,7 +205,7 @@ const addRatingButton = (bigPicture, user) => {
   if (initRating.subject == null)
     initRating.subject = bigPicture.id
   return (
-    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} icon="fas fa-star" />
+    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} icon={cst.RATING_ICON} />
   )
 }
 

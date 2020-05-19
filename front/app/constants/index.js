@@ -16,6 +16,22 @@ export const ADD_NOTIFICATION = "ADD_NOTIFICATION"
 export const POP_NOTIFICATION = "POP_NOTIFICATION"
 
 
+// Icons
+export const ENDORSMENT_ICON = "fas fa-star"
+export const ENDORSMENT_LIST_ICON = "fas fa-medal"
+export const RATING_ICON = "far fa-comment"
+export const RATING_LIST_ICON = "fas fa-comments"
+export const EDIT_ICON = "fas fa-edit"
+export const RESULT_ICON = "far fa-chart-bar"
+export const DETAILS_ICON = "fas fa-eye"
+export const CHILDREN_ICON = "fas fa-sitemap"
+export const PROBLEM_ICON = "fas fa-exclamation-circle"
+export const SOLUTION_ICON = "fas fa-lightbulb"
+export const RESOURCE_ICON = "fas fa-folder"
+export const HYPERLINK_ICON = "fas fa-directions"
+export const SEARCH_ICON = "fas fa-search"
+
+
 // Ratings
 
 export const RATING = 6

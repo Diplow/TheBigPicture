@@ -16,7 +16,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const [waitingForResponse, setWaitingForResponse] = useState("")
 
   const loadMore = () => {
-    if (getPage == null) return
+    if (getPage == null || count == 0) return
     const options = { favorites, search }
     const newPageNb = pageNb+1
     setPageNb(newPageNb)
@@ -74,7 +74,8 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 }
 
 const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
-  return count == undefined || currentPage.length < count && count > pageNb*size ? (
+  const canLoad = count == undefined || currentPage.length < count && count > pageNb*size
+  return canLoad ? (
     <a className="subtitle vde-loadmore" onClick={loadMore}>
       Charger plus de contenus...
     </a>
