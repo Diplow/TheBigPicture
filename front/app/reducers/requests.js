@@ -1,5 +1,6 @@
 
 import * as cst from "../constants"
+import * as reducer_utils from "./utils"
 
 
 /**
@@ -45,14 +46,14 @@ const requests = (state = [], action) => {
       // This way, it will not be sent to the server but the server resp
       // will be processed again.
       if (old != null && old.state == cst.REQUEST_PROCESSED) {
-        return [
-          ...state.filter(elt => elt.id != request.id),
+        return reducer_utils.update_item(
+          state,
+          old.id,
           {
-            ...old,
             requestId: request.requestId,
             state: cst.REQUEST_DONE
           }
-        ]
+        )
       }
 
       return [
@@ -73,37 +74,31 @@ const requests = (state = [], action) => {
       ]
 
     case cst.REQUEST_ONGOING:
-      request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
-        {
-          ...state.find(elt => elt.id == request.id),
-          state: cst.REQUEST_ONGOING
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.request.id,
+        { state: cst.REQUEST_ONGOING }
+      )
 
     case cst.REQUEST_DONE:
       request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
+      return reducer_utils.update_item(
+        state,
+        request.id,
         {
-          ...state.find(elt => elt.id == request.id),
           state: cst.REQUEST_DONE,
           success: request.success,
           status: request.status,
           response: request.response
         }
-      ]
+      )
 
     case cst.REQUEST_PROCESSED:
-      request = action.request
-      return [
-        ...state.filter(elt => elt.id != request.id),
-        {
-          ...state.find(elt => elt.id == request.id),
-          state: cst.REQUEST_PROCESSED,
-        }
-      ]
+      return reducer_utils.update_item(
+        state,
+        action.request.id,
+        { state: cst.REQUEST_PROCESSED }
+      )
 
     default:
       return state

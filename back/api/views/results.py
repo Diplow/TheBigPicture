@@ -1,5 +1,5 @@
 
-from api.models import BigPicture, Rating
+from api.models import BigPicture, Rating, Endorsment
 from django.http import HttpResponse
 import json
 import math
@@ -23,12 +23,12 @@ def median_value(queryset, term):
 
 def compute_results(target_field_name, itemId):
   kwargs = {}
-  kwargs["target__{%s}".format(target_field_name)] = itemId
+  kwargs["target__{field}".format(field=target_field_name)] = itemId
   endorsments = Endorsment.objects.filter(**kwargs)
   res = {
-   str(n)+"star": endorsments.filter(target__value=n).count()
+    str(n)+"star": endorsments.filter(value=n).count() for n in range(6)
   }
   res["count"] = endorsments.count()
-  res["median"] = median_value(ratings.exclude(value=0), "value")
+  res["median"] = median_value(endorsments, "value")
   return res
 

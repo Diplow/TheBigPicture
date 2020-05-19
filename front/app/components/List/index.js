@@ -46,7 +46,11 @@ const ListLook = (props) => {
   )
 
   const [hidden, setHidden] = useState(!loadFirstPage)
-  const loading = waitingForResponse !== ""
+  const [loading, setLoading] = useState(waitingForResponse !== "")
+
+  useEffect(() => {
+    setLoading(waitingForResponse !== "")
+  }, [waitingForResponse])
 
   return (
     <div className={title ? "container vde section section-field" : ""}>
@@ -74,8 +78,8 @@ const ListLook = (props) => {
       }
       {
         !hidden
-          ? <Loader condition={loading && getPage !== null}>
-              { !hidden ? pagination : null }
+          ? <Loader condition={loading}>
+              {pagination}
             </Loader>
           : null
       }

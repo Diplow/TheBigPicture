@@ -7,7 +7,6 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-
 const BigPictureListLook = (props) => {
   const {
     bigPictures,
@@ -33,7 +32,14 @@ const BigPictureListLook = (props) => {
   return (
     <List
       items={bigPictures}
-      container={(bigPicture) => <BigPicturePreview key={`preview-${bigPicture.id}`} bigPictureId={bigPicture.id} margin={0} />}
+      container={(bigPicture) => {
+        return (
+          <BigPicturePreview
+            key={`preview-${bigPicture.id}`}
+            bigPictureId={bigPicture.id}
+            margin={0} />
+        )
+      }}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={sortBigPictures}

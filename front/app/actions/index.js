@@ -128,13 +128,18 @@ export const deleteVote = (id) => {
 }
 
 export const getRatings = (page, options, requestId) => {
+  let requestName = "getRatings"
+  if (options.bigpicture)
+    requestName = "getBpRatings"
+  if (options.rating)
+    requestName = "getRatingRatings"
   return (dispatch) => {
     api.getCollection(
       dispatch,
       "ratings",
       page,
       utils.removeEmptyKeys(options),
-      "getRatings",
+      requestName,
       requestId
     )
   }
@@ -161,6 +166,43 @@ export const getRatingResults = (ratingId) => {
       { ratingId },
       "getRatingResults",
       false
+    )
+  }
+}
+
+export const getEndorsments = (page, options, requestId) => {
+  return (dispatch) => {
+    api.getCollection(
+      dispatch,
+      "endorsments",
+      page,
+      utils.removeEmptyKeys(options),
+      "getEndorsments",
+      requestId
+    )
+  }
+}
+
+
+export const postEndorsment = (endorsment) => {
+  return (dispatch) => {
+    api.sendItem(
+      dispatch,
+      utils.removeEmptyKeys(endorsment),
+      "endorsments",
+      basics.addEndorsment,
+      "/",
+      "POST"
+    )
+  }
+}
+
+export const deleteEndorsment = (id) => {
+  return (dispatch) => {
+    api.deleteItem(
+      dispatch,
+      id,
+      "endorsments"
     )
   }
 }

@@ -10,19 +10,19 @@ import statistics
 
 
 class Rating(models.Model):
-  value = models.FloatField(default=0.)
   target_bp = models.ForeignKey(BigPicture, blank=True, null=True, on_delete=models.CASCADE, related_name='ratings')
   target_rating = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name='ratings')
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   subject = models.ForeignKey(BigPicture, on_delete=models.CASCADE, related_name='subjectratings')
   date = models.DateField(default=datetime.date.today)
-  reason = models.TextField(blank=True)
+  body = models.TextField(blank=True)
 
   def __unicode__(self):
     return self.id
 
 
 class Endorsment(models.Model):
+  value = models.FloatField(default=0.)
   target =  models.ForeignKey(Rating, on_delete=models.CASCADE, related_name="endorsments")
   date = models.DateField(default=datetime.date.today)
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

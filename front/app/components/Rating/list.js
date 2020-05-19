@@ -25,35 +25,28 @@ const RatingListLook = (props) => {
 
   
   const ratingsSort = (ratingA, ratingB) => {
-    const ENOUGH_RATINGS = 5
+    const ENOUGH_ENDORSMENTS = 5
     const sort = (rA, rB) => {
       const dateA = new Date(rA.date)
       const dateB = new Date(rB.date)
-      if (rA.median != rB.median) {
-        return rA.median > rB.median ? 1 : -1 
-      }
-      else if (rA.average != rB.average) {
-        return rA.average > rB.average ? 1 : -1
-      }
-      else if (rA.ratingcount != rB.ratingcount) {
-        return rA.ratingcount > rB.ratingcount ? 1 : -1 
-      }
-      else if (dateA != dateB) {
+      if (rA.endorsmentCount != rB.endorsmentCount)
+        return rA.endorsmentCount > rB.endorsmentCount ? 1 : -1 
+      else if (rA.ratingCount != rB.ratingCount)
+        return rA.ratingCount > rB.ratingCount ? 1 : -1 
+      else if (dateA != dateB)
         return dateA < dateB ? 1 : -1
-      }
-      else {
+      else
         return 0
-      }
     }
-    if (ratingA.ratingcount > ENOUGH_RATINGS) {
-      if (ratingB.ratingcount > ENOUGH_RATINGS)
+    if (ratingA.endorsmentCount > ENOUGH_ENDORSMENTS) {
+      if (ratingB.endorsmentCount > ENOUGH_ENDORSMENTS)
         return sort(ratingA, ratingB)
       else {
         return 1
       }
     }
     else {
-      if (ratingB.ratingcount > ENOUGH_RATINGS)
+      if (ratingB.endorsmentCount > ENOUGH_ENDORSMENTS)
         return -1
       else {
         return sort(ratingA, ratingB)
@@ -71,7 +64,6 @@ const RatingListLook = (props) => {
       count={count}
       getPage={getPage}
       loadFirstPage={loadFirstPage}
-      showHeader={showHeader}
       title={title}
       buttons={buttons}
     />

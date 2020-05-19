@@ -66,6 +66,15 @@ export const setSubjectCount = (count, requestId) => {
   }
 }
 
+export const setBpReferenceCount = (count, bpId, requestId) => {
+  return {
+    type: cst.SET_BP_REFERENCE_COUNT,
+    count,
+    bpId,
+    requestId
+  }
+}
+
 export const setSubscriptionCount = (count, requestId) => {
   return {
     type: cst.SET_SUBSCRIPTION_COUNT,
@@ -92,11 +101,38 @@ export const setOwnRatingCount = (userId, count, requestId) => {
   }
 }
 
-export const setRatingCount = (userId, count, requestId) => {
+export const setBpRatingCount = (bpId, count, requestId) => {
   return {
-    type: cst.SET_RATING_COUNT,
+    type: cst.SET_BP_RATING_COUNT,
     count,
-    userId,
+    bpId,
+    requestId
+  }
+}
+
+export const setRatingRatingCount = (ratingId, count, requestId) => {
+  return {
+    type: cst.SET_RATING_RATING_COUNT,
+    count,
+    ratingId,
+    requestId
+  }
+}
+
+export const setEndorsmentCount = (ratingId, count, requestId) => {
+  return {
+    type: cst.SET_ENDORSMENT_COUNT,
+    count,
+    ratingId,
+    requestId
+  }
+}
+
+export const setBpEndorsmentCount = (bpId, count, requestId) => {
+  return {
+    type: cst.SET_BP_ENDORSMENT_COUNT,
+    count,
+    bpId,
     requestId
   }
 }
@@ -112,7 +148,7 @@ export const addBigPicture = (bigpicture) => {
 // note that bpId is called "reference" in the querystring of
 // the server request. It makes sense when you are server side
 // and you understand "reference" as "who is referring to this bp"
-// but here reference represents something else: the result of this request.
+// but here "reference" represents something else: the result of this request.
 export const addBigPictureReference = (bpId, referenceId) => {
   return {
     type: cst.ADD_BIG_PICTURE_REFERENCE,
@@ -150,6 +186,13 @@ export const addSubscription = (subscription) => {
   }
 }
 
+export const addEndorsment = (endorsment) => {
+  return {
+    type: cst.ADD_ENDORSMENT,
+    endorsment
+  }
+}
+
 export const addRatingResults = (ratingId, results) => {
   return {
     type: cst.ADD_RATING_RESULTS,
@@ -175,6 +218,13 @@ export const removeRating = (id) => {
 export const removeSubscription = (id) => {
   return {
     type: cst.DELETE_SUBSCRIPTION,
+    id
+  }
+}
+
+export const removeEndorsment = (id) => {
+  return {
+    type: cst.DELETE_ENDORSMENT,
     id
   }
 }

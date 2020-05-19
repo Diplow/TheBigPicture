@@ -20,7 +20,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
     const options = { favorites, search }
     const newPageNb = pageNb+1
     setPageNb(newPageNb)
-    const searchRequestId = getPage(pageNb+1, options, currentSearchId) 
+    const searchRequestId = getPage(pageNb+1, options, currentSearchId)
     setWaitingForResponse(searchRequestId)
     setCurrentSearchId(searchRequestId)
   }
@@ -41,7 +41,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
     // Watch current request and stop waiting for a response if it is processed
     const isCurrentPage = (elt) => elt.nextargs == undefined || elt.nextargs.page == pageNb
     const currentRequest = (elt) => elt.requestId == waitingForResponse && isCurrentPage(elt)
-    processedRequests.find(currentRequest) && setWaitingForResponse("")
+    if (processedRequests.find(currentRequest) !== undefined) setWaitingForResponse("")
   }, [processedRequests])
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 }
 
 const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
-  return currentPage.length < count && count > pageNb*size ? (
+  return count == undefined || currentPage.length < count && count > pageNb*size ? (
     <a className="subtitle vde-loadmore" onClick={loadMore}>
       Charger plus de contenus...
     </a>

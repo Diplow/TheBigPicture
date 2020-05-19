@@ -25,15 +25,21 @@ class EndorsmentViewSet(ModelViewSet):
   def get_queryset(self):
     target = self.request.query_params.get('target', None)
     author = self.request.query_params.get('author', None)
+    bigpicture = self.request.query_params.get('bigpicture', None)
+    rating = self.request.query_params.get('rating', None)
     if author is not None:
       self.queryset = self.queryset.filter(author=author)
     if target is not None:
       self.queryset = self.queryset.filter(target=target)
-    return queryset
+    if bigpicture is not None:
+      self.queryset = self.queryset.filter(target__target_bp=bigpicture)
+    if rating is not None:
+      self.queryset = self.queryset.filter(target__target_rating=rating)
+    return self.queryset
 
 
 class RatingViewSet(ModelViewSet):
-  queryset = Rating.objects.all().exclude(reason="")
+  queryset = Rating.objects.all()
   serializer_class = RatingSerializer
   permission_classes = [IsAuthorOrReadOnly]
 
@@ -56,16 +62,4 @@ class RatingViewSet(ModelViewSet):
   def create(self, request):
     if request.user.id != int(request.data["author_id"]):
       return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter une raison dont vous n'êtes pas l'auteur."}), status=401)
-
-    if (request.data["value"] == 6):
-      endorsment = Rating.objects.get(id=request.data["target_rating"])
-      if request.user.id == endorsment.author_id:
-        return HttpResponse(json.dumps({"error": "Vous ne pouvez pas adhérer à votre propre commentaire."}), status=400)
-      request.data["value"] = endorsment.value
-      request.data["reason"] = endorsment.reason
-      request.data["endorsment"] = endorsment.id
-      if endorsment.target_rating is not None:
-        request.data["target_rating"] = endorsment.target_rating.id
-      if endorsment.target_bp is not None:
-        request.data["target_bp"] = endorsment.target_bp.id
     return super().create(request)

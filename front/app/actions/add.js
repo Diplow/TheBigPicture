@@ -34,10 +34,13 @@ const addBigPicture = (request, dispatch, bigPicture) => {
   }
 
   // Add the author of the bp to the users list
-  dispatch(basics.addUser({
-    ...bigPicture.author,
-    favorite
-  }))
+  if (bigPicture.author.id) {
+    dispatch(basics.addUser({
+      ...bigPicture.author,
+      favorite
+    }))
+  }
+
   // Add the subscription
   if (favorite) {
     dispatch(basics.addSubscription({
@@ -78,6 +81,11 @@ const ADD_ACTIONS = {
   "subscriptions": (request, dispatch, subscription) => {
     dispatch(basics.addUser({ ...subscription.target, favorite: true }))
     dispatch(basics.addSubscription(subscription))
+  },
+  "endorsments": (request, dispatch, endorsment) => {
+    dispatch(basics.addUser(endorsment.author))
+    dispatch(basics.addRating(endorsment.target))
+    dispatch(basics.addEndorsment(endorsment))
   },
   "ownratings": (request, dispatch, rating) => {dispatch(basics.addRating(rating)) },
   "users": (request, dispatch, user) => { dispatch(basics.addUser(user)) },

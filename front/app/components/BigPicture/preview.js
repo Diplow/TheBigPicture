@@ -5,7 +5,7 @@ import BigPictureModal from './modal'
 import Results from './results'
 import RatingModal from '../Rating/modal'
 import RatingPreview from '../Rating/preview'
-import { getBigPicture, getRatings } from '../../actions/index'
+import { getBigPicture, getRatings, getEndorsments } from '../../actions/index'
 import AuthorIcon from '../User/authorIcon'
 import NewBigPicture from './new'
 import NewRating from '../Rating/new'
@@ -17,6 +17,7 @@ import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
+import EndorsmentPreview from '../Endorsment/preview'
 import "./style.scss"
 import * as cst from '../../constants'
 
@@ -26,12 +27,14 @@ const BigPicturePreviewLook = (props) => {
   const {
     bigPicture,
     children,
+    endorsments,
     user,
     hyperlink,
     ratings,
     bigPictureId,
     getBigPicture,
     getBigPictureRatings,
+    getBigPictureEndorsments,
     // all children of a given BP share the same margin,
     // larger than their parent
     margin
@@ -52,9 +55,9 @@ const BigPicturePreviewLook = (props) => {
   const [showRatings, toggleRatings] = useToggle(false)
   const [showDetails, toggleDetails] = useToggle(false)
   const [showResults, toggleResults] = useToggle(false)
+  const [showEndorsments, toggleEndorsments] = useToggle(false)
 
-  if (bigPicture == undefined || bigPicture == null)
-    return null
+  if (!bigPicture) return null
 
   return (
     <div style={margin == undefined ? {} : {marginLeft:margin+"%"}} key={bigPicture.id}>
@@ -63,24 +66,34 @@ const BigPicturePreviewLook = (props) => {
           { bpLeftLevel(bigPicture) }
         </header>
         { bpDetails(showDetails, bigPicture.body) }
-        { toolBar(
+        {
+          toolBar({
             bigPicture,
             ratings,
             showDetails,
             showRatings,
             showChildren,
             showResults,
+            showEndorsments,
             toggleDetails,
             toggleRatings,
             toggleChildren,
             toggleResults,
+            toggleEndorsments,
             bpDataEditionBuffer,
             setBpDataEditionBuffer,
-            user) }
+            user
+          })
+        }
       </div>
       {
         showResults
         ? <Results showHeader={false} bigPictureId={bigPicture.id} />
+        : null
+      }
+      {
+        showEndorsments
+        ? bpEndorsments(bigPicture, endorsments, margin, getBigPictureEndorsments)
         : null
       }
       {
@@ -119,70 +132,67 @@ const bpLeftLevel = (bigPicture) => {
   )
 }
 
-const toolBar = (bigPicture, ratings, showDetails, showRatings, showChildren, showResults, toggleDetails, toggleRatings, toggleChildren, toggleResults, init, setter, user) => {
+const toolBar = (props) => {
+  const {
+    bigPicture,
+    ratings,
+    showDetails,
+    showRatings,
+    showChildren,
+    showResults,
+    showEndorsments,
+    toggleDetails,
+    toggleRatings,
+    toggleChildren,
+    toggleResults,
+    toggleEndorsments,
+    bpDataEditionBuffer,
+    setBpDataEditionBuffer,
+    user
+  } = props
+
+  // conditions to display toolbar's buttons
+  const endorsmentCondition = true
+  const resultsCondition = true
+  const ratingsCondition = bigPicture.ratingCount != 0 || ratings.length != 0
+  const childrenCondition = bigPicture.children.length != 0
+  const detailsCondition = bigPicture.body != ""
+  const editCondition = user.id == bigPicture.author
+
   return (
     <div className="vde toolbar level is-mobile">
       <div className="level-left">
         <p>{bigPicture.creation_date}</p>
       </div>
       <div className="level-right">
-        {editButton(init, setter)}
-        {ratingButton(bigPicture, user)}
-        { bigPicture.body != "" ? toggleDetailsButton(showDetails, toggleDetails) : null}
-        {toggleResultsButton(showResults, toggleResults)}
-        { bigPicture.children.length != 0 ? toggleChildrenButton(showChildren, toggleChildren) : null}
-        { bigPicture.ratingCount != 0 || ratings.length != 0 ? toggleRatingButton(showRatings, toggleRatings) : null}
-        {lookButton(bigPicture)}
+        { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
+        { toggleButton(showDetails, toggleDetails, "fas fa-eye", detailsCondition) }
+        { toggleButton(showChildren, toggleChildren, "fas fa-sitemap", childrenCondition) }
+        { toggleButton(showResults, toggleResults, "far fa-chart-bar", resultsCondition) }
+        { toggleButton(showEndorsments, toggleEndorsments, "fas fa-medal", endorsmentCondition) }
+        { toggleButton(showRatings, toggleRatings, "fas fa-comments", ratingsCondition) }
+        { ratingButton(bigPicture, user) }
+        { lookButton(bigPicture) }
       </div>
     </div>
   )
 }
 
-const toggleRatingButton = (showRatings, toggleRatings) => {
+const toggleButton = (show, toggle, icon, condition) => {
+  if (!condition) return null
   return (
     <RadioButton
-      classname={"vde toolbar"}
-      isPushed={showRatings}
-      setIsPushed={toggleRatings}
-      icon={"fas fa-comments"}
+      classname="vde toolbar"
+      isPushed={show}
+      setIsPushed={toggle}
+      icon={icon}
     />
   )
+
 }
 
-const toggleChildrenButton = (showChildren, toggleChildren) => {
-  return (
-    <RadioButton
-      classname={"vde toolbar"}
-      isPushed={showChildren}
-      setIsPushed={toggleChildren}
-      icon={"fas fa-eye"}
-    />
-  )
-}
-
-const toggleDetailsButton = (showDetails, toggleDetails) => {
-  return (
-    <RadioButton
-      classname={"vde toolbar"}
-      isPushed={showDetails}
-      setIsPushed={toggleDetails}
-      icon={"fas fa-file"}
-    />
-  )
-}
-
-const toggleResultsButton = (showResults, toggleResults) => {
-  return (
-    <RadioButton
-      classname={"vde toolbar"}
-      isPushed={showResults}
-      setIsPushed={toggleResults}
-      icon={"far fa-chart-bar"}
-    />
-  )
-}
-
-const editButton = (init, setter) => {
+const editButton = (init, setter, condition) => {
+  if (!condition) return null
   return (
     <EditionModalButton
       classname={"vde toolbar"}
@@ -210,7 +220,7 @@ const ratingButton = (bigPicture, user) => {
     <RatingButton
       initRating={initRating}
       classname="vde toolbar"
-      icon="fas fa-star" />
+      icon="far fa-comment" />
   )
 }
 
@@ -266,9 +276,6 @@ const bpChildren = (bigPicture, children, parentMargin, user) => {
       count={bigPicture.children.length}
       getPage={null}
       loadFirstPage={true}
-      showHeader={false}
-      title={""}
-      buttons={[]}
     />
   )
 }
@@ -284,18 +291,47 @@ const bpRatings = (bigPicture, ratings, parentMargin, getPage) => {
     <RatingList
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
-      showHeader={false}
       loadFirstPage={true}
-      emptyMessage={"Cette vue d'ensemble n'a pas encore été raisonnée."}
+      emptyMessage={cst.MSG_NO_REASON}
       count={bigPicture.ratingCount}
-      title={""}
       getPage={
         (page, options, reqId) => {
-          getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
         }
       }
-      buttons={[]}
       margin={margin}
+    />
+  )
+}
+
+
+const bpEndorsments = (bigPicture, endorsments, parentMargin, getPage) => {
+
+  const margin = (
+    parentMargin == 0
+    ? cst.SUBMARGIN 
+    : (1+cst.SUBMARGIN/100)*parentMargin
+  )
+  
+  const endorsmentsSort = (endorsmentA, endorsmentB) => {
+    const dateA = new Date(endorsmentA.date)
+    const dateB = new Date(endorsmentB.date)
+    return dateA >= dateB ? 1 : -1
+  }
+
+  return (
+    <List
+      items={endorsments}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} margin={margin} />}
+      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      sortFunc={endorsmentsSort}
+      count={bigPicture.endorsmentCount}
+      getPage={
+        (page, options, reqId) => {
+          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        }
+      }
+      loadFirstPage={true}
     />
   )
 }
@@ -309,13 +345,15 @@ const mapStateToProps = (state, ownProps) => {
     user: state.get("user"),
     hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
     ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
+    endorsments: bigPicture ? state.get("endorsments").filter(endorsment => endorsment.bigPicture == bigPicture.id) : []
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: getPageFormatter(dispatch, getRatings)
+    getBigPictureRatings: getPageFormatter(dispatch, getRatings),
+    getBigPictureEndorsments: getPageFormatter(dispatch, getEndorsments)
   }
 }
 

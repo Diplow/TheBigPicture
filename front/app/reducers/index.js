@@ -13,6 +13,7 @@ import usersReducer from './users'
 import ratingsReducer from './ratings'
 import requestsReducer from './requests'
 import subscriptionsReducer from './subscriptions'
+import endorsmentsReducer from './endorsments'
 import globalReducer from './global'
 
 
@@ -24,6 +25,7 @@ const createReducer = (history) => combineReducers({
   users: usersReducer,
   requests: requestsReducer,
   subscriptions: subscriptionsReducer,
+  endorsments: endorsmentsReducer,
   notifications: notificationsReducer,
   global: globalReducer,
 });

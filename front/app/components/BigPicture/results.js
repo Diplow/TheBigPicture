@@ -42,22 +42,22 @@ const header = (bigPicture, hidden, setHidden) => {
 
 const chart = (bigPicture) => {
   const series = [{
-    name: EXPLICATIONS[bigPicture.kind][0],
+    name: EXPLICATIONS[0],
     data: [bigPicture.results["0star"]]
   },{
-    name: EXPLICATIONS[bigPicture.kind][1],
+    name: EXPLICATIONS[1],
     data: [bigPicture.results["1star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][2],
+    name: EXPLICATIONS[2],
     data: [bigPicture.results["2star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][3],
+    name: EXPLICATIONS[3],
     data: [bigPicture.results["3star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][4],
+    name: EXPLICATIONS[4],
     data: [bigPicture.results["4star"]]
   }, {
-    name: EXPLICATIONS[bigPicture.kind][5],
+    name: EXPLICATIONS[5],
     data: [bigPicture.results["5star"]]
   }]
   const options = {

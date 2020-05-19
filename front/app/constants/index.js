@@ -36,11 +36,15 @@ export const VALUE_ICONS = {
 // pagination
 
 export const PAGE_SIZE = 10.
-export const SET_OWN_SUBJECT_COUNT = "SET_OWN_SUBJECT_COUNT"
 export const SET_GLOBAL_SUBJECT_COUNT = "SET_GLOBAL_SUBJECT_COUNT"
+export const SET_OWN_SUBJECT_COUNT = "SET_OWN_SUBJECT_COUNT"
+export const SET_BP_REFERENCE_COUNT = "SET_BP_REFERENCE_COUNT"
 export const SET_OWN_RATING_COUNT = "SET_OWN_RATING_COUNT"
-export const SET_RATING_COUNT = "SET_RATING_COUNT"
+export const SET_RATING_RATING_COUNT = "SET_RATING_RATING_COUNT"
+export const SET_BP_RATING_COUNT = "SET_BP_RATING_COUNT"
 export const SET_SUBSCRIPTION_COUNT = "SET_SUBSCRIPTION_COUNT"
+export const SET_ENDORSMENT_COUNT = "SET_ENDORSMENT_COUNT"
+export const SET_BP_ENDORSMENT_COUNT = "SET_BP_ENDORSMENT_COUNT"
 
 // Big Pictures
 
@@ -65,6 +69,8 @@ export const CLASSNAMES = {
 export const ADD_USER = "ADD_USER"
 export const ADD_SUBSCRIPTION = "ADD_SUBSCRIPTION"
 export const DELETE_SUBSCRIPTION = "DELETE_SUBSCRIPTION"
+export const ADD_ENDORSMENT = "ADD_ENDORSMENT"
+export const DELETE_ENDORSMENT = "DELETE_ENDORSMENT"
 export const GUEST_NAME = "Invité"
 export const GUEST_ID = 0
 
@@ -89,8 +95,11 @@ export const MSG_NO_REASON = "Cette vue d'ensemble n'a pas encore été raisonn�
 export const REFERENCE_LIST_TITLE = "Références"
 export const REASON_LIST_TITLE = "Raisons"
 export const USER_HAS_NO_SUBJECT = (username) => `Aucun sujet n'a encore été créé publiquement par ${username}`
+export const USER_HAS_NO_REASON = (username) => `Aucune raison n'a encore été donnée publiquement par ${username}`
 export const CREATED_SUBJECT_LIST_TITLE = "Sujets créés"
 export const CREATED_REASON_LIST_TITLE = "Raisons données"
-export const USER_HAS_NO_REASON = (username) => `Aucune raison n'a encore été donnée publiquement par ${username}`
 export const SUBSCRIPTION_LIST_TITLE = "Abonnements"
 export const USER_HAS_NO_SUBSCRIPTION = "Vous ne vous êtes encore abonné à personne."
+export const RATING_HAS_NO_RATING = "Cette raison n'a pas encore été raisonnée..."
+export const RATING_HAS_NO_ENDORSMENT = "Cette raison n'a encore été évaluée par personne..."
+export const BP_HAS_NO_ENDORSMENT = "Cette vue d'ensemble n'a encore été évaluée par personne..."

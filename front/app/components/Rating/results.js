@@ -27,22 +27,22 @@ const ResultsLook = ({ rating, getResults }) => {
 
 const chart = (rating) => {
   const series = [{
-    name: EXPLICATIONS[cst.RATING][0],
+    name: EXPLICATIONS[0],
     data: [rating.results["0star"]]
   },{
-    name: EXPLICATIONS[cst.RATING][1],
+    name: EXPLICATIONS[1],
     data: [rating.results["1star"]]
   }, {
-    name: EXPLICATIONS[cst.RATING][2],
+    name: EXPLICATIONS[2],
     data: [rating.results["2star"]]
   }, {
-    name: EXPLICATIONS[cst.RATING][3],
+    name: EXPLICATIONS[3],
     data: [rating.results["3star"]]
   }, {
-    name: EXPLICATIONS[cst.RATING][4],
+    name: EXPLICATIONS[4],
     data: [rating.results["4star"]]
   }, {
-    name: EXPLICATIONS[cst.RATING][5],
+    name: EXPLICATIONS[5],
     data: [rating.results["5star"]]
   }]
   const options = {

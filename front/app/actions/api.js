@@ -12,9 +12,22 @@ const NEXTS = {
       dispatch(basics.setSubjectCount(result.count, requestId))
     }
   },
-  "getRatings": (dispatch, nextargs, requestId) => {
+  "getBpRatings": (dispatch, nextargs, requestId) => {
     return (result) => {
-      dispatch(basics.setRatingCount(nextargs.author, result.count, requestId))
+      dispatch(basics.setBpRatingCount(nextargs.bigpicture, result.count, requestId))
+    }
+  },
+  "getRatingRatings": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))
+    }
+  },
+  "getEndorsments": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      if (nextargs.bigpicture)
+        dispatch(basics.setBpEndorsmentCount(nextargs.bigpicture, result.count, requestId))
+      if (nextargs.rating)
+        dispatch(basics.setEndorsmentCount(nextargs.rating, result.count, requestId))
     }
   },
   "getOwnSubjects": (dispatch, nextargs, requestId) => {
@@ -34,6 +47,7 @@ const NEXTS = {
   },
   "getReferences": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setBpReferenceCount(resp.count, nextargs.reference, requestId))
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
         dispatch(basics.addBigPicture(bp))
@@ -138,7 +152,8 @@ export const buildRequest = (body, method) => {
 const DELETE_ACTIONS = {
   "bigpictures": basics.removeBigPicture,
   "ratings": basics.removeRating,
-  "subscriptions": basics.removeSubscription
+  "subscriptions": basics.removeSubscription,
+  "endorsments": basics.removeEndorsment
 }
 
 export const deleteItem = (dispatch, itemId, itemAPI) => {

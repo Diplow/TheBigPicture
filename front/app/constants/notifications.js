@@ -1,8 +1,8 @@
 
 export const itemCreation = {
   ratings: {
-      title: "A voté !",
-      message: "Votre évaluation a bien été prise en compte.",
+      title: "A raisonné !",
+      message: "Votre raison a bien été prise en compte.",
       type: "success"
     },
   bigpictures: {
@@ -14,25 +14,35 @@ export const itemCreation = {
     title: "Nouvel abonnement",
     message: "Vous avez un nouvel abonnement.",
     type: "success"
+  },
+  "endorsments": {
+    title: "A voté !",
+    message: "Votre vote a bien été pris en compte.",
+    type: "success"
   }
 }
 
 export const itemModification = {
   bigpictures: {
-      title: "Vue modifiée",
-      message: "Votre vue a bien été modifiée.",
-      type: "success"
-    },
+    title: "Vue modifiée",
+    message: "Votre vue a bien été modifiée.",
+    type: "success"
+  },
   ratings: {
-    title: "Vote modifié",
-    message: "Votre vote a bien été modifié.",
+    title: "Raison modifiée",
+    message: "Votre raison a bien été modifiée.",
     type: "success"
   },
   users: {
-      title: "Utilisateur modifié",
-      message: "Vous avez bien modifié votre profil.",
-      type: "success"
-    }
+    title: "Utilisateur modifié",
+    message: "Vous avez bien modifié votre profil.",
+    type: "success"
+  },
+  "endorsments": {
+    title: "Vote modifié !",
+    message: "Votre vote a bien été modifié.",
+    type: "success"
+  }
 }
 
 export const itemDeletion = {
@@ -42,13 +52,18 @@ export const itemDeletion = {
       type: "success"
     },
   ratings: {
-    title: "Vote supprimé",
-    message: "Votre vote a bien été supprimé.",
+    title: "Raison supprimée",
+    message: "Votre raison a bien été supprimée.",
     type: "success"
   },
   subscriptions: {
     title: "Abonnement annulé",
     message: "Votre abonnement a bien été annulé.",
+    type: "success"
+  },
+  "endorsments": {
+    title: "Vote annulé.",
+    message: "Vous êtes revenu sur votre vote.",
     type: "success"
   }
 }
@@ -88,7 +103,7 @@ export const REFERENCE_ERROR = {
 export const WELCOME = (username) => {
   return {
     title: "Identification réussie",
-    message: "Bienvenue " + json.user.username,
+    message: "Bienvenue " + username,
     type: "success"
   }
 }

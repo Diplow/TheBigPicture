@@ -5,9 +5,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import Loader from '../../../components/Loader'
 import BigPictureList, { createList } from '../../../components/BigPicture/list'
+import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
 import Results from '../../../components/BigPicture/results'
+import List from '../../../components/List'
 import { RatingButton } from '../../../components/Rating/buttons'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
@@ -20,7 +22,17 @@ import * as cst from '../../../constants'
 import "./style.scss"
 
 
-const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, getReferences, getRatingsPage }) => {
+const BigPictureViewLook = (props) => {
+  const {
+    user,
+    match,
+    bigPicture,
+    children,
+    endorsments,
+    getBigPicture,
+    getReferences,
+    getRatingsPage,
+    getEndorsmentsPage } = props
   const [init, setter] = useState(bigPicture)
 
   useEffect(() => {
@@ -46,6 +58,7 @@ const BigPictureViewLook = ({ user, match, bigPicture, children, getBigPicture, 
         { comments(init, getRatingsPage, user) }
         { references(init, getReferences) }
         { results(init) }
+        { endorsmentsList(init, endorsments, getEndorsmentsPage) }
       </Loader>
     </div>
   )
@@ -162,9 +175,9 @@ const comments = (bigPicture, getRatingsPage, user) => {
 
   return (
     <RatingList
-      margin={cst.BASE_MARGIN}
-      loadFirstPage={false}
+      target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
+      loadFirstPage={false}
       count={bigPicture.ratingCount}
       getPage={
         (page, options, requestId) => {
@@ -174,6 +187,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
       title={cst.REASON_LIST_TITLE}
       emptyMessage={cst.MSG_NO_REASON}
       buttons={[() => addRatingButton(bigPicture, user)]}
+      margin={cst.BASE_MARGIN}
     />
   )
 }
@@ -212,6 +226,34 @@ const references = (bigPicture, getReferences) => {
       title={cst.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
       emptyMessage={cst.MSG_NO_REFERENCE}
+    />
+  )
+}
+
+
+const endorsmentsList = (bigPicture, endorsments, getPage) => {
+  if (bigPicture == undefined) return null
+
+  const endorsmentsSort = (endorsmentA, endorsmentB) => {
+    const dateA = new Date(endorsmentA.date)
+    const dateB = new Date(endorsmentB.date)
+    return dateA >= dateB ? 1 : -1
+  }
+
+  return (
+    <List
+      items={endorsments}
+      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} margin={0} />}
+      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      sortFunc={endorsmentsSort}
+      count={bigPicture.endorsmentCount}
+      getPage={
+        (page, options, reqId) => {
+          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        }
+      }
+      loadFirstPage={false}
+      title={"Évaluations"}
     />
   )
 }
