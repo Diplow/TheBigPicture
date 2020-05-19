@@ -57,6 +57,7 @@ const NEXTS = {
   },
   "getBigPictureResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
+      dispatch(basics.setBpEndorsmentCount(nextargs.bigpictureId, resp.count, requestId))
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
     }
   },
