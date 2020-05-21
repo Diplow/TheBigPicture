@@ -9,7 +9,7 @@ const initial_state = {
 const globalState = (state = initial_state, action) => {
   switch (action.type) {
 
-    case cst.SET_GLOBAL_SUBJECT_COUNT:
+    case cst.actions.SET_GLOBAL_SUBJECT_COUNT:
       return {
         ...state,
         subjectCount: action.count

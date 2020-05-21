@@ -3,7 +3,7 @@ import * as cst from "../constants"
 
 
 const GUEST = {
-  "username": cst.GUEST_NAME,
+  "username": cst.labels.GUEST_NAME,
   "email": "",
   "bio": "",
   "groups": [],
@@ -48,7 +48,7 @@ const initial_state = {
 const user = (state = initial_state, action) => {
   switch (action.type) {
 
-    case cst.ADD_USER:
+    case cst.actions.ADD_USER:
       if (action.user.id == state.id)
         return {
           ...state,
@@ -56,7 +56,7 @@ const user = (state = initial_state, action) => {
         }
       return state
 
-    case cst.LOGIN:
+    case cst.actions.LOGIN:
       return {
         ...action.user,
         image: action.user.image,
@@ -64,13 +64,13 @@ const user = (state = initial_state, action) => {
         subscriptionCount: 1
       }
 
-    case cst.SET_SUBSCRIPTION_COUNT:
+    case cst.actions.SET_SUBSCRIPTION_COUNT:
       return {
         ...state,
         subscriptionCount: action.count
       }
 
-    case cst.LOGOUT:
+    case cst.actions.LOGOUT:
       return {
         ...GUEST,
         token: null

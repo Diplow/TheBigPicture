@@ -31,7 +31,7 @@ const ApiEngine = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    todo: state.get("requests").filter(elt => elt.state == cst.REQUEST_CREATED)[0],
+    todo: state.get("requests").filter(elt => elt.state == cst.actions.REQUEST_CREATED)[0],
   }
 }
 

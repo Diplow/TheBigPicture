@@ -105,7 +105,7 @@ const header = (buttons, user, title, hidden, setHidden, getPage) => {
 const mapStateToProps = (state) => {
   return {
     user: state.get("user"),
-    processedRequests: state.get("requests").filter(req => req.state == cst.REQUEST_PROCESSED)
+    processedRequests: state.get("requests").filter(req => req.state == cst.actions.REQUEST_PROCESSED)
   }
 }
 

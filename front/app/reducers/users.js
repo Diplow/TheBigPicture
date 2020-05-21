@@ -10,28 +10,28 @@ const users = (state = [], action) => {
 
   switch (action.type) {
 
-    case cst.SET_OWN_SUBJECT_COUNT:
+    case cst.actions.SET_OWN_SUBJECT_COUNT:
       return reducer_utils.update_item(
         state,
         action.userId,
         { ownSubjectCount: action.count }
       )
 
-    case cst.SET_OWN_RATING_COUNT:
+    case cst.actions.SET_OWN_RATING_COUNT:
       return reducer_utils.update_item(
         state,
         action.userId,
         { ownRatingCount: action.count }
       )
 
-    case cst.SET_USER_ENDORSMENT_COUNT:
+    case cst.actions.SET_USER_ENDORSMENT_COUNT:
       return reducer_utils.update_item(
         state,
         action.userId,
         { endorsmentCount: action.count }
       )
 
-    case cst.ADD_SUBSCRIPTION:
+    case cst.actions.ADD_SUBSCRIPTION:
       const subscription = action.subscription
       const target = state.find(user => user.id == subscription.target_id)
       return reducer_utils.update_item(
@@ -40,7 +40,7 @@ const users = (state = [], action) => {
         { favorite: true }
       )
 
-    case cst.ADD_USER:
+    case cst.actions.ADD_USER:
       let usr = action.user
       old = state.find(element => element.id == usr.id)
       return [

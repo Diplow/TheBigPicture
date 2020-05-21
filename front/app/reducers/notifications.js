@@ -12,7 +12,7 @@ const DEFAULT_NOTIFICATION = {
 const notifications = (state = [], action) => {
   switch (action.type) {
 
-    case cst.ADD_NOTIFICATION:
+    case cst.actions.ADD_NOTIFICATION:
       if (action.notif.message == undefined || action.notif.type == undefined)
         return state
       return [
@@ -23,7 +23,7 @@ const notifications = (state = [], action) => {
         }
       ]
 
-    case cst.POP_NOTIFICATION:
+    case cst.actions.POP_NOTIFICATION:
       return state.filter(notif => notif.id != action.id)
 
     default:

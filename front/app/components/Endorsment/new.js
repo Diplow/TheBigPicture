@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+
+import ReactMarkdown from 'react-markdown'
+
+import Context from '../Context'
+
 import * as cst from '../../constants'
 import * as utils from '../utils'
 import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
 
 
-const NewEndorsmentLook = (props) => {
+const NewEndorsment = (props) => {
   const {
     data,
-    setData,
-    bigpicture,
-    rating
+    setData
   } = props;
 
   if (!data) return null
@@ -22,37 +24,10 @@ const NewEndorsmentLook = (props) => {
 
   return (
     <div className="newRatingModal">
-      {context(bigpicture, rating)}
+      <Context bpId={data.target_bp} ratingId={data.target_rating} />
       {starField(data, edit)}
       {reason(data)}
     </div>
-  )
-}
-
-const context = (bigpicture, rating) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Cible</p>
-      { bpContext(bigpicture) }
-      { ratingContext(rating)}
-    </div>
-  )
-}
-
-const bpContext = (bp) => {
-  if (!bp) return null
-  return (
-    <div className="content">
-      <p className="subtitle">{bp.title}</p>
-      <p className="content">{bp.body}</p>
-    </div>
-  )
-}
-
-const ratingContext = (rating) => {
-  if (!rating) return null
-  return (
-    <p className="content">{rating.body}</p>
   )
 }
 
@@ -60,7 +35,7 @@ const reason = (data) => {
   return (
     <div className="field">
       <p className="subtitle-modal">Raison</p>
-      <p className="content">{data.reason}</p>
+      <ReactMarkdown source={data.reason} />
     </div>
   )
 }
@@ -106,12 +81,4 @@ const stars = (data, edit) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    bigpicture: state.get("bigpictures").find(item => item.id == ownProps.data.bigpicture),
-    rating: state.get("ratings").find(item => item.id == ownProps.data.rating)
-  }
-}
-
-const NewEndorsment = connect(mapStateToProps)(NewEndorsmentLook)
 export default NewEndorsment

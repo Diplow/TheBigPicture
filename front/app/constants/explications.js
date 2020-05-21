@@ -1,4 +1,4 @@
-import * as cst from './index'
+
 
 const EXPLICATIONS = {
   0: "Je ne comprends pas bien ce contenu.",
