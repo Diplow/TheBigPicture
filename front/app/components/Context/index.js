@@ -8,7 +8,12 @@ import * as utils from '../utils'
 import "./style.scss"
 
 
-const ContextLook = ({ bigpicture, rating }) => {
+const ContextLook = (props) => {
+  const {
+    bigpicture,
+    rating
+  } = props
+
   return (
     <div className="field">
       <p className="subtitle-modal">{cst.labels.CONTEXT_TITLE}</p>

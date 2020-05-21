@@ -4,6 +4,7 @@ import EditionModalButton from '../Buttons/modal'
 import RatingModal from './modal'
 import NewRating from './new'
 
+import * as cst from '../../constants'
 import './style.scss'
 
 
@@ -19,6 +20,7 @@ export const RatingButton = ({ initRating, classname, icon }) => {
       init={init}
       setter={setter}
       classname={classname}
+      title={init.id ? cst.labels.EDIT_RATING_MODAL_TITLE : cst.labels.CREATE_RATING_MODAL_TITLE}
       icon={icon}
       EditionModal={RatingModal}
       NewItem={NewRating}

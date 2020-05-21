@@ -211,6 +211,7 @@ const editButton = (init, setter, condition) => {
       classname="vde toolbar"
       init={init}
       setter={setter}
+      title={cst.labels.EDIT_BP_MODAL_TITLE}
       icon={cst.icons.EDIT}
       EditionModal={BigPictureModal}
       NewItem={NewBigPicture}
@@ -220,7 +221,6 @@ const editButton = (init, setter, condition) => {
 
 const ratingButton = (bigPicture, user) => {
   const initRating = {
-    value: 0,
     author_id: user.id,
     target_bp: bigPicture.id,
     target_rating: null,

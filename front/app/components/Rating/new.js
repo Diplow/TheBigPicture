@@ -27,14 +27,6 @@ const NewRating = (props) => {
   )
 }
 
-const contextField = (bigpicture, rating) => {
-  if (target_bp)
-
-  return (
-    <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : "Ce contenu est vide pour le moment."} />
-  )
-}
-
 const bodyField = (data, edit) => {
   return (
     <div className="field">

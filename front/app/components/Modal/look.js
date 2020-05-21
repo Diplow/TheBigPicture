@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import "./style.scss"
 
 import uuid from 'uuid/v4'
 
 
-const EditionModalLook = ({ post, del, construct, active, setActive, data }) => {
-  const headline = data.id == undefined ? "Création de contenu" : "Modification de contenu"
+const EditionModalLook = (props) => {
+  const { 
+    post,
+    del,
+    title,
+    construct,
+    active,
+    setActive,
+    data
+  } = props
 
   return (
     <div className={"modal" + (active ? " is-active" : "")}>
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">
-          <p className="modal-card-title">{headline}</p>
+          <p className="modal-card-title">{title}</p>
           <button className="delete" onClick={() => setActive(false)} aria-label="close"></button>
         </header>
         <section className="modal-card-body">
@@ -40,14 +47,6 @@ const EditionModalLook = ({ post, del, construct, active, setActive, data }) => 
       </div>
     </div>
   )
-}
-
-EditionModalLook.propTypes = {
-  post: PropTypes.func.isRequired,
-  del: PropTypes.func,
-  active: PropTypes.bool.isRequired,
-  setActive: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
 }
 
 export default EditionModalLook

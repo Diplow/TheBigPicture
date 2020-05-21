@@ -31,6 +31,7 @@ const AddBigPictureButtonLook = ({ bigPicture, user }) => {
     <EditionModalButton
       init={initBp}
       setter={setInitBp}
+      title={cst.labels.CREATE_BP_MODAL_TITLE}
       classname="button tbp-radio title-button"
       icon={cst.icons.PLUS}
       EditionModal={BigPictureModal}
