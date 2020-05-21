@@ -11,7 +11,7 @@ const ratings = (state = [], action) => {
 
   switch (action.type) {
 
-    case cst.ADD_RATING:
+    case cst.actions.ADD_RATING:
       rating = action.rating
       old = state.find(element => element.id == rating.id)
       if (rating.reason == "") return state
@@ -32,28 +32,28 @@ const ratings = (state = [], action) => {
         }
       ]
 
-    case cst.SET_ENDORSMENT_COUNT:
+    case cst.actions.SET_ENDORSMENT_COUNT:
       return reducer_utils.update_item(
         state,
         action.ratingId,
         { endorsmentCount: action.count }
       )
 
-    case cst.SET_RATING_RATING_COUNT:
+    case cst.actions.SET_RATING_RATING_COUNT:
       return reducer_utils.update_item(
         state,
         action.ratingId,
         { ratingCount: action.count }
       )
 
-    case cst.ADD_RATING_RESULTS:
+    case cst.actions.ADD_RATING_RESULTS:
       return reducer_utils.update_item(
         state,
         action.ratingId,
         { results: action.results }
       )
 
-    case cst.DELETE_RATING:
+    case cst.actions.DELETE_RATING:
       return state.filter(elt => elt.id != action.id)
 
     default:

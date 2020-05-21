@@ -13,7 +13,7 @@ const bigpictures = (state = [], action) => {
 
   switch (action.type) {
 
-    case cst.ADD_BIG_PICTURE_REFERENCE:
+    case cst.actions.ADD_BIG_PICTURE_REFERENCE:
       return reducer_utils.add_item_to_set(
         state,
         action.bpId,
@@ -21,17 +21,17 @@ const bigpictures = (state = [], action) => {
         action.referenceId
       )
 
-    case cst.ADD_BIG_PICTURE_RESULTS:
+    case cst.actions.ADD_BIG_PICTURE_RESULTS:
       return reducer_utils.update_item(
         state,
         action.bpId,
         { results: action.results }
       )
 
-    case cst.LOGOUT:
+    case cst.actions.LOGOUT:
       return state.filter(element => element.private == false)
 
-    case cst.ADD_BIG_PICTURE:
+    case cst.actions.ADD_BIG_PICTURE:
       bp = action.bigpicture
       old = state.find(element => element.id == bp.id)
       res = [
@@ -74,27 +74,27 @@ const bigpictures = (state = [], action) => {
       ]
 
 
-    case cst.SET_BP_RATING_COUNT:
+    case cst.actions.SET_BP_RATING_COUNT:
       return reducer_utils.update_item(
         state,
         action.bpId,
         { ratingCount: action.count }
       )
 
-    case cst.SET_BP_REFERENCE_COUNT:
+    case cst.actions.SET_BP_REFERENCE_COUNT:
       return reducer_utils.update_item(
         state,
         action.bpId,
         { referenceCount: action.count }
       )
 
-    case cst.SET_BP_ENDORSMENT_COUNT:
+    case cst.actions.SET_BP_ENDORSMENT_COUNT:
       return reducer_utils.update_item(
         state,
         action.bpId,
         { endorsmentCount: action.count })
 
-    case cst.DELETE_BIG_PICTURE:
+    case cst.actions.DELETE_BIG_PICTURE:
       return state.filter(element => element.id != action.id)
 
     default:

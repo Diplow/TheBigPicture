@@ -96,9 +96,9 @@ const biography = (user, setUser, visitor, hidden, setHidden) => {
       { contentHeader(user, visitor, setUser, hidden, setHidden) }
       {
         !hidden
-        ? <div className={"card vde tbp-description"}>
+        ? <div className="card vde tbp-description">
             <div className="vde card-content content">
-              <ReactMarkdown source={user.bio != "" ? user.bio : `${user.username} n'a pas renseigné sa bio.`} />
+              <ReactMarkdown source={user.bio != "" ? user.bio : cst.labels.USER_EMPTY_BIO(user.username) } />
             </div>
           </div>
         : null
@@ -151,9 +151,9 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
       parent={null}
       count={fullUser.ownSubjectCount}
       getPage={visitor.id == user.id ? getOwnSubjects : getSubjects}
-      title={cst.CREATED_SUBJECT_LIST_TITLE}
+      title={cst.labels.CREATED_SUBJECT_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={cst.USER_HAS_NO_SUBJECT(user.username)}
+      emptyMessage={cst.labels.USER_HAS_NO_SUBJECT(user.username)}
       buttons={buttons}
       margin={0}
     />
@@ -169,9 +169,9 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
       parent={null}
       count={fullUser.ownRatingCount}
       getPage={visitor.id == user.id ? getOwnRatings : getRatings}
-      title={cst.CREATED_REASON_LIST_TITLE}
+      title={cst.labels.CREATED_REASON_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={cst.USER_HAS_NO_REASON(user.username)}
+      emptyMessage={cst.labels.USER_HAS_NO_REASON(user.username)}
       margin={0}
     />
   )
@@ -193,12 +193,12 @@ const subscriptionList = (subscriptions, getSubscriptions, user, visitor) => {
       items={subscriptions}
       container={(sub) => <SubscriptionPreview key={`previewsub-${sub.id}`} subscriptionId={sub.id} />}
       user={visitor}
-      emptyMessage={cst.USER_HAS_NO_SUBSCRIPTION}
+      emptyMessage={cst.labels.USER_HAS_NO_SUBSCRIPTION}
       sortFunc={sort}
       count={visitor.subscriptionCount}
       getPage={getSubscriptions}
       loadFirstPage={false}
-      title={cst.SUBSCRIPTION_LIST_TITLE}
+      title={cst.labels.SUBSCRIPTION_LIST_TITLE}
       margin={0}
     />
   )
@@ -217,7 +217,7 @@ const endorsmentList = (endorsments, getEndorsments, user) => {
     <List
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={user.endorsmentCount}
       getPage={getEndorsments}
@@ -236,7 +236,7 @@ const followButton = (follow, visitor) => {
   return (
     <div className="button tbp-radio title-button is-narrow">
       <a onClick={() => follow(visitor.id)}>
-        <span className="icon is-small"><i className={cst.FOLLOW_ICON}></i></span>
+        <span className="icon is-small"><i className={cst.icons.FOLLOW}></i></span>
       </a>
     </div>
   )

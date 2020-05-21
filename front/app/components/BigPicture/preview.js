@@ -1,29 +1,42 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+
 import ReactMarkdown from 'react-markdown'
+
+import {
+  getBigPicture,
+  getRatings,
+  getEndorsments
+} from '../../actions/index'
+
 import BigPictureModal from './modal'
 import Results from './results'
+import NewBigPicture from './new'
+
 import RatingModal from '../Rating/modal'
 import RatingPreview from '../Rating/preview'
-import { getBigPicture, getRatings, getEndorsments } from '../../actions/index'
-import AuthorIcon from '../User/authorIcon'
-import NewBigPicture from './new'
 import NewRating from '../Rating/new'
 import RatingList from '../Rating/list'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { RatingButton } from '../Rating/buttons'
-import { useToggle } from '../utils/hooks'
+
+import EndorsmentPreview from '../Endorsment/preview'
+import endorsmentsSort from '../Endorsment/sort'
+
+import AuthorIcon from '../User/authorIcon'
+
 import List, { getPageFormatter } from '../List'
+
 import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
-import EndorsmentPreview from '../Endorsment/preview'
-import "./style.scss"
+
+import * as utils from '../utils'
 import * as cst from '../../constants'
+import "./style.scss"
 
 
 const BigPicturePreviewLook = (props) => {
-
   const {
     bigPicture,
     children,
@@ -38,7 +51,7 @@ const BigPicturePreviewLook = (props) => {
   } = props
 
   useEffect(() => {
-    if (bigPicture == undefined)
+    if (!bigPicture)
       getBigPicture(bigPictureId)
   }, [])
 
@@ -48,18 +61,21 @@ const BigPicturePreviewLook = (props) => {
     setBpDataEditionBuffer(bigPicture)
   }, [bigPicture])
 
-  const [showChildren, toggleChildren] = useToggle(false)
-  const [showRatings, toggleRatings] = useToggle(false)
-  const [showDetails, toggleDetails] = useToggle(false)
-  const [showResults, toggleResults] = useToggle(false)
-  const [showEndorsments, toggleEndorsments] = useToggle(false)
+  const [showChildren, toggleChildren] = utils.hooks.useToggle(false)
+  const [showRatings, toggleRatings] = utils.hooks.useToggle(false)
+  const [showDetails, toggleDetails] = utils.hooks.useToggle(false)
+  const [showResults, toggleResults] = utils.hooks.useToggle(false)
+  const [showEndorsments, toggleEndorsments] = utils.hooks.useToggle(false)
 
   if (!bigPicture) return null
 
   return (
     <div key={bigPicture.id}>
       <div className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
-        <header className="vde card-header level preview-item-level is-mobile" onClick={() => toggleDetails()}>
+        <header
+          className="vde card-header level preview-item-level is-mobile"
+          onClick={() => toggleDetails()}
+        >
           { bpLeftLevel(bigPicture) }
         </header>
         { bpDetails(showDetails, bigPicture.body) }
@@ -120,10 +136,10 @@ const bpLeftLevel = (bigPicture) => {
   return (
     <div style={{maxWidth:"100%"}} className="level-left">
       { bigPicture.kind == cst.SUBJECT ? <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/> : null }
-      { bigPicture.kind == cst.PROBLEM ? bpFigure(cst.PROBLEM_ICON) : null }
-      { bigPicture.kind == cst.SOLUTION ? bpFigure(cst.SOLUTION_ICON) : null }
-      { bigPicture.kind == cst.RESOURCE ? bpFigure(cst.RESOURCE_ICON) : null }
-      { bigPicture.hyperlink_id != null ? bpFigure(cst.HYPERLINK_ICON) : null }
+      { bigPicture.kind == cst.PROBLEM ? bpFigure(cst.icons.PROBLEM) : null }
+      { bigPicture.kind == cst.SOLUTION ? bpFigure(cst.icons.SOLUTION) : null }
+      { bigPicture.kind == cst.RESOURCE ? bpFigure(cst.icons.RESOURCE) : null }
+      { bigPicture.hyperlink_id != null ? bpFigure(cst.icons.HYPERLINK) : null }
       <p className="vde title">{bigPicture.title}</p>
     </div>
   )
@@ -163,11 +179,11 @@ const toolBar = (props) => {
       </div>
       <div className="level-right">
         { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
-        { toggleButton(showDetails, toggleDetails, cst.DETAILS_ICON, detailsCondition) }
-        { toggleButton(showChildren, toggleChildren, cst.CHILDREN_ICON, childrenCondition) }
-        { toggleButton(showResults, toggleResults, cst.RESULT_ICON, resultsCondition) }
-        { toggleButton(showEndorsments, toggleEndorsments, cst.ENDORSMENT_LIST_ICON, endorsmentCondition) }
-        { toggleButton(showRatings, toggleRatings, cst.RATING_LIST_ICON, ratingsCondition) }
+        { toggleButton(showDetails, toggleDetails, cst.icons.DETAILS, detailsCondition) }
+        { toggleButton(showResults, toggleResults, cst.icons.RESULT, resultsCondition) }
+        { toggleButton(showEndorsments, toggleEndorsments, cst.icons.ENDORSMENT_LIST, endorsmentCondition) }
+        { toggleButton(showChildren, toggleChildren, cst.icons.CHILDREN, childrenCondition) }
+        { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST, ratingsCondition) }
         { ratingButton(bigPicture, user) }
         { lookButton(bigPicture) }
       </div>
@@ -192,10 +208,10 @@ const editButton = (init, setter, condition) => {
   if (!condition) return null
   return (
     <EditionModalButton
-      classname={"vde toolbar"}
+      classname="vde toolbar"
       init={init}
       setter={setter}
-      icon={"fas fa-edit"}
+      icon={cst.icons.EDIT}
       EditionModal={BigPictureModal}
       NewItem={NewBigPicture}
     />
@@ -217,7 +233,7 @@ const ratingButton = (bigPicture, user) => {
     <RatingButton
       initRating={initRating}
       classname="vde toolbar"
-      icon={ cst.RATING_ICON } />
+      icon={ cst.icons.RATING } />
   )
 }
 
@@ -228,7 +244,7 @@ const lookButton = (bigPicture) => {
 
   return (
     <LinkButton
-      icon={ cst.SEARCH_ICON }
+      icon={ cst.icons.SEARCH }
       to={`/subject/${subjectId}/bigPicture/${bpId}`}
       classname="vde toolbar"
     />
@@ -278,7 +294,7 @@ const bpRatings = (bigPicture, ratings, getPage) => {
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={true}
-      emptyMessage={cst.MSG_NO_REASON}
+      emptyMessage={cst.labels.MSG_NO_REASON}
       count={bigPicture.ratingCount}
       getPage={
         (page, options, reqId) => {
@@ -291,18 +307,11 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 
 
 const bpEndorsments = (bigPicture, endorsments, getPage) => {
-  
-  const endorsmentsSort = (endorsmentA, endorsmentB) => {
-    const dateA = new Date(endorsmentA.date)
-    const dateB = new Date(endorsmentB.date)
-    return dateA >= dateB ? 1 : -1
-  }
-
   return (
     <List
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}
       getPage={

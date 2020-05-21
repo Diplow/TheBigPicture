@@ -34,13 +34,18 @@ const DropdownMenu = (props) => {
 }
 
 const DropdownItem = (props) => {
+  const children = (
+    <div className="level is-mobile" onClick={props.onClick}>
+      <span className="vde icon-button level-item dropdown-icon">{props.leftIcon}</span>
+      <p className="level-item">{props.children}</p>
+    </div>
+  )
+
+  if (props.url.startsWith("http"))
+    return <a href={props.url} className="vde dropdown-item">{children}</a>
+
   return (
-    <Link to={props.url} className="vde dropdown-item">
-      <div className="level is-mobile" onClick={props.onClick}>
-        <span className="vde icon-button level-item dropdown-icon">{props.leftIcon}</span>
-        <p className="level-item">{props.children}</p>
-      </div>
-    </Link>
+    <Link to={props.url} className="vde dropdown-item">{children}</Link>
   );
 }
 

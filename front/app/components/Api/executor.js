@@ -36,7 +36,7 @@ const ExecutionEngine = ({ todo, add, processed }) => {
 
 const mapStateToProps = (state) => {
   return {
-    todo: state.get("requests").filter(elt => elt.state == cst.REQUEST_DONE)[0],
+    todo: state.get("requests").filter(elt => elt.state == cst.actions.REQUEST_DONE)[0],
   }
 }
 

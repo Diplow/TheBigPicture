@@ -1,10 +1,16 @@
 import { connect } from 'react-redux'
-import uuid from 'uuid/v4'
+
+import {
+  getBigPicture,
+  getSubjects,
+  getRatings,
+  getEndorsments
+} from '../../../actions/index'
+
 import BigPictureViewLook from './look'
-import { getBigPicture, getSubjects, getRatings, getEndorsments } from '../../../actions/index'
 import { getPageFormatter } from '../../../components/List'
+
 import * as cst from '../../../constants'
-import "./style.scss"
 
 
 const mapStateToProps = (state, ownProps) => {

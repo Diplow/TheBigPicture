@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Chart from "react-apexcharts";
+
+import Chart from "react-apexcharts"
+
+import { getBigPictureResults } from '../../actions'
+
 import RefreshButton from '../Buttons/refresh'
 import HideAndShowButton from '../Buttons/hideandshow'
-import { getBigPictureResults } from '../../actions'
-import "./style.scss"
+import Loader from '../Loader'
+
 import * as cst from '../../constants'
 import EXPLICATIONS from '../../constants/explications'
+import "./style.scss"
 
 
 const ResultsLook = (props) => {
@@ -31,8 +35,10 @@ const ResultsLook = (props) => {
     <div
       style={{marginLeft: marg +"%"}}
       className={showHeader ? "container vde section section-field" : ""}>
-      { showHeader ? header(bigPicture, hidden, setHidden) : null }
-      { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
+      { bigPicture && showHeader ? header(bigPicture, hidden, setHidden) : null }
+      <Loader condition={bigPicture.results == undefined}>
+        { !hidden && bigPicture.results != undefined ? chart(bigPicture) : null}
+      </Loader>
     </div>
   )
 }
