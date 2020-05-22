@@ -17,8 +17,8 @@ class OwnRatingViewSet(ModelViewSet):
   def get_queryset(self):
     return self.queryset \
                 .filter(author=self.request.user) \
-                .annotate(endorsmentCount=Count('endorsments')) \
-                .order_by('-endorsmentCount')
+                .annotate(basisCount=Count('endorsments')) \
+                .order_by('-basisCount')
 
 
 class EndorsmentViewSet(ModelViewSet):
@@ -54,14 +54,15 @@ class RatingViewSet(ModelViewSet):
     bp = self.request.query_params.get('bigpicture', None)
     rating = self.request.query_params.get('rating', None)
     if author is not None:
-      queryset = queryset.filter(author=author)
+      endorsments = Endorsment.objects.filter(author=author)
+      queryset = queryset.filter(id__in=endorsments.values('target'))
     if ratingauthor is not None:
       queryset = queryset.filter(author=ratingauthor).distinct('subject')
     if bp is not None:
       queryset = queryset.filter(target_bp=bp)
     if rating is not None:
       queryset = queryset.filter(target_rating=rating)
-    return queryset.annotate(endorsmentCount=Count('endorsments')).order_by('-endorsmentCount')
+    return queryset.annotate(basisCount=Count('endorsments')).order_by('-basisCount')
 
   def create(self, request):
     if request.user.id != int(request.data["author_id"]):

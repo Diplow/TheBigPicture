@@ -133,6 +133,8 @@ export const getRatings = (page, options, requestId) => {
     requestName = "getBpRatings"
   if (options.rating)
     requestName = "getRatingRatings"
+  if (options.author)
+    requestName = "getUserRatings"
   return (dispatch) => {
     api.getCollection(
       dispatch,

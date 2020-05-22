@@ -40,7 +40,6 @@ const initialUser = () => {
 
 const initial_state = {
   ...initialUser(),
-  "subscriptionCount": 1,
   "token": localStorage.getItem('token')
 };
 
@@ -60,14 +59,25 @@ const user = (state = initial_state, action) => {
       return {
         ...action.user,
         image: action.user.image,
-        token: action.token,
-        subscriptionCount: 1
+        token: action.token
       }
 
-    case cst.actions.SET_SUBSCRIPTION_COUNT:
+    case cst.actions.SET_OWN_SUBSCRIPTION_COUNT:
       return {
         ...state,
         subscriptionCount: action.count
+      }
+
+    case cst.actions.SET_OWN_RATING_COUNT:
+      return {
+        ...state,
+        ratingCount: action.count
+      }
+
+    case cst.actions.SET_OWN_SUBJECT_COUNT:
+      return {
+        ...state,
+        subjectCount: action.count
       }
 
     case cst.actions.LOGOUT:

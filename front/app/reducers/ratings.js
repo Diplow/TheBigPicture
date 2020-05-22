@@ -26,7 +26,7 @@ const ratings = (state = [], action) => {
           target_rating: rating.target_rating,
           body: rating.body,
           subject: rating.subject,
-          endorsmentCount: rating.endorsmentCount,
+          basisCount: rating.basisCount,
           date: rating.date,
           [rating.requestId]: rating[rating.requestId]
         }

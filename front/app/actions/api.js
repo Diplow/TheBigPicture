@@ -24,6 +24,16 @@ const NEXTS = {
       dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))
     }
   },
+  "getUserRatings": (dispatch, nextargs, requestId) => {
+    return (result) => {
+      dispatch(basics.setUserRatingCount(nextargs.author, result.count, requestId))
+      for (let i = 0; i < result.results.length; ++i) {
+        const rating = result.results[i]
+        dispatch(basics.addRating(rating))
+        dispatch(basics.addGivenReason(nextargs.author, rating.id))
+      }
+    }
+  },
   "getEndorsments": (dispatch, nextargs, requestId) => {
     return (result) => {
       if (nextargs.bigpicture)

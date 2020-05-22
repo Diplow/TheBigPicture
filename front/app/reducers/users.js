@@ -10,18 +10,26 @@ const users = (state = [], action) => {
 
   switch (action.type) {
 
+    case cst.actions.ADD_GIVEN_REASON:
+      return reducer_utils.add_item_to_set(
+        state,
+        action.userId,
+        "reasons",
+        action.ratingId
+      )
+
     case cst.actions.SET_OWN_SUBJECT_COUNT:
       return reducer_utils.update_item(
         state,
         action.userId,
-        { ownSubjectCount: action.count }
+        { subjectCount: action.count }
       )
 
-    case cst.actions.SET_OWN_RATING_COUNT:
+    case cst.actions.SET_USER_RATING_COUNT:
       return reducer_utils.update_item(
         state,
         action.userId,
-        { ownRatingCount: action.count }
+        { ratingCount: action.count }
       )
 
     case cst.actions.SET_USER_ENDORSMENT_COUNT:
@@ -50,9 +58,10 @@ const users = (state = [], action) => {
           username: usr.username,
           image: usr.image,
           bio: usr.bio,
-          ownSubjectCount: old != null ? old.ownSubjectCount : undefined,
-          ownRatingCount: old != null ? old.ownRatingCount : undefined,
+          subjectCount: old != null ? old.subjectCount : undefined,
+          ratingCount: old != null ? old.ratingCount : undefined,
           endorsmentCount: old != null ? old.endorsmentCount : undefined,
+          reasons: reducer_utils.set_or_update("reasons", usr, old, []),
           favorite: old == null ? usr.favorite : old.favorite
         }
       ]

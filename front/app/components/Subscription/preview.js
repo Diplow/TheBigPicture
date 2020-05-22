@@ -16,8 +16,7 @@ const SubscriptionPreviewLook = (props) => {
   } = props
 
 
-  if (subscription == null || target == null)
-    return null
+  if (!subscription || !target) return null
 
   return (
     <div key={subscription.id}>
@@ -46,7 +45,7 @@ const rightLevel = (subscription, unfollow) => {
     <div className="level-right">
       <div className="button tbp-radio title-button is-narrow unfollow">
         <a onClick={() => unfollow(subscription.id)}>
-          <span className="icon is-small"><i className="fas fa-times"></i></span>
+          <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
         </a>
       </div>
     </div>
@@ -57,7 +56,7 @@ const mapStateToProps = (state, ownProps) => {
   const subscription = state.get("subscriptions").find(elt => elt.id == ownProps.subscriptionId)
   return {
     user: state.get("user"),
-    target: subscription !== undefined ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
+    target: subscription ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
     subscription
   }
 }

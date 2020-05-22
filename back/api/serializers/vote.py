@@ -6,11 +6,14 @@ from api.serializers.user import UserSerializer
 class RatingSerializer(serializers.ModelSerializer):
   author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
-  endorsmentCount = serializers.IntegerField(read_only=True)
+  basisCount = serializers.SerializerMethodField(read_only=True)
 
   class Meta:
     model = Rating
     fields = "__all__"
+
+  def get_basisCount(self, obj):
+    return obj.endorsments.all().count()
 
 
 class EndorsmentSerializer(serializers.ModelSerializer):

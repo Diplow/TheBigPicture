@@ -77,7 +77,7 @@ export const setBpReferenceCount = (count, bpId, requestId) => {
 
 export const setSubscriptionCount = (count, requestId) => {
   return {
-    type: cst.actions.SET_SUBSCRIPTION_COUNT,
+    type: cst.actions.SET_OWN_SUBSCRIPTION_COUNT,
     count,
     requestId
   }
@@ -115,6 +115,15 @@ export const setRatingRatingCount = (ratingId, count, requestId) => {
     type: cst.actions.SET_RATING_RATING_COUNT,
     count,
     ratingId,
+    requestId
+  }
+}
+
+export const setUserRatingCount = (userId, count, requestId) => {
+  return {
+    type: cst.actions.SET_USER_RATING_COUNT,
+    count,
+    userId,
     requestId
   }
 }
@@ -163,6 +172,14 @@ export const addBigPictureReference = (bpId, referenceId) => {
     type: cst.actions.ADD_BIG_PICTURE_REFERENCE,
     bpId,
     referenceId
+  }
+}
+
+export const addGivenReason = (userId, ratingId) => {
+  return {
+    type: cst.actions.ADD_GIVEN_REASON,
+    userId,
+    ratingId
   }
 }
 

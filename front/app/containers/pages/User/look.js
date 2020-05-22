@@ -51,12 +51,12 @@ const UserViewLook = (props) => {
 
   useEffect(() => {
     const userId = parseInt(match.params.id)
-    if (user == undefined)
+    if (!user)
       getUser(userId)
   }, [match])
 
   return (
-    <Loader condition={user == undefined}>
+    <Loader condition={!user}>
       { header(data) }
       <div className="vde container section">
         { biography(data, setData, visitor, hiddenBiography, setHiddenBiography) }
@@ -70,8 +70,7 @@ const UserViewLook = (props) => {
 }
 
 const header = (user) => {
-  if (user == undefined)
-    return null
+  if (!user) return null
   return (
     <div className="hero subject">
       <div className="vde container section">
@@ -149,7 +148,7 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
     <BigPictureList
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
       parent={null}
-      count={fullUser.ownSubjectCount}
+      count={fullUser.subjectCount}
       getPage={visitor.id == user.id ? getOwnSubjects : getSubjects}
       title={cst.labels.CREATED_SUBJECT_LIST_TITLE}
       loadFirstPage={false}
@@ -165,9 +164,9 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
 
   return (
     <RatingList
-      filter={(rating) => rating.author == user.id}
+      filter={(rating) => user.reasons.indexOf(rating.id) != -1}
       parent={null}
-      count={fullUser.ownRatingCount}
+      count={fullUser.ratingCount}
       getPage={visitor.id == user.id ? getOwnRatings : getRatings}
       title={cst.labels.CREATED_REASON_LIST_TITLE}
       loadFirstPage={false}
@@ -222,7 +221,7 @@ const endorsmentList = (endorsments, getEndorsments, user) => {
       count={user.endorsmentCount}
       getPage={getEndorsments}
       loadFirstPage={false}
-      title={"Évaluations"}
+      title={cst.labels.ENDORSMENT_LIST_TITLE}
       margin={0}
     />
   )
