@@ -6,8 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 import {
   getBigPicture,
-  getRatings,
-  getEndorsments
+  getRatings
 } from '../../actions/index'
 
 import BigPictureModal from './modal'
@@ -40,14 +39,12 @@ const BigPicturePreviewLook = (props) => {
   const {
     bigPicture,
     children,
-    endorsments,
     user,
     hyperlink,
     ratings,
     bigPictureId,
     getBigPicture,
-    getBigPictureRatings,
-    getBigPictureEndorsments
+    getBigPictureRatings
   } = props
 
   useEffect(() => {
@@ -65,7 +62,6 @@ const BigPicturePreviewLook = (props) => {
   const [showRatings, toggleRatings] = utils.hooks.useToggle(false)
   const [showDetails, toggleDetails] = utils.hooks.useToggle(false)
   const [showResults, toggleResults] = utils.hooks.useToggle(false)
-  const [showEndorsments, toggleEndorsments] = utils.hooks.useToggle(false)
 
   if (!bigPicture) return null
 
@@ -87,12 +83,10 @@ const BigPicturePreviewLook = (props) => {
             showRatings,
             showChildren,
             showResults,
-            showEndorsments,
             toggleDetails,
             toggleRatings,
             toggleChildren,
             toggleResults,
-            toggleEndorsments,
             bpDataEditionBuffer,
             setBpDataEditionBuffer,
             user
@@ -107,11 +101,6 @@ const BigPicturePreviewLook = (props) => {
       {
         showResults
         ? <Results showHeader={false} bigPictureId={bigPicture.id} />
-        : null
-      }
-      {
-        showEndorsments
-        ? bpEndorsments(bigPicture, endorsments, getBigPictureEndorsments)
         : null
       }
       {
@@ -153,19 +142,16 @@ const toolBar = (props) => {
     showRatings,
     showChildren,
     showResults,
-    showEndorsments,
     toggleDetails,
     toggleRatings,
     toggleChildren,
     toggleResults,
-    toggleEndorsments,
     bpDataEditionBuffer,
     setBpDataEditionBuffer,
     user
   } = props
 
   // conditions to display toolbar's buttons
-  const endorsmentCondition = true
   const resultsCondition = true
   const ratingsCondition = true
   const childrenCondition = bigPicture.children.length != 0
@@ -181,10 +167,8 @@ const toolBar = (props) => {
         { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
         { toggleButton(showDetails, toggleDetails, cst.icons.DETAILS, detailsCondition) }
         { toggleButton(showResults, toggleResults, cst.icons.RESULT, resultsCondition) }
-        { toggleButton(showEndorsments, toggleEndorsments, cst.icons.ENDORSMENT_LIST, endorsmentCondition) }
         { toggleButton(showChildren, toggleChildren, cst.icons.CHILDREN, childrenCondition) }
         { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST, ratingsCondition) }
-        { ratingButton(bigPicture, user) }
         { lookButton(bigPicture) }
       </div>
     </div>
@@ -306,25 +290,6 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 }
 
 
-const bpEndorsments = (bigPicture, endorsments, getPage) => {
-  return (
-    <List
-      items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
-      sortFunc={endorsmentsSort}
-      count={bigPicture.endorsmentCount}
-      getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
-        }
-      }
-      loadFirstPage={true}
-    />
-  )
-}
-
-
 const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
@@ -332,16 +297,14 @@ const mapStateToProps = (state, ownProps) => {
     children: bigPicture != null ? state.get("bigpictures").filter(bp => bigPicture.children.indexOf(bp.id) != -1) : [],
     user: state.get("user"),
     hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
-    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
-    endorsments: bigPicture ? state.get("endorsments").filter(endorsment => endorsment.bigPicture == bigPicture.id) : []
+    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: getPageFormatter(dispatch, getRatings),
-    getBigPictureEndorsments: getPageFormatter(dispatch, getEndorsments)
+    getBigPictureRatings: getPageFormatter(dispatch, getRatings)
   }
 }
 

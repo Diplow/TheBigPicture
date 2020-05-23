@@ -4,16 +4,13 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import ReactMarkdown from 'react-markdown'
 
-import { getRatings, getEndorsments } from '../../actions'
+import { getRatings } from '../../actions'
 
 import AuthorIcon from '../User/authorIcon'
 
 import { RatingButton } from './buttons'
 import RatingResults from './results'
-
 import { EndorsmentButton } from '../Endorsment/buttons'
-import EndorsmentPreview from '../Endorsment/preview'
-import endorsmentsSort from '../Endorsment/sort'
 
 import List, { getPageFormatter } from '../List'
 
@@ -29,16 +26,13 @@ const RatingPreviewLook = (props) => {
   const {
     rating,
     ratings,
-    endorsments,
     user,
     ratingId,
-    getRatingsPage,
-    getEndorsmentsPage
+    getRatingsPage
   } = props
 
   const [showRatings, toggleRatings] = utils.hooks.useToggle(false)
   const [showResults, toggleResults] = utils.hooks.useToggle(false)
-  const [showEndorsments, toggleEndorsments] = utils.hooks.useToggle(false)
 
   if (!rating) return null
 
@@ -52,19 +46,15 @@ const RatingPreviewLook = (props) => {
           toolBar({
             rating,
             ratings,
-            endorsments,
             showRatings,
             toggleRatings,
             showResults,
             toggleResults,
-            showEndorsments,
-            toggleEndorsments,
             user
           })
         }
       </div>
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
-      { showEndorsments ? ratingEndorsments(rating, endorsments, getEndorsmentsPage) : null }
       { showRatings ? ratingChildren(rating, ratings, getRatingsPage) : null }
     </div>
   )
@@ -90,8 +80,6 @@ const toolBar = (props) => {
     toggleRatings,
     showResults,
     toggleResults,
-    showEndorsments,
-    toggleEndorsments,
     user
   } = props
 
@@ -111,7 +99,6 @@ const toolBar = (props) => {
       <div className="level-right">
         { editRatingButton(rating) }
         { toggleButton(showResults, toggleResults, cst.icons.RESULT) }
-        { toggleButton(showEndorsments, toggleEndorsments, cst.icons.ENDORSMENT_LIST) }
         { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST) }
         { rateThisRatingButton(initRating) }
         { endorseThisRatingButton(rating, user.id) }
@@ -198,40 +185,18 @@ const ratingChildren = (rating, children, getPage) => {
   )
 }
 
-const ratingEndorsments = (rating, endorsments, getPage) => {
-
-  return (
-    <List
-      items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.labels.RATING_HAS_NO_ENDORSMENT}
-      sortFunc={endorsmentsSort}
-      count={rating.endorsmentCount}
-      getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, rating: rating.id }, reqId)
-        }
-      }
-      loadFirstPage={true}
-    />
-  )
-}
-
 
 const mapStateToProps = (state, ownProps) => {
-  const thisrating = state.get("ratings").find(rating => rating.id == ownProps.ratingId)
   return {
-    rating: thisrating,
+    rating: state.get("ratings").find(rating => rating.id == ownProps.ratingId),
     ratings: state.get("ratings").filter(rating => rating.target_rating == ownProps.ratingId),
-    endorsments: thisrating ? state.get("endorsments").filter(endorsment => endorsment.rating == thisrating.id) : [],
     user: state.get("user")
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRatingsPage: getPageFormatter(dispatch, getRatings),
-    getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
+    getRatingsPage: getPageFormatter(dispatch, getRatings)
   }
 }
 
