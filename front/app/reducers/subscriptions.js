@@ -24,8 +24,7 @@ const subscriptions = (state = [], action) => {
 
     case cst.actions.CREATE_SUBSCRIPTION:
     case cst.actions.ADD_SUBSCRIPTION:
-      let subscription = action.subscription
-      return addSubscription(subscription, state)
+      return addSubscription(action.subscription, state)
 
     case cst.actions.ADD_BIG_PICTURE:
       if (action.bigpicture.favorite)
