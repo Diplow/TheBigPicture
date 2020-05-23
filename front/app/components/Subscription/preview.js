@@ -16,11 +16,10 @@ const SubscriptionPreviewLook = (props) => {
   } = props
 
 
-  if (subscription == null || target == null)
-    return null
+  if (!subscription || !target) return null
 
   return (
-    <div key={subscription.id}>
+    <div key={`subscriptionKey-${subscription.target_id}`}>
       <div className="vde card subscription">
         <header className="vde card-header level preview-item-level is-mobile">
           { leftLevel(target) }
@@ -45,8 +44,8 @@ const rightLevel = (subscription, unfollow) => {
   return (
     <div className="level-right">
       <div className="button tbp-radio title-button is-narrow unfollow">
-        <a onClick={() => unfollow(subscription.id)}>
-          <span className="icon is-small"><i className="fas fa-times"></i></span>
+        <a onClick={() => unfollow(subscription)}>
+          <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
         </a>
       </div>
     </div>
@@ -54,10 +53,10 @@ const rightLevel = (subscription, unfollow) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const subscription = state.get("subscriptions").find(elt => elt.id == ownProps.subscriptionId)
+  const subscription = state.get("subscriptions").find(elt => elt.target_id == ownProps.targetId)
   return {
     user: state.get("user"),
-    target: subscription !== undefined ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
+    target: subscription ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
     subscription
   }
 }
@@ -65,7 +64,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    unfollow: (subscriptionId) => { dispatch(unfollow(subscriptionId)) }
+    unfollow: (subscription) => { dispatch(unfollow(subscription.target_id)) }
   }
 }
 

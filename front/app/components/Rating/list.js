@@ -21,11 +21,13 @@ const RatingListLook = (props) => {
     loadFirstPage,
     title,
     buttons,
-    margin
+    margin,
+    reference
   } = props
 
   return (
     <List
+      reference={reference}
       items={ratings}
       container={(rating) => <div key={`previewrating-${rating.id}`} ><RatingPreview ratingId={rating.id} margin={margin} /></div>}
       user={user}

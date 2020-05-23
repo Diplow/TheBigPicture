@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+
+import Context from '../Context'
+
 import * as cst from '../../constants'
 import * as utils from '../utils'
 import "./style.scss"
@@ -10,8 +13,7 @@ const NewRating = (props) => {
     setData
   } = props;
 
-  if (data == null)
-    return null
+  if (!data) return null
 
   const edit = (e) => {
     setData({ ...data, [e.target.name]: e.target.value})
@@ -19,7 +21,8 @@ const NewRating = (props) => {
 
   return (
     <div className="newRatingModal">
-      {bodyField(data, edit)}
+      <Context title={cst.labels.CONTEXT_TITLE} bpId={data.target_bp} ratingId={data.target_rating} />
+      { bodyField(data, edit) }
     </div>
   )
 }

@@ -5,10 +5,10 @@ import * as cst from "../constants"
 const endorsments = (state = [], action) => {
   switch (action.type) {
 
-    case cst.DELETE_ENDORSMENT:
+    case cst.actions.DELETE_ENDORSMENT:
       return state.filter(item => item.id != action.id)
 
-    case cst.ADD_ENDORSMENT:
+    case cst.actions.ADD_ENDORSMENT:
       let endorsment = action.endorsment
       let old = state.find(item => item.id == endorsment.id)
       return [

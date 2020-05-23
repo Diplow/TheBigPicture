@@ -2,11 +2,11 @@ from rest_framework.viewsets import ModelViewSet
 from django.http import HttpResponse
 from django.db.models import Count
 
-import json
 from api.models import Rating, Endorsment
-from api.serializers import RatingSerializer, EndorsmentSerializer
-from api.permissions import IsAuthorOrReadOnly, IsAuthor
+from api.serializers import RatingSerializer, RatingWithContextSerializer, EndorsmentSerializer
+from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 
+import json
 
 
 class OwnRatingViewSet(ModelViewSet):
@@ -15,10 +15,11 @@ class OwnRatingViewSet(ModelViewSet):
   permission_classes = [IsAuthor]
 
   def get_queryset(self):
+    endorsments = Endorsment.objects.filter(author=self.request.user)
     return self.queryset \
-                .filter(author=self.request.user) \
-                .annotate(endorsmentCount=Count('endorsments')) \
-                .order_by('-endorsmentCount')
+      .filter(id__in=endorsments.values('target')) \
+      .annotate(basisCount=Count('endorsments')) \
+      .order_by('-basisCount')
 
 
 class EndorsmentViewSet(ModelViewSet):
@@ -42,6 +43,12 @@ class EndorsmentViewSet(ModelViewSet):
     return self.queryset
 
 
+class RatingWithContextViewSet(ModelViewSet):
+  queryset = Rating.objects.all()
+  serializer_class = RatingWithContextSerializer
+  permission_classes = [IsReadOnly]
+
+
 class RatingViewSet(ModelViewSet):
   queryset = Rating.objects.all()
   serializer_class = RatingSerializer
@@ -54,14 +61,15 @@ class RatingViewSet(ModelViewSet):
     bp = self.request.query_params.get('bigpicture', None)
     rating = self.request.query_params.get('rating', None)
     if author is not None:
-      queryset = queryset.filter(author=author)
+      endorsments = Endorsment.objects.filter(author=author)
+      queryset = queryset.filter(id__in=endorsments.values('target'))
     if ratingauthor is not None:
       queryset = queryset.filter(author=ratingauthor).distinct('subject')
     if bp is not None:
       queryset = queryset.filter(target_bp=bp)
     if rating is not None:
       queryset = queryset.filter(target_rating=rating)
-    return queryset.annotate(endorsmentCount=Count('endorsments')).order_by('-endorsmentCount')
+    return queryset.annotate(basisCount=Count('endorsments')).order_by('-basisCount')
 
   def create(self, request):
     if request.user.id != int(request.data["author_id"]):

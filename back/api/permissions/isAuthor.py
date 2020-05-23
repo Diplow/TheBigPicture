@@ -8,7 +8,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
         return request.method in permissions.SAFE_METHODS or (request.user and request.user.is_authenticated)
 
     def has_object_permission(self, request, view, obj):
-        return (request.method in permissions.SAFE_METHODS and not obj.private) or (obj.author.id == request.user.id)
+        return (request.method in permissions.SAFE_METHODS and ("private" not in obj.__dict__ or not obj.private)) or (obj.author.id == request.user.id)
 
 
 class IsAuthor(permissions.BasePermission):

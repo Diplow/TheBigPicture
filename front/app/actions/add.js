@@ -17,43 +17,7 @@ const addBigPicture = (request, dispatch, bigPicture) => {
   // return elements to which the user is subscribed.
   // see front/app/components/List/pagination.js:SearchBar
   const favorite = request.nextargs !== undefined && request.nextargs.favorites
-
-  if (bigPicture.family != null) {
-    // A bigpicture family is present when requesting a subject
-    // It is the whole descendance of the subject: every children
-    // of the subject, every children of their children, etc...
-    for (let i = 0; i < bigPicture.family.length; ++i) {
-      const child = bigPicture.family[i]
-      if (child.id !== undefined) {
-        addBigPicture(request, dispatch, {
-          ...child,
-          favorite
-        })
-      }
-    }
-  }
-
-  // Add the author of the bp to the users list
-  if (bigPicture.author.id) {
-    dispatch(basics.addUser({
-      ...bigPicture.author,
-      favorite
-    }))
-  }
-
-  // Add the subscription
-  if (favorite) {
-    dispatch(basics.addSubscription({
-      author: request.user,
-      target_id: bigPicture.author.id
-    }))
-  }
-
-  // Add the bigpicture itself
-  dispatch(basics.addBigPicture({
-    ...bigPicture,
-    favorite
-  }))
+  dispatch(basics.addBigPicture({ ...bigPicture, favorite }))
 }
 
 const addCollection = (request, dispatch, addAction) => {
@@ -78,16 +42,10 @@ const ADD_ACTIONS = {
   "bigpictures": addBigPicture,
   "subjects": addBigPicture,
   "ownsubjects": addBigPicture,
-  "subscriptions": (request, dispatch, subscription) => {
-    dispatch(basics.addUser({ ...subscription.target, favorite: true }))
-    dispatch(basics.addSubscription(subscription))
-  },
-  "endorsments": (request, dispatch, endorsment) => {
-    dispatch(basics.addUser(endorsment.author))
-    dispatch(basics.addRating(endorsment.target))
-    dispatch(basics.addEndorsment(endorsment))
-  },
+  "subscriptions": (request, dispatch, subscription) => { dispatch(basics.addSubscription(subscription)) },
+  "endorsments": (request, dispatch, endorsment) => { dispatch(basics.addEndorsment(endorsment)) },
   "ownratings": (request, dispatch, rating) => {dispatch(basics.addRating(rating)) },
+  "ratingswithcontext": (request, dispatch, rating) => {dispatch(basics.addRating(rating)) },
   "users": (request, dispatch, user) => { dispatch(basics.addUser(user)) },
   "ratings": (request, dispatch, rating) => { dispatch(basics.addRating(rating)) },
 }

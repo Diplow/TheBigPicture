@@ -4,6 +4,7 @@ import EditionModalButton from '../Buttons/modal'
 import EndorsmentModal from './modal'
 import NewEndorsment from './new'
 
+import * as cst from '../../constants'
 import './style.scss'
 
 
@@ -22,6 +23,7 @@ export const EndorsmentButton = ({ ratingId, reason, userId, bpId, rtgId, classn
       init={init}
       setter={setter}
       classname={classname}
+      title={cst.labels.CREATE_ENDORSMENT_MODAL_TITLE}
       icon={icon}
       EditionModal={EndorsmentModal}
       NewItem={NewEndorsment}

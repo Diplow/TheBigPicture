@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import BigPictureList from '../../../components/BigPicture/list'
 import NewBigPicture from '../../../components/BigPicture/new'
@@ -23,7 +22,7 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
         search={true}
         getPage={getBigPictures}
         loadFirstPage={true}
-        emptyMessage={cst.MSG_NO_SUBJECT}
+        emptyMessage={cst.labels.MSG_NO_SUBJECT}
         margin={0}
       />
     </div>

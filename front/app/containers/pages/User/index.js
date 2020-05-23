@@ -2,15 +2,14 @@ import { connect } from 'react-redux'
 import {
   getUser,
   follow,
+  unfollow,
   getOwnSubjects,
   getSubjects,
   getOwnRatings,
-  getRatings,
-  getSubscriptions,
-  getEndorsments } from '../../../actions'
+  getRatings
+} from '../../../actions'
 import { getPageFormatter } from '../../../components/List'
 import UserViewLook from './look'
-import uuid from 'uuid/v4'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -18,9 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user,
     visitor: state.get("user"),
-    ratings: user == null ? [] : state.get("ratings").filter(rating => rating.author == user.id),
-    subscriptions: state.get("subscriptions"),
-    endorsments: state.get("endorsments").filter(item => item.author_id == ownProps.match.params.id)
+    ratings: !user ? [] : state.get("ratings").filter(rating => rating.author == user.id)
   }
 }
 
@@ -34,12 +31,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getUser: (id) => { dispatch(getUser(id)) },
     follow: (author) => { dispatch(follow(author, userId)) },
+    unfollow: () => { dispatch(unfollow(userId)) },
     getOwnSubjects: addAuthorToOptions(getPageFormatter(dispatch, getOwnSubjects)),
     getSubjects: addAuthorToOptions(getPageFormatter(dispatch, getSubjects)),
     getOwnRatings: addAuthorToOptions(getPageFormatter(dispatch, getOwnRatings)),
-    getRatings: addAuthorToOptions(getPageFormatter(dispatch, getRatings)),
-    getSubscriptions: addAuthorToOptions(getPageFormatter(dispatch, getSubscriptions)),
-    getEndorsments: addAuthorToOptions(getPageFormatter(dispatch, getEndorsments))
+    getRatings: addAuthorToOptions(getPageFormatter(dispatch, getRatings))
   }
 }
 

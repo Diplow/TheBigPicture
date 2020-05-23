@@ -13,18 +13,18 @@ import * as reducer_utils from "./utils"
   The implementation of this design works as follow:
     1- When it is needed to send a request to the server (the list of subjects
     for the homepage for example), a request object is created (with the state
-    cst.REQUEST_CREATED), encapsulating all information needed to send the
+    cst.actions.REQUEST_CREATED), encapsulating all information needed to send the
     request (/actions/basics.js:make).
     2- An "APIEngine" (/components/Api/index.js) sends every request with the
-    state cst.REQUEST_CREATED and sets the current request state to
-    cst.REQUEST_ONGOING (see /actions/api.js:make).
+    state cst.actions.REQUEST_CREATED and sets the current request state to
+    cst.actions.REQUEST_ONGOING (see /actions/api.js:make).
     3- Once it has received the server response (still /actions/api.js:make),
     it stores it in the request data and sets the request state to
-    cst.REQUEST_DONE.
+    cst.actions.REQUEST_DONE.
     4- All the "done" requests are then processed by an "Executor"
     (/components/Api/executor.js). Basically it dispatches actions based
     on the answer received from the server. Once it is done, it sets
-    the request state to cst.REQUEST_PROCESSED
+    the request state to cst.actions.REQUEST_PROCESSED
   
   TODO: There is probably a better practice for this use case...
 **/
@@ -34,10 +34,10 @@ const requests = (state = [], action) => {
 
   switch (action.type) {
 
-    case cst.LOGOUT:
+    case cst.actions.LOGOUT:
       return []
 
-    case cst.ADD_REQUEST:
+    case cst.actions.ADD_REQUEST:
       request = action.request
       const old = state.find(elt => elt.id == request.id)
 
@@ -45,13 +45,13 @@ const requests = (state = [], action) => {
       // the state of a done request but not already processed.
       // This way, it will not be sent to the server but the server resp
       // will be processed again.
-      if (old != null && old.state == cst.REQUEST_PROCESSED) {
+      if (old != null && old.state == cst.actions.REQUEST_PROCESSED) {
         return reducer_utils.update_item(
           state,
           old.id,
           {
             requestId: request.requestId,
-            state: cst.REQUEST_DONE
+            state: cst.actions.REQUEST_DONE
           }
         )
       }
@@ -69,36 +69,42 @@ const requests = (state = [], action) => {
           nextargs: request.nextargs, // args given to the specified followup 
           // set mustprocess to false if the request must be ignored by the ApiExecutor
           mustprocess: request.mustprocess !== undefined ? request.mustprocess : true,
-          state: cst.REQUEST_CREATED
+          state: cst.actions.REQUEST_CREATED
         }
       ]
 
-    case cst.REQUEST_ONGOING:
+    case cst.actions.REQUEST_ONGOING:
       return reducer_utils.update_item(
         state,
         action.request.id,
-        { state: cst.REQUEST_ONGOING }
+        { state: cst.actions.REQUEST_ONGOING }
       )
 
-    case cst.REQUEST_DONE:
+    case cst.actions.REQUEST_DONE:
       request = action.request
       return reducer_utils.update_item(
         state,
         request.id,
         {
-          state: cst.REQUEST_DONE,
+          state: cst.actions.REQUEST_DONE,
           success: request.success,
           status: request.status,
           response: request.response
         }
       )
 
-    case cst.REQUEST_PROCESSED:
+    case cst.actions.REQUEST_PROCESSED:
       return reducer_utils.update_item(
         state,
         action.request.id,
-        { state: cst.REQUEST_PROCESSED }
+        { state: cst.actions.REQUEST_PROCESSED }
       )
+
+    case cst.actions.CREATE_SUBSCRIPTION:
+    case cst.actions.DELETE_SUBSCRIPTION:
+      // If subscriptions are modified, favorites requests become irrelevant
+      return state.filter(req => !req.id.includes("favorite"))
+
 
     default:
       return state

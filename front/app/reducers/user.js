@@ -3,23 +3,18 @@ import * as cst from "../constants"
 
 
 const GUEST = {
-  "username": cst.GUEST_NAME,
+  "username": cst.labels.GUEST_NAME,
   "email": "",
   "bio": "",
   "groups": [],
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
-  "id": 0,
-  "subscriptionCount": 1
+  "id": 0
 }
 
-
 const initialUser = () => {
-  if (localStorage.getItem('token') == null)
-    return GUEST
-
-  if (localStorage.getItem('expiration') == null)
-    return GUEST
+  if (!localStorage.getItem('token')) return GUEST
+  if (!localStorage.getItem('expiration')) return GUEST
 
   const currentDate = new Date()
   const expirationDate = new Date(parseInt(localStorage.expiration))
@@ -32,15 +27,13 @@ const initialUser = () => {
   }
 
   const user = localStorage.getItem('user')
-  if (user == null)
-    return GUEST
+  if (!user == null) return GUEST
   return JSON.parse(user)
 }
 
 
 const initial_state = {
   ...initialUser(),
-  "subscriptionCount": 1,
   "token": localStorage.getItem('token')
 };
 
@@ -48,7 +41,7 @@ const initial_state = {
 const user = (state = initial_state, action) => {
   switch (action.type) {
 
-    case cst.ADD_USER:
+    case cst.actions.ADD_USER:
       if (action.user.id == state.id)
         return {
           ...state,
@@ -56,21 +49,32 @@ const user = (state = initial_state, action) => {
         }
       return state
 
-    case cst.LOGIN:
+    case cst.actions.LOGIN:
       return {
         ...action.user,
         image: action.user.image,
-        token: action.token,
-        subscriptionCount: 1
+        token: action.token
       }
 
-    case cst.SET_SUBSCRIPTION_COUNT:
+    case cst.actions.SET_OWN_SUBSCRIPTION_COUNT:
       return {
         ...state,
         subscriptionCount: action.count
       }
 
-    case cst.LOGOUT:
+    case cst.actions.SET_OWN_RATING_COUNT:
+      return {
+        ...state,
+        ratingCount: action.count
+      }
+
+    case cst.actions.SET_OWN_SUBJECT_COUNT:
+      return {
+        ...state,
+        subjectCount: action.count
+      }
+
+    case cst.actions.LOGOUT:
       return {
         ...GUEST,
         token: null

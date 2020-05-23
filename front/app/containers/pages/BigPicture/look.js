@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
@@ -40,18 +39,19 @@ const BigPictureViewLook = (props) => {
   }, [])
 
   useEffect(() => {
-    if (bigPicture == undefined)
+    if (!bigPicture)
       getBigPicture(match.params.subjectId)
+    setter(bigPicture)
   }, [match])
 
   useEffect(() => {
-    if (bigPicture != undefined)
+    if (bigPicture)
       setter(bigPicture)
   }, [bigPicture])
 
   return (
     <div className="vde-bigpicture-page">
-      <Loader condition={bigPicture == undefined}>
+      <Loader condition={!bigPicture}>
         { header(init) }
         <div className="vde container section">
           { content(init, user, setter) }
@@ -66,15 +66,8 @@ const BigPictureViewLook = (props) => {
   )
 }
 
-BigPictureViewLook.propTypes = {
-  match: PropTypes.object.isRequired,
-  bigPicture: PropTypes.object,
-  getBigPicture: PropTypes.func.isRequired,
-  getReferences: PropTypes.func.isRequired
-}
-
 const header = (bigPicture) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <div className={"hero " + cst.CLASSNAMES[bigPicture.kind]}>
@@ -97,7 +90,7 @@ const header = (bigPicture) => {
 const content = (bigPicture, user, setter) => {
   const [hidden, setHidden] = useState(false)
 
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <div className="container vde section section-field">
@@ -110,9 +103,9 @@ const content = (bigPicture, user, setter) => {
       </div>
       {
         !hidden
-        ? <div className={"card vde tbp-description"}>
+        ? <div className="card vde tbp-description">
             <div className="vde card-content content">
-              <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : "Ce contenu est vide pour le moment."} />
+              <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : cst.labels.BP_EMPTY_BODY} />
             </div>
           </div>
         : null
@@ -128,7 +121,7 @@ const editButton = (init, setter) => {
       init={init}
       setter={setter}
       classname={"button tbp-radio title-button"}
-      icon={"fas fa-edit"}
+      icon={cst.icons.EDIT}
       EditionModal={BigPictureModal}
       NewItem={NewBigPicture}
     />
@@ -136,7 +129,7 @@ const editButton = (init, setter) => {
 }
 
 const analyse = (bigPicture, user) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <BigPictureList
@@ -144,9 +137,9 @@ const analyse = (bigPicture, user) => {
       parent={bigPicture}
       count={bigPicture.children.length}
       getPage={null}
-      title={"Analyse"}
+      title={cst.labels.CHILD_LIST_TITLE}
       loadFirstPage={true}
-      emptyMessage={"Aucun élément n'a encore été apporté pour préciser cette vue d'ensemble."}
+      emptyMessage={cst.labels.BP_EMPTY_BODY}
       buttons={[
         () => { return backButton(bigPicture) },
         () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
@@ -174,10 +167,11 @@ const addBigPictureButton = (bigPicture) => {
 
 
 const comments = (bigPicture, getRatingsPage, user) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <RatingList
+      reference={bigPicture.id}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={false}
@@ -187,8 +181,8 @@ const comments = (bigPicture, getRatingsPage, user) => {
           return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }, requestId)
         }
       }
-      title={cst.REASON_LIST_TITLE}
-      emptyMessage={cst.MSG_NO_REASON}
+      title={cst.labels.REASON_LIST_TITLE}
+      emptyMessage={cst.labels.MSG_NO_REASON}
       buttons={[() => addRatingButton(bigPicture, user)]}
       margin={0}
     />
@@ -205,19 +199,24 @@ const addRatingButton = (bigPicture, user) => {
     reason: "",
     subject: bigPicture.subject
   }
-  if (initRating.subject == null)
+  if (!initRating.subject)
     initRating.subject = bigPicture.id
   return (
-    <RatingButton initRating={initRating} classname={"button tbp-radio title-button"} icon={cst.RATING_ICON} />
+    <RatingButton
+      initRating={initRating}
+      classname="button tbp-radio title-button"
+      icon={cst.icons.PLUS}
+    />
   )
 }
 
 
 const references = (bigPicture, getReferences) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <BigPictureList
+      reference={bigPicture.id}
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
@@ -226,9 +225,9 @@ const references = (bigPicture, getReferences) => {
           return getReferences(page, { ...options, reference: bigPicture.id }, requestId)
         }
       }
-      title={cst.REFERENCE_LIST_TITLE}
+      title={cst.labels.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
-      emptyMessage={cst.MSG_NO_REFERENCE}
+      emptyMessage={cst.labels.MSG_NO_REFERENCE}
       margin={0}
     />
   )
@@ -236,7 +235,7 @@ const references = (bigPicture, getReferences) => {
 
 
 const endorsmentsList = (bigPicture, endorsments, getPage) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   const endorsmentsSort = (endorsmentA, endorsmentB) => {
     const dateA = new Date(endorsmentA.date)
@@ -246,9 +245,10 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
 
   return (
     <List
+      reference={bigPicture.id}
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.BP_HAS_NO_ENDORSMENT}
+      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}
       getPage={
@@ -257,14 +257,14 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
         }
       }
       loadFirstPage={false}
-      title={"Évaluations"}
+      title={cst.labels.ENDORSMENT_LIST_TITLE}
       margin={0}
     />
   )
 }
 
 const results = (bigPicture) => {
-  if (bigPicture == undefined) return null
+  if (!bigPicture) return null
 
   return (
     <Results showHeader={true} bigPictureId={bigPicture.id} margin={0} />
