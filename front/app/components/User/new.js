@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import * as cst from '../../constants'
 import "./style.scss"
 
 
-const NewUserLook = ({ data, setData }) => {
+const NewUser = (props) => {
+  const { data, setData } = props
   const edit = (e) => {
     if (e.target.name == "image") {
       setData({ ...data, "image": e.target.files[0]})
@@ -22,11 +22,6 @@ const NewUserLook = ({ data, setData }) => {
       {imageField(data, edit)}
     </div>
   )
-}
-
-NewUserLook.propTypes = {
-  data: PropTypes.object,
-  setData: PropTypes.func
 }
 
 const imageField = (data, edit) => {
@@ -51,15 +46,9 @@ const bioField = (data, edit) => {
         name="bio"
         value={data.bio}
         onChange={edit}
-        placeholder="Présentez-vous en quelques mots !" />
+        placeholder={cst.labels.USER_BIO_PLACEHOLDER} />
     </div>
   )
 }
-
-const mapStateToProps = (state, ownProps) => {
-  return {}
-}
-
-const NewUser = connect(mapStateToProps)(NewUserLook)
 
 export default NewUser

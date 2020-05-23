@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import * as cst from '../../../constants'
 import BigPictureList from '../../../components/BigPicture/list'
 import NewBigPicture from '../../../components/BigPicture/new'

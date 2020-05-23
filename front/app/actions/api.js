@@ -52,6 +52,12 @@ const NEXTS = {
   "getOwnRatings": (dispatch, nextargs, requestId) => {
     return (result) => {
       dispatch(basics.setOwnRatingCount(nextargs.author, result.count, requestId))
+      dispatch(basics.setUserRatingCount(nextargs.author, result.count, requestId))
+      for (let i = 0; i < result.results.length; ++i) {
+        const rating = result.results[i]
+        dispatch(basics.addRating(rating))
+        dispatch(basics.addGivenReason(nextargs.author, rating.id))
+      }
     }
   },
   "getSubscriptions": (dispatch, nextargs, requestId) => {
@@ -69,6 +75,12 @@ const NEXTS = {
       }
     }
   },
+  "unfollow": (dispatch, nextargs, requestId) => {
+    return (resp) => {
+      dispatch(basics.removeSubscription(nextargs.targetId))
+      dispatch(basics.notification(notifications.itemDeletion["subscriptions"]))
+    }
+  },
   "getBigPictureResults": (dispatch, nextargs, requestId) => {
     return (resp) => {
       dispatch(basics.setBpEndorsmentCount(nextargs.bigpictureId, resp.count, requestId))
@@ -80,7 +92,7 @@ const NEXTS = {
       dispatch(basics.setEndorsmentCount(nextargs.ratingId, resp.count, requestId))
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
-  },
+  }
 }
 
 export const make = (request) => {
@@ -172,13 +184,13 @@ const DELETE_ACTIONS = {
   "endorsments": basics.removeEndorsment
 }
 
-export const deleteItem = (dispatch, itemId, itemAPI) => {
+export const deleteItem = (dispatch, itemId, itemAPI, options) => {
   const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}`
   fetch(host, buildRequest({}, "DELETE"))
     .then((res) => {
       if (res.status == 204) {
         const delete_action = DELETE_ACTIONS[itemAPI]
-        dispatch(delete_action(itemId))
+        dispatch(delete_action(itemId, options))
         dispatch(basics.notification(notifications.itemDeletion[itemAPI]))
       }
       else {

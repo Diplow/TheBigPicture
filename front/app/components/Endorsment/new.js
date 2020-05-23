@@ -24,7 +24,7 @@ const NewEndorsment = (props) => {
 
   return (
     <div className="newRatingModal">
-      <Context bpId={data.bigpicture} ratingId={data.rating} />
+      <Context title={cst.labels.CONTEXT_TITLE} bpId={data.bigpicture} ratingId={data.rating} />
       {starField(data, edit)}
       {reason(data)}
     </div>

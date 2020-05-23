@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
@@ -42,6 +41,7 @@ const BigPictureViewLook = (props) => {
   useEffect(() => {
     if (!bigPicture)
       getBigPicture(match.params.subjectId)
+    setter(bigPicture)
   }, [match])
 
   useEffect(() => {
@@ -64,13 +64,6 @@ const BigPictureViewLook = (props) => {
       </Loader>
     </div>
   )
-}
-
-BigPictureViewLook.propTypes = {
-  match: PropTypes.object.isRequired,
-  bigPicture: PropTypes.object,
-  getBigPicture: PropTypes.func.isRequired,
-  getReferences: PropTypes.func.isRequired
 }
 
 const header = (bigPicture) => {
@@ -110,7 +103,7 @@ const content = (bigPicture, user, setter) => {
       </div>
       {
         !hidden
-        ? <div className={"card vde tbp-description"}>
+        ? <div className="card vde tbp-description">
             <div className="vde card-content content">
               <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : cst.labels.BP_EMPTY_BODY} />
             </div>
@@ -178,6 +171,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
 
   return (
     <RatingList
+      reference={bigPicture.id}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={false}
@@ -222,6 +216,7 @@ const references = (bigPicture, getReferences) => {
 
   return (
     <BigPictureList
+      reference={bigPicture.id}
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
@@ -250,6 +245,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
 
   return (
     <List
+      reference={bigPicture.id}
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}

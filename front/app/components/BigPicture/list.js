@@ -20,7 +20,8 @@ const BigPictureListLook = (props) => {
     title,
     buttons,
     search,
-    margin
+    margin,
+    reference
   } = props
 
   const sortBigPictures = (a, b) => {
@@ -32,6 +33,7 @@ const BigPictureListLook = (props) => {
 
   return (
     <List
+      reference={reference}
       items={bigPictures}
       container={(bigPicture) => {
         return (

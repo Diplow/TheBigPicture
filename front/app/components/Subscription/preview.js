@@ -19,7 +19,7 @@ const SubscriptionPreviewLook = (props) => {
   if (!subscription || !target) return null
 
   return (
-    <div key={subscription.id}>
+    <div key={`subscriptionKey-${subscription.target_id}`}>
       <div className="vde card subscription">
         <header className="vde card-header level preview-item-level is-mobile">
           { leftLevel(target) }
@@ -44,7 +44,7 @@ const rightLevel = (subscription, unfollow) => {
   return (
     <div className="level-right">
       <div className="button tbp-radio title-button is-narrow unfollow">
-        <a onClick={() => unfollow(subscription.id)}>
+        <a onClick={() => unfollow(subscription)}>
           <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
         </a>
       </div>
@@ -53,7 +53,7 @@ const rightLevel = (subscription, unfollow) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const subscription = state.get("subscriptions").find(elt => elt.id == ownProps.subscriptionId)
+  const subscription = state.get("subscriptions").find(elt => elt.target_id == ownProps.targetId)
   return {
     user: state.get("user"),
     target: subscription ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
@@ -64,7 +64,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    unfollow: (subscriptionId) => { dispatch(unfollow(subscriptionId)) }
+    // Some subscriptions are created on the fly without an ID to save db calls
+    // Therefore, the target_id is also given to delete these subscriptions items
+    unfollow: (subscription) => { dispatch(unfollow(subscription.target_id)) }
   }
 }
 

@@ -21,7 +21,7 @@ const NewRating = (props) => {
 
   return (
     <div className="newRatingModal">
-      <Context bpId={data.target_bp} ratingId={data.target_rating} />
+      <Context title={cst.labels.CONTEXT_TITLE} bpId={data.target_bp} ratingId={data.target_rating} />
       { bodyField(data, edit) }
     </div>
   )

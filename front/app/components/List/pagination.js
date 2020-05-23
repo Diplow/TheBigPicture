@@ -4,7 +4,7 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const createPagination = (user, items, count, getPage, size, loadFirstPage, sortFunc, processedRequests) => {
+const createPagination = (user, items, count, getPage, size, loadFirstPage, sortFunc, processedRequests, hidden, reference) => {
   const [pageNb, setPageNb] = useState(0)
   const [favorites, setFavorites] = useState(false)
   const [currentPage, setCurrentPage] = useState(items)
@@ -24,6 +24,15 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
     setWaitingForResponse(searchRequestId)
     setCurrentSearchId(searchRequestId)
   }
+
+  useEffect(() => {
+    if (!hidden && pageNb == 0)
+      loadMore()
+  }, [hidden])
+
+  useEffect(() => {
+    setPageNb(0)
+  }, [reference])
 
   useEffect(() => {
     // Sort and filter items 

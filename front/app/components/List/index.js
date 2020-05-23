@@ -12,6 +12,7 @@ import "./style.scss"
 const ListLook = (props) => {
 
   const {
+    reference, // reference is an ID used
     items,
     container,
     user,
@@ -29,6 +30,8 @@ const ListLook = (props) => {
     margin
   } = props
 
+  const [hidden, setHidden] = useState(!loadFirstPage)
+
   const [
     pagination,
     searchbar,
@@ -43,15 +46,22 @@ const ListLook = (props) => {
     cst.PAGE_SIZE,
     loadFirstPage,
     sortFunc,
-    processedRequests
+    processedRequests,
+    hidden,
+    reference
   )
 
-  const [hidden, setHidden] = useState(!loadFirstPage)
+  const [hiddenInitValue, _] = useState(hidden)
   const [loading, setLoading] = useState(waitingForResponse !== "")
 
   useEffect(() => {
     setLoading(waitingForResponse !== "")
   }, [waitingForResponse])
+
+  useEffect(() => {
+    // if the reference change, reset the hidden param to its initial value
+    setHidden(hiddenInitValue)
+  }, [reference])
 
   return (
     <div
@@ -75,7 +85,7 @@ const ListLook = (props) => {
       {
         page.map((item) => {
           return !hidden
-            ? <div key={"listItem"+item.id}>{container(item)}</div>
+            ? container(item)
             : null
         })
       }

@@ -2,7 +2,6 @@
 from rest_framework import serializers
 from api.models import BigPicture, BaseUser, Rating
 from api.serializers.user import UserSerializer
-from api.serializers.vote import RatingSerializer
 
 
 class BigPictureChildSerializer(serializers.ModelSerializer):

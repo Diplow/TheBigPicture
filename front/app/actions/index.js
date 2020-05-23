@@ -127,6 +127,17 @@ export const deleteVote = (id) => {
   }
 }
 
+export const getRating = (ratingId) => {
+  return (dispatch) => {
+    api.getItem(
+      dispatch, 
+      ratingId,
+      "ratingswithcontext",
+      []
+    )
+  }
+}
+
 export const getRatings = (page, options, requestId) => {
   let requestName = "getRatings"
   if (options.bigpicture)
@@ -261,12 +272,14 @@ export const getSubscriptions = (page, options, requestId) => {
   }
 }
 
-export const unfollow = (subscriptionId) => {
+export const unfollow = (targetId) => {
   return (dispatch) => {
-    api.deleteItem(
+    api.get(
       dispatch,
-      subscriptionId,
-      "subscriptions"
+      `users/${targetId}/unfollow/`,
+      { targetId },
+      "unfollow",
+      false
     )
   }
 }
@@ -277,7 +290,7 @@ export const follow = (author, target_id) => {
       dispatch,
       utils.removeEmptyKeys({ author, target_id }),
       "subscriptions",
-      basics.addSubscription,
+      basics.createSubscription,
       "/",
       "POST"
     )

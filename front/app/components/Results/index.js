@@ -34,9 +34,13 @@ const ResultsLook = (props) => {
       style={{marginLeft: marg +"%"}}
       className={showHeader ? "container vde section section-field" : ""}>
       { target && showHeader ? header(hidden, setHidden) : null }
-      <Loader condition={target.results == undefined}>
-        { !hidden && target.results != undefined ? chart(target) : null}
-      </Loader>
+      {
+        !hidden
+          ? <Loader condition={target.results == undefined}>
+              { chart(target) }
+            </Loader>
+          : null
+      }
     </div>
   )
 }
@@ -53,6 +57,7 @@ const header = (hidden, setHidden) => {
 }
 
 const chart = (bigPicture) => {
+  if (bigPicture.results == undefined) return null
   const series = [{
     name: EXPLICATIONS[0],
     data: [bigPicture.results["0star"]]

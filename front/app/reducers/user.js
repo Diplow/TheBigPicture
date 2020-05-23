@@ -9,17 +9,12 @@ const GUEST = {
   "groups": [],
   "url": "",
   "image": "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/media/profile_images/login.png",
-  "id": 0,
-  "subscriptionCount": 1
+  "id": 0
 }
 
-
 const initialUser = () => {
-  if (localStorage.getItem('token') == null)
-    return GUEST
-
-  if (localStorage.getItem('expiration') == null)
-    return GUEST
+  if (!localStorage.getItem('token')) return GUEST
+  if (!localStorage.getItem('expiration')) return GUEST
 
   const currentDate = new Date()
   const expirationDate = new Date(parseInt(localStorage.expiration))
@@ -32,8 +27,7 @@ const initialUser = () => {
   }
 
   const user = localStorage.getItem('user')
-  if (user == null)
-    return GUEST
+  if (!user == null) return GUEST
   return JSON.parse(user)
 }
 

@@ -7,9 +7,9 @@ from django_registration.backends.activation.views import RegistrationView
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from api.views.users import UserViewSet, GroupViewSet, AuthViewSet, SubscriptionViewSet
+from api.views.users import UserViewSet, GroupViewSet, AuthViewSet, SubscriptionViewSet, unfollow
 from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet
-from api.views.ratings import RatingViewSet, OwnRatingViewSet, EndorsmentViewSet
+from api.views.ratings import RatingViewSet, OwnRatingViewSet, EndorsmentViewSet, RatingWithContextViewSet
 from api.views.results import bigPictureResults, ratingResults
 
 from api.forms.base_user import BaseUserForm
@@ -24,12 +24,14 @@ router.register(r'bigpictures', BigPictureViewSet)
 router.register(r'subjects', SubjectViewSet)
 router.register(r'ownsubjects', OwnSubjectViewSet)
 router.register(r'ratings', RatingViewSet)
+router.register(r'ratingswithcontext', RatingWithContextViewSet)
 router.register(r'endorsments', EndorsmentViewSet)
 router.register(r'ownratings', OwnRatingViewSet)
 
 urlpatterns = [
     path('api/bigpictures/<int:pk>/results/', bigPictureResults),
     path('api/ratings/<int:pk>/results/', ratingResults),
+    path('api/users/<int:target>/unfollow/', unfollow),
     path('api/token-auth/', obtain_jwt_token),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

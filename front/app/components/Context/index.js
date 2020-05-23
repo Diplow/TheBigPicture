@@ -11,14 +11,20 @@ import "./style.scss"
 const ContextLook = (props) => {
   const {
     bigpicture,
-    rating
+    rating,
+    title,
+    classname
   } = props
 
   return (
-    <div className="field">
-      <p className="subtitle-modal">{cst.labels.CONTEXT_TITLE}</p>
-      { bpContext(bigpicture) }
-      { ratingContext(rating)}
+    <div>
+      { title ? <p className="subtitle-modal">{title}</p> : null }
+      <div className={`vde card tbp-description field ${classname}`}>
+        <div className="vde card-content content">
+          { bpContext(bigpicture) }
+          { ratingContext(rating)}
+        </div>
+      </div>
     </div>
   )
 }
@@ -28,7 +34,7 @@ const bpContext = (bp) => {
   if (!bp) return null
 
   return (
-    <div className="content">
+    <div>
       <p className="subtitle" onClick={toggle}>{bp.title}</p>
       { show ? <ReactMarkdown source={bp.body} /> : null }
     </div>
@@ -37,7 +43,12 @@ const bpContext = (bp) => {
 
 const ratingContext = (rating) => {
   if (!rating) return null
-  return <ReactMarkdown source={rating.body} />
+  return(
+    <div>
+      <Context classname="vde rating-page" ratingId={rating.target_rating} bpId={rating.target_bp} />
+      <ReactMarkdown source={rating.body} />
+    </div>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {

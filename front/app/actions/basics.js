@@ -212,6 +212,13 @@ export const addSubscription = (subscription) => {
   }
 }
 
+export const createSubscription = (subscription) => {
+  return {
+    type: cst.actions.CREATE_SUBSCRIPTION,
+    subscription
+  }
+}
+
 export const addEndorsment = (endorsment) => {
   return {
     type: cst.actions.ADD_ENDORSMENT,
@@ -241,10 +248,10 @@ export const removeRating = (id) => {
   }
 }
 
-export const removeSubscription = (id) => {
+export const removeSubscription = (targetId) => {
   return {
     type: cst.actions.DELETE_SUBSCRIPTION,
-    id
+    targetId
   }
 }
 

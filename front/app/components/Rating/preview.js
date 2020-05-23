@@ -18,6 +18,7 @@ import endorsmentsSort from '../Endorsment/sort'
 import List, { getPageFormatter } from '../List'
 
 import RadioButton from '../Buttons/radio'
+import LinkButton from '../Buttons/link'
 
 import * as utils from '../utils'
 import * as cst from '../../constants'
@@ -114,10 +115,23 @@ const toolBar = (props) => {
         { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST) }
         { rateThisRatingButton(initRating) }
         { endorseThisRatingButton(rating, user.id) }
+        { lookButton(rating) }
       </div>
     </div>
   )
 }
+
+
+const lookButton = (rating) => {
+  return (
+    <LinkButton
+      icon={ cst.icons.SEARCH }
+      to={`/subject/${rating.subject}/rating/${rating.id}`}
+      classname="vde toolbar"
+    />
+  )
+}
+
 
 const toggleButton = (show, toggle, icon) => {
   return (

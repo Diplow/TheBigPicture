@@ -100,6 +100,12 @@ const requests = (state = [], action) => {
         { state: cst.actions.REQUEST_PROCESSED }
       )
 
+    case cst.actions.CREATE_SUBSCRIPTION:
+    case cst.actions.DELETE_SUBSCRIPTION:
+      // If subscriptions are modified, favorites requests become irrelevant
+      return state.filter(req => !req.id.includes("favorite"))
+
+
     default:
       return state
   }
