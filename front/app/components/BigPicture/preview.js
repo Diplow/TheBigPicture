@@ -169,6 +169,7 @@ const toolBar = (props) => {
         { toggleButton(showResults, toggleResults, cst.icons.RESULT, resultsCondition) }
         { toggleButton(showChildren, toggleChildren, cst.icons.CHILDREN, childrenCondition) }
         { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST, ratingsCondition) }
+        { ratingButton(bigPicture, user) }
         { lookButton(bigPicture) }
       </div>
     </div>
@@ -250,20 +251,13 @@ const bpDetails = (showDetails, body) => {
 
 const bpChildren = (bigPicture, children, user) => {
 
-  const sortBigPictures = (a, b) => {
-    // Sort by modif date
-    const aModifDate = new Date(a.modification_date)
-    const bModifDate = new Date(b.modification_date)
-    return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
-  }
-
   return (
     <List
       items={children}
       container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} />}
       user={user}
       emptyMessage={""}
-      sortFunc={sortBigPictures}
+      sortFunc={(a, b) => a.title > b.title ? 1 : -1}
       count={bigPicture.children.length}
       getPage={null}
       loadFirstPage={true}

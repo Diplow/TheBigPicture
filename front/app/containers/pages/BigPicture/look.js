@@ -136,6 +136,7 @@ const analyse = (bigPicture, user) => {
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
+      sortFunc={(a, b) => a.title > b.title ? 1 : -1}
       getPage={null}
       title={cst.labels.CHILD_LIST_TITLE}
       loadFirstPage={true}

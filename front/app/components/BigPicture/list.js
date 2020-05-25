@@ -13,6 +13,7 @@ const BigPictureListLook = (props) => {
     user,
     emptyMessage,
     parent,
+    sortFunc,
     count,
     getPage,
     showHeader,
@@ -45,7 +46,7 @@ const BigPictureListLook = (props) => {
       }}
       user={user}
       emptyMessage={emptyMessage}
-      sortFunc={sortBigPictures}
+      sortFunc={sortFunc || sortBigPictures}
       count={count}
       getPage={getPage}
       loadFirstPage={loadFirstPage}
