@@ -12,7 +12,7 @@ import "./style.scss"
 const ListLook = (props) => {
 
   const {
-    reference, // reference is an ID used
+    name, // reference is an ID used
     items,
     container,
     user,
@@ -48,7 +48,7 @@ const ListLook = (props) => {
     sortFunc,
     processedRequests,
     hidden,
-    reference
+    name
   )
 
   const [hiddenInitValue, _] = useState(hidden)
@@ -61,7 +61,7 @@ const ListLook = (props) => {
   useEffect(() => {
     // if the reference change, reset the hidden param to its initial value
     setHidden(hiddenInitValue)
-  }, [reference])
+  }, [name])
 
   return (
     <div
@@ -83,9 +83,10 @@ const ListLook = (props) => {
           : null
       }
       {
-        page.map((item) => {
+        page.map((item, index) => {
+          const key = `${name}-${index}`
           return !hidden
-            ? container(item)
+            ? <div id={key} key={key}>{container(item)}</div>
             : null
         })
       }

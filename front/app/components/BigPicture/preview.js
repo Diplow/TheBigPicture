@@ -253,6 +253,7 @@ const bpChildren = (bigPicture, children, user) => {
 
   return (
     <List
+      name={`bp-preview-${bigPicture.id}-children-list`}
       items={children}
       container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} />}
       user={user}

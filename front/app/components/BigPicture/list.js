@@ -22,7 +22,7 @@ const BigPictureListLook = (props) => {
     buttons,
     search,
     margin,
-    reference
+    name
   } = props
 
   const sortBigPictures = (a, b) => {
@@ -34,16 +34,9 @@ const BigPictureListLook = (props) => {
 
   return (
     <List
-      reference={reference}
+      name={name}
       items={bigPictures}
-      container={(bigPicture) => {
-        return (
-          <BigPicturePreview
-            key={`preview-${bigPicture.id}`}
-            bigPictureId={bigPicture.id}
-            margin={0} />
-        )
-      }}
+      container={(bigPicture) => <BigPicturePreview bigPictureId={bigPicture.id} margin={0} />}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={sortFunc || sortBigPictures}

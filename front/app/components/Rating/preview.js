@@ -170,6 +170,7 @@ const ratingChildren = (rating, children, getPage) => {
 
   return (
     <List
+      name={`rating-preview-${rating.id}-ratings-list`}
       items={children}
       container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
       emptyMessage={cst.labels.RATING_HAS_NO_RATING}
