@@ -39,7 +39,9 @@ label {
 }
 
 a {
-  color: $dark;
+  .icon {
+    color: $dark;
+  }
 }
 
 .vde.level {
