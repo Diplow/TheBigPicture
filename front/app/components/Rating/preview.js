@@ -17,7 +17,7 @@ import List, { getPageFormatter } from '../List'
 import RadioButton from '../Buttons/radio'
 import LinkButton from '../Buttons/link'
 
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
 

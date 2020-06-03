@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
 import AuthorIcon from '../User/authorIcon'
-import { useToggle } from '../utils/hooks'
+import { useToggle } from '../../utils/hooks'
 import { deleteEndorsment } from '../../actions/index'
 import "./style.scss"
 import * as cst from '../../constants'

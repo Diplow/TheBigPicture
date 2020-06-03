@@ -7,7 +7,7 @@ import BigPictureModal from '../../../components/BigPicture/modal'
 import "./style.scss"
 
 
-const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
+const HomeLook = ({ user, getBigPictures, count }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)

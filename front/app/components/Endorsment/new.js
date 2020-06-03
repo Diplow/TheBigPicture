@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import Context from '../Context'
 
 import * as cst from '../../constants'
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
 
@@ -35,7 +35,9 @@ const reason = (data) => {
   return (
     <div className="field">
       <p className="subtitle-modal">Raison</p>
-      <ReactMarkdown source={data.reason} />
+      <div className="content">
+        <ReactMarkdown source={data.reason} />
+      </div>
     </div>
   )
 }

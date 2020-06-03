@@ -30,7 +30,7 @@ import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
 
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -65,9 +65,11 @@ const BigPicturePreviewLook = (props) => {
 
   if (!bigPicture) return null
 
+  const cardId = `bp-preview-${bigPicture.id}`
+
   return (
-    <div key={bigPicture.id}>
-      <div className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
+    <div>
+      <div id={cardId} className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
         <header
           className="vde card-header level preview-item-level is-mobile"
           onClick={() => toggleDetails()}
@@ -89,7 +91,8 @@ const BigPicturePreviewLook = (props) => {
             toggleResults,
             bpDataEditionBuffer,
             setBpDataEditionBuffer,
-            user
+            user,
+            cardId
           })
         }
       </div>
@@ -148,7 +151,8 @@ const toolBar = (props) => {
     toggleResults,
     bpDataEditionBuffer,
     setBpDataEditionBuffer,
-    user
+    user,
+    cardId
   } = props
 
   // conditions to display toolbar's buttons
@@ -164,22 +168,73 @@ const toolBar = (props) => {
         <p>{bigPicture.creation_date}</p>
       </div>
       <div className="level-right">
-        { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
-        { toggleButton(showDetails, toggleDetails, cst.icons.DETAILS, detailsCondition) }
-        { toggleButton(showResults, toggleResults, cst.icons.RESULT, resultsCondition) }
-        { toggleButton(showChildren, toggleChildren, cst.icons.CHILDREN, childrenCondition) }
-        { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST, ratingsCondition) }
-        { ratingButton(bigPicture, user) }
-        { lookButton(bigPicture) }
+        {
+          editButton(
+            bpDataEditionBuffer,
+            setBpDataEditionBuffer,
+            editCondition,
+            `${cardId}-toolbarbutton-edit`
+          )
+        }
+        {
+          toggleButton(
+            showDetails,
+            toggleDetails,
+            cst.icons.DETAILS,
+            detailsCondition,
+            `${cardId}-toolbarbutton-toggledetails`
+          )
+        }
+        {
+          toggleButton(
+            showResults,
+            toggleResults,
+            cst.icons.RESULT,
+            resultsCondition,
+            `${cardId}-toolbarbutton-toggleresults`
+          )
+        }
+        {
+          toggleButton(
+            showChildren,
+            toggleChildren,
+            cst.icons.CHILDREN,
+            childrenCondition,
+            `${cardId}-toolbarbutton-togglechildren`
+          )
+        }
+        {
+          toggleButton(
+            showRatings,
+            toggleRatings,
+            cst.icons.RATING_LIST,
+            ratingsCondition,
+            `${cardId}-toolbarbutton-toggleratings`
+          )
+        }
+        { 
+          ratingButton(
+            bigPicture,
+            user,
+            `${cardId}-toolbarbutton-rate`
+          )
+        }
+        {
+          lookButton(
+            bigPicture,
+            `${cardId}-toolbarbutton-look`
+          )
+        }
       </div>
     </div>
   )
 }
 
-const toggleButton = (show, toggle, icon, condition) => {
+const toggleButton = (show, toggle, icon, condition, id) => {
   if (!condition) return null
   return (
     <RadioButton
+      id={id}
       classname="vde toolbar"
       isPushed={show}
       setIsPushed={toggle}
@@ -189,10 +244,11 @@ const toggleButton = (show, toggle, icon, condition) => {
 
 }
 
-const editButton = (init, setter, condition) => {
+const editButton = (init, setter, condition, id) => {
   if (!condition) return null
   return (
     <EditionModalButton
+      id={id}
       classname="vde toolbar"
       init={init}
       setter={setter}
@@ -204,7 +260,7 @@ const editButton = (init, setter, condition) => {
   )
 }
 
-const ratingButton = (bigPicture, user) => {
+const ratingButton = (bigPicture, user, id) => {
   const initRating = {
     author_id: user.id,
     target_bp: bigPicture.id,
@@ -216,19 +272,21 @@ const ratingButton = (bigPicture, user) => {
     initRating.subject = bigPicture.id
   return (
     <RatingButton
+      id={id}
       initRating={initRating}
       classname="vde toolbar"
       icon={ cst.icons.RATING } />
   )
 }
 
-const lookButton = (bigPicture) => {
+const lookButton = (bigPicture, id) => {
   const bpSubject = bigPicture.subject || bigPicture.id
-  const subjectId = bigPicture.hyperlink ||  bpSubject
+  const subjectId = bigPicture.hyperlink_id ||  bpSubject
   const bpId = bigPicture.hyperlink || bigPicture.id
 
   return (
     <LinkButton
+      id={id}
       icon={ cst.icons.SEARCH }
       to={`/subject/${subjectId}/bigPicture/${bpId}`}
       classname="vde toolbar"
@@ -270,6 +328,7 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 
   return (
     <RatingList
+      name={`bp-preview-${bigPicture.id}-ratings-list`}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={true}

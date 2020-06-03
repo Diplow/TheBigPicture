@@ -15,8 +15,8 @@ export { notifications }
 export const STATIC_STORAGE = "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/static/icons/"
 export const SERVER_ADDR = document.domain == "localhost" ? "http://localhost:8000/api/" : "https://api.vue-d-ensemble.fr/api/"
 export const SAFE_METHODS = ["GET", "HEAD", "OPTIONS"]
-export const PAGE_SIZE = 10.
-
+export const PAGE_SIZE = 10. // This value has to match the server value
+export const TOKEN_DURATION = 7 // token expire after 7 days. This value has to match the server value
 
 // Ratings
 export const RATING = 6

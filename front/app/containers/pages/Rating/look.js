@@ -9,7 +9,7 @@ import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import Results from '../../../components/Rating/results'
 import List from '../../../components/List'
-import * as utils from '../../../components/utils'
+import * as utils from '../../../utils'
 import { RatingButton } from '../../../components/Rating/buttons'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 

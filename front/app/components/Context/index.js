@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 
 import * as cst from '../../constants'
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import "./style.scss"
 
 

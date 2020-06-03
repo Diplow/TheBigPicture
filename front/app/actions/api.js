@@ -185,7 +185,7 @@ const DELETE_ACTIONS = {
 }
 
 export const deleteItem = (dispatch, itemId, itemAPI, options) => {
-  const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}`
+  const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}/`
   fetch(host, buildRequest({}, "DELETE"))
     .then((res) => {
       if (res.status == 204) {
@@ -282,8 +282,7 @@ export const getCollection = (dispatch, itemAPI, page, options, next, requestId)
 
 const computeTokenTimeout = () => {
   const expirationDate = new Date()
-  // token expire after 7 days. This value has to match the server value
-  expirationDate.setDate(expirationDate.getDate() + 7)
+  expirationDate.setDate(expirationDate.getDate() + cst.TOKEN_DURATION)
   return expirationDate.getTime()
 }
 
@@ -304,16 +303,9 @@ export const login = (credentials) => {
 
 export const logout = () => {
   return (dispatch) => {
-    delete localStorage.token;
-    delete localStorage.user;
+    localStorage.clear()
     dispatch(basics.logout())
     dispatch(basics.notification(notifications.LOGOUT))
-  }
-}
-
-export const permissionDenied = (action) => {
-  return (dispatch) => {
-    dispatch(logout())
   }
 }
 
@@ -323,12 +315,16 @@ export const handleHttpError = (dispatch, action) => {
       case 400:
         if (action == "login")
           dispatch(basics.notification(notifications.IDENTIFICATION_FAIL))
+        return res
       case 401:
-        dispatch(permissionDenied(action))
+        localStorage.clear()
+        dispatch(basics.logout())
         dispatch(basics.notification(notifications.SESSION_EXPIRED))
+        return res
       case 500:
       case 503:
         dispatch(basics.notification(notifications.SERVER_ERROR_500(action)))
+        return res
       default:
         return res
     }
