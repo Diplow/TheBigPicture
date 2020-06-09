@@ -7,5 +7,6 @@ Start a postgres db.
 > docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v PERSISTENT_DATA:/var/lib/postgresql/data  postgres:10.5-alpine
 
 Start the server
+> pipenv shell
 > python manage.py runserver
 
