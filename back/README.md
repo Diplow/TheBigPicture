@@ -8,5 +8,6 @@ Start a postgres db.
 
 Start the server
 > pipenv shell
+
 > python manage.py runserver
 
