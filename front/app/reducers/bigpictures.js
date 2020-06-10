@@ -64,6 +64,18 @@ const handleParentChange = (bp, state) => {
   ]
 }
 
+const addChildToParent = (bp, state) => {
+  if (bp.parent) {
+    state = reducer_utils.add_item_to_set(
+      state,
+      bp.parent,
+      "children",
+      bp.id
+    )
+  }
+  return state
+}
+
 const addBigPicture = (bp, state) => {
   const addFamily = (bp, state) => {
     const favorite = bp.favorite
@@ -77,18 +89,13 @@ const addBigPicture = (bp, state) => {
 
   state = addFamily(bp, state)
   state = addBp(bp, state)
+  state = addChildToParent(bp, state)
   state = handleHyperlink(bp, state)
   state = handleParentChange(bp, state)
   return state
 }
 
 const bigpictures = (state = [], action) => {
-  let old = null
-  let old_parent = null
-  let new_parent = null
-  let target_bp = null
-  let res = null
-  let bp = null
 
   switch (action.type) {
 
@@ -128,10 +135,17 @@ const bigpictures = (state = [], action) => {
       return reducer_utils.update_item(
         state,
         action.bpId,
-        { endorsmentCount: action.count })
+        { endorsmentCount: action.count }
+      )
 
     case cst.actions.DELETE_BIG_PICTURE:
-      return state.filter(element => element.id != action.id)
+      state = state.filter(element => element.id != action.id)
+      return state.map(element => {
+        return {
+          ...element,
+          children: element.children.filter(id => id !== action.id) 
+        }
+      })
 
     case cst.actions.ADD_RATING:
       const addContext = (context, state) => {

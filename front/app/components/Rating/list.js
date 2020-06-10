@@ -22,14 +22,14 @@ const RatingListLook = (props) => {
     title,
     buttons,
     margin,
-    reference
+    name
   } = props
 
   return (
     <List
-      reference={reference}
+      name={name}
       items={ratings}
-      container={(rating) => <div key={`previewrating-${rating.id}`} ><RatingPreview ratingId={rating.id} margin={margin} /></div>}
+      container={(rating) => <RatingPreview ratingId={rating.id} margin={margin} />}
       user={user}
       emptyMessage={emptyMessage}
       sortFunc={ratingsSort}

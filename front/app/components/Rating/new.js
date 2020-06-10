@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Context from '../Context'
 
 import * as cst from '../../constants'
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import "./style.scss"
 
 

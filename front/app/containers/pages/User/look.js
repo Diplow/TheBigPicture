@@ -142,6 +142,7 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
 
   return (
     <BigPictureList
+      name={`user-page-${user.id}-subjects-list`}
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
       parent={null}
       count={fullUser.subjectCount}
@@ -160,6 +161,7 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
 
   return (
     <RatingList
+      name={`user-page-${user.id}-ratings-list`}
       filter={(rating) => user.reasons.indexOf(rating.id) != -1}
       parent={null}
       count={fullUser.ratingCount}

@@ -133,9 +133,11 @@ const analyse = (bigPicture, user) => {
 
   return (
     <BigPictureList
+      name={`bp-page-${bigPicture.id}-children-list`}
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
+      sortFunc={(a, b) => a.title > b.title ? 1 : -1}
       getPage={null}
       title={cst.labels.CHILD_LIST_TITLE}
       loadFirstPage={true}
@@ -171,7 +173,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
 
   return (
     <RatingList
-      reference={bigPicture.id}
+      name={`bp-page-${bigPicture.id}-ratings-list`}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={false}
@@ -216,7 +218,7 @@ const references = (bigPicture, getReferences) => {
 
   return (
     <BigPictureList
-      reference={bigPicture.id}
+      name={`bp-page-${bigPicture.id}-references-list`}
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
@@ -245,7 +247,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
 
   return (
     <List
-      reference={bigPicture.id}
+      name={`bp-page-${bigPicture.id}-endorsments-list`}
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}

@@ -1,6 +1,6 @@
 import * as basics from "./basics"
 import * as api from './api'
-import * as utils from '../components/utils'
+import * as utils from '../utils'
 import * as cst from "../constants"
 
 
@@ -113,6 +113,19 @@ export const postVote = (vote) => {
       basics.addRating,
       "/",
       "POST"
+    )
+  }
+}
+
+export const patchRating = (rating) => {
+  return (dispatch) => {
+    api.sendItem(
+      dispatch,
+      utils.removeEmptyKeys(rating),
+      "ratings",
+      basics.addRating,
+      `/${rating.id}/`,
+      "PATCH"
     )
   }
 }
@@ -243,7 +256,7 @@ export const patchUser = (user) => {
   return (dispatch) => {
     api.sendItem(
       dispatch, 
-      removeEmptyKeys(user),
+      utils.removeEmptyKeys(user),
       "users",
       basics.addUser,
       `/${user.id}/`,

@@ -64,6 +64,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    // Some subscriptions are created on the fly without an ID to save db calls
+    // Therefore, the target_id is also given to delete these subscriptions items
     unfollow: (subscription) => { dispatch(unfollow(subscription.target_id)) }
   }
 }

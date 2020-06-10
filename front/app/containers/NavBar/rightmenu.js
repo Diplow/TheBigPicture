@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import NotifIcon from '../../images/icons/notification.svg';
 import SocialsIcon from '../../images/icons/share.svg';
@@ -13,11 +14,11 @@ import SettingsIcon from '../../images/icons/gear.svg';
 import HomeIcon from '../../images/icons/home.svg';
 import DisconnectIcon from '../../images/icons/logout.svg';
 
-import { logout } from '../../actions/api'
 import LoginButton from './loginbutton'
 import LoginModal from './loginmodal'
-import DropdownMenu from '../DropDownMenu'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import DropdownMenu from '../../components/DropDownMenu'
+
+import * as cst from '../../constants'
 import "./style.scss"
 
 
@@ -75,12 +76,12 @@ const RightMenu = (props) => {
             <DropdownMenu linksArray={[
               {
                 leftIcon: <img className="vde navbar menu" src={HomeIcon} alt="Mes contenus" />,
-                name: "Profil",
+                name: cst.labels.PROFILE,
                 url: `/user/${user.id}`
               },
               {
                 leftIcon: <img className="vde navbar menu" src={DisconnectIcon} alt="Déconnexion" />,
-                name: "Déconnexion",
+                name: cst.labels.DISCONNECT,
                 url: "/",
                 onClick: () => logout()
               }
@@ -142,38 +143,4 @@ const NavItem = (props) => {
   );
 }
 
-
-
-const NavBarLook = ({ user, logout }) => {
-
-  return (
-    <div className="vde section vde-navbar">
-      <div className="container vde-navbar">
-        <div className="vde-navbar level is-mobile">
-          <div className="level-left">
-            <Link className="brand title level-item" to="/" style={{"fontFamily":"Impact", "justifyContent": "left"}}>
-              <figure className="level-item image is-96x96"><img src="https://vde-staticfiles.s3.amazonaws.com/media/profile_images/vde3.png"/></figure>
-            </Link>
-          </div>
-          <RightMenu user={user} logout={logout} />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    user: state.get("user")
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => { dispatch(logout())}
-  }
-}
-
-const NavBar = connect(mapStateToProps, mapDispatchToProps)(NavBarLook)
-
-export default NavBar
+export default RightMenu

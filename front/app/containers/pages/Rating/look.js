@@ -9,7 +9,7 @@ import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import Results from '../../../components/Rating/results'
 import List from '../../../components/List'
-import * as utils from '../../../components/utils'
+import * as utils from '../../../utils'
 import { RatingButton } from '../../../components/Rating/buttons'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 
@@ -123,7 +123,7 @@ const comments = (rating, getRatingsPage, user) => {
 
   return (
     <RatingList
-      reference={rating.id}
+      name={`rating-page-${rating.id}-ratings-list`}
       target={rating}
       filter={(rtg) => rtg.target_rating == rating.id}
       loadFirstPage={false}
@@ -173,7 +173,7 @@ const endorsmentsList = (rating, endorsments, getPage) => {
 
   return (
     <List
-      reference={rating.id}
+      name={`rating-page-${rating.id}-endorsments-list`}
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.labels.RATING_HAS_NO_ENDORSMENT}

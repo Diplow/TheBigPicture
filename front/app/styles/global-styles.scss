@@ -26,6 +26,7 @@ p,
 label {
   font-family: 'Ubuntu';
   text-align: justify;
+  max-width: 100%;
   line-height: 1.5em;
 }
 
@@ -38,7 +39,9 @@ label {
 }
 
 a {
-  color: $dark;
+  .icon {
+    color: $dark;
+  }
 }
 
 .vde.level {

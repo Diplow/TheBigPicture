@@ -19,12 +19,17 @@ const ResultsLook = (props) => {
     getResults,
     margin
   } = props
+
   const [hidden, setHidden] = useState(showHeader)
 
   useEffect(() => {
     if (!hidden)
       getResults(target.id)
   }, [hidden])
+
+  useEffect(() => {
+    setHidden(showHeader)
+  }, [target.id])
 
   if (!target) return null
 

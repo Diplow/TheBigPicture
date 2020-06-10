@@ -7,7 +7,7 @@ import BigPictureModal from '../../../components/BigPicture/modal'
 import "./style.scss"
 
 
-const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
+const HomeLook = ({ user, getBigPictures, count }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -16,6 +16,7 @@ const HomeLook = ({ user, getBigPictures, getOwnSubjects, count }) => {
   return (
     <div className="vde container section">
       <BigPictureList
+        name="home-page-bps-list"
         filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
         parent={null}
         count={count}

@@ -6,8 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 import {
   getBigPicture,
-  getRatings,
-  getEndorsments
+  getRatings
 } from '../../actions/index'
 
 import BigPictureModal from './modal'
@@ -31,7 +30,7 @@ import RadioButton from '../Buttons/radio'
 import EditionModalButton from '../Buttons/modal'
 import LinkButton from '../Buttons/link'
 
-import * as utils from '../utils'
+import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -40,14 +39,12 @@ const BigPicturePreviewLook = (props) => {
   const {
     bigPicture,
     children,
-    endorsments,
     user,
     hyperlink,
     ratings,
     bigPictureId,
     getBigPicture,
-    getBigPictureRatings,
-    getBigPictureEndorsments
+    getBigPictureRatings
   } = props
 
   useEffect(() => {
@@ -65,13 +62,14 @@ const BigPicturePreviewLook = (props) => {
   const [showRatings, toggleRatings] = utils.hooks.useToggle(false)
   const [showDetails, toggleDetails] = utils.hooks.useToggle(false)
   const [showResults, toggleResults] = utils.hooks.useToggle(false)
-  const [showEndorsments, toggleEndorsments] = utils.hooks.useToggle(false)
 
   if (!bigPicture) return null
 
+  const cardId = `bp-preview-${bigPicture.id}`
+
   return (
-    <div key={bigPicture.id}>
-      <div className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
+    <div>
+      <div id={cardId} className={`vde card ${cst.CLASSNAMES[bigPicture.kind]}`}>
         <header
           className="vde card-header level preview-item-level is-mobile"
           onClick={() => toggleDetails()}
@@ -87,15 +85,14 @@ const BigPicturePreviewLook = (props) => {
             showRatings,
             showChildren,
             showResults,
-            showEndorsments,
             toggleDetails,
             toggleRatings,
             toggleChildren,
             toggleResults,
-            toggleEndorsments,
             bpDataEditionBuffer,
             setBpDataEditionBuffer,
-            user
+            user,
+            cardId
           })
         }
       </div>
@@ -107,11 +104,6 @@ const BigPicturePreviewLook = (props) => {
       {
         showResults
         ? <Results showHeader={false} bigPictureId={bigPicture.id} />
-        : null
-      }
-      {
-        showEndorsments
-        ? bpEndorsments(bigPicture, endorsments, getBigPictureEndorsments)
         : null
       }
       {
@@ -153,19 +145,17 @@ const toolBar = (props) => {
     showRatings,
     showChildren,
     showResults,
-    showEndorsments,
     toggleDetails,
     toggleRatings,
     toggleChildren,
     toggleResults,
-    toggleEndorsments,
     bpDataEditionBuffer,
     setBpDataEditionBuffer,
-    user
+    user,
+    cardId
   } = props
 
   // conditions to display toolbar's buttons
-  const endorsmentCondition = true
   const resultsCondition = true
   const ratingsCondition = true
   const childrenCondition = bigPicture.children.length != 0
@@ -178,23 +168,73 @@ const toolBar = (props) => {
         <p>{bigPicture.creation_date}</p>
       </div>
       <div className="level-right">
-        { editButton(bpDataEditionBuffer, setBpDataEditionBuffer, editCondition) }
-        { toggleButton(showDetails, toggleDetails, cst.icons.DETAILS, detailsCondition) }
-        { toggleButton(showResults, toggleResults, cst.icons.RESULT, resultsCondition) }
-        { toggleButton(showEndorsments, toggleEndorsments, cst.icons.ENDORSMENT_LIST, endorsmentCondition) }
-        { toggleButton(showChildren, toggleChildren, cst.icons.CHILDREN, childrenCondition) }
-        { toggleButton(showRatings, toggleRatings, cst.icons.RATING_LIST, ratingsCondition) }
-        { ratingButton(bigPicture, user) }
-        { lookButton(bigPicture) }
+        {
+          editButton(
+            bpDataEditionBuffer,
+            setBpDataEditionBuffer,
+            editCondition,
+            `${cardId}-toolbarbutton-edit`
+          )
+        }
+        {
+          toggleButton(
+            showDetails,
+            toggleDetails,
+            cst.icons.DETAILS,
+            detailsCondition,
+            `${cardId}-toolbarbutton-toggledetails`
+          )
+        }
+        {
+          toggleButton(
+            showResults,
+            toggleResults,
+            cst.icons.RESULT,
+            resultsCondition,
+            `${cardId}-toolbarbutton-toggleresults`
+          )
+        }
+        {
+          toggleButton(
+            showChildren,
+            toggleChildren,
+            cst.icons.CHILDREN,
+            childrenCondition,
+            `${cardId}-toolbarbutton-togglechildren`
+          )
+        }
+        {
+          toggleButton(
+            showRatings,
+            toggleRatings,
+            cst.icons.RATING_LIST,
+            ratingsCondition,
+            `${cardId}-toolbarbutton-toggleratings`
+          )
+        }
+        { 
+          ratingButton(
+            bigPicture,
+            user,
+            `${cardId}-toolbarbutton-rate`
+          )
+        }
+        {
+          lookButton(
+            bigPicture,
+            `${cardId}-toolbarbutton-look`
+          )
+        }
       </div>
     </div>
   )
 }
 
-const toggleButton = (show, toggle, icon, condition) => {
+const toggleButton = (show, toggle, icon, condition, id) => {
   if (!condition) return null
   return (
     <RadioButton
+      id={id}
       classname="vde toolbar"
       isPushed={show}
       setIsPushed={toggle}
@@ -204,10 +244,11 @@ const toggleButton = (show, toggle, icon, condition) => {
 
 }
 
-const editButton = (init, setter, condition) => {
+const editButton = (init, setter, condition, id) => {
   if (!condition) return null
   return (
     <EditionModalButton
+      id={id}
       classname="vde toolbar"
       init={init}
       setter={setter}
@@ -219,7 +260,7 @@ const editButton = (init, setter, condition) => {
   )
 }
 
-const ratingButton = (bigPicture, user) => {
+const ratingButton = (bigPicture, user, id) => {
   const initRating = {
     author_id: user.id,
     target_bp: bigPicture.id,
@@ -231,19 +272,21 @@ const ratingButton = (bigPicture, user) => {
     initRating.subject = bigPicture.id
   return (
     <RatingButton
+      id={id}
       initRating={initRating}
       classname="vde toolbar"
       icon={ cst.icons.RATING } />
   )
 }
 
-const lookButton = (bigPicture) => {
+const lookButton = (bigPicture, id) => {
   const bpSubject = bigPicture.subject || bigPicture.id
-  const subjectId = bigPicture.hyperlink ||  bpSubject
+  const subjectId = bigPicture.hyperlink_id ||  bpSubject
   const bpId = bigPicture.hyperlink || bigPicture.id
 
   return (
     <LinkButton
+      id={id}
       icon={ cst.icons.SEARCH }
       to={`/subject/${subjectId}/bigPicture/${bpId}`}
       classname="vde toolbar"
@@ -266,20 +309,14 @@ const bpDetails = (showDetails, body) => {
 
 const bpChildren = (bigPicture, children, user) => {
 
-  const sortBigPictures = (a, b) => {
-    // Sort by modif date
-    const aModifDate = new Date(a.modification_date)
-    const bModifDate = new Date(b.modification_date)
-    return aModifDate>bModifDate ? -1 : aModifDate<bModifDate ? 1 : 0
-  }
-
   return (
     <List
+      name={`bp-preview-${bigPicture.id}-children-list`}
       items={children}
       container={(bp) => <BigPicturePreview key={"preview"+bp.id} bigPictureId={bp.id} />}
       user={user}
       emptyMessage={""}
-      sortFunc={sortBigPictures}
+      sortFunc={(a, b) => a.title > b.title ? 1 : -1}
       count={bigPicture.children.length}
       getPage={null}
       loadFirstPage={true}
@@ -291,6 +328,7 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 
   return (
     <RatingList
+      name={`bp-preview-${bigPicture.id}-ratings-list`}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={true}
@@ -306,25 +344,6 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 }
 
 
-const bpEndorsments = (bigPicture, endorsments, getPage) => {
-  return (
-    <List
-      items={endorsments}
-      container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
-      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
-      sortFunc={endorsmentsSort}
-      count={bigPicture.endorsmentCount}
-      getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
-        }
-      }
-      loadFirstPage={true}
-    />
-  )
-}
-
-
 const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
   return {
@@ -332,16 +351,14 @@ const mapStateToProps = (state, ownProps) => {
     children: bigPicture != null ? state.get("bigpictures").filter(bp => bigPicture.children.indexOf(bp.id) != -1) : [],
     user: state.get("user"),
     hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
-    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId),
-    endorsments: bigPicture ? state.get("endorsments").filter(endorsment => endorsment.bigPicture == bigPicture.id) : []
+    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: getPageFormatter(dispatch, getRatings),
-    getBigPictureEndorsments: getPageFormatter(dispatch, getEndorsments)
+    getBigPictureRatings: getPageFormatter(dispatch, getRatings)
   }
 }
 

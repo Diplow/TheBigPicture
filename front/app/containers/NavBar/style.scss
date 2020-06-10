@@ -1,6 +1,18 @@
 
 @import "../../styles/theme.scss";
 
+
+div.section.vde-navbar {
+  position: fixed;
+  top: 0;
+  z-index:10;
+  height: $navsize;
+  background-color: $primary-5;
+  width: 100%;
+  padding: 1.5rem 0;
+  margin-bottom: 1rem;
+}
+
 .vde.navbar.menu {
   height: 2rem;
   width: auto;
@@ -24,15 +36,6 @@ ul {
   padding: 0;
 }
 
-/* Top Navigation Bar */
-
-div.section.vde-navbar {
-  height: $navsize;
-  background-color: $primary-5;
-  border-bottom: var(--border);
-  width: 100%;
-  padding: 1.5rem 0;
-}
 
 div.container.vde-navbar {
   position: relative;

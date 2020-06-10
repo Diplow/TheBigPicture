@@ -1,16 +1,21 @@
 @import "../../styles/theme.scss";
 
 .subtitle-modal {
-	margin: 0;
-	padding: 0.5rem 0;
-	font-weight: bold;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-weight: bold;
 }
 
 section.modal-card-body {
-	color: $dark;
+  color: $dark;
 }
 
 
+.modal-card-title {
+  max-width: calc(100% - 1rem);
+  text-align: center;
+}
+
 .vde.input {
-	margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
