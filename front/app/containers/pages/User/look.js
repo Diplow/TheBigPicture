@@ -10,7 +10,6 @@ import NewUser from '../../../components/User/new'
 import List from '../../../components/List'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
-import AddBigPictureButton from '../../../components/Buttons/add'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 import * as cst from '../../../constants'
 import "./style.scss"
@@ -137,8 +136,6 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
   let buttons = []
   if (visitor.id !== cst.GUEST_ID)
     buttons = [() => followButton(follow, unfollow, visitor, fullUser)]
-  if (visitor.id == user.id)
-    buttons = [addBigPictureButton]
 
   return (
     <BigPictureList
@@ -172,10 +169,6 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
       margin={0}
     />
   )
-}
-
-const addBigPictureButton = () => {
-  return <AddBigPictureButton key={`addhome`} bigPicture={null} />
 }
 
 const followButton = (follow, unfollow, visitor, user) => {

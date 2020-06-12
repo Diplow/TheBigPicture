@@ -30,3 +30,8 @@ export const EDIT_RATING_MODAL_TITLE = "Modification d'une raison"
 export const EDIT_BP_MODAL_TITLE = "Modification d'une vue d'ensemble"
 export const DISCONNECT = "Déconnexion"
 export const PROFILE = "Profil"
+export const USERNAME = "Nom d'utilisateur"
+export const PASSWORD = "Mot de passe"
+export const INSCRIPTION_LINK = "Ou inscrivez-vous ici."
+export const CAN_NOT_ADD_BP_CHILDREN_AT_CREATION = "Vous pourrez ajouter des éléments à hiérarchiser une fois que votre vue d'ensemble sera créée."
+

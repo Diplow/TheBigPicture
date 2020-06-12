@@ -14,6 +14,9 @@ import SettingsIcon from '../../images/icons/gear.svg';
 import HomeIcon from '../../images/icons/home.svg';
 import DisconnectIcon from '../../images/icons/logout.svg';
 
+import EditionModalButton from '../../components/Buttons/modal'
+import NewBigPicture from '../../components/BigPicture/new'
+import BigPictureModal from '../../components/BigPicture/modal'
 import LoginButton from './loginbutton'
 import LoginModal from './loginmodal'
 import DropdownMenu from '../../components/DropDownMenu'
@@ -27,71 +30,107 @@ const RightMenu = (props) => {
     user,
     logout
   } = props
-
   const [isActive, setIsActive] = useState(null)
 
   return (
     <div className="level-right">
-      <NavItem
-        name="socials"
-        isActive={isActive}
-        setIsActive={setIsActive}
-        icon={
-          <img 
-            src={SocialsIcon}
-            alt="Réseaux sociaux"
-            />
-        }>
-        <DropdownMenu linksArray={[
-          {
-            leftIcon: <img className="vde navbar menu" src={TwitterIcon} alt="Twitter" />,
-            name: "Twitter",
-            url: "https://twitter.com/Diplo87355132"
-          },
-          {
-            leftIcon: <img className="vde navbar menu" src={GithubIcon} alt="Github" />,
-            name: "Github",
-            url: "https://github.com/Diplow/TheBigPicture"
-          },
-          {
-            leftIcon: <img className="vde navbar menu" src={DiscordIcon} alt="Discord" />,
-            name: "Discord",
-            url: "https://discord.gg/NtZHTqc"
-          }
-        ]} />
-      </NavItem>
-      {
-        user.id != 0
-        ? <NavItem
-            name="user"
-            isActive={isActive}
-            setIsActive={setIsActive}
-            classname="vde dropdown nav-item image icon-button"
-            icon={
-              <img 
-                className="vde navbar menu"
-                src={user.image}
-                alt="Utilisateur" />}
-          >
-            <DropdownMenu linksArray={[
-              {
-                leftIcon: <img className="vde navbar menu" src={HomeIcon} alt="Mes contenus" />,
-                name: cst.labels.PROFILE,
-                url: `/user/${user.id}`
-              },
-              {
-                leftIcon: <img className="vde navbar menu" src={DisconnectIcon} alt="Déconnexion" />,
-                name: cst.labels.DISCONNECT,
-                url: "/",
-                onClick: () => logout()
-              }
-            ]} />
-          </NavItem>
-        : null
-      }
+      { createButton(isActive, setIsActive, user) }
+      { socialsButton(isActive, setIsActive) }
+      { userButton(isActive, setIsActive, user, logout) }
       <LoginButton />
     </div>
   );
+}
+
+const socialsButton = (isActive, setIsActive) => {
+
+  return (
+    <NavItem
+      name="socials"
+      isActive={isActive}
+      setIsActive={setIsActive}
+      icon={
+        <img 
+          src={SocialsIcon}
+          alt={cst.alt_labels.SOCIALS}
+          />
+      }>
+      <DropdownMenu linksArray={[
+        {
+          leftIcon: <img className="vde navbar menu" src={TwitterIcon} alt="Twitter" />,
+          name: "Twitter",
+          url: "https://twitter.com/Diplo87355132"
+        },
+        {
+          leftIcon: <img className="vde navbar menu" src={GithubIcon} alt="Github" />,
+          name: "Github",
+          url: "https://github.com/Diplow/TheBigPicture"
+        },
+        {
+          leftIcon: <img className="vde navbar menu" src={DiscordIcon} alt="Discord" />,
+          name: "Discord",
+          url: "https://discord.gg/NtZHTqc"
+        }
+      ]} />
+    </NavItem>
+  )
+}
+
+const createButton = (isActive, setIsActive, user) => {
+  const [init, setter] = useState({
+    title: "",
+    body: "",
+    kind: cst.SUBJECT,
+    author_id: user.id,
+    private: true
+  })
+
+  if (user.id == cst.GUEST_ID) return null
+
+  return (
+    <EditionModalButton
+      classname="home-add-bp"
+      init={init}
+      setter={setter}
+      title={cst.labels.CREATE_BP_MODAL_TITLE}
+      icon="fas fa-plus"
+      EditionModal={BigPictureModal}
+      NewItem={NewBigPicture}
+    />
+  )
+}
+
+const userButton = (isActive, setIsActive, user, logout) => {
+  if (user.id == cst.GUEST_ID) return null
+
+  return (
+    <NavItem
+      name="user"
+      isActive={isActive}
+      setIsActive={setIsActive}
+      classname="vde dropdown nav-item image icon-button"
+      icon={
+        <img 
+          className="vde navbar menu"
+          src={user.image}
+          alt={cst.alt_labels.USER} />
+      }
+    >
+      <DropdownMenu linksArray={[
+        {
+          leftIcon: <img className="vde navbar menu" src={HomeIcon} alt={cst.alt_labels.CONTENT} />,
+          name: cst.labels.PROFILE,
+          url: `/user/${user.id}`
+        },
+        {
+          leftIcon: <img className="vde navbar menu" src={DisconnectIcon} alt={cst.alt_labels.DISCONNECT} />,
+          name: cst.labels.DISCONNECT,
+          url: "/",
+          onClick: () => logout()
+        }
+      ]} />
+    </NavItem>
+  )
 }
 
 const NavItemList = (props) => {
@@ -129,10 +168,17 @@ const NavItem = (props) => {
     }
   }, [isActive])
 
+  window.onclick = function(event) {
+    if (isActive) {
+      setOpen(false)
+      setIsActive(null)
+    }
+  }
+
   return (
     <div className={`vde dropdown nav-item ${open?"is_active":""}`}>
       <div className="vde dropdown-trigger">
-        <a href="#" className={`${classname !== undefined ? classname : ""} icon-button`} onClick={() => setOpen(!open)}>
+        <a className={`${classname !== undefined ? classname : ""} icon-button`} onClick={() => setOpen(!open)}>
           {icon}
         </a>
       </div>

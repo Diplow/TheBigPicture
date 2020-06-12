@@ -56,6 +56,7 @@ div.level.vde-navbar {
   justify-content: flex-end;
 }
 
+.home-add-bp,
 .vde.dropdown.nav-item {
   --button-size: calc(5.5rem * 0.6);
   width: var(--button-size);
@@ -66,6 +67,16 @@ div.level.vde-navbar {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: x-large;
+}
+
+.level.is-mobile .home-add-bp.level-item:not(:last-child) {
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+
+span.home-add-bp a .icon {
+  display: flex;
 }
 
 /* Icon Button */
