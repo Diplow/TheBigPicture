@@ -314,49 +314,6 @@ const lookButton = (rating, id) => {
   )
 }
 
-
-const toggleButton = (show, toggle, icon) => {
-  return (
-    <RadioButton
-      classname="vde toolbar"
-      isPushed={show}
-      setIsPushed={toggle}
-      icon={icon}
-    />
-  )
-}
-
-const editRatingButton = (initRating) => {
-  return (
-    <RatingButton
-      initRating={initRating}
-      classname="vde toolbar"
-      icon={ cst.icons.EDIT } />
-  )
-}
-
-const rateThisRatingButton = (initRating) => {
-  return (
-    <RatingButton
-      initRating={initRating}
-      classname="vde toolbar"
-      icon={ cst.icons.RATING } />
-  )
-}
-
-const endorseThisRatingButton = (rating, userId) => {
-  return (
-    <EndorsmentButton
-      ratingId={rating.id}
-      userId={userId}
-      bpId={rating.target_bp}
-      rtgId={rating.target_rating}
-      reason={rating.body}
-      classname="vde toolbar"
-      icon={ cst.icons.ENDORSMENT } />
-  )
-}
-
 const ratingChildren = (rating, children, getPage) => {
   
   const ratingsSort = (ratingA, ratingB) => {
