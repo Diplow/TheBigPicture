@@ -4,13 +4,11 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-import { ReactComponent as NotifIcon } from '../../images/icons/notification.svg'
 import { ReactComponent as SocialsIcon } from '../../images/icons/share.svg'
 import { ReactComponent as UserIcon } from '../../images/icons/user.svg'
 import { ReactComponent as DiscordIcon } from '../../images/icons/discord-color.svg'
 import { ReactComponent as TwitterIcon } from '../../images/icons/twitter-color.svg'
 import { ReactComponent as GithubIcon } from '../../images/icons/github-color.svg'
-import { ReactComponent as SettingsIcon } from '../../images/icons/gear.svg'
 import { ReactComponent as HomeIcon } from '../../images/icons/home.svg'
 import { ReactComponent as DisconnectIcon } from '../../images/icons/logout.svg'
 
