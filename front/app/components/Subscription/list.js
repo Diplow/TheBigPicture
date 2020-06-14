@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getSubscriptions } from '../../actions'
 import SubscriptionPreview from './preview'
 import List, { getPageFormatter } from '../List'
+import { ReactComponent as UserIcon } from '../../images/icons/user.svg'
 import * as cst from '../../constants'
 import "./style.scss"
 
@@ -26,6 +27,7 @@ const SubscriptionListLook = (props) => {
   return (
     <List
       items={subscriptions}
+      icon={ <UserIcon className="vde header-button level-item image is-32x32" />}
       container={(sub) => {
         return (
           <div key={`previewsub-${sub.id}`}>

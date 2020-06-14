@@ -1,0 +1,3 @@
+# React application
+
+> npm start

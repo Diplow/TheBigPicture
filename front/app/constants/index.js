@@ -3,10 +3,12 @@ import * as explications from './explications'
 import * as notifications from './notifications'
 import * as actions from './actions'
 import * as labels from './labels'
+import * as alt_labels from './alt_labels'
 import * as icons from './icons'
 
 export { actions }
 export { labels }
+export { alt_labels }
 export { icons }
 export { explications }
 export { notifications }

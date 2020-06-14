@@ -36,6 +36,7 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
       {titleField(data, edit)}
       {contentField(data, edit)}
       {data.kind == cst.SUBJECT ? privacyField(privacy, edit) : null}
+      <p>{cst.labels.CAN_NOT_ADD_BP_CHILDREN_AT_CREATION}</p>
     </div>
   )
 }

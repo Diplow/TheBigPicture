@@ -13,6 +13,7 @@ const ListLook = (props) => {
 
   const {
     name, // reference is an ID used
+    icon,
     items,
     container,
     user,
@@ -69,7 +70,7 @@ const ListLook = (props) => {
       className={title ? "container vde section section-field" : ""}>
       {
         title
-          ? header(buttons, user, title, hidden, setHidden, getPage)
+          ? header(buttons, user, title, hidden, setHidden, getPage, icon)
           : null
       }
       {
@@ -101,11 +102,13 @@ const ListLook = (props) => {
   )
 }
 
-const header = (buttons, user, title, hidden, setHidden, getPage) => {
+const header = (buttons, user, title, hidden, setHidden, getPage, icon) => {
   return (
     <div className="level is-mobile">
-      <div className="level-left">
-        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+      <div className="level-left" onClick={ () => setHidden(!hidden) }>
+        {
+          icon ? icon : <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+        }
         <p className="vde subtitle level-item">{title}</p>
         { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
       </div>

@@ -25,7 +25,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
         </header>
         <section className="modal-card-body">
           <form className="form">
-            <label className="label login-label" htmlFor="username">Nom d'utilisateur</label>
+            <label className="label login-label" htmlFor="username">{cst.labels.USERNAME}</label>
             <input
               className="input vde" 
               type="text"
@@ -33,7 +33,7 @@ const LoginModalLook = ({ active, setActive, login }) => {
               value={credentials.username}
               onChange={edit}
             />
-            <label className="label login-label" htmlFor="password">Mot de passe</label>
+            <label className="label login-label" htmlFor="password">{cst.labels.PASSWORD}</label>
             <input
               className="input vde" 
               type="password"
@@ -43,8 +43,8 @@ const LoginModalLook = ({ active, setActive, login }) => {
               onChange={edit}
             />
             <label className="label login-inscription"> 
-	          <a href="https://api.vue-d-ensemble.fr/api/accounts/register" className="inscription-link">Ou inscrivez-vous ici.</a>
-	        </label>
+            <a href="https://api.vuedensemble.org/api/accounts/register" className="inscription-link">{cst.labels.INSCRIPTION_LINK}</a>
+          </label>
           </form>
         </section>
         <footer className="modal-card-foot">
