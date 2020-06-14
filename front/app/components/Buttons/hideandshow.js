@@ -13,11 +13,11 @@ const HideAndShowButton = ({ hidden, setHidden }) => {
 }
 
 const figureIcon = (icon, hidden, setHidden) => {
-  if (hidden == (icon == cst.icons.MINUS))
+  if (hidden === (icon === cst.icons.MINUS))
     return null
   return (
     <figure
-      className="vde header-button level-item image is-24x24"
+      className="vde header-button level-item image"
       onClick={() => setHidden(!hidden)}
     >
       <i className={icon}></i>

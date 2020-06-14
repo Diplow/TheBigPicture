@@ -13,6 +13,10 @@ import * as utils from '../../../utils'
 import { RatingButton } from '../../../components/Rating/buttons'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 
+import { ReactComponent as ContentIcon } from '../../../images/icons/book.svg'
+import { ReactComponent as RatingsIcon } from '../../../images/icons/reasons.svg'
+import { ReactComponent as EndorsmentIcon } from '../../../images/icons/star.svg'
+
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -86,8 +90,8 @@ const context = (rating) => {
   return (
     <div className="container vde section section-field">
       <div className="level is-mobile">
-        <div className="level-left">
-          <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+        <div className="level-left" onClick={ () => setHidden(!hidden) }>
+          <ContentIcon className="vde header-button level-item image is-32x32" />
           <p className="vde subtitle level-item">{cst.labels.CONTEXT_TITLE}</p>
           { backButton(rating) }
         </div>
@@ -124,6 +128,7 @@ const comments = (rating, getRatingsPage, user) => {
   return (
     <RatingList
       name={`rating-page-${rating.id}-ratings-list`}
+      icon={ <RatingsIcon className="vde header-button level-item image is-32x32" /> }
       target={rating}
       filter={(rtg) => rtg.target_rating == rating.id}
       loadFirstPage={false}
@@ -174,6 +179,7 @@ const endorsmentsList = (rating, endorsments, getPage) => {
   return (
     <List
       name={`rating-page-${rating.id}-endorsments-list`}
+      icon={ <EndorsmentIcon className="vde header-button level-item image is-32x32" /> }
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.labels.RATING_HAS_NO_ENDORSMENT}
