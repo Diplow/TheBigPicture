@@ -37,18 +37,27 @@
   }
 
   .vde.toolbar.level {
-    margin: 0.3rem 0;
+    padding: 0.1rem 0;
     padding-left: var(--basic-padding);
-    height: 2rem;
+    padding-right: var(--basic-padding);
+    display: flex;
+    align-items: center;
+    margin: 0;
 
     .vde.toolbar.level-item {
-      margin-right: 0.8rem;
-      height: 90%;
+      margin-right: 0.3rem;
+    }
+    .vde.toolbar.level-item:last-child {
+      margin-right: 0;
     }
     .vde.toolbar {
       color: $primary-2;
     }
   }
+}
+
+.vde.toolbar.menu.image {
+  height: 1.3rem;
 }
 
 .vde.toolbar:hover {

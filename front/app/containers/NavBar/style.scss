@@ -79,6 +79,11 @@ span.home-add-bp a .icon {
   display: flex;
 }
 
+.vde.navbar.image.is-32x32 {
+  color: $dark;
+  background: transparent;
+}
+
 /* Icon Button */
 .icon-button {
   --button-size: calc(5.5rem * 0.35);

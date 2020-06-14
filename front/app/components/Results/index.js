@@ -7,6 +7,9 @@ import RefreshButton from '../Buttons/refresh'
 import HideAndShowButton from '../Buttons/hideandshow'
 import Loader from '../Loader'
 
+
+import { ReactComponent as ResultsIcon } from '../../images/icons/barchart.svg'
+
 import * as cst from '../../constants'
 import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
@@ -53,8 +56,8 @@ const ResultsLook = (props) => {
 const header = (hidden, setHidden) => {
   return (
     <div className="level is-mobile">
-      <div className="level-left">
-        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+      <div className="level-left" onClick={ () => setHidden(!hidden) }>
+        <ResultsIcon className="vde header-button level-item image is-32x32" />
         <p className="vde subtitle level-item">{cst.labels.RESULTS_TITLE}</p>
       </div>
     </div>

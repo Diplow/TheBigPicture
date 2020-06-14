@@ -22,7 +22,8 @@ const RatingListLook = (props) => {
     title,
     buttons,
     margin,
-    name
+    name,
+    icon
   } = props
 
   return (
@@ -39,6 +40,7 @@ const RatingListLook = (props) => {
       title={title}
       buttons={buttons}
       margin={margin}
+      icon={icon}
     />
   )
 }

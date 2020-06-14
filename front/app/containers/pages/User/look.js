@@ -10,7 +10,11 @@ import NewUser from '../../../components/User/new'
 import List from '../../../components/List'
 import AuthorIcon from '../../../components/User/authorIcon'
 import EditionModalButton from '../../../components/Buttons/modal'
-import HideAndShowButton from '../../../components/Buttons/hideandshow'
+
+import { ReactComponent as ContentIcon } from '../../../images/icons/book.svg'
+import { ReactComponent as DnaIcon } from '../../../images/icons/dna.svg'
+import { ReactComponent as RatingsIcon } from '../../../images/icons/reasons.svg'
+
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -106,8 +110,8 @@ const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
 
   return (
     <div className="level is-mobile vde-header">
-      <div className="level-left">
-        <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+      <div className="level-left" onClick={ () => { setHidden(!hidden) }}>
+        <DnaIcon className="vde header-button level-item image is-32x32" />
         <p className="vde subtitle level-item">Bio</p>
         { user.id == visitor.id ? editButton(user, setUser) : null}
       </div>
@@ -140,6 +144,7 @@ const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, foll
   return (
     <BigPictureList
       name={`user-page-${user.id}-subjects-list`}
+      icon={ <ContentIcon className="vde header-button level-item image is-32x32" /> }
       filter={(bp) => bp.kind == cst.SUBJECT && bp.author == user.id}
       parent={null}
       count={fullUser.subjectCount}
@@ -159,6 +164,7 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
   return (
     <RatingList
       name={`user-page-${user.id}-ratings-list`}
+      icon={ <RatingsIcon className="vde header-button level-item image is-32x32" /> }
       filter={(rating) => user.reasons.indexOf(rating.id) != -1}
       parent={null}
       count={fullUser.ratingCount}
