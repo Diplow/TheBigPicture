@@ -17,6 +17,12 @@ import BigPictureModal from '../../../components/BigPicture/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 
+import { ReactComponent as ContentIcon } from '../../../images/icons/book.svg'
+import { ReactComponent as ChildrenIcon } from '../../../images/icons/sitemap.svg'
+import { ReactComponent as RatingsIcon } from '../../../images/icons/reasons.svg'
+import { ReactComponent as ReferenceIcon } from '../../../images/icons/reference.svg'
+import { ReactComponent as EndorsmentIcon } from '../../../images/icons/star.svg'
+
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -58,8 +64,8 @@ const BigPictureViewLook = (props) => {
           { analyse(init, user) }
           { comments(init, getRatingsPage, user) }
           { references(init, getReferences) }
-          { results(init) }
           { endorsmentsList(init, endorsments, getEndorsmentsPage) }
+          { results(init) }
         </div>
       </Loader>
     </div>
@@ -95,8 +101,8 @@ const content = (bigPicture, user, setter) => {
   return (
     <div className="container vde section section-field">
       <div className="level is-mobile vde-header">
-        <div className="level-left">
-          <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+        <div className="level-left" onClick={ () => setHidden(!hidden) }>
+          <ContentIcon className="vde header-button level-item image is-32x32" />
           <p className="vde subtitle level-item">Contenu</p>
           { user.id == bigPicture.author ? editButton(bigPicture, setter) : null}
         </div>
@@ -134,6 +140,7 @@ const analyse = (bigPicture, user) => {
   return (
     <BigPictureList
       name={`bp-page-${bigPicture.id}-children-list`}
+      icon={<ChildrenIcon className="vde header-button level-item image is-32x32" />}
       filter={bp => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
@@ -174,6 +181,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
   return (
     <RatingList
       name={`bp-page-${bigPicture.id}-ratings-list`}
+      icon={<RatingsIcon className="vde header-button level-item image is-32x32" />}
       target={bigPicture}
       filter={(rating) => rating.target_bp == bigPicture.id}
       loadFirstPage={false}
@@ -219,6 +227,7 @@ const references = (bigPicture, getReferences) => {
   return (
     <BigPictureList
       name={`bp-page-${bigPicture.id}-references-list`}
+      icon={<ReferenceIcon className="vde header-button level-item image is-32x32" />}
       filter={bp => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
@@ -248,6 +257,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
   return (
     <List
       name={`bp-page-${bigPicture.id}-endorsments-list`}
+      icon={<EndorsmentIcon className="vde header-button level-item image is-32x32" />}
       items={endorsments}
       container={(endorsment) => <EndorsmentPreview key={`previewendorsment-${endorsment.id}`} endorsmentId={endorsment.id} />}
       emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}

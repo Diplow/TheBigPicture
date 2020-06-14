@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import "./style.scss"
@@ -13,21 +13,23 @@ const LinkButton = (props) => {
   } = props
 
   return (
-    <span className={`level-item is-narrow ${classname}`}>
+    <span className={`level-item ${classname}`}>
       <Link
         to={to}
+        className="icon-button"
       >
-        <span className={`icon is-small ${classname}`}>
-          <i className={icon + " bp-preview-icon "}></i>
-        </span>
+        {
+          typeof(icon) === "string"
+            ? (
+              <span className={`icon is-small ${classname}`}>
+                <i className={icon + " bp-preview-icon "}></i>
+              </span>
+            )
+            : icon
+        }
       </Link>
   </span>
   )
-}
-
-LinkButton.propTypes = {
-  icon: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
 }
 
 export default LinkButton

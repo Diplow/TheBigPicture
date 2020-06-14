@@ -15,6 +15,8 @@ const EditionModalLook = (props) => {
     data
   } = props
 
+  if (!data) return null
+
   return (
     <div className={"modal" + (active ? " is-active" : "")}>
       <div className="modal-background"></div>

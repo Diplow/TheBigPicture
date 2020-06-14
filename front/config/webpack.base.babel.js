@@ -29,6 +29,10 @@ module.exports = (options) => ({
         }
       },
       {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'file-loader'],
+      },
+      {
         // Preprocess our own .scss files
         test: /\.scss$/,
         exclude: /node_modules/,

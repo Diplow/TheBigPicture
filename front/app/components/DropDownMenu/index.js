@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import React, { useState, useEffect, useRef } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import './style.scss'
@@ -40,6 +39,9 @@ const DropdownItem = (props) => {
       <p className="level-item">{props.children}</p>
     </div>
   )
+
+  if (!props.url)
+    return <div className="vde dropdown-item">{children}</div>
 
   if (props.url.startsWith("http"))
     return <a href={props.url} className="vde dropdown-item">{children}</a>

@@ -6,14 +6,16 @@
   display: inherit;
   right: 0;
   left: inherit;
+  width: max-content;
 
   .vde.dropdown-content {
 
     background-color: $light;
 
     .vde.dropdown-item {
+      width: 100%;
       background-color: $light;
-      display: inline-flex;
+      display: flex;
     }
 
     .vde.dropdown-item:hover {
