@@ -15,7 +15,6 @@ import EditionModalButton from '../../../components/Buttons/modal'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
-import HideAndShowButton from '../../../components/Buttons/hideandshow'
 
 import { ReactComponent as ContentIcon } from '../../../images/icons/book.svg'
 import { ReactComponent as ChildrenIcon } from '../../../images/icons/sitemap.svg'
@@ -151,7 +150,7 @@ const analyse = (bigPicture, user) => {
       emptyMessage={cst.labels.BP_EMPTY_BODY}
       buttons={[
         () => { return backButton(bigPicture) },
-        () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
+        () => { return addBigPictureButton(bigPicture, user) }
       ]}
       margin={0}
     />
@@ -170,7 +169,8 @@ const backButton = (bp) => {
   )
 }
 
-const addBigPictureButton = (bigPicture) => {
+const addBigPictureButton = (bigPicture, user) => {
+  if (user.id !== bigPicture.author) return null
   return <AddBigPictureButton key={`add${bigPicture.id}`} bigPicture={bigPicture} />
 }
 
