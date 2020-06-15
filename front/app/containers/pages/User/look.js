@@ -94,12 +94,12 @@ const biography = (user, setUser, visitor, hidden, setHidden) => {
       { contentHeader(user, visitor, setUser, hidden, setHidden) }
       {
         !hidden
-        ? <div className="card vde tbp-description">
+          ? <div className="card vde tbp-description">
             <div className="vde card-content content">
               <ReactMarkdown source={user.bio != "" ? user.bio : cst.labels.USER_EMPTY_BIO(user.username) } />
             </div>
           </div>
-        : null
+          : null
       }
     </div>
   )
@@ -120,18 +120,16 @@ const contentHeader = (user, visitor, setUser, hidden, setHidden) => {
 }
 
 
-const editButton = (init, setter) => {
-  return (
-    <EditionModalButton
-      init={{id: init.id, bio: init.bio, image: init.image}}
-      setter={setter}
-      classname="button tbp-radio title-button"
-      icon={cst.icons.EDIT}
-      EditionModal={UserModal}
-      NewItem={NewUser}
-    />
-  )
-}
+const editButton = (init, setter) => (
+  <EditionModalButton
+    init={{id: init.id, bio: init.bio, image: init.image}}
+    setter={setter}
+    classname="button tbp-radio title-button"
+    icon={cst.icons.EDIT}
+    EditionModal={UserModal}
+    NewItem={NewUser}
+  />
+)
 
 
 const subjectsList = (user, fullUser, visitor, getOwnSubjects, getSubjects, follow, unfollow) => {
@@ -177,15 +175,13 @@ const ratingsList = (user, fullUser, visitor, getOwnRatings, getRatings) => {
   )
 }
 
-const followButton = (follow, unfollow, visitor, user) => {
-  return (
-    <div 
-      className={`button tbp-radio title-button favorites-button is-narrow ${user.favorite ? "is-active" : ""}`}
-      onClick={() => user.favorite ? unfollow() : follow(visitor.id)}
-    >
-      <span className="icon is-small"><i className={cst.icons.FOLLOW}></i></span>
-    </div>
-  )
-}
+const followButton = (follow, unfollow, visitor, user) => (
+  <div 
+    className={`button tbp-radio title-button favorites-button is-narrow ${user.favorite ? "is-active" : ""}`}
+    onClick={() => user.favorite ? unfollow() : follow(visitor.id)}
+  >
+    <span className="icon is-small"><i className={cst.icons.FOLLOW}></i></span>
+  </div>
+)
 
 export default UserViewLook

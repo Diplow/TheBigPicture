@@ -30,45 +30,39 @@ const SubscriptionPreviewLook = (props) => {
   )
 }
 
-const leftLevel = (target) => {
-  return (
-    <div style={{maxWidth:"95%"}} className="level-left">
-      <AuthorIcon userId={target.id} showIcon={true} clickable={true}/>
-      <p className="vde title">{target.username}</p>
-    </div>
-  )
-}
+const leftLevel = (target) => (
+  <div style={{maxWidth:"95%"}} className="level-left">
+    <AuthorIcon userId={target.id} showIcon={true} clickable={true}/>
+    <p className="vde title">{target.username}</p>
+  </div>
+)
 
 
-const rightLevel = (subscription, unfollow) => {
-  return (
-    <div className="level-right">
-      <div className="button tbp-radio title-button is-narrow unfollow">
-        <a onClick={() => unfollow(subscription)}>
-          <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
-        </a>
-      </div>
+const rightLevel = (subscription, unfollow) => (
+  <div className="level-right">
+    <div className="button tbp-radio title-button is-narrow unfollow">
+      <a onClick={() => unfollow(subscription)}>
+        <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
+      </a>
     </div>
-  )
-}
+  </div>
+)
 
 const mapStateToProps = (state, ownProps) => {
-  const subscription = state.get("subscriptions").find(elt => elt.target_id == ownProps.targetId)
+  const subscription = state.get("subscriptions").find((elt) => elt.target_id == ownProps.targetId)
   return {
     user: state.get("user"),
-    target: subscription ? state.get("users").find(usr => usr.id == subscription.target_id) : null,
+    target: subscription ? state.get("users").find((usr) => usr.id == subscription.target_id) : null,
     subscription
   }
 }
 
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    // Some subscriptions are created on the fly without an ID to save db calls
-    // Therefore, the target_id is also given to delete these subscriptions items
-    unfollow: (subscription) => { dispatch(unfollow(subscription.target_id)) }
-  }
-}
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  // Some subscriptions are created on the fly without an ID to save db calls
+  // Therefore, the target_id is also given to delete these subscriptions items
+  unfollow: (subscription) => { dispatch(unfollow(subscription.target_id)) }
+})
 
 const SubscriptionPreview = connect(mapStateToProps, mapDispatchToProps)(SubscriptionPreviewLook)
 

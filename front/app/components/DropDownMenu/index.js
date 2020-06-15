@@ -15,17 +15,15 @@ const DropdownMenu = (props) => {
     <div className="vde dropdown-content">
       {
         linksArray.map(
-          (link) => {
-            return (
-              <DropdownItem 
-                key={link.name}
-                leftIcon={link.leftIcon}
-                url={link.url}
-                onClick={link.onClick}>
-                {link.name}
-              </DropdownItem>
-            )
-          }
+          (link) => (
+            <DropdownItem 
+              key={link.name}
+              leftIcon={link.leftIcon}
+              url={link.url}
+              onClick={link.onClick}>
+              {link.name}
+            </DropdownItem>
+          )
         )
       }
     </div>

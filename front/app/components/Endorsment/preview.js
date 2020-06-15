@@ -39,25 +39,20 @@ const EndorsmentPreviewLook = (props) => {
   )
 }
 
-const leftLevel = (author, endorsment) => {
-  return (
-    <div style={{maxWidth:"95%"}} className="level-left">
-      <AuthorIcon userId={author.id} showIcon={true} clickable={true}/>
-      <p className="vde title">{author.username}</p>
-    </div>
-  )
-}
+const leftLevel = (author, endorsment) => (
+  <div style={{maxWidth:"95%"}} className="level-left">
+    <AuthorIcon userId={author.id} showIcon={true} clickable={true}/>
+    <p className="vde title">{author.username}</p>
+  </div>
+)
 
-
-const rightLevel = (endorsment, user) => {
-  return (
-    <div className="level-right">
-      <figure className="vde rating-image level-item image is-48x48">
-        <img src={cst.STATIC_STORAGE + cst.VALUE_ICONS[endorsment.value]} />
-      </figure>
-    </div>
-  )
-}
+const rightLevel = (endorsment, user) => (
+  <div className="level-right">
+    <figure className="vde rating-image level-item image is-48x48">
+      <img src={cst.STATIC_STORAGE + cst.VALUE_ICONS[endorsment.value]} />
+    </figure>
+  </div>
+)
 
 const endorsmentReason = (showReason, target) => {
   if (!showReason) return null
@@ -72,21 +67,19 @@ const endorsmentReason = (showReason, target) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const endorsment = state.get("endorsments").find(elt => elt.id == ownProps.endorsmentId)
+  const endorsment = state.get("endorsments").find((elt) => elt.id == ownProps.endorsmentId)
   return {
     endorsment,
     user: state.get("user"),
-    author: endorsment ? state.get("users").find(usr => usr.id == endorsment.author_id) : null,
-    target: endorsment ? state.get("ratings").find(rating => rating.id == endorsment.target_id) : null
+    author: endorsment ? state.get("users").find((usr) => usr.id == endorsment.author_id) : null,
+    target: endorsment ? state.get("ratings").find((rating) => rating.id == endorsment.target_id) : null
   }
 }
 
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    cancel: (endorsmentId) => { dispatch(deleteEndorsment(endorsmentId)) }
-  }
-}
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  cancel: (endorsmentId) => { dispatch(deleteEndorsment(endorsmentId)) }
+})
 
 const EndorsmentPreview = connect(mapStateToProps, mapDispatchToProps)(EndorsmentPreviewLook)
 

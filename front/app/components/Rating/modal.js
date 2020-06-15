@@ -5,16 +5,12 @@ import EditionModalLook from '../Modal/look'
 import * as cst from '../../constants'
 
 
-const mapStateToProps = (state) => {
-  return {}
-}
+const mapStateToProps = (state) => ({})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    post: (rating) => { rating.id ? dispatch(patchRating(rating)) : dispatch(postVote(rating)) },
-    del: (rating) => { if (rating.id) { dispatch(deleteVote(rating.id)) } }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  post: (rating) => { rating.id ? dispatch(patchRating(rating)) : dispatch(postVote(rating)) },
+  del: (rating) => { if (rating.id) { dispatch(deleteVote(rating.id)) } }
+})
 
 const RatingModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
 

@@ -24,7 +24,7 @@ const notifications = (state = [], action) => {
       ]
 
     case cst.actions.POP_NOTIFICATION:
-      return state.filter(notif => notif.id != action.id)
+      return state.filter((notif) => notif.id != action.id)
 
     default:
       return state

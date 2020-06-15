@@ -136,13 +136,11 @@ const BigPicturePreviewLook = (props) => {
 const bpLeftLevel = (bigPicture) => {
   if (!bigPicture) return null
 
-  const bpFigure = (icon) => {
-    return (
-      <figure className="vde bp-icons level-item image is-32x32">
-        <i className={icon}></i>
-      </figure>
-    )    
-  }
+  const bpFigure = (icon) => (
+    <figure className="vde bp-icons level-item image is-32x32">
+      <i className={icon}></i>
+    </figure>
+  )
 
   return (
     <div style={{maxWidth:"100%"}} className="level-left">
@@ -369,8 +367,7 @@ const reasonDropdown = (props) => {
     }
   ]
   if (user.id !== cst.GUEST_ID) {
-    links.push(
-    {
+    links.push({
       leftIcon: <PlusIcon className="vde toolbar menu image" />,
       name: cst.labels.CREATE_REASON,
       onClick: () => setCreateReasonModalIsActive(true)
@@ -423,8 +420,8 @@ const endorsmentDropdown = (props) => {
       classname="vde toolbar level-item"
       icon={ <StarIcon className="vde toolbar menu image" /> }
     >
-      <DropdownMenu linksArray={[
-        {
+      <DropdownMenu
+        linksArray={[{
           leftIcon: <EyeIcon className="vde toolbar menu image" />,
           name: showEndorsments ? cst.labels.HIDE_ENDORSMENTS : cst.labels.SHOW_ENDORSMENTS,
           onClick: () => toggleEndorsments()
@@ -433,8 +430,7 @@ const endorsmentDropdown = (props) => {
           leftIcon: <ChartIcon className="vde toolbar menu image" />,
           name: showResults ? cst.labels.HIDE_RESULTS : cst.labels.SHOW_RESULTS,
           onClick: () => toggleResults()
-        }
-      ]} />
+        }]} />
     </DropDownButton>
   )
 }
@@ -501,9 +497,9 @@ const bpReferences = (bigPicture, user, references, getReferences) => {
       sortFunc={(a, b) => a.title > b.title ? 1 : -1}
       count={bigPicture.referenceCount}
       getPage={
-        (page, options, requestId) => {
-          return getReferences(page, { ...options, reference: bigPicture.id }, requestId)
-        }
+        (page, options, requestId) => (
+          getReferences(page, { ...options, reference: bigPicture.id }, requestId)
+        )
       }
       loadFirstPage={true}
     />
@@ -528,9 +524,9 @@ const bpEndorsments = (bigPicture, endorsments, getPage) => {
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
-        }
+        (page, options, reqId) => (
+          getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        )
       }
       loadFirstPage={true}
     />
@@ -549,9 +545,9 @@ const bpRatings = (bigPicture, ratings, getPage) => {
       emptyMessage={cst.labels.MSG_NO_REASON}
       count={bigPicture.ratingCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
-        }
+        (page, options, reqId) => (
+          getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
+        )
       }
     />
   )
@@ -559,26 +555,24 @@ const bpRatings = (bigPicture, ratings, getPage) => {
 
 
 const mapStateToProps = (state, ownProps) => {
-  const bigPicture = state.get("bigpictures").find(bp => bp.id == ownProps.bigPictureId)
+  const bigPicture = state.get("bigpictures").find((bp) => bp.id == ownProps.bigPictureId)
   return {
     bigPicture,
-    children: bigPicture != null ? state.get("bigpictures").filter(bp => bigPicture.children.indexOf(bp.id) != -1) : [],
+    children: bigPicture != null ? state.get("bigpictures").filter((bp) => bigPicture.children.indexOf(bp.id) != -1) : [],
     user: state.get("user"),
-    references: bigPicture != null ? state.get("bigpictures").filter(bp => bigPicture.references.indexOf(bp.id) != -1) : [],
-    endorsments: state.get("endorsments").filter(elt => elt.bigPicture == ownProps.bigPictureId),
-    hyperlink: bigPicture != null ? state.get("bigpictures").find(bp => bp.id == bigPicture.hyperlink_id) : null,
-    ratings: state.get("ratings").filter(rating => rating.target_bp == ownProps.bigPictureId)
+    references: bigPicture != null ? state.get("bigpictures").filter((bp) => bigPicture.references.indexOf(bp.id) != -1) : [],
+    endorsments: state.get("endorsments").filter((elt) => elt.bigPicture == ownProps.bigPictureId),
+    hyperlink: bigPicture != null ? state.get("bigpictures").find((bp) => bp.id == bigPicture.hyperlink_id) : null,
+    ratings: state.get("ratings").filter((rating) => rating.target_bp == ownProps.bigPictureId)
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-    getBigPictureRatings: getPageFormatter(dispatch, getRatings),
-    getReferences: getPageFormatter(dispatch, getSubjects),
-    getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
+  getBigPictureRatings: getPageFormatter(dispatch, getRatings),
+  getReferences: getPageFormatter(dispatch, getSubjects),
+  getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
+})
 
 const BigPicturePreview = connect(mapStateToProps, mapDispatchToProps)(BigPicturePreviewLook)
 

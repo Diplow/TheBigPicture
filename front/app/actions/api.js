@@ -7,25 +7,25 @@ import uuid from 'uuid/v4'
 // "NEXTS" funcs are called asynchronously when related servers calls are done
 // see front/app/reducers/requests.js for more details on this design.
 const NEXTS = {
-  "getSubjects": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  "getSubjects": (dispatch, nextargs, requestId) => (
+    (result) => {
       if (nextargs.author)
         dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
       dispatch(basics.setSubjectCount(result.count, requestId))
     }
-  },
-  "getBpRatings": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getBpRatings": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setBpRatingCount(nextargs.bigpicture, result.count, requestId))
     }
-  },
-  "getRatingRatings": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getRatingRatings": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))
     }
-  },
-  "getUserRatings": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getUserRatings": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setUserRatingCount(nextargs.author, result.count, requestId))
       for (let i = 0; i < result.results.length; ++i) {
         const rating = result.results[i]
@@ -33,9 +33,9 @@ const NEXTS = {
         dispatch(basics.addGivenReason(nextargs.author, rating.id))
       }
     }
-  },
-  "getEndorsments": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getEndorsments": (dispatch, nextargs, requestId) => (
+    (result) => {
       if (nextargs.bigpicture)
         dispatch(basics.setBpEndorsmentCount(nextargs.bigpicture, result.count, requestId))
       if (nextargs.rating)
@@ -43,14 +43,14 @@ const NEXTS = {
       if (nextargs.author)
         dispatch(basics.setUserEndorsmentCount(nextargs.author, result.count, requestId))
     }
-  },
-  "getOwnSubjects": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getOwnSubjects": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
     }
-  },
-  "getOwnRatings": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getOwnRatings": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setOwnRatingCount(nextargs.author, result.count, requestId))
       dispatch(basics.setUserRatingCount(nextargs.author, result.count, requestId))
       for (let i = 0; i < result.results.length; ++i) {
@@ -59,14 +59,14 @@ const NEXTS = {
         dispatch(basics.addGivenReason(nextargs.author, rating.id))
       }
     }
-  },
-  "getSubscriptions": (dispatch, nextargs, requestId) => {
-    return (result) => {
+  ),
+  "getSubscriptions": (dispatch, nextargs, requestId) => (
+    (result) => {
       dispatch(basics.setSubscriptionCount(result.count, requestId))
     }
-  },
-  "getReferences": (dispatch, nextargs, requestId) => {
-    return (resp) => {
+  ),
+  "getReferences": (dispatch, nextargs, requestId) => (
+    (resp) => {
       dispatch(basics.setBpReferenceCount(resp.count, nextargs.reference, requestId))
       for (let i = 0; i < resp.results.length; ++i) {
         const bp = resp.results[i]
@@ -74,58 +74,58 @@ const NEXTS = {
         dispatch(basics.addBigPictureReference(nextargs.reference, bp.id))
       }
     }
-  },
-  "unfollow": (dispatch, nextargs, requestId) => {
-    return (resp) => {
+  ),
+  "unfollow": (dispatch, nextargs, requestId) => (
+    (resp) => {
       dispatch(basics.removeSubscription(nextargs.targetId))
       dispatch(basics.notification(notifications.itemDeletion["subscriptions"]))
     }
-  },
-  "getBigPictureResults": (dispatch, nextargs, requestId) => {
-    return (resp) => {
+  ),
+  "getBigPictureResults": (dispatch, nextargs, requestId) => (
+    (resp) => {
       dispatch(basics.setBpEndorsmentCount(nextargs.bigpictureId, resp.count, requestId))
       dispatch(basics.addBigPictureResults(nextargs.bigpictureId, resp))
     }
-  },
-  "getRatingResults": (dispatch, nextargs, requestId) => {
-    return (resp) => {
+  ),
+  "getRatingResults": (dispatch, nextargs, requestId) => (
+    (resp) => {
       dispatch(basics.setEndorsmentCount(nextargs.ratingId, resp.count, requestId))
       dispatch(basics.addRatingResults(nextargs.ratingId, resp))
     }
-  }
+  )
 }
 
-export const make = (request) => {
-  return (dispatch) => {
+export const make = (request) => (
+  (dispatch) => {
     const host = cst.SERVER_ADDR + request.url
     fetch(host, buildRequest(request.body, request.method))
-    .then(res => {
-      const success = res.status - 200 >= 0 && res.status - 300 < 0
-      switch (request.method) {
+      .then((res) => {
+        const success = res.status - 200 >= 0 && res.status - 300 < 0
+        switch (request.method) {
 
-        case "GET":
-          if (!success) {
-            dispatch(basics.notification(notification.GET_FAIL))
+          case "GET":
+            if (!success) {
+              dispatch(basics.notification(notification.GET_FAIL))
+              break;
+            }
+            res.json().then((result) => {
+              dispatch(basics.done({
+                ...request,
+                success,
+                response: result,
+                status: res.status,
+              }))
+              return result
+            }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs, request.id) : null)
             break;
-          }
-          res.json().then(result => {
-            dispatch(basics.done({
-              ...request,
-              success,
-              response: result,
-              status: res.status,
-            }))
-            return result
-          }).then(NEXTS[request.next] != undefined ? NEXTS[request.next](dispatch, request.nextargs, request.id) : null)
-          break;
 
-        default:
-          throw(Error("unknown request method " + request.method))
+          default:
+            throw(Error("unknown request method " + request.method))
 
-      }
-    })
+        }
+      })
   }
-}
+)
 
 
 const getCookie = (name) => {
@@ -196,7 +196,7 @@ export const deleteItem = (dispatch, itemId, itemAPI, options) => {
       else {
         dispatch(basics.notification(notifications.DELETION_FAIL))
       }
-  })
+    })
 }
 
 
@@ -241,8 +241,8 @@ export const sendItem = (dispatch, item, itemAPI, action, options, method, next)
   const host = cst.SERVER_ADDR + itemAPI + options
   fetch(host, buildRequest(item, method))
     .then(handleHttpError(dispatch, "send"))
-    .then(res => res.json())
-    .then(res => {
+    .then((res) => res.json())
+    .then((res) => {
       // TODO: error handling design is not well thought here...
       if (res.error != undefined) {
         dispatch(basics.notification(notifications.SERVER_ERROR(res.error)))
@@ -286,12 +286,12 @@ const computeTokenTimeout = () => {
   return expirationDate.getTime()
 }
 
-export const login = (credentials) => {
-  return (dispatch) => {
+export const login = (credentials) => (
+  (dispatch) => {
     fetch(cst.SERVER_ADDR + 'token-auth/', buildRequest(credentials, "POST"))
       .then(handleHttpError(dispatch, "login"))
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         localStorage.setItem('token', json.token);
         localStorage.setItem('user', JSON.stringify(json.user));
         localStorage.setItem('expiration', computeTokenTimeout())
@@ -299,18 +299,18 @@ export const login = (credentials) => {
         dispatch(basics.notification(notifications.WELCOME(json.user.username)))
       });
   }
-};
+)
 
-export const logout = () => {
-  return (dispatch) => {
+export const logout = () => (
+  (dispatch) => {
     localStorage.clear()
     dispatch(basics.logout())
     dispatch(basics.notification(notifications.LOGOUT))
   }
-}
+)
 
-export const handleHttpError = (dispatch, action) => {
-  return (res) => {
+export const handleHttpError = (dispatch, action) => (
+  (res) => {
     switch (res.status) {
       case 400:
         if (action == "login")
@@ -329,4 +329,4 @@ export const handleHttpError = (dispatch, action) => {
         return res
     }
   }
-}
+)

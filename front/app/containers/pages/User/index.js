@@ -13,21 +13,17 @@ import UserViewLook from './look'
 
 
 const mapStateToProps = (state, ownProps) => {
-  const user = state.get("users").find(user => user.id == ownProps.match.params.id)
+  const user = state.get("users").find((user) => user.id == ownProps.match.params.id)
   return {
     user,
     visitor: state.get("user"),
-    ratings: !user ? [] : state.get("ratings").filter(rating => rating.author == user.id)
+    ratings: !user ? [] : state.get("ratings").filter((rating) => rating.author == user.id)
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const userId = ownProps.match.params.id
-  const addAuthorToOptions = (func) => {
-    return (page, options, requestId) => {
-      return func(page, { ...options, author: userId }, requestId)
-    }
-  }
+  const addAuthorToOptions = (func) => (page, options, requestId) => func(page, { ...options, author: userId }, requestId)
   return {
     getUser: (id) => { dispatch(getUser(id)) },
     follow: (author) => { dispatch(follow(author, userId)) },

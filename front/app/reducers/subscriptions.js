@@ -4,9 +4,9 @@ import * as cst from "../constants"
 
 const addSubscription = (subscription, state) => {
   const targetId = subscription.target !== undefined ? subscription.target.id : subscription.target_id
-  const  old = state.find(sub => sub.target_id == targetId)
+  const  old = state.find((sub) => sub.target_id == targetId)
   return [
-    ...state.filter(sub => sub.target_id != targetId),
+    ...state.filter((sub) => sub.target_id != targetId),
     {
       ...old,
       target_id: targetId,
@@ -20,7 +20,7 @@ const subscriptions = (state = [], action) => {
   switch (action.type) {
 
     case cst.actions.DELETE_SUBSCRIPTION:
-      return state.filter(sub => sub.target_id != action.targetId)
+      return state.filter((sub) => sub.target_id != action.targetId)
 
     case cst.actions.CREATE_SUBSCRIPTION:
     case cst.actions.ADD_SUBSCRIPTION:

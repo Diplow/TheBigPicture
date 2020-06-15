@@ -39,7 +39,7 @@ const requests = (state = [], action) => {
 
     case cst.actions.ADD_REQUEST:
       request = action.request
-      const old = state.find(elt => elt.id == request.id)
+      const old = state.find((elt) => elt.id == request.id)
 
       // If an old, already processed, request is added, just give it
       // the state of a done request but not already processed.
@@ -57,7 +57,7 @@ const requests = (state = [], action) => {
       }
 
       return [
-        ...state.filter(elt => elt.id != request.id),
+        ...state.filter((elt) => elt.id != request.id),
         {
           id: request.id, // this ID is used to identify what a request is doing
           requestId: request.requestId, // this ID is an uuid used by "getCollections"
@@ -103,7 +103,7 @@ const requests = (state = [], action) => {
     case cst.actions.CREATE_SUBSCRIPTION:
     case cst.actions.DELETE_SUBSCRIPTION:
       // If subscriptions are modified, favorites requests become irrelevant
-      return state.filter(req => !req.id.includes("favorite"))
+      return state.filter((req) => !req.id.includes("favorite"))
 
 
     default:

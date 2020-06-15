@@ -6,13 +6,13 @@ const endorsments = (state = [], action) => {
   switch (action.type) {
 
     case cst.actions.DELETE_ENDORSMENT:
-      return state.filter(item => item.id != action.id)
+      return state.filter((item) => item.id != action.id)
 
     case cst.actions.ADD_ENDORSMENT:
       let endorsment = action.endorsment
-      let old = state.find(item => item.id == endorsment.id)
+      let old = state.find((item) => item.id == endorsment.id)
       return [
-        ...state.filter(item => item.id != endorsment.id),
+        ...state.filter((item) => item.id != endorsment.id),
         {
           id: endorsment.id,
           target_id: endorsment.target !== undefined ? endorsment.target.id : endorsment.target_id,

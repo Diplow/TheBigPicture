@@ -43,8 +43,8 @@ const LoginModalLook = ({ active, setActive, login }) => {
               onChange={edit}
             />
             <label className="label login-inscription"> 
-            <a href="https://api.vuedensemble.org/api/accounts/register" className="inscription-link">{cst.labels.INSCRIPTION_LINK}</a>
-          </label>
+              <a href="https://api.vuedensemble.org/api/accounts/register" className="inscription-link">{cst.labels.INSCRIPTION_LINK}</a>
+            </label>
           </form>
         </section>
         <footer className="modal-card-foot">
@@ -59,17 +59,13 @@ const LoginModalLook = ({ active, setActive, login }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    username: state.get("user").username
-  }
-}
+const mapStateToProps = (state) => ({
+  username: state.get("user").username
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (credentials) => { dispatch(login(credentials)) }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  login: (credentials) => { dispatch(login(credentials)) }
+})
 
 const LoginModal = connect(mapStateToProps, mapDispatchToProps)(LoginModalLook)
 

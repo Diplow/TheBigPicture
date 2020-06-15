@@ -16,7 +16,7 @@ export const AuthorIconLook = ({ user, showIcon, getUser, userId, clickable }) =
   	return null
 
   const img = (
-	<figure className={"level-item image is-48x48"}>
+    <figure className={"level-item image is-48x48"}>
       <img src={user.image} className={`login-image is-rounded ${clickable ? "clickable" : ""}`}/>
   	</figure>
   )
@@ -34,21 +34,17 @@ export const AuthorIconLook = ({ user, showIcon, getUser, userId, clickable }) =
 		    </Link>
   	  	) : img
   	  }
-	</div>
+    </div>
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		user: state.get("users").find(usr => usr.id == ownProps.userId)
-	}
-}
+const mapStateToProps = (state, ownProps) => ({
+  user: state.get("users").find((usr) => usr.id == ownProps.userId)
+})
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getUser: (id) => { dispatch(getUser(id)) },
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+  getUser: (id) => { dispatch(getUser(id)) },
+})
 
 const AuthorIcon = connect(mapStateToProps, mapDispatchToProps)(AuthorIconLook)
 

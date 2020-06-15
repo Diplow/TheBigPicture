@@ -36,12 +36,12 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 
   useEffect(() => {
     // Sort and filter items 
-    const favoritesFilter = elt => !favorites || elt.favorite
+    const favoritesFilter = (elt) => !favorites || elt.favorite
     const searchSort = (a, b) => a[sort] > b[sort] ? 1 : -1
     setCurrentPage(
       items
         .filter(favoritesFilter)
-        .filter(item => sort == "default" || item[sort])
+        .filter((item) => sort == "default" || item[sort])
         .sort(sort == "default" ? sortFunc : searchSort)
     )
   }, [items, sort, favorites])

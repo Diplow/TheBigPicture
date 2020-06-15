@@ -45,12 +45,10 @@ const RatingListLook = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    ratings: state.get("ratings").filter(ownProps.filter),
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  ratings: state.get("ratings").filter(ownProps.filter),
+  user: state.get("user")
+})
 
 const RatingList = connect(mapStateToProps)(RatingListLook)
 

@@ -17,7 +17,7 @@ const HomeLook = ({ user, getBigPictures, count }) => {
     <div className="vde container section">
       <BigPictureList
         name="home-page-bps-list"
-        filter={bp => bp.kind == cst.SUBJECT && bp.private == false}
+        filter={(bp) => bp.kind == cst.SUBJECT && bp.private == false}
         parent={null}
         count={count}
         search={true}

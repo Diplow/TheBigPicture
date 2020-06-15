@@ -37,12 +37,12 @@ const EditionModalLook = (props) => {
             </button>
             {
               del != undefined
-              ? <button
+                ? <button
                   className="button is-dark"
                   onClick={() => { setActive(false); del(data) }}>
                   {data.id == undefined ? "Annuler" : "Supprimer"}
                 </button>
-              : null
+                : null
             }
           </div>
         </footer>

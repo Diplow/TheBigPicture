@@ -134,9 +134,7 @@ const comments = (rating, getRatingsPage, user) => {
       loadFirstPage={false}
       count={rating.ratingCount}
       getPage={
-        (page, options, requestId) => {
-          return getRatingsPage(page, { ...options, rating: rating.id }, requestId)
-        }
+        (page, options, requestId) => getRatingsPage(page, { ...options, rating: rating.id }, requestId)
       }
       title={cst.labels.REASON_LIST_TITLE}
       emptyMessage={cst.labels.MSG_NO_REASON}
@@ -186,9 +184,7 @@ const endorsmentsList = (rating, endorsments, getPage) => {
       sortFunc={endorsmentsSort}
       count={rating.endorsmentCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, rating: rating.id }, reqId)
-        }
+        (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
       }
       loadFirstPage={false}
       title={cst.labels.ENDORSMENT_LIST_TITLE}

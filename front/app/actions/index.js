@@ -11,8 +11,8 @@ import * as cst from "../constants"
  **/
 
 
-export const getBigPicture = (bpId) => {
-  return (dispatch) => {
+export const getBigPicture = (bpId) => (
+  (dispatch) => {
     api.getItem(
       dispatch, 
       bpId,
@@ -20,10 +20,11 @@ export const getBigPicture = (bpId) => {
       []
     )
   }
-}
+)
 
-export const postBigPicture = (bigPicture) => {
-  return (dispatch) => {
+
+export const postBigPicture = (bigPicture) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(bigPicture),
@@ -33,10 +34,10 @@ export const postBigPicture = (bigPicture) => {
       "POST"
     )
   }
-}
+)
 
-export const patchBigPicture = (bigPicture) => {
-  return (dispatch) => {
+export const patchBigPicture = (bigPicture) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(bigPicture),
@@ -46,20 +47,20 @@ export const patchBigPicture = (bigPicture) => {
       "PATCH"
     )
   }
-}
+)
 
-export const deleteBigPicture = (id) => {
-  return (dispatch) => {
+export const deleteBigPicture = (id) => (
+  (dispatch) => {
     api.deleteItem(
       dispatch,
       id,
       "bigpictures"
     )
   }
-}
+)
 
-export const getSubjects = (page, options, requestId) => {
-  return (dispatch) => {
+export const getSubjects = (page, options, requestId) => (
+  (dispatch) => {
     api.getCollection(
       dispatch,
       "subjects",
@@ -69,10 +70,10 @@ export const getSubjects = (page, options, requestId) => {
       requestId
     )
   }
-}
+)
 
-export const getOwnSubjects = (page, options, requestId) => {
-  return (dispatch) => {
+export const getOwnSubjects = (page, options, requestId) => (
+  (dispatch) => {
     api.getCollection(
       dispatch,
       "ownsubjects",
@@ -82,10 +83,10 @@ export const getOwnSubjects = (page, options, requestId) => {
       requestId
     )
   }
-}
+)
 
-export const getBigPictureResults = (bigpictureId) => {
-  return (dispatch) => {
+export const getBigPictureResults = (bigpictureId) => (
+  (dispatch) => {
     api.get(
       dispatch,
       `bigpictures/${bigpictureId}/results/`,
@@ -94,7 +95,7 @@ export const getBigPictureResults = (bigpictureId) => {
       false
     )
   }
-}
+)
 
 
 /**
@@ -104,8 +105,8 @@ export const getBigPictureResults = (bigpictureId) => {
  **/
 
 
-export const postVote = (vote) => {
-  return (dispatch) => {
+export const postVote = (vote) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(vote),
@@ -115,10 +116,10 @@ export const postVote = (vote) => {
       "POST"
     )
   }
-}
+)
 
-export const patchRating = (rating) => {
-  return (dispatch) => {
+export const patchRating = (rating) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(rating),
@@ -128,20 +129,20 @@ export const patchRating = (rating) => {
       "PATCH"
     )
   }
-}
+)
 
-export const deleteVote = (id) => {
-  return (dispatch) => {
+export const deleteVote = (id) => (
+  (dispatch) => {
     api.deleteItem(
       dispatch,
       id,
       "ratings"
     )
   }
-}
+)
 
-export const getRating = (ratingId) => {
-  return (dispatch) => {
+export const getRating = (ratingId) => (
+  (dispatch) => {
     api.getItem(
       dispatch, 
       ratingId,
@@ -149,7 +150,7 @@ export const getRating = (ratingId) => {
       []
     )
   }
-}
+)
 
 export const getRatings = (page, options, requestId) => {
   let requestName = "getRatings"
@@ -171,8 +172,8 @@ export const getRatings = (page, options, requestId) => {
   }
 }
 
-export const getOwnRatings = (page, options, requestId) => {
-  return (dispatch) => {
+export const getOwnRatings = (page, options, requestId) => (
+  (dispatch) => {
     api.getCollection(
       dispatch,
       "ownratings",
@@ -182,10 +183,10 @@ export const getOwnRatings = (page, options, requestId) => {
       requestId
     )
   }
-}
+)
 
-export const getRatingResults = (ratingId) => {
-  return (dispatch) => {
+export const getRatingResults = (ratingId) => (
+  (dispatch) => {
     api.get(
       dispatch,
       `ratings/${ratingId}/results/`,
@@ -194,10 +195,10 @@ export const getRatingResults = (ratingId) => {
       false
     )
   }
-}
+)
 
-export const getEndorsments = (page, options, requestId) => {
-  return (dispatch) => {
+export const getEndorsments = (page, options, requestId) => (
+  (dispatch) => {
     api.getCollection(
       dispatch,
       "endorsments",
@@ -207,11 +208,11 @@ export const getEndorsments = (page, options, requestId) => {
       requestId
     )
   }
-}
+)
 
 
-export const postEndorsment = (endorsment) => {
-  return (dispatch) => {
+export const postEndorsment = (endorsment) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(endorsment),
@@ -221,17 +222,17 @@ export const postEndorsment = (endorsment) => {
       "POST"
     )
   }
-}
+)
 
-export const deleteEndorsment = (id) => {
-  return (dispatch) => {
+export const deleteEndorsment = (id) => (
+  (dispatch) => {
     api.deleteItem(
       dispatch,
       id,
       "endorsments"
     )
   }
-}
+)
 
 
 /**
@@ -241,8 +242,8 @@ export const deleteEndorsment = (id) => {
  **/
 
 
-export const getUser = (id) => {
-  return (dispatch) => {
+export const getUser = (id) => (
+  (dispatch) => {
     api.getItem(
       dispatch,
       id,
@@ -250,10 +251,10 @@ export const getUser = (id) => {
       []
     )
   }
-}
+)
 
-export const patchUser = (user) => {
-  return (dispatch) => {
+export const patchUser = (user) => (
+  (dispatch) => {
     api.sendItem(
       dispatch, 
       utils.removeEmptyKeys(user),
@@ -263,7 +264,7 @@ export const patchUser = (user) => {
       "PATCH"
     )
   }
-}
+)
 
 
 /**
@@ -272,8 +273,8 @@ export const patchUser = (user) => {
  * 
  **/
 
-export const getSubscriptions = (page, options, requestId) => {
-  return (dispatch) => {
+export const getSubscriptions = (page, options, requestId) => (
+  (dispatch) => {
     api.getCollection(
       dispatch, 
       "subscriptions",
@@ -283,10 +284,10 @@ export const getSubscriptions = (page, options, requestId) => {
       requestId
     )
   }
-}
+)
 
-export const unfollow = (targetId) => {
-  return (dispatch) => {
+export const unfollow = (targetId) => (
+  (dispatch) => {
     api.get(
       dispatch,
       `users/${targetId}/unfollow/`,
@@ -295,10 +296,10 @@ export const unfollow = (targetId) => {
       false
     )
   }
-}
+)
 
-export const follow = (author, target_id) => {
-  return (dispatch) => {
+export const follow = (author, target_id) => (
+  (dispatch) => {
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys({ author, target_id }),
@@ -308,5 +309,5 @@ export const follow = (author, target_id) => {
       "POST"
     )
   }
-}
+)
 

@@ -3,14 +3,12 @@ import * as cst from '../../constants'
 import './style.scss'
 
 
-const HideAndShowButton = ({ hidden, setHidden }) => {
-  return (
-    <div>
-      { figureIcon(cst.icons.PLUS, hidden, setHidden) }
-      { figureIcon(cst.icons.MINUS, hidden, setHidden) }
-    </div>
-  )
-}
+const HideAndShowButton = ({ hidden, setHidden }) => (
+  <div>
+    { figureIcon(cst.icons.PLUS, hidden, setHidden) }
+    { figureIcon(cst.icons.MINUS, hidden, setHidden) }
+  </div>
+)
 
 const figureIcon = (icon, hidden, setHidden) => {
   if (hidden === (icon === cst.icons.MINUS))

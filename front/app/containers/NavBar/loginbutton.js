@@ -26,17 +26,13 @@ const LoginButtonLook = ({ user, logout }) => {
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user")
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => { dispatch(logout()) }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => { dispatch(logout()) }
+})
 
 const LoginButton = connect(mapStateToProps, mapDispatchToProps)(LoginButtonLook)
 

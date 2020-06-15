@@ -5,9 +5,9 @@ import * as reducer_utils from "./utils"
 
 const addUser = (usr, state) => {
   if (!usr.id) return state
-  const old = state.find(element => element.id == usr.id)
+  const old = state.find((element) => element.id == usr.id)
   return [
-    ...state.filter(user => user.id != usr.id),
+    ...state.filter((user) => user.id != usr.id),
     {
       id: usr.id,
       username: usr.username,

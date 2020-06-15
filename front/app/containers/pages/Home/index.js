@@ -5,18 +5,14 @@ import { getPageFormatter } from '../../../components/List'
 import uuid from 'uuid/v4'
 
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user"),
-    count: state.get("global").subjectCount
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user"),
+  count: state.get("global").subjectCount
+})
 
-const mapDispatchToProps = (dispatch, state) => {
-  return {
-    getBigPictures: getPageFormatter(dispatch, getSubjects)
-  }
-}
+const mapDispatchToProps = (dispatch, state) => ({
+  getBigPictures: getPageFormatter(dispatch, getSubjects)
+})
 
 const Home = connect(mapStateToProps, mapDispatchToProps)(HomeLook)
 

@@ -45,24 +45,22 @@ const ResultsLook = (props) => {
       {
         !hidden
           ? <Loader condition={target.results == undefined}>
-              { chart(target) }
-            </Loader>
+            { chart(target) }
+          </Loader>
           : null
       }
     </div>
   )
 }
 
-const header = (hidden, setHidden) => {
-  return (
-    <div className="level is-mobile">
-      <div className="level-left" onClick={ () => setHidden(!hidden) }>
-        <ResultsIcon className="vde header-button level-item image is-32x32" />
-        <p className="vde subtitle level-item">{cst.labels.RESULTS_TITLE}</p>
-      </div>
+const header = (hidden, setHidden) => (
+  <div className="level is-mobile">
+    <div className="level-left" onClick={ () => setHidden(!hidden) }>
+      <ResultsIcon className="vde header-button level-item image is-32x32" />
+      <p className="vde subtitle level-item">{cst.labels.RESULTS_TITLE}</p>
     </div>
-  )
-}
+  </div>
+)
 
 const chart = (bigPicture) => {
   if (bigPicture.results == undefined) return null
@@ -139,11 +137,11 @@ const chart = (bigPicture) => {
   }
   return (
     <div id="chart">
-    {
-      bigPicture.results.count == 0
-      ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
-      : <Chart options={options} series={series} type="bar" height={300} />
-    }
+      {
+        bigPicture.results.count == 0
+          ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
+          : <Chart options={options} series={series} type="bar" height={300} />
+      }
     </div>
   )
 }
