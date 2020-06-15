@@ -54,12 +54,10 @@ const BigPictureListLook = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    bigPictures: state.get("bigpictures").filter(ownProps.filter),
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  bigPictures: state.get("bigpictures").filter(ownProps.filter),
+  user: state.get("user")
+})
 
 const BigPictureList = connect(mapStateToProps)(BigPictureListLook)
 

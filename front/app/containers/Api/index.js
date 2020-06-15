@@ -29,20 +29,16 @@ const ApiEngine = (props) => {
   return null
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todo: state.get("requests").filter(elt => elt.state == cst.actions.REQUEST_CREATED)[0],
-  }
-}
+const mapStateToProps = (state) => ({
+  todo: state.get("requests").filter((elt) => elt.state == cst.actions.REQUEST_CREATED)[0],
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    ongoing: (request) => {
-      dispatch(basics.ongoing(request))
-    },
-    make: (request) => { dispatch(make(request)) },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  ongoing: (request) => {
+    dispatch(basics.ongoing(request))
+  },
+  make: (request) => { dispatch(make(request)) },
+})
 
 const Api = connect(mapStateToProps, mapDispatchToProps)(ApiEngine)
 

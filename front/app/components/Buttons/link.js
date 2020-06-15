@@ -28,7 +28,7 @@ const LinkButton = (props) => {
             : icon
         }
       </Link>
-  </span>
+    </span>
   )
 }
 

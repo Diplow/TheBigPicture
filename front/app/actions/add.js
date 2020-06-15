@@ -50,9 +50,8 @@ const ADD_ACTIONS = {
   "ratings": (request, dispatch, rating) => { dispatch(basics.addRating(rating)) },
 }
 
-export const add = (request) => {
-
-  return (dispatch) => {
+export const add = (request) => (
+  (dispatch) => {
     // Action are based on the REST ressource type identified from the API call
     const itemAPI = request.url.split("/")[0]
     const addAction = ADD_ACTIONS[itemAPI]
@@ -64,4 +63,4 @@ export const add = (request) => {
       ? addCollection(request, dispatch, addAction)
       : addAction(request, dispatch, request.response)
   }
-}
+)

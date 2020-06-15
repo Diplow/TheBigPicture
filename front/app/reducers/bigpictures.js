@@ -4,9 +4,9 @@ import * as cst from "../constants"
 
 
 const addBp = (bp, state) => {
-  const old = state.find(element => element.id == bp.id)
+  const old = state.find((element) => element.id == bp.id)
   return [
-    ...state.filter(element => element.id != bp.id),
+    ...state.filter((element) => element.id != bp.id),
     {
       ...old,
       id: bp.id,
@@ -45,17 +45,17 @@ const handleHyperlink = (bp, state) => {
 }
 
 const handleParentChange = (bp, state) => {
-  const old = state.find(element => element.id == bp.id)
+  const old = state.find((element) => element.id == bp.id)
   const parentHasChanged = old != null && old.parent != bp.parent
   if (!parentHasChanged) return state
 
-  const old_parent = state.find(element => element.id == old.parent)
-  const new_parent = state.find(element => element.id == bp.parent)
+  const old_parent = state.find((element) => element.id == old.parent)
+  const new_parent = state.find((element) => element.id == bp.parent)
   return [
-    ...state.filter(element => element.id != old_parent.id && element.id != new_parent.id),
+    ...state.filter((element) => element.id != old_parent.id && element.id != new_parent.id),
     {
       ...old_parent,
-      children: old_parent.children.filter(id => id != bp.id)
+      children: old_parent.children.filter((id) => id != bp.id)
     },
     {
       ...new_parent,
@@ -139,13 +139,11 @@ const bigpictures = (state = [], action) => {
       )
 
     case cst.actions.DELETE_BIG_PICTURE:
-      state = state.filter(element => element.id != action.id)
-      return state.map(element => {
-        return {
-          ...element,
-          children: element.children.filter(id => id !== action.id) 
-        }
-      })
+      state = state.filter((element) => element.id != action.id)
+      return state.map((element) => ({
+        ...element,
+        children: element.children.filter((id) => id !== action.id) 
+      }))
 
     case cst.actions.ADD_RATING:
       const addContext = (context, state) => {
@@ -181,7 +179,7 @@ const bigpictures = (state = [], action) => {
       })
 
     case cst.actions.LOGOUT:
-      return state.filter(element => element.private == false)
+      return state.filter((element) => element.private == false)
 
     default:
       return state

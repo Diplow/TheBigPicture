@@ -41,19 +41,17 @@ const NewBigPictureLook = ({ parent, data, setData }) => {
   )
 }
 
-const radioButton = (name, checked, value, onChange, label) => {
-  return (
-    <label className="radio">
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        onChange={onChange}
-        checked={checked} />
-      {label}
-    </label>
-  )
-}
+const radioButton = (name, checked, value, onChange, label) => (
+  <label className="radio">
+    <input
+      type="radio"
+      name={name}
+      value={value}
+      onChange={onChange}
+      checked={checked} />
+    {label}
+  </label>
+)
 
 const kindField = (kind, edit, parent) => {
   if (kind == cst.SUBJECT)
@@ -70,83 +68,73 @@ const kindField = (kind, edit, parent) => {
   )
 }
 
-const privacyField = (privacy, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Visibilité</p>
-      <div className="control">
-        { radioButton("private", privacy === false, false, edit, "Publique") }
-        { radioButton("private", privacy === true, true, edit, "Privé") }
-      </div>
+const privacyField = (privacy, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Visibilité</p>
+    <div className="control">
+      { radioButton("private", privacy === false, false, edit, "Publique") }
+      { radioButton("private", privacy === true, true, edit, "Privé") }
     </div>
-  )
-}
+  </div>
+)
 
-const hyperLinkIdField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Identifiant de la référence (optionnel)</p>
-      <input
-        className="input tbp-modal"
-        type="text"
-        name="hyperlink_id"
-        value={data.hyperlink_id != undefined ? data.hyperlink_id : ""}
-        onChange={edit}
-        placeholder="Identifiant (numérique)" />
-    </div>
-  )
-}
+const hyperLinkIdField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Identifiant de la référence (optionnel)</p>
+    <input
+      className="input tbp-modal"
+      type="text"
+      name="hyperlink_id"
+      value={data.hyperlink_id != undefined ? data.hyperlink_id : ""}
+      onChange={edit}
+      placeholder="Identifiant (numérique)" />
+  </div>
+)
 
 
-const parentField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Identifiant du parent</p>
-      <input
-        className="input tbp-modal"
-        type="text"
-        name="parent"
-        value={data.parent}
-        onChange={edit}
-        placeholder="Identifiant du parent (numérique)" />
-    </div>
-  )
-}
+const parentField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Identifiant du parent</p>
+    <input
+      className="input tbp-modal"
+      type="text"
+      name="parent"
+      value={data.parent}
+      onChange={edit}
+      placeholder="Identifiant du parent (numérique)" />
+  </div>
+)
 
-const titleField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Titre</p>
-      <input
-        className="input tbp-modal"
-        type="text"
-        name="title"
-        value={data.title}
-        onChange={edit}
-        placeholder="Titre" />
-    </div>
-  )
-}
 
-const contentField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Contenu</p>
-      <textarea
-        className="textarea tbp-modal"
-        name="body"
-        value={data.body}
-        onChange={edit}
-        placeholder="Contenu" />
-    </div>
-  )
-}
+const titleField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Titre</p>
+    <input
+      className="input tbp-modal"
+      type="text"
+      name="title"
+      value={data.title}
+      onChange={edit}
+      placeholder="Titre" />
+  </div>
+)
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    parent: state.get("bigpictures").find(elt => elt.id == ownProps.data.parent)
-  }
-}
+const contentField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Contenu</p>
+    <textarea
+      className="textarea tbp-modal"
+      name="body"
+      value={data.body}
+      onChange={edit}
+      placeholder="Contenu" />
+  </div>
+)
+
+
+const mapStateToProps = (state, ownProps) => ({
+  parent: state.get("bigpictures").find((elt) => elt.id == ownProps.data.parent)
+})
 
 const NewBigPicture = connect(mapStateToProps)(NewBigPictureLook)
 

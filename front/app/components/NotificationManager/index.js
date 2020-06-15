@@ -26,17 +26,13 @@ notifManager.propTypes = {
   pop: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return {
-    notifications: state.get("notifications")
-  }
-}
+const mapStateToProps = (state) => ({
+  notifications: state.get("notifications")
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    pop: (id) => { dispatch(popNotification(id)) }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  pop: (id) => { dispatch(popNotification(id)) }
+})
 const NotificationManager = connect(mapStateToProps, mapDispatchToProps)(notifManager)
 
 export default NotificationManager

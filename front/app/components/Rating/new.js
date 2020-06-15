@@ -27,18 +27,16 @@ const NewRating = (props) => {
   )
 }
 
-const bodyField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Raison</p>
-      <textarea
-        className="textarea tbp-modal"
-        name="body"
-        value={data.body}
-        onChange={edit}
-        placeholder="Raison..." />
-    </div>
-  )
-}
+const bodyField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Raison</p>
+    <textarea
+      className="textarea tbp-modal"
+      name="body"
+      value={data.body}
+      onChange={edit}
+      placeholder="Raison..." />
+  </div>
+)
 
 export default NewRating
