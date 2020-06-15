@@ -105,11 +105,13 @@ const ListLook = (props) => {
 const header = (buttons, user, title, hidden, setHidden, getPage, icon) => {
   return (
     <div className="level is-mobile">
-      <div className="level-left" onClick={ () => setHidden(!hidden) }>
-        {
-          icon ? icon : <HideAndShowButton hidden={hidden} setHidden={setHidden} />
-        }
-        <p className="vde subtitle level-item">{title}</p>
+      <div className="level-left">
+        <div className="level-item" onClick={ () => setHidden(!hidden) }>
+          {
+            icon ? icon : <HideAndShowButton hidden={hidden} setHidden={setHidden} />
+          }
+          <p className="vde subtitle level-item">{title}</p>
+        </div>
         { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
       </div>
     </div>
