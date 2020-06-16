@@ -6,23 +6,19 @@ import NewBigPicture from './new'
 import * as cst from '../../constants'
 
 
-const mapStateToProps = (state) => {
-  return {}
-}
+const mapStateToProps = (state) => ({})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  	post: (bigPicture) => {
-      bigPicture.id == undefined
-        ? dispatch(postBigPicture(bigPicture))
-        : dispatch(patchBigPicture(bigPicture))
-    },
-  	del: (bigPicture) => {
-      if (bigPicture.id != undefined)
-        dispatch(deleteBigPicture(bigPicture.id))
-    }
+const mapDispatchToProps = (dispatch) => ({
+  post: (bigPicture) => {
+    bigPicture.id == undefined
+      ? dispatch(postBigPicture(bigPicture))
+      : dispatch(patchBigPicture(bigPicture))
+  },
+  del: (bigPicture) => {
+    if (bigPicture.id != undefined)
+      dispatch(deleteBigPicture(bigPicture.id))
   }
-}
+})
 
 const BigPictureModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
 

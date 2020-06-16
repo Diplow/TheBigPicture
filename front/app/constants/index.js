@@ -40,10 +40,10 @@ export const PROBLEM = 2
 export const SOLUTION = 3
 export const RESOURCE = 4
 export const CLASSNAMES = {
-    [PROBLEM]: "problem",
-    [SOLUTION]: "solution",
-    [RESOURCE]: "resource",
-    [SUBJECT]: "subject",
+  [PROBLEM]: "problem",
+  [SOLUTION]: "solution",
+  [RESOURCE]: "resource",
+  [SUBJECT]: "subject",
 }
 
 

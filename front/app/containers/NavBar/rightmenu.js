@@ -44,16 +44,15 @@ const RightMenuLook = (props) => {
   );
 }
 
-const socialsButton = (isActive, setIsActive) => {
-
-  return (
-    <DropDownButton
-      name="socials"
-      classname="nav-item"
-      isActive={isActive}
-      setIsActive={setIsActive}
-      icon={ <SocialsIcon className="vde navbar image is-32x32" /> }>
-      <DropdownMenu linksArray={[
+const socialsButton = (isActive, setIsActive) => (
+  <DropDownButton
+    name="socials"
+    classname="nav-item"
+    isActive={isActive}
+    setIsActive={setIsActive}
+    icon={ <SocialsIcon className="vde navbar image is-32x32" /> }>
+    <DropdownMenu
+      linksArray={[
         {
           leftIcon: <TwitterIcon className="vde navbar menu" />,
           name: "Twitter",
@@ -70,9 +69,8 @@ const socialsButton = (isActive, setIsActive) => {
           url: "https://discord.gg/NtZHTqc"
         }
       ]} />
-    </DropDownButton>
-  )
-}
+  </DropDownButton>
+)
 
 const createButton = (isActive, setIsActive, user) => {
   const [init, setter] = useState(null)
@@ -118,42 +116,37 @@ const userButton = (isActive, setIsActive, user, logout) => {
           alt={cst.alt_labels.USER} />
       }
     >
-      <DropdownMenu linksArray={[
-        {
-          leftIcon: <HomeIcon className="vde navbar menu" />,
-          name: cst.labels.PROFILE,
-          url: `/user/${user.id}`
-        },
-        {
-          leftIcon: <DisconnectIcon className="vde navbar menu" />,
-          name: cst.labels.DISCONNECT,
-          url: "/",
-          onClick: () => logout()
-        }
-      ]} />
+      <DropdownMenu
+        linksArray={[
+          {
+            leftIcon: <HomeIcon className="vde navbar menu" />,
+            name: cst.labels.PROFILE,
+            url: `/user/${user.id}`
+          },
+          {
+            leftIcon: <DisconnectIcon className="vde navbar menu" />,
+            name: cst.labels.DISCONNECT,
+            url: "/",
+            onClick: () => logout()
+          }
+        ]} />
     </DropDownButton>
   )
 }
 
-const DropDownButtonList = (props) => {
-  return (
-    <nav className="level-item">
-      <ul className="navbar-nav">{props.children}</ul>
-    </nav>
-  );
-}
+const DropDownButtonList = (props) => (
+  <nav className="level-item">
+    <ul className="navbar-nav">{props.children}</ul>
+  </nav>
+)
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user")
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => { dispatch(logout())}
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => { dispatch(logout())}
+})
 
 const RightMenu = connect(mapStateToProps, mapDispatchToProps)(RightMenuLook)
 

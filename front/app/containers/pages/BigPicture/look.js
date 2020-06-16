@@ -15,7 +15,6 @@ import EditionModalButton from '../../../components/Buttons/modal'
 import NewBigPicture from '../../../components/BigPicture/new'
 import BigPictureModal from '../../../components/BigPicture/modal'
 import AddBigPictureButton from '../../../components/Buttons/add'
-import HideAndShowButton from '../../../components/Buttons/hideandshow'
 
 import { ReactComponent as ContentIcon } from '../../../images/icons/book.svg'
 import { ReactComponent as ChildrenIcon } from '../../../images/icons/sitemap.svg'
@@ -109,30 +108,28 @@ const content = (bigPicture, user, setter) => {
       </div>
       {
         !hidden
-        ? <div className="card vde tbp-description">
+          ? <div className="card vde tbp-description">
             <div className="vde card-content content">
               <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : cst.labels.BP_EMPTY_BODY} />
             </div>
           </div>
-        : null
+          : null
       }
     </div>
   )
 }
 
 
-const editButton = (init, setter) => {
-  return (
-    <EditionModalButton
-      init={init}
-      setter={setter}
-      classname={"button tbp-radio title-button"}
-      icon={cst.icons.EDIT}
-      EditionModal={BigPictureModal}
-      NewItem={NewBigPicture}
-    />
-  )
-}
+const editButton = (init, setter) => (
+  <EditionModalButton
+    init={init}
+    setter={setter}
+    classname={"button tbp-radio title-button"}
+    icon={cst.icons.EDIT}
+    EditionModal={BigPictureModal}
+    NewItem={NewBigPicture}
+  />
+)
 
 const analyse = (bigPicture, user) => {
   if (!bigPicture) return null
@@ -141,7 +138,7 @@ const analyse = (bigPicture, user) => {
     <BigPictureList
       name={`bp-page-${bigPicture.id}-children-list`}
       icon={<ChildrenIcon className="vde header-button level-item image is-32x32" />}
-      filter={bp => bp.parent == bigPicture.id}
+      filter={(bp) => bp.parent == bigPicture.id}
       parent={bigPicture}
       count={bigPicture.children.length}
       sortFunc={(a, b) => a.title > b.title ? 1 : -1}
@@ -150,8 +147,8 @@ const analyse = (bigPicture, user) => {
       loadFirstPage={true}
       emptyMessage={cst.labels.BP_EMPTY_BODY}
       buttons={[
-        () => { return backButton(bigPicture) },
-        () => { return user.id == bigPicture.author ? addBigPictureButton(bigPicture) : null }
+        () => backButton(bigPicture),
+        () => addBigPictureButton(bigPicture, user)
       ]}
       margin={0}
     />
@@ -170,7 +167,8 @@ const backButton = (bp) => {
   )
 }
 
-const addBigPictureButton = (bigPicture) => {
+const addBigPictureButton = (bigPicture, user) => {
+  if (user.id !== bigPicture.author) return null
   return <AddBigPictureButton key={`add${bigPicture.id}`} bigPicture={bigPicture} />
 }
 
@@ -187,9 +185,7 @@ const comments = (bigPicture, getRatingsPage, user) => {
       loadFirstPage={false}
       count={bigPicture.ratingCount}
       getPage={
-        (page, options, requestId) => {
-          return getRatingsPage(page, { ...options, bigpicture: bigPicture.id }, requestId)
-        }
+        (page, options, requestId) => getRatingsPage(page, { ...options, bigpicture: bigPicture.id }, requestId)
       }
       title={cst.labels.REASON_LIST_TITLE}
       emptyMessage={cst.labels.MSG_NO_REASON}
@@ -228,13 +224,11 @@ const references = (bigPicture, getReferences) => {
     <BigPictureList
       name={`bp-page-${bigPicture.id}-references-list`}
       icon={<ReferenceIcon className="vde header-button level-item image is-32x32" />}
-      filter={bp => bigPicture.references.indexOf(bp.id) != -1}
+      filter={(bp) => bigPicture.references.indexOf(bp.id) != -1}
       parent={bigPicture}
       count={bigPicture.referenceCount}
       getPage={
-        (page, options, requestId) => {
-          return getReferences(page, { ...options, reference: bigPicture.id }, requestId)
-        }
+        (page, options, requestId) => getReferences(page, { ...options, reference: bigPicture.id }, requestId)
       }
       title={cst.labels.REFERENCE_LIST_TITLE}
       loadFirstPage={false}
@@ -264,9 +258,7 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
       sortFunc={endorsmentsSort}
       count={bigPicture.endorsmentCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
-        }
+        (page, options, reqId) => getPage(page, { ...options, bigpicture: bigPicture.id }, reqId)
       }
       loadFirstPage={false}
       title={cst.labels.ENDORSMENT_LIST_TITLE}

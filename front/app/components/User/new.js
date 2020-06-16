@@ -24,31 +24,27 @@ const NewUser = (props) => {
   )
 }
 
-const imageField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Image</p>
-      <input
-        type="file"
-        name="image"
-        onChange={edit} />
-      <img src={typeof(data.image) == "string" ? data.image : URL.createObjectURL(data.image)} />
-    </div>
-  )
-}
+const imageField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Image</p>
+    <input
+      type="file"
+      name="image"
+      onChange={edit} />
+    <img src={typeof(data.image) == "string" ? data.image : URL.createObjectURL(data.image)} />
+  </div>
+)
 
-const bioField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Bio</p>
-      <textarea
-        className="textarea tbp-modal"
-        name="bio"
-        value={data.bio}
-        onChange={edit}
-        placeholder={cst.labels.USER_BIO_PLACEHOLDER} />
-    </div>
-  )
-}
+const bioField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Bio</p>
+    <textarea
+      className="textarea tbp-modal"
+      name="bio"
+      value={data.bio}
+      onChange={edit}
+      placeholder={cst.labels.USER_BIO_PLACEHOLDER} />
+  </div>
+)
 
 export default NewUser

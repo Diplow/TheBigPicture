@@ -1,15 +1,15 @@
 
 export const itemCreation = {
   ratings: {
-      title: "A raisonné !",
-      message: "Votre raison a bien été prise en compte.",
-      type: "success"
-    },
+    title: "A raisonné !",
+    message: "Votre raison a bien été prise en compte.",
+    type: "success"
+  },
   bigpictures: {
-      title: "Vue créée",
-      message: "Votre vue a bien été créée.",
-      type: "success"
-    },
+    title: "Vue créée",
+    message: "Votre vue a bien été créée.",
+    type: "success"
+  },
   subscriptions: {
     title: "Nouvel abonnement",
     message: "Vous avez un nouvel abonnement.",
@@ -47,10 +47,10 @@ export const itemModification = {
 
 export const itemDeletion = {
   bigpictures: {
-      title: "Vue supprimée",
-      message: "Votre vue a bien été supprimée.",
-      type: "success"
-    },
+    title: "Vue supprimée",
+    message: "Votre vue a bien été supprimée.",
+    type: "success"
+  },
   ratings: {
     title: "Raison supprimée",
     message: "Votre raison a bien été supprimée.",
@@ -80,13 +80,11 @@ export const GET_FAIL = {
   type: "warning"
 }
 
-export const SERVER_ERROR = (error) => {
-  return {
-    title: "Erreur de communication avec le serveur",
-    message: error,
-    type: "warning"
-  }
-}
+export const SERVER_ERROR = (error) => ({
+  title: "Erreur de communication avec le serveur",
+  message: error,
+  type: "warning"
+})
 
 export const TITLE_ERROR = {
   title: "La vue n'a pas pu être créée",
@@ -100,13 +98,11 @@ export const REFERENCE_ERROR = {
   type: "warning"
 }
 
-export const WELCOME = (username) => {
-  return {
-    title: "Identification réussie",
-    message: "Bienvenue " + username,
-    type: "success"
-  }
-}
+export const WELCOME = (username) => ({
+  title: "Identification réussie",
+  message: "Bienvenue " + username,
+  type: "success"
+})
 
 export const LOGOUT = {
   title: "Déconnexion réussie",
@@ -126,10 +122,8 @@ export const SESSION_EXPIRED = {
   type: "warning"
 }
 
-export const SERVER_ERROR_500 = (action) => {
-  return {
-    title: "Erreur de communication avec le serveur",
-    message: "L'action " + action + " n'a pas pu être réalisée, vous pouvez contacter l'administrateur de la plateforme.",
-    type: "warning"
-  }
-}
+export const SERVER_ERROR_500 = (action) => ({
+  title: "Erreur de communication avec le serveur",
+  message: "L'action " + action + " n'a pas pu être réalisée, vous pouvez contacter l'administrateur de la plateforme.",
+  type: "warning"
+})

@@ -51,12 +51,10 @@ const ratingContext = (rating) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    bigpicture: state.get("bigpictures").find(item => item.id == ownProps.bpId),
-    rating: state.get("ratings").find(item => item.id == ownProps.ratingId)
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  bigpicture: state.get("bigpictures").find((item) => item.id == ownProps.bpId),
+  rating: state.get("ratings").find((item) => item.id == ownProps.ratingId)
+})
 
 const Context = connect(mapStateToProps)(ContextLook)
 

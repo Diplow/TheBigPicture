@@ -31,46 +31,39 @@ const NewEndorsment = (props) => {
   )
 }
 
-const reason = (data) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Raison</p>
-      <div className="content">
-        <ReactMarkdown source={data.reason} />
-      </div>
+const reason = (data) => (
+  <div className="field">
+    <p className="subtitle-modal">Raison</p>
+    <div className="content">
+      <ReactMarkdown source={data.reason} />
     </div>
-  )
-}
+  </div>
+)
 
-const starField = (data, edit) => {
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Évaluation</p>
-      { stars(data, edit) }
-      <p>{EXPLICATIONS[data.value]}</p>
-    </div>
-  )
-}
-
+const starField = (data, edit) => (
+  <div className="field">
+    <p className="subtitle-modal">Évaluation</p>
+    { stars(data, edit) }
+    <p>{EXPLICATIONS[data.value]}</p>
+  </div>
+)
 
 const stars = (data, edit) => {
   const setV = (nb) => edit({ target: { name: "value", value: nb }})
   const nbStars = utils.range(1, cst.MAX_EVAL + 1)
 
-  const Star = ({ value, setValue, nb }) => {
-    return (
-      <div
-        className={`level-item is-narrow ${value >= nb ? "selected" : ""}`}
-        onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
-        <span className="tbp-star tbp-eval fa fa-star"/>
-      </div>
-    )
-  }
+  const Star = ({ value, setValue, nb }) => (
+    <div
+      className={`level-item is-narrow ${value >= nb ? "selected" : ""}`}
+      onClick={() => {value == nb ? setValue(0) : setValue(nb)}}>
+      <span className="tbp-star tbp-eval fa fa-star"/>
+    </div>
+  )
 
   return (
     <div className="level star-level is-mobile">
       {
-        nbStars.map(key =>
+        nbStars.map((key) =>
           <Star
             key={`star-${key}-${data.id}`}
             value={data.value}

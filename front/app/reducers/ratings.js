@@ -4,7 +4,7 @@ import * as cst from "../constants"
 
 
 const addRating = (rating, state) => {
-  const old = state.find(element => element.id == rating.id)
+  const old = state.find((element) => element.id == rating.id)
   
   const addContext = (context, state) => {
     if (context && context.ratings) {
@@ -19,7 +19,7 @@ const addRating = (rating, state) => {
   if (rating.reason == "") return state
 
   return [
-    ...state.filter(elt => elt.id != rating.id),
+    ...state.filter((elt) => elt.id != rating.id),
     {
       ...old,
       id: rating.id,
@@ -69,7 +69,7 @@ const ratings = (state = [], action) => {
       )
 
     case cst.actions.DELETE_RATING:
-      return state.filter(elt => elt.id != action.id)
+      return state.filter((elt) => elt.id != action.id)
 
     default:
       return state

@@ -5,15 +5,11 @@ import EditionModalLook from '../Modal/look'
 import * as cst from '../../constants'
 
 
-const mapStateToProps = (state) => {
-  return {}
-}
+const mapStateToProps = (state) => ({})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
   	post: (user) => dispatch(patchUser(user))
-  }
-}
+})
 
 const BigPictureModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
 

@@ -91,48 +91,38 @@ const ListLook = (props) => {
             : null
         })
       }
-      {
-        !hidden
-          ? <Loader condition={loading}>
-              {pagination}
-            </Loader>
-          : null
-      }
+      { !hidden ? <Loader condition={loading}>{pagination}</Loader> : null }
     </div>
   )
 }
 
-const header = (buttons, user, title, hidden, setHidden, getPage, icon) => {
-  return (
-    <div className="level is-mobile">
-      <div className="level-left" onClick={ () => setHidden(!hidden) }>
+const header = (buttons, user, title, hidden, setHidden, getPage, icon) => (
+  <div className="level is-mobile">
+    <div className="level-left">
+      <div className="level-item" onClick={ () => setHidden(!hidden) }>
         {
           icon ? icon : <HideAndShowButton hidden={hidden} setHidden={setHidden} />
         }
         <p className="vde subtitle level-item">{title}</p>
-        { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
       </div>
+      { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
     </div>
-  )
-}
+  </div>
+)
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user"),
-    processedRequests: state.get("requests").filter(req => req.state == cst.actions.REQUEST_PROCESSED)
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user"),
+  processedRequests: state.get("requests").filter((req) => req.state == cst.actions.REQUEST_PROCESSED)
+})
 
 const List = connect(mapStateToProps)(ListLook)
 
 // this function must be called when giving a not-null getPage argument to a List
 // it makes sure it is possible to keep track of the requests sent to get a page
-export const getPageFormatter = (dispatch, action) => {
-  return (page, options, request_id) => {
-    const requestId = request_id || uuid()
-    dispatch(action(page, options, requestId))
-    return requestId
-  }
+export const getPageFormatter = (dispatch, action) => (page, options, request_id) => {
+  const requestId = request_id || uuid()
+  dispatch(action(page, options, requestId))
+  return requestId
 }
 
 export default List

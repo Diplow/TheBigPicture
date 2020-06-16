@@ -12,40 +12,36 @@ import * as cst from '../../constants'
 const ExecutionEngine = ({ todo, add, processed }) => {
 
   useEffect(() => {
-  if (todo != undefined) {
-    switch (todo.method) {
+    if (todo != undefined) {
+      switch (todo.method) {
 
-      case "GET":
-        if (todo.mustprocess)
-          add(todo)
-        break;
+        case "GET":
+          if (todo.mustprocess)
+            add(todo)
+          break;
 
-      // there is no "POST" / "PATCH" / "DELETE" case for now
-      // because these requests have no reason to be executed
-      // multiple times.
+          // there is no "POST" / "PATCH" / "DELETE" case for now
+          // because these requests have no reason to be executed
+          // multiple times.
 
-      default:
-        throw Error("unhandled method " + req.method)
+        default:
+          throw Error("unhandled method " + req.method)
+      }
+      processed(todo)
     }
-    processed(todo)
-  }
   }, [todo])
 
   return null
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todo: state.get("requests").filter(elt => elt.state == cst.actions.REQUEST_DONE)[0],
-  }
-}
+const mapStateToProps = (state) => ({
+  todo: state.get("requests").filter((elt) => elt.state == cst.actions.REQUEST_DONE)[0],
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    add: (request) => { dispatch(add(request)) },
-    processed: (request) => { dispatch(basics.processed(request)) }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  add: (request) => { dispatch(add(request)) },
+  processed: (request) => { dispatch(basics.processed(request)) }
+})
 
 const Executor = connect(mapStateToProps, mapDispatchToProps)(ExecutionEngine)
 

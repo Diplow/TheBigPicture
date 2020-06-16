@@ -39,11 +39,9 @@ const EditionModalButtonLook = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user")
+})
 
 const EditionModalButton = connect(mapStateToProps)(EditionModalButtonLook)
 

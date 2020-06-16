@@ -40,11 +40,9 @@ const AddBigPictureButtonLook = ({ bigPicture, user }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.get("user")
+})
 
 const AddBigPictureButton = connect(mapStateToProps)(AddBigPictureButtonLook)
 

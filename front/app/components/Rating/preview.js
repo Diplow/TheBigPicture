@@ -200,18 +200,19 @@ const reasonDropdown = (props) => {
         classname="vde toolbar level-item"
         icon={ <ReasonIcon className="vde toolbar menu image"/> }
       >
-        <DropdownMenu linksArray={[
-          {
-            leftIcon: <EyeIcon className="vde toolbar menu image" />,
-            name: showRatings ? cst.labels.HIDE_REASONS : cst.labels.SHOW_REASONS,
-            onClick: () => toggleRatings()
-          },
-          {
-            leftIcon: <PlusIcon className="vde toolbar menu image" />,
-            name: cst.labels.CREATE_REASON,
-            onClick: () => setCreateReasonModalIsActive(true)
-          }
-        ]} />
+        <DropdownMenu
+          linksArray={[
+            {
+              leftIcon: <EyeIcon className="vde toolbar menu image" />,
+              name: showRatings ? cst.labels.HIDE_REASONS : cst.labels.SHOW_REASONS,
+              onClick: () => toggleRatings()
+            },
+            {
+              leftIcon: <PlusIcon className="vde toolbar menu image" />,
+              name: cst.labels.CREATE_REASON,
+              onClick: () => setCreateReasonModalIsActive(true)
+            }
+          ]} />
       </DropDownButton>
 
       <RatingModal
@@ -316,9 +317,7 @@ const lookButton = (rating, id) => {
 
 const ratingChildren = (rating, children, getPage) => {
   
-  const ratingsSort = (ratingA, ratingB) => {
-    return ratingA.median >= ratingB.median ? 1 : -1
-  }
+  const ratingsSort = (ratingA, ratingB) => ratingA.median >= ratingB.median ? 1 : -1
 
   return (
     <List
@@ -329,9 +328,7 @@ const ratingChildren = (rating, children, getPage) => {
       sortFunc={ratingsSort}
       count={rating.ratingCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, rating: rating.id }, reqId)
-        }
+        (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
       }
       loadFirstPage={true}
     />
@@ -356,9 +353,7 @@ const ratingEndorsments = (rating, endorsments, getPage) => {
       sortFunc={endorsmentsSort}
       count={rating.endorsmentCount}
       getPage={
-        (page, options, reqId) => {
-          return getPage(page, { ...options, rating: rating.id }, reqId)
-        }
+        (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
       }
       loadFirstPage={true}
     />
@@ -366,21 +361,17 @@ const ratingEndorsments = (rating, endorsments, getPage) => {
 }
 
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    rating: state.get("ratings").find(rating => rating.id == ownProps.ratingId),
-    ratings: state.get("ratings").filter(rating => rating.target_rating == ownProps.ratingId),
-    endorsments: state.get("endorsments").filter(endorsment => endorsment.target_rating == ownProps.ratingId),
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  rating: state.get("ratings").find((rating) => rating.id == ownProps.ratingId),
+  ratings: state.get("ratings").filter((rating) => rating.target_rating == ownProps.ratingId),
+  endorsments: state.get("endorsments").filter((endorsment) => endorsment.target_rating == ownProps.ratingId),
+  user: state.get("user")
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getRatingsPage: getPageFormatter(dispatch, getRatings),
-    getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  getRatingsPage: getPageFormatter(dispatch, getRatings),
+  getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
+})
 
 const RatingPreview = connect(mapStateToProps, mapDispatchToProps)(RatingPreviewLook)
 

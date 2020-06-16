@@ -28,13 +28,11 @@ const SubscriptionListLook = (props) => {
     <List
       items={subscriptions}
       icon={ <UserIcon className="vde header-button level-item image is-32x32" />}
-      container={(sub) => {
-        return (
-          <div key={`previewsub-${sub.id}`}>
-            <SubscriptionPreview targetId={sub.target_id} />
-          </div>
-        )
-      }}
+      container={(sub) => (
+        <div key={`previewsub-${sub.id}`}>
+          <SubscriptionPreview targetId={sub.target_id} />
+        </div>
+      )}
       user={user}
       emptyMessage={cst.labels.USER_HAS_NO_SUBSCRIPTION}
       sortFunc={sort}
@@ -47,18 +45,14 @@ const SubscriptionListLook = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    subscriptions: state.get("subscriptions").filter(item => item.target_id),
-    user: state.get("user")
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  subscriptions: state.get("subscriptions").filter((item) => item.target_id),
+  user: state.get("user")
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getSubscriptionsPage: getPageFormatter(dispatch, getSubscriptions)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  getSubscriptionsPage: getPageFormatter(dispatch, getSubscriptions)
+})
 
 const SubscriptionList = connect(mapStateToProps, mapDispatchToProps)(SubscriptionListLook)
 
