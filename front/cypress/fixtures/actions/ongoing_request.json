@@ -1,0 +1,14 @@
+{
+   "type":"REQUEST_ONGOING",
+   "request":{
+      "id":"GET-bigpictures-26-format=json",
+      "user":1,
+      "url":"bigpictures/26/?format=json",
+      "body":{
+
+      },
+      "method":"GET",
+      "mustprocess":true,
+      "state":"REQUEST_CREATED"
+   }
+}

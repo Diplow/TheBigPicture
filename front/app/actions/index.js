@@ -12,14 +12,14 @@ import * as cst from "../constants"
 
 
 export const getBigPicture = (bpId) => (
-  (dispatch) => {
+  (dispatch) => (
     api.getItem(
       dispatch, 
       bpId,
       "bigpictures",
       []
     )
-  }
+  )
 )
 
 
