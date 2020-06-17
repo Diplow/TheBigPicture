@@ -27,6 +27,9 @@ jobs:
         pipenv install --deploy --dev
         
     - name: Run tests
+      shell: bash
+      env:
+        SECRET_KEY: ${{ secrets.VDE_DJANGO_SECRET_KEY }}
       run: |
         cd back
         pipenv run python manage.py test
