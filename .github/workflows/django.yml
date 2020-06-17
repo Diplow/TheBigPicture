@@ -10,15 +10,20 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.7]
 
     steps:
     - uses: actions/checkout@master
-    - uses: actions/setup-python@v1
     - uses: dschep/install-pipenv-action@v1
-    - run: pipenv install back
+  
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Install dependencies with pipenv
+      run: |
+        pip install pipenv
+        pipenv install back --deploy --dev
+        
     - run: pipenv run back/manage.py test
 
