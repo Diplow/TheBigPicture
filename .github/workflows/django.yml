@@ -28,7 +28,6 @@ jobs:
         
     - name: Run tests
       run: |
-        pipenv shell
         cd back
-        python manage.py test
+        pipenv run python manage.py test
 
