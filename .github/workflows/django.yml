@@ -19,5 +19,5 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-python@v1
     - uses: dschep/install-pipenv-action@v1
-    - run: pipenv run manage.py test
+    - run: pipenv run back/manage.py test
 
