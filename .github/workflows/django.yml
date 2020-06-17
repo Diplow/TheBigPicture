@@ -26,5 +26,9 @@ jobs:
         cd back
         pipenv install --deploy --dev
         
-    - run: pipenv run back/manage.py test
+    - name: Run tests
+      run: |
+        pipenv shell
+        cd back
+        python manage.py test
 
