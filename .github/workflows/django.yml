@@ -23,7 +23,8 @@ jobs:
     - name: Install dependencies with pipenv
       run: |
         pip install pipenv
-        pipenv install back --deploy --dev
+        cd back
+        pipenv install --deploy --dev
         
     - run: pipenv run back/manage.py test
 
