@@ -24,7 +24,7 @@ export const getBigPicture = (bpId) => (
 
 
 export const postBigPicture = (bigPicture) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(bigPicture),
@@ -33,11 +33,11 @@ export const postBigPicture = (bigPicture) => (
       "/",
       "POST"
     )
-  }
+  )
 )
 
 export const patchBigPicture = (bigPicture) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(bigPicture),
@@ -46,7 +46,7 @@ export const patchBigPicture = (bigPicture) => (
       `/${bigPicture.id}/`,
       "PATCH"
     )
-  }
+  )
 )
 
 export const deleteBigPicture = (id) => (

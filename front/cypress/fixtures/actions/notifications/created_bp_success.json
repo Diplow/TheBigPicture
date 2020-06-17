@@ -1,0 +1,8 @@
+{
+   "type":"ADD_NOTIFICATION",
+   "notif":{
+      "title":"Vue créée",
+      "message":"Votre vue a bien été créée.",
+      "type":"success"
+   }
+}

@@ -239,7 +239,7 @@ export const getItem = (dispatch, itemId, itemAPI, options) => {
 
 export const sendItem = (dispatch, item, itemAPI, action, options, method, next) => {
   const host = cst.SERVER_ADDR + itemAPI + options
-  fetch(host, buildRequest(item, method))
+  return fetch(host, buildRequest(item, method))
     .then(handleHttpError(dispatch, "send"))
     .then((res) => res.json())
     .then((res) => {
