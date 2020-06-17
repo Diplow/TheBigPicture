@@ -9,7 +9,7 @@ import {
   getSubjects,
   getOwnSubjects,
   getBigPictureResults,
-  postVote,
+  postRating,
   patchRating,
   deleteVote,
   getRating,
@@ -27,10 +27,11 @@ import {
 } from './index.js'
 import fetchMock from 'fetch-mock'
 import expect from 'expect'
-import { render } from '@testing-library/react'
-import ApiEngine from '../containers/Api'
-import { Provider } from 'react-redux'
+import * as cst from '../constants'
 
+import uuid from 'uuid/v4';
+
+jest.mock('uuid/v4');
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -74,8 +75,14 @@ describe('high level actions', () => {
       private: false
     }
     const server_resp = require("../../cypress/fixtures/api/post/bp_265.json")
-    const addBpAction = require("../../cypress/fixtures/actions/add_big_picture/bp_265.json")
-    const bpCreatedNotif = require("../../cypress/fixtures/actions/notifications/created_bp_success.json")
+    const addBpAction = {
+      type: cst.actions.ADD_BIG_PICTURE,
+      bigpicture: server_resp
+    }
+    const bpCreatedNotif = {
+      type: cst.actions.ADD_NOTIFICATION,
+      notif: cst.notifications.itemCreation.bigpictures
+    }
 
     fetchMock.postOnce(
       'https://api.vuedensemble.org/api/bigpictures/',
@@ -95,8 +102,14 @@ describe('high level actions', () => {
   it('patchBigPicture and expects the appropriate actions', () => {
     const bp = { id: 265, body: "gaga" }
     const server_resp = require("../../cypress/fixtures/api/post/bp_265.json")
-    const addBpAction = require("../../cypress/fixtures/actions/add_big_picture/bp_265.json")
-    const bpPatchedNotif = require("../../cypress/fixtures/actions/notifications/patched_bp_success.json")
+    const addBpAction = {
+      type: cst.actions.ADD_BIG_PICTURE,
+      bigpicture: server_resp
+    }
+    const bpPatchedNotif = {
+      type: cst.actions.ADD_NOTIFICATION,
+      notif: cst.notifications.itemModification.bigpictures
+    }
     fetchMock.patchOnce(
       'https://api.vuedensemble.org/api/bigpictures/265/',
       {
@@ -112,4 +125,94 @@ describe('high level actions', () => {
     )
   })
 
+  it('deleteBigPicture and expects the appropriate actions', () => {
+    const bpId = 265
+    const deleteBpAction = {
+      type: cst.actions.DELETE_BIG_PICTURE,
+      id: bpId
+    }
+    const bpDeletedNotif = {
+      type: cst.actions.ADD_NOTIFICATION,
+      notif: cst.notifications.itemDeletion.bigpictures
+    }
+    fetchMock.deleteOnce('https://api.vuedensemble.org/api/bigpictures/265/', { status: 204 })
+    testFetchActions(
+      deleteBigPicture,
+      [bpId],
+      [deleteBpAction, bpDeletedNotif],
+      mockStore(initStore)
+    )
+  })
+
+  it('getSubjects and expects the appropriate actions', () => {
+    const page = 1
+    const options = { favorites: false }
+    const requestId = "340ed280-8b39-4b08-aa1b-af8b597f5bc8"
+    const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_subjects.json")
+    testDispatchActions(
+      getSubjects,
+      [page, options, requestId],
+      [addRequestAction],
+      mockStore(initStore)
+    )
+  })
+
+  it('getOwnSubjects and expects the appropriate actions', () => {
+    const page = 1
+    const options = { favorites: false, author: "1" }
+    const requestId = "c75beb1b-6343-41ad-8779-ef7ce843de1d"
+    const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_own_subjects.json")
+    testDispatchActions(
+      getOwnSubjects,
+      [page, options, requestId],
+      [addRequestAction],
+      mockStore(initStore)
+    )
+  })
+
+  it('getBigPictureResults and expects the appropriate actions', () => {
+    uuid.mockImplementation(() => 'd5b94980-f6ee-4af5-a717-bed38d1c4468')
+    const bpId = 26
+    const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_bigpicture_results_26.json")
+    testDispatchActions(
+      getBigPictureResults,
+      [bpId],
+      [addRequestAction],
+      mockStore(initStore)
+    )
+  })
+
+
+  it('postRating and expects the appropriate actions', () => {
+    const rating = {
+      body: "lololololo",
+      target_bp: 266,
+      author_id: 1,
+      subject: 266
+    }
+    const server_resp = require("../../cypress/fixtures/api/post/rating_34.json")
+    const addRatingAction = {
+      type: cst.actions.ADD_RATING,
+      rating: server_resp
+    }
+    const ratingCreatedNotif = {
+      type: cst.actions.ADD_NOTIFICATION,
+      notif: cst.notifications.itemCreation.ratings
+    }
+
+    fetchMock.postOnce(
+      'https://api.vuedensemble.org/api/ratings/',
+      {
+        body: server_resp,
+        headers: { 'content-type': 'application/json' },
+        status: 201
+      }
+    )
+    testFetchActions(
+      postRating,
+      [rating],
+      [addRatingAction, ratingCreatedNotif],
+      mockStore(initStore)
+    )
+  })
 })

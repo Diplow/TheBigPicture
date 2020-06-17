@@ -1,0 +1,18 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"ownsubjects/?format=json&favorites=false&author=1&page=1",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getOwnSubjects",
+      "requestId":"c75beb1b-6343-41ad-8779-ef7ce843de1d",
+      "nextargs":{
+         "favorites":false,
+         "author":"1",
+         "page":1
+      },
+      "id":"GET-ownsubjects-format=json-favorites=false-author=1-page=1"
+   }
+}

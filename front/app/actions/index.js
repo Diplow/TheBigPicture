@@ -50,13 +50,13 @@ export const patchBigPicture = (bigPicture) => (
 )
 
 export const deleteBigPicture = (id) => (
-  (dispatch) => {
+  (dispatch) => (
     api.deleteItem(
       dispatch,
       id,
       "bigpictures"
     )
-  }
+  )
 )
 
 export const getSubjects = (page, options, requestId) => (
@@ -105,8 +105,8 @@ export const getBigPictureResults = (bigpictureId) => (
  **/
 
 
-export const postVote = (vote) => (
-  (dispatch) => {
+export const postRating = (vote) => (
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(vote),
@@ -115,7 +115,7 @@ export const postVote = (vote) => (
       "/",
       "POST"
     )
-  }
+  )
 )
 
 export const patchRating = (rating) => (

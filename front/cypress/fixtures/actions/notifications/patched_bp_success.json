@@ -1,8 +1,0 @@
-{
-   "type":"ADD_NOTIFICATION",
-   "notif":{
-      "title":"Vue modifiée",
-      "message":"Votre vue a bien été modifiée.",
-      "type":"success"
-   }
-}
