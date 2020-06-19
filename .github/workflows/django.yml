@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:10.5
         env:
-          POSTGRES_USER: diplo
-          POSTGRES_PASSWORD: vuedensemble
-          POSTGRES_DB: vuedensemble
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
         # will assign a random free host port
         - 5432/tcp
