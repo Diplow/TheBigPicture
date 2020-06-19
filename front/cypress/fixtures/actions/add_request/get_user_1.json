@@ -1,0 +1,11 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"users/1/?format=json",
+      "body":{
+
+      },
+      "method":"GET",
+      "id":"GET-users-1-format=json"
+   }
+}

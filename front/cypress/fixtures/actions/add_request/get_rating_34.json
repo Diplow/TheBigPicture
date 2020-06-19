@@ -1,0 +1,11 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"ratingswithcontext/34/?format=json",
+      "body":{
+
+      },
+      "method":"GET",
+      "id":"GET-ratingswithcontext-34-format=json"
+   }
+}

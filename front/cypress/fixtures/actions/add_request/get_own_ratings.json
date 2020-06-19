@@ -1,0 +1,18 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"ownratings/?format=json&favorites=false&author=1&page=1",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getOwnRatings",
+      "requestId":"f22bf6c1-600f-4f3c-9a4e-5f55b01d67c7",
+      "nextargs":{
+         "favorites":false,
+         "author":"1",
+         "page":1
+      },
+      "id":"GET-ownratings-format=json-favorites=false-author=1-page=1"
+   }
+}

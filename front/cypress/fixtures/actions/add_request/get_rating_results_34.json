@@ -1,0 +1,16 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"ratings/34/results/",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getRatingResults",
+      "mustprocess":false,
+      "nextargs":{
+         "ratingId":34
+      },
+      "id":"GET-ratings-34-results--format=json-ratingId=34-2af025c2-7f24-43ff-8faf-5e2e74d9eec5"
+   }
+}

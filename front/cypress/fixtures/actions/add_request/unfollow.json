@@ -1,0 +1,16 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"users/17/unfollow/",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"unfollow",
+      "mustprocess":false,
+      "nextargs":{
+         "targetId":"17"
+      },
+      "id":"GET-users-17-unfollow--format=json-targetId=17-1c396dda-1e3a-4851-9ce0-9c7e6f9050b0"
+   }
+}

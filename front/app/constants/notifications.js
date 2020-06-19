@@ -70,13 +70,13 @@ export const itemDeletion = {
 
 export const DELETION_FAIL = {
   title: "Erreur de communication avec le serveur - L'objet n'a pas probablement pas été supprimé.",
-  message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr",
+  message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vuedensemble.org",
   type: "warning"
 }
 
 export const GET_FAIL = {
   title: "Erreur de communication avec le serveur",
-  message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vue-d-ensemble.fr",
+  message: "Rafraîchissez la page (attention si vous avez un contenu en cours d'édition, vous perdrez vos dernières modifications) et si le problème persiste, n'hésitez pas à reporter ce bug à diplo@vuedensemble.org",
   type: "warning"
 }
 
