@@ -1,0 +1,35 @@
+{
+   "id":18,
+   "author":{
+      "id":1,
+      "username":"Diplo",
+      "groups":[
+
+      ],
+      "image":"http://localhost:8000/media/profile_images/vde3.png",
+      "bio":"Fondateur du projet VDE, j'aimerai faire ma part pour faire progresser la démocratie. lololo"
+   },
+   "target":{
+      "id":36,
+      "author":{
+         "id":1,
+         "username":"Diplo",
+         "groups":[
+
+         ],
+         "image":"http://localhost:8000/media/profile_images/vde3.png",
+         "bio":"Fondateur du projet VDE, j'aimerai faire ma part pour faire progresser la démocratie. lololo"
+      },
+      "author_id":1,
+      "basisCount":1,
+      "date":"2020-06-19",
+      "body":"loolobababa",
+      "target_bp":null,
+      "target_rating":35,
+      "subject":266
+   },
+   "target_id":36,
+   "author_id":1,
+   "value":3.0,
+   "date":"2020-06-19"
+}

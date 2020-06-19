@@ -15,9 +15,12 @@ import { RatingButton } from './buttons'
 import RatingResults from './results'
 import RatingModal from './modal'
 import NewRating from './new'
+
 import { EndorsmentButton } from '../Endorsment/buttons'
 import EndorsmentModal from '../Endorsment/modal'
 import NewEndorsment from '../Endorsment/new'
+import EndorsmentPreview from '../Endorsment/preview'
+import endorsmentsSort from '../Endorsment/sort'
 
 import DropdownMenu from '../DropDownMenu'
 import DropDownButton from '../DropDownButton'
@@ -82,7 +85,7 @@ const RatingPreviewLook = (props) => {
         }
       </div>
       { showRatings ? ratingChildren(rating, ratings, getRatingsPage) : null }
-      { showEndorsments ? ratingEndorsments(bigPicture, endorsments, getEndorsmentsPage) : null }
+      { showEndorsments ? ratingEndorsments(rating, endorsments, getEndorsmentsPage) : null }
       { showResults ? <RatingResults ratingId={rating.id} /> : null }
     </div>
   )
@@ -364,7 +367,7 @@ const ratingEndorsments = (rating, endorsments, getPage) => {
 const mapStateToProps = (state, ownProps) => ({
   rating: state.get("ratings").find((rating) => rating.id == ownProps.ratingId),
   ratings: state.get("ratings").filter((rating) => rating.target_rating == ownProps.ratingId),
-  endorsments: state.get("endorsments").filter((endorsment) => endorsment.target_rating == ownProps.ratingId),
+  endorsments: state.get("endorsments").filter((endorsment) => endorsment.rating == ownProps.ratingId),
   user: state.get("user")
 })
 

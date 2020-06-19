@@ -1,0 +1,18 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"ratings/?format=json&favorites=false&rating=34&page=1",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getRatingRatings",
+      "requestId":"f312a353-f418-4f46-b922-b223ffb4b35d",
+      "nextargs":{
+         "favorites":false,
+         "rating":34,
+         "page":1
+      },
+      "id":"GET-ratings-format=json-favorites=false-rating=34-page=1"
+   }
+}

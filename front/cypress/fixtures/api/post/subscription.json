@@ -1,0 +1,15 @@
+{
+   "id":39,
+   "target":{
+      "id":17,
+      "username":"VictorFerry",
+      "groups":[
+
+      ],
+      "image":"http://localhost:8000/media/profile_images/vf.jpeg",
+      "bio":"Ce compte n'est pas tenu par Victor Ferry, c'est [moi](https://vue-d-ensemble.fr/user/9) qui ait recensé brièvement quelques uns de ses contenus pour illustrer l'usage de VDE."
+   },
+   "target_id":17,
+   "date":"2020-06-19",
+   "author":1
+}

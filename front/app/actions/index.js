@@ -119,7 +119,7 @@ export const postRating = (vote) => (
 )
 
 export const patchRating = (rating) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(rating),
@@ -128,17 +128,17 @@ export const patchRating = (rating) => (
       `/${rating.id}/`,
       "PATCH"
     )
-  }
+  )
 )
 
 export const deleteVote = (id) => (
-  (dispatch) => {
+  (dispatch) => (
     api.deleteItem(
       dispatch,
       id,
       "ratings"
     )
-  }
+  )
 )
 
 export const getRating = (ratingId) => (
@@ -212,7 +212,7 @@ export const getEndorsments = (page, options, requestId) => (
 
 
 export const postEndorsment = (endorsment) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys(endorsment),
@@ -221,17 +221,17 @@ export const postEndorsment = (endorsment) => (
       "/",
       "POST"
     )
-  }
+  )
 )
 
 export const deleteEndorsment = (id) => (
-  (dispatch) => {
+  (dispatch) => (
     api.deleteItem(
       dispatch,
       id,
       "endorsments"
     )
-  }
+  )
 )
 
 
@@ -254,7 +254,7 @@ export const getUser = (id) => (
 )
 
 export const patchUser = (user) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch, 
       utils.removeEmptyKeys(user),
@@ -263,7 +263,7 @@ export const patchUser = (user) => (
       `/${user.id}/`,
       "PATCH"
     )
-  }
+  )
 )
 
 
@@ -299,7 +299,7 @@ export const unfollow = (targetId) => (
 )
 
 export const follow = (author, target_id) => (
-  (dispatch) => {
+  (dispatch) => (
     api.sendItem(
       dispatch,
       utils.removeEmptyKeys({ author, target_id }),
@@ -308,6 +308,6 @@ export const follow = (author, target_id) => (
       "/",
       "POST"
     )
-  }
+  )
 )
 
