@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:10.5
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_USER: diplo
+          POSTGRES_PASSWORD: vuedensemble
+          POSTGRES_DB: vuedensemble
         ports:
         - 5432:5432
         # needed because the postgres container does not provide a healthcheck
