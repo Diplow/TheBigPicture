@@ -1,0 +1,18 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"endorsments/?format=json&favorites=false&rating=34&page=1",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getEndorsments",
+      "requestId":"925215af-b083-4228-b900-f82a2a93e16c",
+      "nextargs":{
+         "favorites":false,
+         "rating":34,
+         "page":1
+      },
+      "id":"GET-endorsments-format=json-favorites=false-rating=34-page=1"
+   }
+}

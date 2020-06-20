@@ -186,7 +186,7 @@ const DELETE_ACTIONS = {
 
 export const deleteItem = (dispatch, itemId, itemAPI, options) => {
   const host = `${cst.SERVER_ADDR}${itemAPI}/${itemId}/`
-  fetch(host, buildRequest({}, "DELETE"))
+  return fetch(host, buildRequest({}, "DELETE"))
     .then((res) => {
       if (res.status == 204) {
         const delete_action = DELETE_ACTIONS[itemAPI]
@@ -239,7 +239,7 @@ export const getItem = (dispatch, itemId, itemAPI, options) => {
 
 export const sendItem = (dispatch, item, itemAPI, action, options, method, next) => {
   const host = cst.SERVER_ADDR + itemAPI + options
-  fetch(host, buildRequest(item, method))
+  return fetch(host, buildRequest(item, method))
     .then(handleHttpError(dispatch, "send"))
     .then((res) => res.json())
     .then((res) => {

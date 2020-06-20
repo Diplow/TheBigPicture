@@ -1,0 +1,47 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.5
+        env:
+          POSTGRES_USER: diplo
+          POSTGRES_PASSWORD: vuedensemble
+          POSTGRES_DB: vuedensemble
+        ports:
+        - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - uses: actions/checkout@master
+    - uses: dschep/install-pipenv-action@v1
+  
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Install dependencies with pipenv
+      run: |
+        pip install pipenv
+        cd back
+        pipenv install --deploy --dev
+        
+    - name: Run tests
+      shell: bash
+      env:
+        SECRET_KEY: ${{ secrets.VDE_DJANGO_SECRET_KEY }}
+      run: |
+        cd back
+        pipenv run python manage.py test
+

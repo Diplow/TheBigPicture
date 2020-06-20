@@ -1,0 +1,696 @@
+{
+   "id":26,
+   "hyperlink":null,
+   "hyperlink_id":null,
+   "subject":26,
+   "kind":1,
+   "author":{
+      "id":1,
+      "username":"Diplo",
+      "groups":[
+
+      ],
+      "image":"https://vde-staticfiles.s3.amazonaws.com/media/profile_images/vde3.png",
+      "bio":"Fondateur du projet VDE, j'aimerai faire ma part pour faire progresser la démocratie."
+   },
+   "author_id":1,
+   "family":[
+      {
+         "id":346,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4.4. Discuter ces analyses.",
+         "body":"",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-09T13:19:41.446416Z",
+         "hyperlink":null,
+         "parent":344,
+         "author":1
+      },
+      {
+         "id":97,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":91,
+         "subject":26,
+         "title":"Exemple d'analyse politique sur l'écologie",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-21",
+         "modification_date":"2020-04-05T18:44:53.947648Z",
+         "hyperlink":91,
+         "parent":86,
+         "author":1
+      },
+      {
+         "id":103,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Comment les membres de VDE garderont-ils la main sur leur plateforme ?",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-27",
+         "modification_date":"2020-04-05T18:44:53.950256Z",
+         "hyperlink":null,
+         "parent":96,
+         "author":1
+      },
+      {
+         "id":34,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Les modalités de cette pratique politique: un domaine débattu tous les mois",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.963916Z",
+         "hyperlink":null,
+         "parent":29,
+         "author":1
+      },
+      {
+         "id":30,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Les citoyens ne sont pas suffisamment compétents",
+         "body":"",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.966352Z",
+         "hyperlink":null,
+         "parent":29,
+         "author":1
+      },
+      {
+         "id":29,
+         "children":[
+            34,
+            30,
+            33,
+            31,
+            35
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Une démocratie directe en utilisant la plateforme VDE",
+         "body":"",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.968720Z",
+         "hyperlink":null,
+         "parent":28,
+         "author":1
+      },
+      {
+         "id":33,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Les citoyens ne participeront pas, ou en nombre très réduit ce qui posera un problème de légitimité",
+         "body":"",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.970988Z",
+         "hyperlink":null,
+         "parent":29,
+         "author":1
+      },
+      {
+         "id":31,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Les citoyens n'ont pas le temps de faire le travail des députés",
+         "body":"",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.973249Z",
+         "hyperlink":null,
+         "parent":29,
+         "author":1
+      },
+      {
+         "id":35,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"La voix du citoyen sera noyée au milieu de celle des autres, ce qui est la véritable raison du sentiment d'impuissance du citoyen",
+         "body":"",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-04-05T18:44:53.975427Z",
+         "hyperlink":null,
+         "parent":29,
+         "author":1
+      },
+      {
+         "id":104,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Une démocratie directe, est-ce possible ?",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-27",
+         "modification_date":"2020-04-05T18:44:53.977876Z",
+         "hyperlink":null,
+         "parent":96,
+         "author":1
+      },
+      {
+         "id":69,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":325,
+         "subject":26,
+         "title":"3. La roadmap VDE",
+         "body":"Concrètement, quels objectifs se fixe le projet VDE pour évoluer vers sa vision ? Quelles étapes concrètes et réalisables doit il passer pour atteindre sa vision ?",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-17",
+         "modification_date":"2020-05-31T13:03:18.147150Z",
+         "hyperlink":325,
+         "parent":26,
+         "author":1
+      },
+      {
+         "id":54,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Ceux qui ont peur du peuple",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-14T08:06:03.073195Z",
+         "hyperlink":null,
+         "parent":27,
+         "author":1
+      },
+      {
+         "id":102,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"La délibération des citoyens peut-elle mener à un jugement collectif plus compétent ?",
+         "body":"- Mise en commun des ressources\n- Une combinaison des capacités éthiques et intelectuelles\n- Division du travail: les uns jugent une partie, les autres une autre, et tous jugent le tout\n- La sélection des meilleurs traits\n\nLa pesée des raisons permet la mise en commun des ressources informationelles\nL'échange de données, de témoignages, d'opinions, de récits qu'elle permet fait circuler l'information et enrichit le fond d'information de chacun\nElle permet la combinaison des capacités rationnelles en ce que l'argumentation et la contre argumentation peut faire surgir de nouvelles raisons, de nouveaux buts, qui n'auraient pas été identifiés par les individus isolément",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-23",
+         "modification_date":"2020-04-05T18:44:53.987376Z",
+         "hyperlink":null,
+         "parent":87,
+         "author":1
+      },
+      {
+         "id":63,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":26,
+         "subject":26,
+         "title":"Le projet VDE",
+         "body":"Le projet VDE est pensé pour résoudre ce problème.",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:53.989666Z",
+         "hyperlink":26,
+         "parent":62,
+         "author":1
+      },
+      {
+         "id":65,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Aaron Swartz : un héros contemporain (france culture)",
+         "body":"[article](https://www.franceculture.fr/emissions/ce-qui-nous-arrive-sur-la-toile/aaron-swartz-un-heros-contemporain)",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:53.991967Z",
+         "hyperlink":null,
+         "parent":55,
+         "author":1
+      },
+      {
+         "id":66,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"La mafia scientifique dont vous n'avez jamais entendu parler - DBY #53",
+         "body":"[lien Youtube](https://www.youtube.com/watch?v=rcgxY__YXEc)",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:53.994289Z",
+         "hyperlink":null,
+         "parent":55,
+         "author":1
+      },
+      {
+         "id":67,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Les nouveaux chiens de garde",
+         "body":"[Les 30 premières minutes sur vimeo](https://vimeo.com/306257880)\n\n\n[La page Wikipedia du documentaire](https://fr.wikipedia.org/wiki/Les_Nouveaux_Chiens_de_garde_(film))",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:53.996461Z",
+         "hyperlink":null,
+         "parent":62,
+         "author":1
+      },
+      {
+         "id":68,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"La vision du projet",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-17",
+         "modification_date":"2020-04-05T18:44:53.998720Z",
+         "hyperlink":null,
+         "parent":27,
+         "author":1
+      },
+      {
+         "id":55,
+         "children":[
+            66,
+            65
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Aaron Swartz, ce héros",
+         "body":"",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:54.000974Z",
+         "hyperlink":null,
+         "parent":27,
+         "author":1
+      },
+      {
+         "id":62,
+         "children":[
+            67,
+            63
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"L'éditorialisation n'est jamais transparente",
+         "body":"",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-02-16",
+         "modification_date":"2020-04-05T18:44:54.005570Z",
+         "hyperlink":null,
+         "parent":27,
+         "author":1
+      },
+      {
+         "id":90,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"2.3. Un espace de décisions",
+         "body":"Toutes ces analyses et ces raisons garderaient un goût d'inachevé si VDE ne permettait pas ultimement de décider ensemble. C'est pourquoi VDE propose des outils d'organisation de la prise de décision collective, en instaurant différents temps du débat, de l'expression des idées et propositions, au débat et enfin à la délibération.",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-18",
+         "modification_date":"2020-05-30T23:16:03.779010Z",
+         "hyperlink":null,
+         "parent":85,
+         "author":1
+      },
+      {
+         "id":340,
+         "children":[
+            343
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.1 Les médias font de l'information, pas de la politique.",
+         "body":"Le problème avec l'information, c'est qu'elle induit un gros déséquilibre entre le média et celui qui s'informe. Le savoir donne un tel ascendant que c'est très compliqué de se forger une opinion éclairée sans contradiction. Et les médias ne laissent en général pas la place à la contradiction, mais préfèrent miser sur \"leur crédibilité\". Ce qui est un gros problème lorsque la confiance dans les médias est au plus bas comme c'est le cas en France.",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-08T21:04:08.869442Z",
+         "hyperlink":null,
+         "parent":249,
+         "author":1
+      },
+      {
+         "id":249,
+         "children":[
+            340,
+            341,
+            342,
+            250,
+            344
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1. Il n'y a pas de lieu pour faire de la politique",
+         "body":"La politique n'a pas d'infrastructures dédiées. C'est un peu comme si nous voulions faire du foot, mais qu'il n'y avait que des terrains de basket à notre disposition: impossible de jouer correctement.",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-04-28",
+         "modification_date":"2020-06-09T08:00:56.191331Z",
+         "hyperlink":null,
+         "parent":26,
+         "author":1
+      },
+      {
+         "id":341,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.2 Les réseaux sociaux sont faits dans l'unique but de générer des revenus publicitaires, pas de la politique.",
+         "body":"Twitter et Facebook, les gros réseaux sociaux sur lesquels s'expriment régulièrement des idées politiques ne sont pas faits pour ça. Les algorithmes de recommandation de ces plateformes optimisent une seule chose: le temps que vous passez dessus, afin de maximiser leurs revenus publicitaires.\n\nPar conséquent, les contenus les plus clivants seront mis en valeur et à l'inverse, les moments de réflexion, la prudence, l'empathie et les efforts de compréhension seront dévalorisés par la plateforme. Tout ce processus n'est bien entendu pas conscient, c'est juste la conséquence de ce qu'optimise ces plateformes.",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-09T08:06:59.174618Z",
+         "hyperlink":null,
+         "parent":249,
+         "author":1
+      },
+      {
+         "id":85,
+         "children":[
+            87,
+            86,
+            90
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"2. Les fonctionnalités de la plateforme VDE",
+         "body":"La platefome VDE s'organise autour de 3 fonctionnalités principales: la création d'analyses politiques, l'échange de raisons critiques autour de ces analyses et le vote. Pourquoi ces trois fonctionnalités au regard de l'idée phare du projet VDE, à savoir créer un pouvoir politique légitime et compétent ?",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-17",
+         "modification_date":"2020-05-30T23:09:16.326981Z",
+         "hyperlink":null,
+         "parent":26,
+         "author":1
+      },
+      {
+         "id":342,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.3 Reddit fait de l'actualité et du divertissement, pas de la politique.",
+         "body":"Le cas [reddit.com](https://reddit.com) est particulier car c'est une plateforme qui, fonctionnellement, pourrait proposer de la politique au sens où on l'entend chez VDE. Cependant, les limites de la plateforme, qui n'est pas dévelopée pour faire de la politique, se feraient vite sentir, et l'usage qui en est fait aujourd'hui (promotion de l'actualité avec un temps de vie court, par opposition à l'effort d'analyse documentaire qui est fait chez VDE) ne va pas dans le sens d'un éveil des consciences politiques.\n\nCeci-dit, reddit est indéniablement une inspiration pour VDE, et sans le bout de chemin parcouru par cette plateforme, on ne naviguerait pas sur VDE aujourd'hui.",
+         "kind":2,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-08T21:04:30.268212Z",
+         "hyperlink":null,
+         "parent":249,
+         "author":1
+      },
+      {
+         "id":250,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":26,
+         "subject":26,
+         "title":"1.5 Le projet VDE",
+         "body":"Le projet VDE, c'est une plateforme web et une communauté. Une plateforme pour partager des analyses politiques, les raisonner et prendre des décisions collectives. Et une communauté, pour décider de ce qu'elle devrait être.\n\nEn particulier les premières décisions collectives à prendre par la communauté VDE sont l'évolution de la plateforme elle-même: quelles fonctionnalités développer, retirer, modifier... Imaginez Youtube où ses utilisateurs pourraient décider démocratiquement des spécifications de son algorithme de recommandation ! Ou encore imaginez un média en ligne dont tous ses lecteurs/auditeurs/spectateurs pourraient décider ensemble de la Une, des contenus à produire, du modèle économique...",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-04-28",
+         "modification_date":"2020-06-08T21:04:47.805324Z",
+         "hyperlink":26,
+         "parent":249,
+         "author":1
+      },
+      {
+         "id":86,
+         "children":[
+            97
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"2.1. Un espace de convictions",
+         "body":"Les analyses politiques sont la base d'un pouvoir politique. C'est elles qui vont conditionner les décisions prises par ce pouvoir politique. En particulier, pour que ce pouvoir soit légitime et compétent, ses analyses doivent être reconnues et pertinentes.\n\nDans le projet VDE, une analyse politique est une collection hiérarchisée de problèmes, de solutions à ces problèmes et de ressources. Le binôme problèmes / solutions est un formalisme minimaliste pour bien cadrer les idées et se concentrer sur l'essentiel: les problèmes sont-ils les bons et les solutions apportées sont-elles les bonnes ? On ajoute à ce binôme des ressources pour permettre à chacun d'obtenir les connaissances nécessaires à la compréhension du sujet. Enfin, afin de garder le tout digeste et accessible, y compris pour un citoyen a priori ignorant du sujet, ces contenus sont hiérarchisés. Cette hiérarchisation a aussi le mérite de pouvoir identifier clairement le \"niveau\" auquel les consensus existent et le moment précis où il se brise. Et ce notamment grâce à [l'espace de raisons](/subject/26/bigPicture/87) proposé par la plateforme VDE.",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-17",
+         "modification_date":"2020-06-11T18:14:48.861668Z",
+         "hyperlink":null,
+         "parent":85,
+         "author":1
+      },
+      {
+         "id":347,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4.5. Choisir les analyses qui nous convainquent.",
+         "body":"",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-09T13:19:54.816174Z",
+         "hyperlink":null,
+         "parent":344,
+         "author":1
+      },
+      {
+         "id":343,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Le Baromètre de la confiance politique (CEVIPOF)",
+         "body":"http://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/CEVIPOF_confiance_10ans_CHEURFA_CHANVRIL_2019.pdf",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-08T20:58:17.888843Z",
+         "hyperlink":null,
+         "parent":340,
+         "author":1
+      },
+      {
+         "id":348,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4.1. La définition VDE de la politique",
+         "body":"La politique, c'est la modification des règles qui régissent notre vie commune. Par extension, tout ce qui touche à la réflexion sur ces règles est politique. En particulier, l'information lorsqu'elle permet de penser ces règles est politiques.",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-06-09",
+         "modification_date":"2020-06-09T13:21:01.531187Z",
+         "hyperlink":null,
+         "parent":344,
+         "author":1
+      },
+      {
+         "id":344,
+         "children":[
+            346,
+            347,
+            348,
+            345,
+            349
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4 Créer un lieu dédié à la politique.",
+         "body":"Un lieu dédié à la politique signifie que ce lieu est organisé dans l'unique but de faire de la politique le mieux possible. Cet objectif pose en particulier les questions du périmètre de la politique et de la qualité de la politique: qu'est-ce qui est politique, et qu'est-ce qui fait que la politique est bonne ou mauvaise ?",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-09T14:12:39.802828Z",
+         "hyperlink":null,
+         "parent":249,
+         "author":1
+      },
+      {
+         "id":26,
+         "children":[
+            69,
+            249,
+            85
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"Le projet VDE",
+         "body":"La politique a une image terrible. C’est un repoussoir pour énormément de gens. Elle est anxiogène, antagonisante et on est de moins en moins convaincu de pouvoir changer les choses par son biais.\n\n# Réparer la politique\n\nQuand chez VDE on s’est mis à réfléchir à comment la réparer, on a eu des idées dans tous les sens: changer l’information, changer le mode de scrutin, changer les débats, changer la constitution… Cette liste pourrait continuer des heures et pour chaque idée il y aurait plein de choses intéressantes à raconter.\n\nC’est la taille de cette liste qui nous a mis la puce à l’oreille. On a l’impression que rien ne va. Ça a été notre moment “eureka”, parce que c’est clair pour nous que quand rien ne va, c’est qu’on utilise le mauvais outil. Et pour cause, si je vous demande qu’est-ce que vous utilisez pour faire de la politique, qu’est-ce que vous me répondez ?\n\nOn soupçonne que la réponse à cette question demande un peu de réflexion et on vous encourage à prendre ce temps, mais pour nous, ça démontre l’existence de ce vide à occuper. Si on vous demande ce que vous utilisez pour faire des recherches sur Internet ou pour discuter avec vos amis, la réponse est immédiate, alors pourquoi cela serait-il différent pour la politique ?\n\n# Les fondamentaux VDE\n\nC’est donc ce que veut être VDE: la réponse à cette question. **VDE veut devenir LE lieu pour faire de la politique**. Cependant il ne suffit pas de le dire, alors voici les trois grandes idées qui portent notre vision de la politique:\n\n1. Les analyses politiques sont des collections hiérarchisées de problèmes, de solutions à ces problèmes et de ressources qui les justifient.\n\n2. Ces analyses sont raisonnées publiquement par les citoyens qui expriment, par l’intermédiaire de ces raisons, ce que leur inspire cette analyse.\n\n3. Ces analyses et raisons sont évaluées publiquement par les citoyens sur la base de raisons explicites.\n\nCes idées fondamentales sont derrière l’ensemble des fonctionnalités de la plateforme VDE. Chacune de ces idées mériterait a minima un article (et elles l’auront !), mais pour cette mise en bouche, voici quelques raisons simples derrière ces idées.\n\nLa première idée structure les discours politiques et assure une certaine uniformité dans les analyses politiques de façon à ce qu’elles soient facilement comparables. Bien les hiérarchiser permet aussi de les rendre accessibles et de préciser le contenu politique (hiérarchiser des problèmes est souvent un choix politique en soi).\n\nLa deuxième idée permet d’échanger autour de ces analyses et de faire remonter leurs qualités et défauts. Combinée avec la hiérarchisation des contenus des analyses (cf première idée), cela permet aussi de gagner en clarté en raisonnant sur des points précis de l’analyse.\n\nEnfin, la dernière idée permet d’évaluer la légitimité des analyses et raisons. L’idée n’est pas tant de les comparer que d’identifier quels contenus sont pertinents du point de vue de leur représentativité (c’est à dire qu’elles sont soutenues par suffisamment de gens).\n\nN’hésitez pas à naviguer un peu sur [vuedensemble.org](/) pour vous faire une idée plus concrète de ce que donnent ces idées dans leur implémentation, par exemple en regardant la [présentation du projet VDE](/subject/26/bigPicture/26) (dont ce texte n’est qu’une introduction !).\n\n# Un peu moins de marketing et un peu plus de politique ?\n\nMaintenant que vous savez ce qu’on essaye de faire, je vous invite à vous projeter dans ce monde où la politique est pratiquée avec la plateforme VDE. Est-ce que ça ne serait pas formidable de pouvoir mettre derrière chaque proposition de nos politiques les raisonnements qui les soutiennent ? Mieux encore, de pouvoir voir les objections à ces raisons ? Mieux encore, de pouvoir soi-même proposer une objection à une idée qui nous semblerait manquer de fondements ou encore de pouvoir nous-même promouvoir l’idée qui selon nous rendrait le monde un peu meilleur ? Et si les analyses les plus fines devenaient ainsi à portée de clic et de critique du premier citoyen venu ? Et si nous arrivions à **déplacer la scène politique un peu plus loin du marketing et un peu plus près des idées** et des raisonnements ?\n\nCette vision idyllique n’est pas condamnée à rester une vision, et nous avons la ferme intention de la faire devenir réalité, mais nous ne pourrons pas le faire seuls. Si vous voulez participer à ce changement et le faire advenir, vous êtes les bienvenus. Vous inscrire sur vuedensemble.org est un excellent début, donner vos raisons de partager, ou pas, notre enthousiasme sur ce projet nous aidera grandement, et s’il y a **ce sujet qui vous tient à coeur que vous voudriez creuser et partager avec le reste du monde, pourquoi ne pas le soumettre à la raison sur VDE ?**",
+         "kind":1,
+         "private":false,
+         "creation_date":"2020-02-11",
+         "modification_date":"2020-06-15T00:12:54.545059Z",
+         "hyperlink":null,
+         "parent":null,
+         "author":1
+      },
+      {
+         "id":87,
+         "children":[
+            102
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"2.2. Un espace de raisons",
+         "body":"[Une fois créée son analyse politique](/subject/26/bigPicture/86), qui est entièrement à la discrétion de son auteur, on entre dans **l'espace des raisons**, dans lequel on discute les contenus.\n\nL'idée fondamentale derrière cette fonctionnalité, est que notre démocratie en général et la plateforme VDE en particulier, sont des lieux où pour emporter la conviction de leurs concitoyens, les auteurs d'analyse politique donnent les raisons qui soutiennent leur jugement.",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-02-17",
+         "modification_date":"2020-06-11T18:14:24.343077Z",
+         "hyperlink":null,
+         "parent":85,
+         "author":1
+      },
+      {
+         "id":345,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4.3 Recenser des analyses politiques.",
+         "body":"",
+         "kind":3,
+         "private":false,
+         "creation_date":"2020-06-08",
+         "modification_date":"2020-06-09T13:07:02.231827Z",
+         "hyperlink":null,
+         "parent":344,
+         "author":1
+      },
+      {
+         "id":349,
+         "children":[
+
+         ],
+         "author_id":1,
+         "hyperlink_id":null,
+         "subject":26,
+         "title":"1.4.2. La qualité de la politique",
+         "body":"La politique étant l'art de changer les règles, la qualité de la politique se mesurera à la qualité de ces changements de règles. Ces règles ayant vocation à résoudre des problèmes, la qualité de la politique se mesure donc à la résolution des problèmes visés par ces changements de règles, ainsi qu'à l'apparition de nouveaux problèmes posés par ces changements de règles.",
+         "kind":4,
+         "private":false,
+         "creation_date":"2020-06-09",
+         "modification_date":"2020-06-09T13:19:31.289221Z",
+         "hyperlink":null,
+         "parent":344,
+         "author":1
+      }
+   ],
+   "children":[
+      69,
+      249,
+      85
+   ],
+   "title":"Le projet VDE",
+   "body":"La politique a une image terrible. C’est un repoussoir pour énormément de gens. Elle est anxiogène, antagonisante et on est de moins en moins convaincu de pouvoir changer les choses par son biais.\n\n# Réparer la politique\n\nQuand chez VDE on s’est mis à réfléchir à comment la réparer, on a eu des idées dans tous les sens: changer l’information, changer le mode de scrutin, changer les débats, changer la constitution… Cette liste pourrait continuer des heures et pour chaque idée il y aurait plein de choses intéressantes à raconter.\n\nC’est la taille de cette liste qui nous a mis la puce à l’oreille. On a l’impression que rien ne va. Ça a été notre moment “eureka”, parce que c’est clair pour nous que quand rien ne va, c’est qu’on utilise le mauvais outil. Et pour cause, si je vous demande qu’est-ce que vous utilisez pour faire de la politique, qu’est-ce que vous me répondez ?\n\nOn soupçonne que la réponse à cette question demande un peu de réflexion et on vous encourage à prendre ce temps, mais pour nous, ça démontre l’existence de ce vide à occuper. Si on vous demande ce que vous utilisez pour faire des recherches sur Internet ou pour discuter avec vos amis, la réponse est immédiate, alors pourquoi cela serait-il différent pour la politique ?\n\n# Les fondamentaux VDE\n\nC’est donc ce que veut être VDE: la réponse à cette question. **VDE veut devenir LE lieu pour faire de la politique**. Cependant il ne suffit pas de le dire, alors voici les trois grandes idées qui portent notre vision de la politique:\n\n1. Les analyses politiques sont des collections hiérarchisées de problèmes, de solutions à ces problèmes et de ressources qui les justifient.\n\n2. Ces analyses sont raisonnées publiquement par les citoyens qui expriment, par l’intermédiaire de ces raisons, ce que leur inspire cette analyse.\n\n3. Ces analyses et raisons sont évaluées publiquement par les citoyens sur la base de raisons explicites.\n\nCes idées fondamentales sont derrière l’ensemble des fonctionnalités de la plateforme VDE. Chacune de ces idées mériterait a minima un article (et elles l’auront !), mais pour cette mise en bouche, voici quelques raisons simples derrière ces idées.\n\nLa première idée structure les discours politiques et assure une certaine uniformité dans les analyses politiques de façon à ce qu’elles soient facilement comparables. Bien les hiérarchiser permet aussi de les rendre accessibles et de préciser le contenu politique (hiérarchiser des problèmes est souvent un choix politique en soi).\n\nLa deuxième idée permet d’échanger autour de ces analyses et de faire remonter leurs qualités et défauts. Combinée avec la hiérarchisation des contenus des analyses (cf première idée), cela permet aussi de gagner en clarté en raisonnant sur des points précis de l’analyse.\n\nEnfin, la dernière idée permet d’évaluer la légitimité des analyses et raisons. L’idée n’est pas tant de les comparer que d’identifier quels contenus sont pertinents du point de vue de leur représentativité (c’est à dire qu’elles sont soutenues par suffisamment de gens).\n\nN’hésitez pas à naviguer un peu sur [vuedensemble.org](/) pour vous faire une idée plus concrète de ce que donnent ces idées dans leur implémentation, par exemple en regardant la [présentation du projet VDE](/subject/26/bigPicture/26) (dont ce texte n’est qu’une introduction !).\n\n# Un peu moins de marketing et un peu plus de politique ?\n\nMaintenant que vous savez ce qu’on essaye de faire, je vous invite à vous projeter dans ce monde où la politique est pratiquée avec la plateforme VDE. Est-ce que ça ne serait pas formidable de pouvoir mettre derrière chaque proposition de nos politiques les raisonnements qui les soutiennent ? Mieux encore, de pouvoir voir les objections à ces raisons ? Mieux encore, de pouvoir soi-même proposer une objection à une idée qui nous semblerait manquer de fondements ou encore de pouvoir nous-même promouvoir l’idée qui selon nous rendrait le monde un peu meilleur ? Et si les analyses les plus fines devenaient ainsi à portée de clic et de critique du premier citoyen venu ? Et si nous arrivions à **déplacer la scène politique un peu plus loin du marketing et un peu plus près des idées** et des raisonnements ?\n\nCette vision idyllique n’est pas condamnée à rester une vision, et nous avons la ferme intention de la faire devenir réalité, mais nous ne pourrons pas le faire seuls. Si vous voulez participer à ce changement et le faire advenir, vous êtes les bienvenus. Vous inscrire sur vuedensemble.org est un excellent début, donner vos raisons de partager, ou pas, notre enthousiasme sur ce projet nous aidera grandement, et s’il y a **ce sujet qui vous tient à coeur que vous voudriez creuser et partager avec le reste du monde, pourquoi ne pas le soumettre à la raison sur VDE ?**",
+   "private":false,
+   "creation_date":"2020-02-11",
+   "modification_date":"2020-06-15T00:12:54.545059Z",
+   "parent":null
+}

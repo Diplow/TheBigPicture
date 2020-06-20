@@ -1,0 +1,18 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"subscriptions/?format=json&favorites=false&author=1&page=1",
+      "body":{
+
+      },
+      "method":"GET",
+      "next":"getSubscriptions",
+      "requestId":"9171d8be-5724-4a32-9c2a-f00957178169",
+      "nextargs":{
+         "favorites":false,
+         "author":1,
+         "page":1
+      },
+      "id":"GET-subscriptions-format=json-favorites=false-author=1-page=1"
+   }
+}

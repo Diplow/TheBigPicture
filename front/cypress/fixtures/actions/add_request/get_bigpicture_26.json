@@ -1,0 +1,9 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"bigpictures/26/?format=json",
+      "body":{},
+      "method":"GET",
+      "id":"GET-bigpictures-26-format=json"
+   }
+}

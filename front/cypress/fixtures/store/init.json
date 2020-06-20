@@ -1,0 +1,47 @@
+{
+   "endorsments":[
+
+   ],
+   "global":{
+
+   },
+   "requests":[
+
+   ],
+   "notifications":[
+
+   ],
+   "users":[
+
+   ],
+   "router":{
+      "location":{
+         "pathname":"/subject/26/bigPicture/26",
+         "search":"",
+         "hash":"",
+         "query":{
+
+         }
+      },
+      "action":"POP"
+   },
+   "user":{
+      "id":1,
+      "username":"Diplo",
+      "groups":[
+
+      ],
+      "image":"http://localhost:8000/media/profile_images/vde3.png",
+      "bio":"Fondateur du projet VDE, j'aimerai faire ma part pour faire progresser la démocratie. lololo",
+      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IkRpcGxvIiwiZXhwIjoxNTkyNzg0ODEzLCJlbWFpbCI6ImRpcGxvQHZ1ZS1kLWVuc2VtYmxlLmZyIn0.aSdGaVaXM7579Q7Yz9nzemGBQIsigNC49jO4gx7Zc8Y"
+   },
+   "bigpictures":[
+
+   ],
+   "ratings":[
+
+   ],
+   "subscriptions":[
+
+   ]
+}
