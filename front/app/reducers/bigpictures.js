@@ -146,15 +146,9 @@ const bigpictures = (state = [], action) => {
       }))
 
     case cst.actions.ADD_RATING:
-      const addContext = (context, state) => {
-        if (context && context.bigpictures) {
-          for (let i = 0; i < context.bigpictures.length; ++i) {
-            state = addBigPicture(context.bigpictures[i], state)
-          }
-        }
-        return state
-      }
-      return addContext(action.rating.context, state)
+      if (action.rating.context && action.rating.context.subject)
+        return addBigPicture(action.rating.context.subject, state)
+      return state
 
     case cst.actions.DELETE_SUBSCRIPTION:
       // If a subscription is deleted, change the favorite field accordingly
@@ -172,7 +166,7 @@ const bigpictures = (state = [], action) => {
       // so it is not needed to reload the page to have the favorite filtering
       // working as intended
       return state.map((item) => {
-        if (item.author == action.subscription.author) {
+        if (item.author == action.subscription.target_id) {
           return { ...item, favorite: true }
         }
         return { ...item }

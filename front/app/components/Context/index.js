@@ -16,12 +16,16 @@ const ContextLook = (props) => {
     classname
   } = props
 
+  const [show, toggle] = utils.hooks.useToggle(false)
+
+  if (!bigpicture && !rating) return null
+
   return (
     <div>
       { title ? <p className="subtitle-modal">{title}</p> : null }
       <div className={`vde card tbp-description field ${classname}`}>
         <div className="vde card-content content">
-          { bpContext(bigpicture) }
+          { bpContext(bigpicture, show, toggle) }
           { ratingContext(rating)}
         </div>
       </div>
@@ -29,12 +33,12 @@ const ContextLook = (props) => {
   )
 }
 
-const bpContext = (bp) => {
-  const [show, toggle] = utils.hooks.useToggle(false)
+const bpContext = (bp, show, toggle) => {
   if (!bp) return null
 
   return (
     <div>
+      <Context classname="vde rating-page" ratingId={null} bpId={bp.parent} />
       <p className="subtitle" onClick={toggle}>{bp.title}</p>
       { show ? <ReactMarkdown source={bp.body} /> : null }
     </div>

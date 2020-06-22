@@ -1,0 +1,951 @@
+[
+   {
+      "id":78,
+      "title":"Identifier un héros qui illustrera la cause VDE et inspirera les gens à s'y investir.",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":55,
+      "hyperlink_id":55,
+      "parent":75,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.939478Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":81,
+      "title":"Créér un premier sujet politique",
+      "kind":3,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":74,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.944776Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":103,
+      "title":"Comment les membres de VDE garderont-ils la main sur leur plateforme ?",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":96,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-27",
+      "modification_date":"2020-04-05T18:44:53.950256Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":84,
+      "title":"Présenter le projet VDE à des proches qui auront l'envie de tester le site et la bienveillance de ne pas perdre patience au premier bug venu.",
+      "kind":3,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":83,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.954689Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":76,
+      "title":"Créer le problème que tente de résoudre VDE et le documenter.",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":62,
+      "hyperlink_id":62,
+      "parent":75,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.956840Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":79,
+      "title":"Écrire une première version de la vision du projet VDE",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":68,
+      "hyperlink_id":68,
+      "parent":75,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.959102Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":82,
+      "title":"Créér la roadmap VDE",
+      "kind":3,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":74,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.961501Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":34,
+      "title":"Les modalités de cette pratique politique: un domaine débattu tous les mois",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":29,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.963916Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":30,
+      "title":"Les citoyens ne sont pas suffisamment compétents",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":29,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.966352Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":33,
+      "title":"Les citoyens ne participeront pas, ou en nombre très réduit ce qui posera un problème de légitimité",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":29,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.970988Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":31,
+      "title":"Les citoyens n'ont pas le temps de faire le travail des députés",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":29,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.973249Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":35,
+      "title":"La voix du citoyen sera noyée au milieu de celle des autres, ce qui est la véritable raison du sentiment d'impuissance du citoyen",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":29,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.975427Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":29,
+      "title":"Une démocratie directe en utilisant la plateforme VDE",
+      "kind":3,
+      "body":"",
+      "children":[
+         34,
+         30,
+         33,
+         31,
+         35
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":28,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-04-05T18:44:53.968720Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":104,
+      "title":"Une démocratie directe, est-ce possible ?",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":96,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-27",
+      "modification_date":"2020-04-05T18:44:53.977876Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":89,
+      "title":"[VERSION BETA OUVERTE] objectif 1000 utilisateurs",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":69,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-18",
+      "modification_date":"2020-04-05T18:44:53.982206Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":74,
+      "title":"[EN COURS] Il n'y a pas de contenu sur VDE",
+      "kind":2,
+      "body":"",
+      "children":[
+         75,
+         81,
+         82
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":69,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:54.022267Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":77,
+      "title":"Identifier les adversaires de la cause VDE.",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":54,
+      "hyperlink_id":54,
+      "parent":75,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.984701Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":75,
+      "title":"Écrire la première version du manifeste VDE",
+      "kind":3,
+      "body":"",
+      "children":[
+         78,
+         76,
+         79,
+         77
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":74,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.942198Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":54,
+      "title":"Ceux qui ont peur du peuple",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":27,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-14T08:06:03.073195Z",
+      "favorite":false,
+      "references":[
+         26
+      ],
+      "private":false
+   },
+   {
+      "id":63,
+      "title":"Le projet VDE",
+      "kind":3,
+      "body":"Le projet VDE est pensé pour résoudre ce problème.",
+      "children":[
+
+      ],
+      "hyperlink":26,
+      "hyperlink_id":26,
+      "parent":62,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:53.989666Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":65,
+      "title":"Aaron Swartz : un héros contemporain (france culture)",
+      "kind":4,
+      "body":"[article](https://www.franceculture.fr/emissions/ce-qui-nous-arrive-sur-la-toile/aaron-swartz-un-heros-contemporain)",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":55,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:53.991967Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":66,
+      "title":"La mafia scientifique dont vous n'avez jamais entendu parler - DBY #53",
+      "kind":4,
+      "body":"[lien Youtube](https://www.youtube.com/watch?v=rcgxY__YXEc)",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":55,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:53.994289Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":67,
+      "title":"Les nouveaux chiens de garde",
+      "kind":4,
+      "body":"[Les 30 premières minutes sur vimeo](https://vimeo.com/306257880)\n\n\n[La page Wikipedia du documentaire](https://fr.wikipedia.org/wiki/Les_Nouveaux_Chiens_de_garde_(film))",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":62,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:53.996461Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":68,
+      "title":"La vision du projet",
+      "kind":4,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":27,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:53.998720Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":55,
+      "title":"Aaron Swartz, ce héros",
+      "kind":4,
+      "body":"",
+      "children":[
+         65,
+         66
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":27,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:54.000974Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":62,
+      "title":"L'éditorialisation n'est jamais transparente",
+      "kind":2,
+      "body":"",
+      "children":[
+         63,
+         67
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":27,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-16",
+      "modification_date":"2020-04-05T18:44:54.005570Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":72,
+      "title":"[RÉSOLU] Il n'y a pas de spécifications précises de la plateforme VDE telle qu'elle pourrait être.",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":71,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:54.010073Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":73,
+      "title":"[RÉSOLU] Tant que le site n'est pas en ligne, personne ne risque de l'utiliser.",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":71,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:54.012330Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":71,
+      "title":"Les étapes passées",
+      "kind":4,
+      "body":"",
+      "children":[
+         72,
+         73
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":69,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:54.014579Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":69,
+      "title":"La roadmap VDE",
+      "kind":4,
+      "body":"Concrètement, quels objectifs se fixe le projet VDE pour évoluer vers sa vision ? Quelles étapes concrètes et réalisables doit il passer pour atteindre sa vision ?",
+      "children":[
+         88,
+         89,
+         74,
+         83,
+         71
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":26,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-13T08:45:51.930398Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":245,
+      "title":"On ne peut pas donner une raison sans la soutenir",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":83,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-13",
+      "modification_date":"2020-04-13T08:42:51.963581Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":167,
+      "title":"Impossible de changer son icone utilisateur sans l'aide d'un administrateur",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":88,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-03-31",
+      "modification_date":"2020-04-05T18:44:54.034155Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":168,
+      "title":"Le design du site est amateur",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":88,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-03-31",
+      "modification_date":"2020-04-05T18:44:54.036384Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":169,
+      "title":"Le projet VDE n'a pas d'existence légale",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":88,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-03-31",
+      "modification_date":"2020-04-05T18:44:54.038660Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":166,
+      "title":"Impossible de changer son mot de passe sans l'aide d'un administrateur",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":88,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-03-31",
+      "modification_date":"2020-04-05T18:44:54.031809Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":247,
+      "title":"Bug: La rubrique \"mes sujets\" de la home page peut être vide alors que l'utilisateur loggé a effectivement des sujets.",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":83,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-13",
+      "modification_date":"2020-04-13T10:22:33.046972Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":244,
+      "title":"On n'a pas de garanties que le site soit suffisamment robuste pour tenir les visites de dizaines d'utilisateurs simultanés",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":88,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-13",
+      "modification_date":"2020-04-13T08:40:48.395476Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":88,
+      "title":"[VERSION BETA FERMÉE] Objectif 100 utilisateurs",
+      "kind":2,
+      "body":"",
+      "children":[
+         167,
+         168,
+         169,
+         166,
+         244
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":69,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-18",
+      "modification_date":"2020-04-05T18:44:53.952549Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":246,
+      "title":"Bug: des utilisateurs peuvent avoir accès à des documents auxquels ils ne devraient pas pouvoir accéder.",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":83,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-13",
+      "modification_date":"2020-04-13T10:21:35.811016Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":248,
+      "title":"On ne peut pas rechercher un certain sujet en particulier",
+      "kind":2,
+      "body":"",
+      "children":[
+
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":83,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-14",
+      "modification_date":"2020-04-14T07:51:09.849335Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":83,
+      "title":"[VERSION ALPHA] Je suis tout seul à utiliser VDE",
+      "kind":2,
+      "body":"",
+      "children":[
+         84,
+         245,
+         247,
+         246,
+         248
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":69,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-17",
+      "modification_date":"2020-04-05T18:44:54.024514Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":250,
+      "title":"Le projet VDE",
+      "kind":3,
+      "body":"Le projet VDE, c'est une plateforme web et une communauté. Une plateforme pour partager des analyses politiques, les raisonner et prendre des décisions collectives. Et une communauté, pour décider de ce qu'elle devrait être.\n\nEn particulier les premières décisions collectives à prendre par la communauté VDE sont l'évolution de la plateforme elle-même: quelles fonctionnalités développer, retirer, modifier... Imaginez Youtube où ses utilisateurs pourraient décider démocratiquement des spécifications de son algorithme de recommandation ! Ou encore imaginez un média en ligne dont tous ses lecteurs/auditeurs/spectateurs pourraient décider ensemble de la Une, des contenus à produire, du modèle économique...",
+      "children":[
+
+      ],
+      "hyperlink":26,
+      "hyperlink_id":26,
+      "parent":249,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-28",
+      "modification_date":"2020-04-28T09:21:19.240997Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":249,
+      "title":"Les citoyens n'ont pas de contrôle sur leur information. lololo",
+      "kind":2,
+      "body":"Il serait le 4ème pouvoir, et le principal moyen pour les citoyens de se forger leurs propres analyses politiques. Cependant, la défiance vis-à-vis des médias n'a jamais été aussi grande.\n\nAlors si les citoyens n'ont pas confiance dans leur information, comment peuvent-ils se forger des analyses solides, dans lesquelles ils croient et sur lesquelles ils souhaitent bâtir de véritables changements politiques ?",
+      "children":[
+         250
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":26,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-04-28",
+      "modification_date":"2020-06-14T12:11:50.969745Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   },
+   {
+      "id":26,
+      "title":"Le projet VDE",
+      "kind":1,
+      "body":"Le projet VDE, c'est celui de la plateforme sur laquelle vous naviguez actuellement ! Nous aimerions faire de la politique autrement, faire que les analyses des uns et des autres soient les plus claires, précises et accessibles possible, et faire en sorte que les raisons de valider ou invalider ces analyses le soient tout autant. Bien entendu ces raisons n'auront pas le même poids ni la même valeur pour tous, mais c'est ce qui rend la politique intéressante !\n\nAlors on imagine ce que vous vous dites, il y a du boulot ! Mais avec [un plan](/subject/325/bigpicture/325), et de la conviction, on pense pouvoir en faire la démonstration. En particulier on regarde la présidentielle 2022 et on veut qu'elle soit celle de la clarté et du débat d'idées, pas juste une énième campagne marketing. On veut que cette élection soit le lieu d'un bouillonnement intellectuel jamais vu.\n\nPour atteindre cet objectif, on pense que les clés de la clarté et de la précision en politique résident dans quatre grandes idées:\n\n1. La politique c'est résoudre des problèmes qui nous concernent tous. Alors un projet politique, ça doit être une liste de problèmes et de solutions à ces problèmes. \n\n2. Pour être clair et précis, il faut hiérarchiser ses idées. Tous les problèmes ne se valent pas dans notre analyse, et toutes les solutions ne sont pas aussi convaincantes les unes que les autres.\n\n3. C'est en justifiant nos analyses par des raisons, pour convaincre et être convaincus, et des ressources, pour comprendre et savoir, que l'on construit une conviction et une légitimité.\n\n4. Une analyse gagne en force si elle sert un objectif précis et concret. Plus simplement, on essaye au maximum chez VDE de connecter les votes à des décisions tangibles.\n\nEn implémentant ces quatre idées, VDE compte atteindre son objectif, mais aujourd'hui nous ne sommes qu'une poignée, nous n'y arriverons qu'avec votre soutien. Plus nous serons nombreux à raisonner ici, à proposer des analyses, à penser des problèmes, à construire des solutions et à explorer des ressources, plus nous serons crédibles et plus nous pourrons changer le débat tel qu'il est aujourd'hui, et peut-être en faire enfin autre chose.",
+      "children":[
+         69,
+         249
+      ],
+      "hyperlink":null,
+      "hyperlink_id":null,
+      "parent":null,
+      "subject":26,
+      "author":1,
+      "creation_date":"2020-02-11",
+      "modification_date":"2020-06-03T20:44:54.052648Z",
+      "favorite":false,
+      "references":[
+
+      ],
+      "private":false
+   }
+]
