@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { useState, useEffect } from 'react'
-
+import uuid from 'uuid/v4'
 import './style.scss'
 
 
@@ -13,6 +13,8 @@ const DropDownButton = (props) => {
     isActive,
     classname
   } = props
+
+  // convoluted stuff to handle closing dropdown correctly... #FIXME
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -26,30 +28,40 @@ const DropDownButton = (props) => {
   }, [open])
 
   useEffect(() => {
-    if (isActive != name) {
+    if (isActive !== name) {
       setOpen(false)
     }
   }, [isActive])
 
-  window.onclick = function(event) {
-    if (isActive) {
-      setOpen(false)
-      setIsActive(null)
+  // more convoluted stuff to handle closing dropdown correctly... #FIXME
+  const id = uuid().split('-').join('')
+  window.vdeDropdowns = { ...window.vdeDropdowns, [id]: [name, setOpen, isActive] }
+  window.onclick = (event) => {
+    const ids = Object.keys(window.vdeDropdowns)
+    for (let i=0; i < ids.length; ++i) {
+      const dropdownId = ids[i]
+      const [dropdownName, dropdownSetOpen, dropdownIsActive] = window.vdeDropdowns[dropdownId]
+      const menu = document.getElementById(dropdownId)
+      if (!menu)
+        delete window.vdeDropdowns[dropdownId]
+      if (menu && dropdownIsActive == dropdownName && !menu.contains(event.target)) {
+        dropdownSetOpen(false)
+      }
     }
   }
 
   return (
     <div className={`vde dropdown ${classname} ${open?"is_active":""}`}>
       <div className="vde dropdown-trigger">
-        <a className="icon-button" onClick={() => setOpen(!open)}>
+        <a className="icon-button" onClick={() => { setOpen(!open) }}>
           {icon}
         </a>
       </div>
-      <div className="vde dropdown-menu" role="menu">
+      <div id={id} className="vde dropdown-menu" role="menu">
         {open && children}
       </div>
     </div>
-  );
+  )
 }
 
 export default DropDownButton
