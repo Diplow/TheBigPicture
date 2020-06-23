@@ -1,0 +1,22 @@
+{
+   "type":"ADD_RATING",
+   "rating":{
+      "id":39,
+      "author":{
+         "id":1,
+         "username":"Diplo",
+         "groups":[
+
+         ],
+         "image":"http://localhost:8000/media/profile_images/vde3.png",
+         "bio":"Fondateur du projet VDE, j'aimerai faire ma part pour faire progresser la démocratie."
+      },
+      "author_id":1,
+      "basisCount":0,
+      "date":"2020-06-21",
+      "body":"test",
+      "target_bp":26,
+      "target_rating":null,
+      "subject":26
+   }
+}
