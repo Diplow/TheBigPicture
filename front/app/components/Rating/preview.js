@@ -5,9 +5,14 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 
 import {
+  getRating,
   getRatings,
   getEndorsments
 } from '../../actions'
+
+import Preview from '../Preview'
+import useToggleAction from '../Preview/action_toggle'
+import useModalAction from '../Preview/action_modal'
 
 import AuthorIcon from '../User/authorIcon'
 
@@ -15,6 +20,8 @@ import { RatingButton } from './buttons'
 import RatingResults from './results'
 import RatingModal from './modal'
 import NewRating from './new'
+
+import LoginModal from '../Login/modal'
 
 import { EndorsmentButton } from '../Endorsment/buttons'
 import EndorsmentModal from '../Endorsment/modal'
@@ -50,176 +57,100 @@ const RatingPreviewLook = (props) => {
     endorsments,
     user,
     ratingId,
+    getRatingContext,
     getRatingsPage,
     getEndorsmentsPage
   } = props
 
-  const [menu, setMenu] = useState(null)
-  const [showRatings, toggleRatings] = utils.hooks.useToggle(false)
-  const [showEndorsments, toggleEndorsments] = utils.hooks.useToggle(false)
-  const [showResults, toggleResults] = utils.hooks.useToggle(false)
+
+  const [creationModalIsActive, setCreationModalIsActive] = useState(false)
+  const [editionModalIsActive, setEditionModalIsActive] = useState(false)
+  const [createReasonModalIsActive, setCreateReasonModalIsActive] = useState(false)
+  const [createEndorsmentModalIsActive, setCreateEndorsmentModalIsActive] = useState(false)
 
   const cardId = !rating && `rating-preview-${rating.id}` || ""
 
-  return (
-    <div>
-      <div id={cardId} className="vde card reason">
-        <header className="vde card-header level preview-item-level is-mobile">
-          { ratingLeftLevel(rating) }
-        </header>
-        {
-          toolBar({
-            rating,
-            ratings,
-            showRatings,
-            showEndorsments,
-            showResults,
-            toggleRatings,
-            toggleEndorsments,
-            toggleResults,
-            user,
-            menu,
-            setMenu,
-            cardId
-          })
-        }
-      </div>
-      { showRatings ? ratingChildren(rating, ratings, getRatingsPage) : null }
-      { showEndorsments ? ratingEndorsments(rating, endorsments, getEndorsmentsPage) : null }
-      { showResults ? <RatingResults ratingId={rating.id} /> : null }
-    </div>
-  )
-}
-
-const ratingLeftLevel = (rating) => {
-  if (!rating) return null
-
-  return (
-    <div style={{maxWidth:"100%"}} className="level-left">
-      <div className="vde card-content vde-preview-content">
-        <div className="content">
-          <ReactMarkdown source={rating.body} />
+  const header = (rating) => (
+    <header className="vde card-header level preview-item-level is-mobile">    
+      <div style={{maxWidth:"100%"}} className="level-left">
+        <div className="vde card-content vde-preview-content">
+          <div className="content">
+            <ReactMarkdown source={rating.body} />
+          </div>
         </div>
       </div>
-    </div>
+    </header>
   )
-}
 
-const toolBar = (props) => {
-  const {
-    rating,
-    ratings,
-    showRatings,
-    showResults,
-    showEndorsments,
-    toggleResults,
-    toggleRatings,
-    toggleEndorsments,
-    user,
-    menu,
-    setMenu,
-    cardId
-  } = props
+  const editModal = (rating, user, editionModalIsActive, setEditionModalIsActive) => {
+    const [editionBuffer, setEditionBuffer] = useState(rating)
 
-  const initRating = {
-    target_bp: null,
-    target_rating: rating.id,
-    author_id: user.id,
-    body: "",
-    subject: rating.subject
+    useEffect(() => {
+      if (rating)
+        setEditionBuffer(rating)
+    }, [rating, user])
+
+    if (rating.author !== user.id) {
+      return null
+    }
+
+    return (
+      <RatingModal
+        title={ cst.labels.EDIT_RATING}
+        construct={ <NewRating data={ editionBuffer } setData={ setEditionBuffer } /> }
+        active={ editionModalIsActive }
+        setActive={ setEditionModalIsActive }
+        data={ editionBuffer }
+      />
+    )
   }
 
-  return (
-    <div className="vde toolbar level is-mobile">
-      <div className="level-left">
-        <p>{rating.date}</p>
-      </div>
-      <div className="level-right">
-        {
-          reasonDropdown({
-            menu,
-            setMenu,
-            showRatings,
-            toggleRatings,
-            rating,
-            user
-          })
+  const ratingRatings = (rating, ratings, getPage) => {
+    if (!rating) return null
+    const ratingsSort = (ratingA, ratingB) => ratingA.median >= ratingB.median ? 1 : -1
+
+    return (
+      <List
+        name={`rating-preview-${rating.id}-ratings-list`}
+        items={ratings}
+        container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
+        emptyMessage={cst.labels.RATING_HAS_NO_RATING}
+        sortFunc={ratingsSort}
+        count={rating.ratingCount}
+        getPage={
+          (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
         }
-        {
-          endorsmentDropdown({
-            menu,
-            setMenu,
-            toggleResults,
-            toggleEndorsments,
-            showResults,
-            showEndorsments,
-            rating,
-            user
-          })
-        }
-        {
-          lookButton(
-            rating,
-            `${cardId}-toolbarbutton-look`
-          )
-        }
-      </div>
-    </div>
-  )
-}
+        loadFirstPage={true}
+      />
+    )
+  }
 
+  const ratingModal = (rating, user, createReasonModalIsActive, setCreateReasonModalIsActive) => {
+    const [newReason, setNewReason] = useState(null)
+    useEffect(() => {
+      if (rating)
+        setNewReason({
+          body: "",
+          target_rating: rating.id,
+          author_id: user.id,
+          subject: rating.subject
+        })
+    }, [rating])
 
-const reasonDropdown = (props) => {
-  const {
-    menu,
-    setMenu,
-    toggleRatings,
-    showRatings,
-    rating,
-    user
-  } = props
+    if (!rating || !newReason) return null
 
-  const [createReasonModalIsActive, setCreateReasonModalIsActive] = useState(false)
-  const [newReason, setNewReason] = useState(null)
+    if (user.id === cst.GUEST_ID) {
+      return (
+        <LoginModal
+          active={createReasonModalIsActive}
+          setActive={setCreateReasonModalIsActive}
+        />
+      )
+    }
 
-  useEffect(() => {
-    if (rating)
-      setNewReason({
-        body: "",
-        target_rating: rating.id,
-        author_id: user.id,
-        subject: rating.subject
-      })
-  }, [rating])
-
-  if (!rating || !newReason) return null
-
-  return (
-    <div>
-      <DropDownButton
-        name="reasons"
-        isActive={menu}
-        setIsActive={setMenu}
-        classname="vde toolbar level-item"
-        icon={ <ReasonIcon className="vde toolbar menu image"/> }
-      >
-        <DropdownMenu
-          linksArray={[
-            {
-              leftIcon: <EyeIcon className="vde toolbar menu image" />,
-              name: showRatings ? cst.labels.HIDE_REASONS : cst.labels.SHOW_REASONS,
-              onClick: () => toggleRatings()
-            },
-            {
-              leftIcon: <PlusIcon className="vde toolbar menu image" />,
-              name: cst.labels.CREATE_REASON,
-              onClick: () => setCreateReasonModalIsActive(true)
-            }
-          ]} />
-      </DropDownButton>
-
+    return (
       <RatingModal
-        title={"Ajouter une raison"}
+        title={cst.labels.CREATE_REASON}
         construct={
           <NewRating data={newReason} setData={setNewReason} />
         }
@@ -227,142 +158,114 @@ const reasonDropdown = (props) => {
         setActive={setCreateReasonModalIsActive}
         data={newReason}
       />
-    </div>
-  )
-}
+    )
+  }
 
-const endorsmentDropdown = (props) => {
-  const {
-    menu,
-    setMenu,
-    toggleResults,
-    toggleEndorsments,
-    showResults,
-    showEndorsments,
-    rating,
-    user
-  } = props
+  const ratingEndorsments = (rating, endorsments, getPage) => {
+    if (!ratingEndorsments) return null
 
-  const [createEndorsmentModalIsActive, setCreateEndorsmentModalIsActive] = useState(false)
-  const [newEndorsment, setNewEndorsment] = useState(null)
-
-  useEffect(() => {
-    if (rating)
-      setNewEndorsment({
-        value: 0,
-        target_id: rating.id,
-        author_id: user.id,
-        bigpicture: rating.target_bp,
-        rating: rating.target_rating,
-        reason: rating.body
-      })
-  }, [rating])
-
-  if (!rating || !newEndorsment) return null
-
-  let links = [
-    {
-      leftIcon: <EyeIcon className="vde toolbar menu image" />,
-      name: showEndorsments ? cst.labels.HIDE_ENDORSMENTS : cst.labels.SHOW_ENDORSMENTS,
-      onClick: () => toggleEndorsments()
-    },
-    {
-      leftIcon: <ChartIcon className="vde toolbar menu image" />,
-      name: showResults ? cst.labels.HIDE_RESULTS : cst.labels.SHOW_RESULTS,
-      onClick: () => toggleResults()
+    const endorsmentsSort = (endorsmentA, endorsmentB) => {
+      const dateA = new Date(endorsmentA.date)
+      const dateB = new Date(endorsmentB.date)
+      return dateA >= dateB ? 1 : -1
     }
-  ]
-  if (user.id !== cst.GUEST_ID) {
-    links.push({
-      leftIcon: <PlusIcon className="vde toolbar menu image" />,
-      name: cst.labels.CREATE_ENDORSMENT,
-      onClick: () => setCreateEndorsmentModalIsActive(true)
-    })
-  }
 
-  return (
-    <div>
-      <DropDownButton
-        name="results"
-        isActive={menu}
-        setIsActive={setMenu}
-        classname="vde toolbar level-item"
-        icon={ <StarIcon className="vde toolbar menu image" /> }
-      >
-        <DropdownMenu linksArray={links} />
-      </DropDownButton>
-
-      <EndorsmentModal
-        title={"Évaluer un contenu"}
-        construct={
-          <NewEndorsment data={newEndorsment} setData={setNewEndorsment} />
+    return (
+      <List
+        name={`rating-preview-${rating.id}-endorsments-list`}
+        items={endorsments}
+        container={(endorsment) => <EndorsmentPreview endorsmentId={endorsment.id} />}
+        emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
+        sortFunc={endorsmentsSort}
+        count={rating.endorsmentCount}
+        getPage={
+          (page, options, reqId) => (
+            getPage(page, { ...options, rating: rating.id }, reqId)
+          )
         }
-        active={createEndorsmentModalIsActive}
-        setActive={setCreateEndorsmentModalIsActive}
-        data={newEndorsment}
+        loadFirstPage={true}
       />
-    </div>
-  )
-}
+    )
+  }
 
-const lookButton = (rating, id) => {
-  if (!rating) return null
+  const lookButton = (rating) => {
+    if (!rating) return null
 
-  return (
-    <LinkButton
-      id={id}
-      icon={ <LookIcon className="vde toolbar menu image" /> }
-      to={`/subject/${rating.subject}/rating/${rating.id}`}
-      classname="vde toolbar level-item icon-button"
-    />
-  )
-}
-
-const ratingChildren = (rating, children, getPage) => {
-  
-  const ratingsSort = (ratingA, ratingB) => ratingA.median >= ratingB.median ? 1 : -1
-
-  return (
-    <List
-      name={`rating-preview-${rating.id}-ratings-list`}
-      items={children}
-      container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
-      emptyMessage={cst.labels.RATING_HAS_NO_RATING}
-      sortFunc={ratingsSort}
-      count={rating.ratingCount}
-      getPage={
-        (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
-      }
-      loadFirstPage={true}
-    />
-  )
-}
-
-const ratingEndorsments = (rating, endorsments, getPage) => {
-  if (!rating) return null
-
-  const endorsmentsSort = (endorsmentA, endorsmentB) => {
-    const dateA = new Date(endorsmentA.date)
-    const dateB = new Date(endorsmentB.date)
-    return dateA >= dateB ? 1 : -1
+    return (
+      <LinkButton
+        icon={ <LookIcon className="vde toolbar menu image" /> }
+        to={`/subject/${rating.subject}/rating/${rating.id}`}
+        classname="vde toolbar level-item icon-button"
+      />
+    )
   }
 
   return (
-    <List
-      name={`rating-preview-${rating.id}-endorsments-list`}
-      items={endorsments}
-      container={(endorsment) => <EndorsmentPreview endorsmentId={endorsment.id} />}
-      emptyMessage={cst.labels.BP_HAS_NO_ENDORSMENT}
-      sortFunc={endorsmentsSort}
-      count={rating.endorsmentCount}
-      getPage={
-        (page, options, reqId) => getPage(page, { ...options, rating: rating.id }, reqId)
-      }
-      loadFirstPage={true}
+    <Preview
+      item={rating}
+      itemId={ratingId}
+      itemType="reason"
+      getItem={getRatingContext}
+      header={ header(rating) }
+      leftToolbar={ <p className="content">{`${rating.id} - ${rating.date}`}</p> }
+      lookButton={ lookButton(rating) }
+      user={user}
+      steps={[
+        {
+          step: cst.REASON_STEP,
+          icon: <ReasonIcon className="vde toolbar menu image" />,
+          actions: [
+            {
+              constructor: useToggleAction,
+              activateLabel: cst.labels.SHOW_REASONS,
+              deactivateLabel: cst.labels.HIDE_REASONS,
+              icon: <EyeIcon className="vde toolbar menu image" />,
+              step: cst.REASON_STEP,
+              display: (rating) => ratingRatings(rating, ratings, getRatingsPage)
+            },
+            {
+              constructor: useModalAction,
+              label: cst.labels.CREATE_REASON,
+              icon: <PlusIcon className="vde toolbar menu image" />,
+              modal: ratingModal(rating, user, createReasonModalIsActive, setCreateReasonModalIsActive),
+              setActiveModal: setCreateReasonModalIsActive
+            },
+            {
+              hidden: !rating || rating.author !== user.id,
+              constructor: useModalAction,
+              label: cst.labels.EDIT_RATING,
+              icon: <EditIcon className="vde toolbar menu image" />,
+              modal: editModal(rating, user, editionModalIsActive, setEditionModalIsActive),
+              setActiveModal: setEditionModalIsActive
+            }
+          ]
+        },
+        {
+          step: cst.DELIBERATION_STEP,
+          icon: <StarIcon className="vde toolbar menu image" />,
+          actions: [
+            {
+              constructor: useToggleAction,
+              activateLabel: cst.labels.SHOW_RESULTS,
+              deactivateLabel: cst.labels.HIDE_RESULTS,
+              icon: <ChartIcon className="vde toolbar menu image" />,
+              step: cst.DELIBERATION_STEP,
+              display: (rating) => <RatingResults showHeader={false} ratingId={rating.id} />
+            },
+            {
+              constructor: useToggleAction,
+              activateLabel: cst.labels.SHOW_ENDORSMENTS,
+              deactivateLabel: cst.labels.HIDE_ENDORSMENTS,
+              icon: <EyeIcon className="vde toolbar menu image" />,
+              step: cst.DELIBERATION_STEP,
+              display: (rating) => ratingEndorsments(rating, endorsments, getEndorsmentsPage)
+            }
+          ]
+        }
+      ]}
     />
   )
 }
-
 
 const mapStateToProps = (state, ownProps) => ({
   rating: state.get("ratings").find((rating) => rating.id == ownProps.ratingId),
@@ -372,6 +275,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  getRatingContext: (ratingId) => getRating(ratingId),
   getRatingsPage: getPageFormatter(dispatch, getRatings),
   getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
 })

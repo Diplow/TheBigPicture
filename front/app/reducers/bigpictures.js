@@ -5,27 +5,35 @@ import * as cst from "../constants"
 
 const addBp = (bp, state) => {
   const old = state.find((element) => element.id == bp.id)
+  let res = {
+    ...old,
+    id: bp.id,
+    title: bp.title,
+    kind: bp.kind,
+    body: bp.body,
+    children: bp.children,
+    hyperlink: bp.hyperlink,
+    hyperlink_id: bp.hyperlink_id,
+    parent: bp.parent,
+    subject: bp.subject,
+    author: bp.author_id,
+    creation_date: bp.creation_date,
+    modification_date: bp.modification_date,
+    favorite: reducer_utils.set_or_update("favorite", bp, old, false),
+    references: reducer_utils.set_or_update("references", bp, old, []),
+    private: bp.private,
+  }
+  if (bp.requestId)
+    res[bp.requestId] = bp[bp.requestId]
+  if (old && old.referenceCount)
+    res.referenceCount = old.referenceCount
+  if (old && old.ratingCount)
+    res.ratingCount = old.ratingCount
+  if (old && old.endorsmentCount)
+    res.endorsmentCount = old.endorsmentCount
   return [
     ...state.filter((element) => element.id != bp.id),
-    {
-      ...old,
-      id: bp.id,
-      title: bp.title,
-      kind: bp.kind,
-      body: bp.body,
-      children: bp.children,
-      hyperlink: bp.hyperlink,
-      hyperlink_id: bp.hyperlink_id,
-      parent: bp.parent,
-      subject: bp.subject,
-      author: bp.author_id,
-      creation_date: bp.creation_date,
-      modification_date: bp.modification_date,
-      favorite: reducer_utils.set_or_update("favorite", bp, old, false),
-      references: reducer_utils.set_or_update("references", bp, old, []),
-      [bp.requestId]: bp[bp.requestId],
-      private: bp.private,
-    }
+    res
   ]
 }
 

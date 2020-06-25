@@ -10,7 +10,6 @@ const DropdownMenu = (props) => {
     linksArray
   } = props
 
-
   return (
     <div className="vde dropdown-content">
       {

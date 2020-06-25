@@ -1,11 +1,12 @@
+@import "../../styles/theme.scss";
 
 .vde.dropdown.image .vde.dropdown-trigger .icon-button {
   width: 100%;
   height: 100%;
 }
 
-.vde.dropdown.toolbar .vde.dropdown-trigger .icon-button {
-
+.vde.dropdown.toolbar.active .vde.dropdown-trigger .icon-button .vde.toolbar {
+  color: $red;
 }
 
 .vde.dropdown.toolbar {
