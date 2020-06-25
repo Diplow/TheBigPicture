@@ -57,3 +57,7 @@ export const ADD_BUTTON = "ADD_BUTTON"
 export const BACK_BUTTON = "BACK_BUTTON"
 export const SUBMARGIN = 5
 
+// Steps
+export const ANALYSE_STEP = "analyse"
+export const REASON_STEP = "reason"
+export const DELIBERATION_STEP = "deliberate"

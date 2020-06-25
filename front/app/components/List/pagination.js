@@ -26,13 +26,9 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   }
 
   useEffect(() => {
-    if (!hidden && pageNb == 0)
+    if (!hidden && pageNb == 0 && !loadFirstPage)
       loadMore()
   }, [hidden])
-
-  useEffect(() => {
-    setPageNb(0)
-  }, [reference])
 
   useEffect(() => {
     // Sort and filter items 
@@ -54,8 +50,11 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   }, [processedRequests])
 
   useEffect(() => {
-    loadFirstPage && loadMore()
-  }, [])
+    setPageNb(0)
+    if (loadFirstPage && pageNb == 0) {
+      loadMore()
+    }
+  }, [reference])
  
   return [
     <LoadMore

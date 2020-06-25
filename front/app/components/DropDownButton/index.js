@@ -41,10 +41,10 @@ const DropDownButton = (props) => {
     for (let i=0; i < ids.length; ++i) {
       const dropdownId = ids[i]
       const [dropdownName, dropdownSetOpen, dropdownIsActive] = window.vdeDropdowns[dropdownId]
-      const menu = document.getElementById(dropdownId)
-      if (!menu)
+      const button = document.getElementById(dropdownId)
+      if (!button)
         delete window.vdeDropdowns[dropdownId]
-      if (menu && dropdownIsActive == dropdownName && !menu.contains(event.target)) {
+      if (button && dropdownIsActive == dropdownName) {
         dropdownSetOpen(false)
       }
     }
@@ -53,11 +53,11 @@ const DropDownButton = (props) => {
   return (
     <div className={`vde dropdown ${classname} ${open?"is_active":""}`}>
       <div className="vde dropdown-trigger">
-        <a className="icon-button" onClick={() => { setOpen(!open) }}>
+        <a id={id} className="icon-button" onClick={() => { setOpen(!open) }}>
           {icon}
         </a>
       </div>
-      <div id={id} className="vde dropdown-menu" role="menu">
+      <div className="vde dropdown-menu" role="menu">
         {open && children}
       </div>
     </div>
