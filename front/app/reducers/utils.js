@@ -19,7 +19,7 @@ export const add_item_to_set = (state, itemId, fieldSet, setItemId) => {
     ...state.filter((element) => element.id != itemId),
     {
       ...old,
-      [fieldSet]: [...old[fieldSet].filter((ref) => ref != setItemId), setItemId]
+      [fieldSet]: !old[fieldSet] ? [setItemId] : [...old[fieldSet].filter((ref) => ref != setItemId), setItemId]
     }
   ]
 }
