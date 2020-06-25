@@ -13,7 +13,9 @@ const useToggleAction = (props) => {
     icon,
     step,
     display,
+    user,
     activeStep,
+    hidden,
     setActiveStep
   } = props
 
@@ -23,14 +25,14 @@ const useToggleAction = (props) => {
 
   useEffect(() => {
     if (html)
-      setHtml(display(item))
+      setHtml(display(item, user))
   }, [item])
 
   useEffect(() => {
     if (active) {
       setLabel(deactivateLabel)
       setActiveStep({ step, activateLabel })
-      setHtml(display(item))
+      setHtml(display(item, user))
     }
     else {
       if (activeStep.step == step && (activeStep.activateLabel == activateLabel))
@@ -46,6 +48,7 @@ const useToggleAction = (props) => {
     }
   }, [activeStep])
 
+  if (hidden) return null
   // This is the format taken as input by dropdownItem
   const menu = {
     leftIcon: icon,

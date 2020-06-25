@@ -1,13 +1,13 @@
 import React from 'react'
 import { render, fireEvent, screen, getByText } from '@testing-library/react'
-import Preview from './index'
+import { PreviewLook } from './index'
 
 
 describe('generic preview card', () => {
 
   it('should try to get it if given item is null', () => {
     const mockGetItem = jest.fn()
-    render(<Preview
+    render(<PreviewLook
       item={null}
       itemId={13}
       itemType={"whatever"}
@@ -24,7 +24,7 @@ describe('generic preview card', () => {
 
   it('should not try to get it if given a not null item', () => {
     const mockGetItem = jest.fn()
-    render(<Preview
+    render(<PreviewLook
       item={{ key: "value" }}
       itemId={13}
       itemType={"whatever"}
@@ -52,7 +52,7 @@ describe('generic preview card', () => {
       }
     ]))
 
-    render(<Preview
+    render(<PreviewLook
       item={{ key: "value" }}
       itemId={13}
       itemType={"whatever"}

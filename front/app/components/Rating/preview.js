@@ -67,6 +67,29 @@ const RatingPreviewLook = (props) => {
   const [editionModalIsActive, setEditionModalIsActive] = useState(false)
   const [createReasonModalIsActive, setCreateReasonModalIsActive] = useState(false)
   const [createEndorsmentModalIsActive, setCreateEndorsmentModalIsActive] = useState(false)
+  const [newEndorsment, setNewEndorsment] = useState(null)
+  const [editionBuffer, setEditionBuffer] = useState(null)
+  const [newReason, setNewReason] = useState(null)
+
+  useEffect(() => {
+    if (rating) {
+      setEditionBuffer(rating)
+      setNewEndorsment({
+        value: 0,
+        target_id: rating.id,
+        author_id: user.id,
+        bigpicture: rating.target_bp,
+        rating: rating.target_rating,
+        reason: rating.body
+      })
+      setNewReason({
+        body: "",
+        target_rating: rating.id,
+        author_id: user.id,
+        subject: rating.subject
+      })
+    }
+  }, [rating, user])
 
   const cardId = !rating && `rating-preview-${rating.id}` || ""
 
@@ -82,14 +105,7 @@ const RatingPreviewLook = (props) => {
     </header>
   )
 
-  const editModal = (rating, user, editionModalIsActive, setEditionModalIsActive) => {
-    const [editionBuffer, setEditionBuffer] = useState(rating)
-
-    useEffect(() => {
-      if (rating)
-        setEditionBuffer(rating)
-    }, [rating, user])
-
+  const editModal = (rating, user) => {
     if (rating.author !== user.id) {
       return null
     }
@@ -125,18 +141,7 @@ const RatingPreviewLook = (props) => {
     )
   }
 
-  const ratingModal = (rating, user, createReasonModalIsActive, setCreateReasonModalIsActive) => {
-    const [newReason, setNewReason] = useState(null)
-    useEffect(() => {
-      if (rating)
-        setNewReason({
-          body: "",
-          target_rating: rating.id,
-          author_id: user.id,
-          subject: rating.subject
-        })
-    }, [rating])
-
+  const ratingModal = (rating, user) => {
     if (!rating || !newReason) return null
 
     if (user.id === cst.GUEST_ID) {
@@ -157,6 +162,31 @@ const RatingPreviewLook = (props) => {
         active={createReasonModalIsActive}
         setActive={setCreateReasonModalIsActive}
         data={newReason}
+      />
+    )
+  }
+
+  const endorsmentModal = (rating, user) => {
+    if (!rating || !newEndorsment) return null
+
+    if (user.id === cst.GUEST_ID) {
+      return (
+        <LoginModal
+          active={createEndorsmentModalIsActive}
+          setActive={setCreateEndorsmentModalIsActive}
+        />
+      )
+    }
+
+    return (
+      <EndorsmentModal
+        title={cst.labels.CREATE_ENDORSMENT}
+        construct={
+          <NewEndorsment data={newEndorsment} setData={setNewEndorsment} />
+        }
+        active={createEndorsmentModalIsActive}
+        setActive={setCreateEndorsmentModalIsActive}
+        data={newEndorsment}
       />
     )
   }
@@ -221,13 +251,13 @@ const RatingPreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_REASONS,
               icon: <EyeIcon className="vde toolbar menu image" />,
               step: cst.REASON_STEP,
-              display: (rating) => ratingRatings(rating, ratings, getRatingsPage)
+              display: (rating, user) => ratingRatings(rating, ratings, getRatingsPage)
             },
             {
               constructor: useModalAction,
               label: cst.labels.CREATE_REASON,
               icon: <PlusIcon className="vde toolbar menu image" />,
-              modal: ratingModal(rating, user, createReasonModalIsActive, setCreateReasonModalIsActive),
+              modal: (rating, user) => ratingModal(rating, user),
               setActiveModal: setCreateReasonModalIsActive
             },
             {
@@ -235,7 +265,7 @@ const RatingPreviewLook = (props) => {
               constructor: useModalAction,
               label: cst.labels.EDIT_RATING,
               icon: <EditIcon className="vde toolbar menu image" />,
-              modal: editModal(rating, user, editionModalIsActive, setEditionModalIsActive),
+              modal: (rating, user) => editModal(rating, user),
               setActiveModal: setEditionModalIsActive
             }
           ]
@@ -250,7 +280,7 @@ const RatingPreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_RESULTS,
               icon: <ChartIcon className="vde toolbar menu image" />,
               step: cst.DELIBERATION_STEP,
-              display: (rating) => <RatingResults showHeader={false} ratingId={rating.id} />
+              display: (rating, user) => <RatingResults showHeader={false} ratingId={rating.id} />
             },
             {
               constructor: useToggleAction,
@@ -258,7 +288,14 @@ const RatingPreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_ENDORSMENTS,
               icon: <EyeIcon className="vde toolbar menu image" />,
               step: cst.DELIBERATION_STEP,
-              display: (rating) => ratingEndorsments(rating, endorsments, getEndorsmentsPage)
+              display: (rating, user) => ratingEndorsments(rating, endorsments, getEndorsmentsPage)
+            },
+            {
+              constructor: useModalAction,
+              label: cst.labels.CREATE_ENDORSMENT,
+              icon: <PlusIcon className="vde toolbar menu image" />,
+              modal: (rating, user) => endorsmentModal(rating, user),
+              setActiveModal: setCreateEndorsmentModalIsActive
             }
           ]
         }
