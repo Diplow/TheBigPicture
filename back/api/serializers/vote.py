@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from api.models import Rating, Endorsment, BigPicture, BaseUser
 from api.serializers.user import UserSerializer
-from api.serializers.bigpicture import BigPictureChildSerializer
+from api.serializers.bigpicture import BigPictureSerializer
 
 
 class RatingChildSerializer(serializers.ModelSerializer):
@@ -48,13 +48,13 @@ class RatingWithContextSerializer(RatingSerializer):
 
     def get_rating_context(rating, context):
       if rating.target_rating is None:
-        context["bigpictures"] = get_bp_context(rating.target_bp)
+        context["subject"] = rating.subject
         return context
       context["ratings"].append(rating.target_rating)
       return get_rating_context(rating.target_rating, context)
 
     res = get_rating_context(obj, { "ratings": []})
     return {
-      "bigpictures": [BigPictureChildSerializer(bp).data for bp in res["bigpictures"]],
+      "subject": BigPictureSerializer(obj.subject).data,
       "ratings": [RatingChildSerializer(rtg).data for rtg in res["ratings"]]
     }

@@ -5,27 +5,35 @@ import * as cst from "../constants"
 
 const addBp = (bp, state) => {
   const old = state.find((element) => element.id == bp.id)
+  let res = {
+    ...old,
+    id: bp.id,
+    title: bp.title,
+    kind: bp.kind,
+    body: bp.body,
+    children: bp.children,
+    hyperlink: bp.hyperlink,
+    hyperlink_id: bp.hyperlink_id,
+    parent: bp.parent,
+    subject: bp.subject,
+    author: bp.author_id,
+    creation_date: bp.creation_date,
+    modification_date: bp.modification_date,
+    favorite: reducer_utils.set_or_update("favorite", bp, old, false),
+    references: reducer_utils.set_or_update("references", bp, old, []),
+    private: bp.private,
+  }
+  if (bp.requestId)
+    res[bp.requestId] = bp[bp.requestId]
+  if (old && old.referenceCount)
+    res.referenceCount = old.referenceCount
+  if (old && old.ratingCount)
+    res.ratingCount = old.ratingCount
+  if (old && old.endorsmentCount)
+    res.endorsmentCount = old.endorsmentCount
   return [
     ...state.filter((element) => element.id != bp.id),
-    {
-      ...old,
-      id: bp.id,
-      title: bp.title,
-      kind: bp.kind,
-      body: bp.body,
-      children: bp.children,
-      hyperlink: bp.hyperlink,
-      hyperlink_id: bp.hyperlink_id,
-      parent: bp.parent,
-      subject: bp.subject,
-      author: bp.author_id,
-      creation_date: bp.creation_date,
-      modification_date: bp.modification_date,
-      favorite: reducer_utils.set_or_update("favorite", bp, old, false),
-      references: reducer_utils.set_or_update("references", bp, old, []),
-      [bp.requestId]: bp[bp.requestId],
-      private: bp.private,
-    }
+    res
   ]
 }
 
@@ -146,15 +154,9 @@ const bigpictures = (state = [], action) => {
       }))
 
     case cst.actions.ADD_RATING:
-      const addContext = (context, state) => {
-        if (context && context.bigpictures) {
-          for (let i = 0; i < context.bigpictures.length; ++i) {
-            state = addBigPicture(context.bigpictures[i], state)
-          }
-        }
-        return state
-      }
-      return addContext(action.rating.context, state)
+      if (action.rating.context && action.rating.context.subject)
+        return addBigPicture(action.rating.context.subject, state)
+      return state
 
     case cst.actions.DELETE_SUBSCRIPTION:
       // If a subscription is deleted, change the favorite field accordingly
@@ -172,7 +174,7 @@ const bigpictures = (state = [], action) => {
       // so it is not needed to reload the page to have the favorite filtering
       // working as intended
       return state.map((item) => {
-        if (item.author == action.subscription.author) {
+        if (item.author == action.subscription.target_id) {
           return { ...item, favorite: true }
         }
         return { ...item }

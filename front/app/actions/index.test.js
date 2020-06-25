@@ -451,7 +451,7 @@ describe('high level actions', () => {
     const server_resp = require("../../cypress/fixtures/api/post/subscription.json")
     const addSubscriptionAction = {
       type: cst.actions.CREATE_SUBSCRIPTION,
-      endorsment: server_resp
+      subscription: server_resp
     }
     const subscriptionCreatedNotif = {
       type: cst.actions.ADD_NOTIFICATION,

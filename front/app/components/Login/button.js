@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { logout } from '../../actions/api'
 import React, { useState } from 'react'
-import LoginModal from './loginmodal'
+import LoginModal from './modal'
 import { ReactComponent as UserIcon } from '../../images/icons/user.svg';
 import * as cst from '../../constants'
 import "./style.scss"
