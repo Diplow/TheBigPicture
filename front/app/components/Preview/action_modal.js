@@ -10,7 +10,10 @@ const useModalAction = (props) => {
     label,
     icon,
     modal,
-    setActiveModal
+    item,
+    user,
+    setActiveModal,
+    hidden
   } = props
 
   // This is the format taken as input by dropdownItem
@@ -20,7 +23,9 @@ const useModalAction = (props) => {
     onClick: () => setActiveModal(true)
   }
 
-  return [modal, menu]
+  if (hidden) return null
+
+  return [modal(item, user), menu]
 }
 
 export default useModalAction

@@ -79,6 +79,31 @@ const BigPicturePreviewLook = (props) => {
   const [creationModalIsActive, setCreationModalIsActive] = useState(false)
   const [editionModalIsActive, setEditionModalIsActive] = useState(false)
   const [createReasonModalIsActive, setCreateReasonModalIsActive] = useState(false)
+  const [newReason, setNewReason] = useState(null)
+  const [newChild, setNewChild] = useState(null)
+  const [editionBuffer, setEditionBuffer] = useState(null)
+
+  useEffect(() => {
+    if (bigPicture) {
+      setEditionBuffer(bigPicture)
+      setNewReason({
+        body: "",
+        target_bp: bigPicture.id,
+        author_id: user.id,
+        subject: bigPicture.subject || bigPicture.id
+      })
+      setNewChild({
+        parent: bigPicture.id,
+        title: "",
+        body: "",
+        author_id: user.id,
+        private: bigPicture.private,
+        subject: bigPicture.subject || bigPicture.id,
+        kind: cst.RESOURCE
+      })
+    }
+  }, [bigPicture, user])
+
 
   const header = (bigPicture, toggleContent) => {
     if (!bigPicture) return null
@@ -138,21 +163,6 @@ const BigPicturePreviewLook = (props) => {
   }
 
   const addChildModal = (bigPicture, user, creationModalIsActive, setCreationModalIsActive) => {
-    const [newChild, setNewChild] = useState(null)
-
-    useEffect(() => {
-      if (bigPicture)
-        setNewChild({
-          parent: bigPicture.id,
-          title: "",
-          body: "",
-          author_id: user.id,
-          private: bigPicture.private,
-          subject: bigPicture.subject || bigPicture.id,
-          kind: cst.RESOURCE
-        })
-    }, [bigPicture, user])
-
     if (!bigPicture || bigPicture.author !== user.id) return null
 
     return (
@@ -167,13 +177,6 @@ const BigPicturePreviewLook = (props) => {
   }
 
   const editModal = (bigPicture, user, editionModalIsActive, setEditionModalIsActive) => {
-    const [editionBuffer, setEditionBuffer] = useState(bigPicture)
-
-    useEffect(() => {
-      if (bigPicture)
-        setEditionBuffer(bigPicture)
-    }, [bigPicture, user])
-
     if (bigPicture.author !== user.id) {
       return null
     }
@@ -229,17 +232,6 @@ const BigPicturePreviewLook = (props) => {
   }
 
   const ratingModal = (bigPicture, user, createReasonModalIsActive, setCreateReasonModalIsActive) => {
-    const [newReason, setNewReason] = useState(null)
-    useEffect(() => {
-      if (bigPicture)
-        setNewReason({
-          body: "",
-          target_bp: bigPicture.id,
-          author_id: user.id,
-          subject: bigPicture.subject || bigPicture.id
-        })
-    }, [bigPicture])
-
     if (!bigPicture || !newReason) return null
 
     if (user.id === cst.GUEST_ID) {
@@ -329,14 +321,14 @@ const BigPicturePreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_CHILDREN,
               icon: <SiteMapIcon className="vde toolbar menu image" />,
               step: cst.ANALYSE_STEP,
-              display: () => bpChildren(bigPicture, children, user)
+              display: (bigPicture, user) => bpChildren(bigPicture, children, user)
             },
             {
               hidden: !bigPicture || bigPicture.author !== user.id,
               constructor: useModalAction,
               label: cst.labels.ADD_CHILD,
               icon: <PlusIcon className="vde toolbar menu image" />,
-              modal: addChildModal(bigPicture, user, creationModalIsActive, setCreationModalIsActive),
+              modal: (bigPicture, user) => addChildModal(bigPicture, user, creationModalIsActive, setCreationModalIsActive),
               setActiveModal: setCreationModalIsActive
             },
             {
@@ -344,7 +336,7 @@ const BigPicturePreviewLook = (props) => {
               constructor: useModalAction,
               label: cst.labels.EDIT_BP,
               icon: <EditIcon className="vde toolbar menu image" />,
-              modal: editModal(bigPicture, user, editionModalIsActive, setEditionModalIsActive),
+              modal: (bigPicture, user) => editModal(bigPicture, user, editionModalIsActive, setEditionModalIsActive),
               setActiveModal: setEditionModalIsActive
             }
           ]
@@ -359,7 +351,7 @@ const BigPicturePreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_REASONS,
               icon: <EyeIcon className="vde toolbar menu image" />,
               step: cst.REASON_STEP,
-              display: (bp) => bpRatings(bp, getBigPictureRatings)
+              display: (bp, user) => bpRatings(bp, getBigPictureRatings)
             },
             {
               constructor: useToggleAction,
@@ -367,13 +359,13 @@ const BigPicturePreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_REFERENCES,
               icon: <ReferenceIcon className="vde toolbar menu image" />,
               step: cst.REASON_STEP,
-              display: (bp) => bpReferences(bp, user, references, getReferences)
+              display: (bp, user) => bpReferences(bp, user, references, getReferences)
             },
             {
               constructor: useModalAction,
               label: cst.labels.CREATE_REASON,
               icon: <PlusIcon className="vde toolbar menu image" />,
-              modal: ratingModal(bigPicture, user, createReasonModalIsActive, setCreateReasonModalIsActive),
+              modal: (bigPicture, user) => ratingModal(bigPicture, user, createReasonModalIsActive, setCreateReasonModalIsActive),
               setActiveModal: setCreateReasonModalIsActive
             }
           ]
@@ -388,7 +380,7 @@ const BigPicturePreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_RESULTS,
               icon: <ChartIcon className="vde toolbar menu image" />,
               step: cst.DELIBERATION_STEP,
-              display: () => <Results showHeader={false} bigPictureId={bigPicture.id} />
+              display: (bigPicture, user) => <Results showHeader={false} bigPictureId={bigPicture.id} />
             },
             {
               constructor: useToggleAction,
@@ -396,7 +388,7 @@ const BigPicturePreviewLook = (props) => {
               deactivateLabel: cst.labels.HIDE_ENDORSMENTS,
               icon: <EyeIcon className="vde toolbar menu image" />,
               step: cst.DELIBERATION_STEP,
-              display: (bp) => bpEndorsments(bp, endorsments, getEndorsmentsPage)
+              display: (bp, user) => bpEndorsments(bp, endorsments, getEndorsmentsPage)
             }
           ]
         }

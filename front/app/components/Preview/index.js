@@ -9,7 +9,7 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 
-const Preview = (props) => {
+export const PreviewLook = (props) => {
   const {
     item,
     itemId,
@@ -29,16 +29,15 @@ const Preview = (props) => {
 
   let actions = {}
   steps.map((step) => {
-    actions[step.step] = step.actions.map((action) => {
-      if (!action.hidden)
-        return action.constructor({
-          ...action,
-          item,
-          setActiveStep,
-          activeStep
-        })
-    })
+    actions[step.step] = step.actions.map((action) => action.constructor({
+      ...action,
+      item,
+      user,
+      setActiveStep,
+      activeStep
+    }))
   })
+
 
   useEffect(() => {
     if (!item)
@@ -116,4 +115,10 @@ const Preview = (props) => {
   )
 }
 
-export default Preview
+const mapStateToProps = (state) => ({
+  user: state.get("user")
+})
+
+const Preview = connect(mapStateToProps)(PreviewLook)
+
+export default Preview;
