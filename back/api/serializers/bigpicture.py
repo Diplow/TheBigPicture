@@ -27,11 +27,11 @@ class BigPictureSerializer(serializers.ModelSerializer):
   author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
   family = serializers.SerializerMethodField()
   children = serializers.SerializerMethodField()
+  pin = serializers.BooleanField(read_only=True)
 
   class Meta:
     model = BigPicture
     fields = "__all__"
-
 
   def get_family(self, obj):
     if obj.subject.id == obj.id:

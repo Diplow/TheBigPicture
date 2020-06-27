@@ -22,6 +22,7 @@ const addBp = (bp, state) => {
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
+    pin: bp.pin
   }
   if (bp.requestId)
     res[bp.requestId] = bp[bp.requestId]

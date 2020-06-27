@@ -93,7 +93,7 @@ export const PreviewLook = (props) => {
 
   return (
     <div>
-      <div id={cardId} className={`vde card ${itemType}`}>
+      <div id={cardId} className={`vde card ${itemType} ${item && item.pin ? 'pin' : ""}`}>
         { header }
         { content }
         { toolbar }
