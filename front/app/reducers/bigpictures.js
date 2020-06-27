@@ -133,6 +133,12 @@ const bigpictures = (state = [], action) => {
         { ratingCount: action.count }
       )
 
+    case cst.actions.SET_SUBJECT_RATING_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.subject,
+        { ratingFamilyCount: action.count })
+
     case cst.actions.SET_BP_REFERENCE_COUNT:
       return reducer_utils.update_item(
         state,

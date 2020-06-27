@@ -160,6 +160,8 @@ export const getRatings = (page, options, requestId) => {
     requestName = "getRatingRatings"
   if (options.author)
     requestName = "getUserRatings"
+  if (options.subject)
+    requestName = "getSubjectRatings"
   return (dispatch) => {
     api.getCollection(
       dispatch,

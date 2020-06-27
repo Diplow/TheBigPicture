@@ -8,6 +8,7 @@ import EndorsmentPreview from '../../../components/Endorsment/preview'
 import RatingList from '../../../components/Rating/list'
 import BigPicturePreview from '../../../components/BigPicture/preview'
 import Results from '../../../components/BigPicture/results'
+import Context from '../../../components/Context'
 import List from '../../../components/List'
 import { RatingButton } from '../../../components/Rating/buttons'
 import AuthorIcon from '../../../components/User/authorIcon'
@@ -21,6 +22,7 @@ import { ReactComponent as ChildrenIcon } from '../../../images/icons/sitemap.sv
 import { ReactComponent as RatingsIcon } from '../../../images/icons/reasons.svg'
 import { ReactComponent as ReferenceIcon } from '../../../images/icons/reference.svg'
 import { ReactComponent as EndorsmentIcon } from '../../../images/icons/star.svg'
+import { ReactComponent as ChronometerIcon } from '../../../images/icons/chronometer.svg'
 
 import * as cst from '../../../constants'
 import "./style.scss"
@@ -35,6 +37,7 @@ const BigPictureViewLook = (props) => {
     endorsments,
     getBigPicture,
     getReferences,
+    getLastBps,
     getRatingsPage,
     getEndorsmentsPage } = props
   const [init, setter] = useState(bigPicture)
@@ -65,6 +68,8 @@ const BigPictureViewLook = (props) => {
           { references(init, getReferences) }
           { endorsmentsList(init, endorsments, getEndorsmentsPage) }
           { results(init) }
+          { lastbps(init, getLastBps) }
+          { lastratings(init, getRatingsPage) }
         </div>
       </Loader>
     </div>
@@ -108,11 +113,7 @@ const content = (bigPicture, user, setter) => {
       </div>
       {
         !hidden
-          ? <div className="card vde tbp-description">
-            <div className="vde card-content content">
-              <ReactMarkdown source={bigPicture.body != "" ? bigPicture.body : cst.labels.BP_EMPTY_BODY} />
-            </div>
-          </div>
+          ? <Context bpId={bigPicture.id} />
           : null
       }
     </div>
@@ -262,6 +263,45 @@ const endorsmentsList = (bigPicture, endorsments, getPage) => {
       }
       loadFirstPage={false}
       title={cst.labels.ENDORSMENT_LIST_TITLE}
+      margin={0}
+    />
+  )
+}
+
+const lastbps = (bigPicture, getLastBps) => {
+  if (!bigPicture || bigPicture.subject !== bigPicture.id) return null
+
+  return (
+    <BigPictureList
+      name={`bp-page-${bigPicture.id}-lastbigpictures-list`}
+      icon={<ChronometerIcon className="vde header-button level-item image is-32x32" />}
+      filter={(bp) => bigPicture.subject == bp.subject && bp.id !== bigPicture.subject}
+      count={0}
+      getPage={null}
+      title={cst.labels.LAST_ACTIVITY_BP}
+      loadFirstPage={false}
+      emptyMessage={cst.labels.NO_ACTIVITY_BP}
+      margin={0}
+    />
+  )
+}
+
+const lastratings = (bigPicture, getRatingsPage) => {
+  if (!bigPicture || bigPicture.subject !== bigPicture.id) return null
+
+  return (
+    <RatingList
+      name={`bp-page-${bigPicture.id}-lastratings-list`}
+      icon={<ChronometerIcon className="vde header-button level-item image is-32x32" />}
+      filter={(rating) => rating.subject == bigPicture.id}
+      loadFirstPage={false}
+      count={bigPicture.ratingFamilyCount}
+      sortFunc={(a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1)}
+      getPage={
+        (page, options, requestId) => getRatingsPage(page, { ...options, subject: bigPicture.id }, requestId)
+      }
+      title={cst.labels.LAST_ACTIVITY_RATING}
+      emptyMessage={cst.labels.NO_ACTIVITY_RATING}
       margin={0}
     />
   )

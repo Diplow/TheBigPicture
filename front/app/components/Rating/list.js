@@ -18,6 +18,7 @@ const RatingListLook = (props) => {
     count,
     getPage,
     showHeader,
+    sortFunc,
     loadFirstPage,
     title,
     buttons,
@@ -33,7 +34,7 @@ const RatingListLook = (props) => {
       container={(rating) => <RatingPreview ratingId={rating.id} margin={margin} />}
       user={user}
       emptyMessage={emptyMessage}
-      sortFunc={ratingsSort}
+      sortFunc={sortFunc || ratingsSort}
       count={count}
       getPage={getPage}
       loadFirstPage={loadFirstPage}

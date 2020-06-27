@@ -24,6 +24,11 @@ const NEXTS = {
       dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))
     }
   ),
+  "getSubjectRatings": (dispatch, nextargs, requestId) => (
+    (result) => {
+      dispatch(basics.setSubjectRatingCount(nextargs.subject, result.count, requestId))
+    }
+  ),
   "getUserRatings": (dispatch, nextargs, requestId) => (
     (result) => {
       dispatch(basics.setUserRatingCount(nextargs.author, result.count, requestId))
