@@ -307,7 +307,7 @@ const BigPicturePreviewLook = (props) => {
       getItem={getBigPicture}
       header={ header(bigPicture, toggleContent) }
       content={ content(showContent, bigPicture.body) }
-      leftToolbar={ <p className="content">{`${bigPicture.id} - ${bigPicture.creation_date}`}</p> }
+      leftToolbar={ <p className="content">{`${bigPicture.creation_date}`}</p> }
       lookButton={ lookButton(bigPicture) }
       user={user}
       steps={[

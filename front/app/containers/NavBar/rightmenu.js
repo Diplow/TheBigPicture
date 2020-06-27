@@ -10,6 +10,7 @@ import { ReactComponent as DiscordIcon } from '../../images/icons/discord-color.
 import { ReactComponent as TwitterIcon } from '../../images/icons/twitter-color.svg'
 import { ReactComponent as GithubIcon } from '../../images/icons/github-color.svg'
 import { ReactComponent as HomeIcon } from '../../images/icons/home.svg'
+import { ReactComponent as PlusIcon } from '../../images/icons/plus.svg'
 import { ReactComponent as DisconnectIcon } from '../../images/icons/logout.svg'
 
 import EditionModalButton from '../../components/Buttons/modal'
@@ -20,10 +21,10 @@ import LoginModal from '../../components/Login/modal'
 import DropdownMenu from '../../components/DropDownMenu'
 import DropDownButton from '../../components/DropDownButton'
 
-
 import { logout } from '../../actions/api'
 
 import * as cst from '../../constants'
+import * as utils from '../../utils'
 import "./style.scss"
 
 
@@ -74,6 +75,7 @@ const socialsButton = (isActive, setIsActive) => (
 
 const createButton = (isActive, setIsActive, user) => {
   const [init, setter] = useState(null)
+  const [active, setActive] = utils.hooks.useToggle(false)
 
   useEffect(() => {
     setter({
@@ -85,7 +87,19 @@ const createButton = (isActive, setIsActive, user) => {
     })
   }, [user])
 
-  if (user.id == cst.GUEST_ID) return null
+  if (user.id == cst.GUEST_ID) {
+    return (
+      <span className="home-add-bp level-item is-narrow">
+        <span className="icon">
+          <PlusIcon className="vde navbar image is-32x32" onClick={ () => setActive()} />
+        </span>
+        <LoginModal
+          active={active}
+          setActive={setActive}
+        />
+      </span>
+    )
+  }
 
   return (
     <EditionModalButton

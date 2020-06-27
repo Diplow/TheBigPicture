@@ -23,7 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
   getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
   getReferences: getPageFormatter(dispatch, getSubjects),
   getRatingsPage: getPageFormatter(dispatch, getRatings),
-  getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments)
+  getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments),
+  getLastBps: getPageFormatter(dispatch, getSubjects)
 })
 
 const BigPictureView = connect(mapStateToProps, mapDispatchToProps)(BigPictureViewLook)

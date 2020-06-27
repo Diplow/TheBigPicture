@@ -59,6 +59,7 @@ class RatingViewSet(ModelViewSet):
     author = self.request.query_params.get('author', None)
     ratingauthor = self.request.query_params.get('ratingauthor', None)
     bp = self.request.query_params.get('bigpicture', None)
+    subject = self.request.query_params.get('subject', None)
     rating = self.request.query_params.get('rating', None)
     if author is not None:
       endorsments = Endorsment.objects.filter(author=author)
@@ -69,6 +70,8 @@ class RatingViewSet(ModelViewSet):
       queryset = queryset.filter(target_bp=bp)
     if rating is not None:
       queryset = queryset.filter(target_rating=rating)
+    if subject is not None:
+      return queryset.filter(subject=subject).order_by('-date')
     return queryset.annotate(basisCount=Count('endorsments')).order_by('-basisCount')
 
   def create(self, request):
