@@ -22,6 +22,7 @@ const addBp = (bp, state) => {
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
+    pin: bp.pin
   }
   if (bp.requestId)
     res[bp.requestId] = bp[bp.requestId]
@@ -131,6 +132,12 @@ const bigpictures = (state = [], action) => {
         action.bpId,
         { ratingCount: action.count }
       )
+
+    case cst.actions.SET_SUBJECT_RATING_COUNT:
+      return reducer_utils.update_item(
+        state,
+        action.subject,
+        { ratingFamilyCount: action.count })
 
     case cst.actions.SET_BP_REFERENCE_COUNT:
       return reducer_utils.update_item(

@@ -28,8 +28,9 @@ class SubjectViewSet(ModelViewSet):
     self.queryset = self._author_filtering()
     self.queryset = self._favorites_filtering()
     self.queryset = self._reference_filtering()
+    self.queryset = self.queryset.order_by('-pin', '-modification_date')
     self.queryset = self._search_filtering()
-    return self. queryset
+    return self.queryset
 
   def _author_filtering(self):
     author = self.request.query_params.get('author', None)
@@ -42,7 +43,7 @@ class SubjectViewSet(ModelViewSet):
     if search is not None:
       vector = SearchVector('title', 'author__username', 'body')
       query = SearchQuery(search)
-      return self.queryset.annotate(rank=SearchRank(vector, query)).order_by('-rank')
+      return self.queryset.annotate(rank=SearchRank(vector, query)).order_by('-rank', '-pin', '-modification_date')
     return self.queryset
 
   def _favorites_filtering(self):
@@ -65,6 +66,7 @@ class BigPictureViewSet(ModelViewSet):
   permission_classes = [IsAuthorOrReadOnly]
 
   def create(self, request):
+    request.data["pin"] = False
     if request.user.id != int(request.data["author_id"]):
       return HttpResponse(json.dumps({"error": "Vous ne pouvez pas ajouter un contenu dont vous n'êtes pas l'auteur."}), status=401)
     if "parent" in request.data:
