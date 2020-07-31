@@ -80,7 +80,7 @@
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "css-loader": "^3.5.2",
-    "cypress": "^4.6.0",
+    "cypress": "^4.11.0",
     "eslint": "^6.8.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
