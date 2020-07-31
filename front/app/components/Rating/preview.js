@@ -237,7 +237,7 @@ const RatingPreviewLook = (props) => {
       itemType="reason"
       getItem={getRatingContext}
       header={ header(rating) }
-      leftToolbar={ <p className="content">{`${rating.id} - ${rating.date}`}</p> }
+      leftToolbar={ <p className="content">{`${rating.date}`}</p> }
       lookButton={ lookButton(rating) }
       user={user}
       steps={[

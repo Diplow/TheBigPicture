@@ -47,6 +47,13 @@ export const setSubjectCount = (count, requestId) => ({
   requestId
 })
 
+export const setSubjectRatingCount = (subject, count, requestId) => ({
+  type: cst.actions.SET_SUBJECT_RATING_COUNT,
+  count,
+  subject,
+  requestId
+})
+
 export const setBpReferenceCount = (count, bpId, requestId) => ({
   type: cst.actions.SET_BP_REFERENCE_COUNT,
   count,
