@@ -20,7 +20,10 @@ div.section.vde-navbar {
 }
 
 .vde.dropdown.nav-item:hover,
-.vde.dropdown.nav-item:focus {
+.vde.dropdown.nav-item:focus,
+.home-add-bp.level-item:hover,
+.home-add-bp.level-item:focus
+{
   border-color: $dark;
   border-width: thin;
   border-style: outset;
@@ -68,6 +71,7 @@ div.level.vde-navbar {
   align-items: center;
   justify-content: center;
   font-size: x-large;
+  cursor: pointer;
 }
 
 .level.is-mobile .home-add-bp.level-item:not(:last-child) {
@@ -95,5 +99,3 @@ span.home-add-bp a .icon {
   justify-content: center;
   transition: filter 300ms;
 }
-
-
