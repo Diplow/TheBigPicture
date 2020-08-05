@@ -8,8 +8,8 @@ services:
     volumes:
       - ./back/:/opt/vuedensemble/back/
       - static_volume:/opt/vuedensemble/back/static
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     environment:
       - DEPLOYEMENT_MODE=local
       - SECRET_KEY=local
@@ -27,25 +27,17 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
 
   front:
     container_name: front
     build: ./front
     command: npm start 0.0.0.0:3000
+    ports:
+      - 3000:3000
     volumes:
       - ./front:/opt/vuedensemble/front/
-    expose:
-      - 3000
-
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/opt/vuedensemble/back/static
-    ports:
-      - 80:80
-    depends_on:
-      - web
-      - front
 
 volumes:
   static_volume:
