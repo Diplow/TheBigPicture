@@ -33,5 +33,6 @@ RUN pip freeze
 # copy project
 COPY . /opt/vuedensemble/back
 
+RUN chmod +x /opt/vuedensemble/back/entrypoint.sh
 # run entrypoint.sh
 ENTRYPOINT ["/opt/vuedensemble/back/entrypoint.sh"]
