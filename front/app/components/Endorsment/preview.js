@@ -31,7 +31,7 @@ const EndorsmentPreviewLook = (props) => {
       <div className="vde card endorsment">
         <header className="vde card-header level preview-item-level is-mobile">
           { leftLevel(author, endorsment) }
-          { rightLevel(endorsment, user, cancel) }
+          { rightLevel(endorsment, author, user, cancel) }
         </header>
         { endorsmentReason(showReason, target) }
       </div>
@@ -46,11 +46,20 @@ const leftLevel = (author, endorsment) => (
   </div>
 )
 
-const rightLevel = (endorsment, user) => (
+const rightLevel = (endorsment, author, user, cancel) => (
   <div className="level-right">
     <figure className="vde rating-image level-item image is-48x48">
       <img src={cst.STATIC_STORAGE + cst.VALUE_ICONS[endorsment.value]} />
     </figure>
+    {
+      user.id === author.id
+      ? <div className="button tbp-radio level-item title-button is-narrow removeendorsment">
+          <a onClick={() => cancel(endorsment.id)}>
+            <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
+          </a>
+        </div>
+      : null
+    }
   </div>
 )
 
