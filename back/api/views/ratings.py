@@ -42,6 +42,20 @@ class EndorsmentViewSet(ModelViewSet):
       self.queryset = self.queryset.filter(target__target_rating=rating)
     return self.queryset
 
+  def create(self, request):
+    if request.user.id != int(request.data["author_id"]):
+      return HttpResponse(json.dumps({"error": "Vous ne pouvez évaluer qu'en votre nom propre !"}), status=401)
+    args = {
+      "author": request.data["author_id"],
+      "body": request.data["reason"],
+      "target_bp": request.data.get("bigpicture", None),
+      "target_rating": request.data.get("rating", None),
+      "subject": request.data.get("subject")
+    }
+    if request.data["target_id"] is None:
+      new_reason = Rating.objects.create(**args)
+    args["target_id"] = request.data["target_id"] or new_reason.id 
+    return super().create(request)
 
 class RatingWithContextViewSet(ModelViewSet):
   queryset = Rating.objects.all()
