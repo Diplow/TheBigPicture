@@ -18,7 +18,6 @@ from api.forms.base_user import BaseUserForm
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'subscriptions', SubscriptionViewSet)
-router.register(r'auth', AuthViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
 router.register(r'subjects', SubjectViewSet)
