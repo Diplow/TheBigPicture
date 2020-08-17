@@ -160,6 +160,14 @@ const bigpictures = (state = [], action) => {
         children: element.children.filter((id) => id !== action.id) 
       }))
 
+    case cst.actions.CREATE_RATING:
+      const target = state.find((elt) => elt.id == action.rating.target_bp)
+      if (!target) return state
+      state = reducer_utils.update_item(
+        state,
+        action.rating.target_bp,
+        { ratingCount: target.ratingCount+1 }
+      )
     case cst.actions.ADD_RATING:
       if (action.rating.context && action.rating.context.subject)
         return addBigPicture(action.rating.context.subject, state)

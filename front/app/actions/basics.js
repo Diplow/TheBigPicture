@@ -160,6 +160,11 @@ export const addRating = (rating) => ({
   rating
 })
 
+export const createRating = (rating) => ({
+  type: cst.actions.CREATE_RATING,
+  rating
+})
+
 export const addSubscription = (subscription) => ({
   type: cst.actions.ADD_SUBSCRIPTION,
   subscription

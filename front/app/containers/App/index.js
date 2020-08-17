@@ -2,8 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import Home from '../pages/Home'
-import BigPictureView from '../pages/BigPicture'
-import RatingView from '../pages/Rating'
+import SubjectView from '../pages/BigPicture'
 import UserView from '../pages/User'
 import NavBar from '../NavBar'
 import Api from '../Api'
@@ -15,8 +14,7 @@ const App = () => (
   <div>
     <NavBar />
     <div id="routes">
-      <Route exact={true} path="/subject/:subjectId/bigPicture/:bpId" component={BigPictureView} />
-      <Route exact={true} path="/subject/:subjectId/rating/:ratingId" component={RatingView} />
+      <Route exact={true} path="/subject/:subjectId/bigpicture/:bigPictureId" component={SubjectView} />
       <Route exact={true} path="/user/:id" component={UserView} />
       <Route exact={true} path="/" component={Home}/>
     </div>

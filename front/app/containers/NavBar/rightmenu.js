@@ -14,7 +14,7 @@ import { ReactComponent as PlusIcon } from '../../images/icons/plus.svg'
 import { ReactComponent as DisconnectIcon } from '../../images/icons/logout.svg'
 
 import EditionModalButton from '../../components/Buttons/modal'
-import NewBigPicture from '../../components/BigPicture/new'
+import NewBigPicture from '../../components/BigPicture/newsubject'
 import BigPictureModal from '../../components/BigPicture/modal'
 import LoginButton from '../../components/Login/button'
 import LoginModal from '../../components/Login/modal'

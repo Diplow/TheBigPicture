@@ -1,76 +1,21 @@
 @import "../../styles/theme.scss";
 
 
-.vde.card {
-  --basic-padding: 0.6rem;
-  border-radius: 10px;
-  background-color: $primary-5;
+/* */
+.vde.child.card-content {
   width: 100%;
-  padding: 0;
-  margin: 0.7rem 0;
 
-  box-shadow: 0 2px 3px rgba(20,20,20,.3), 0 0 0 2px rgba(20,20,20,.3);
+  .card-header.level.is-mobile {
+    .level-left {
+      .vde.header-button.lookicon {
+        transform: rotate(180deg);
+      }
 
-  .vde.card-header {
-    width: 100%;
-    padding: var(--basic-padding);
-    margin: 0;
-
-    .vde.title {
-      color: $primary-2;
-      font-size: 1rem;
     }
-
-    .vde.p {
-      color: $primary-2;
+    .level-right {
+      .icon-button {
+        width: 1.4rem;
+      }
     }
   }
-
-  .vde.card-content {
-    width: 100%;
-    color: $primary-2;
-    padding: var(--basic-padding);
-    font-size: 1rem;
-    strong {
-      color: $primary-2;
-    }
-  }
-
-  .vde.toolbar.level {
-    padding: 0.1rem 0;
-    padding-left: var(--basic-padding);
-    padding-right: var(--basic-padding);
-    display: flex;
-    align-items: center;
-    margin: 0;
-
-    .vde.toolbar.level-item {
-      margin-right: 0.3rem;
-    }
-    .vde.toolbar.level-item:last-child {
-      margin-right: 0;
-    }
-    .vde.toolbar {
-      color: $primary-2;
-    }
-  }
-}
-
-.vde.card.pin {
-  border: outset;
-  border-color: gold;
-  border-width: 0.4rem;
-}
-
-.vde.toolbar.menu.image {
-  height: 1.3rem;
-}
-
-.vde.toolbar:hover {
-  color: $primary-3;
-}
-
-.vde.bp-icons {
-  color: $primary-1;
-  font-size: xx-large;
 }

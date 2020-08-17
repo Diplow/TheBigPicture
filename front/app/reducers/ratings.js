@@ -4,22 +4,11 @@ import * as cst from "../constants"
 
 
 const addRating = (rating, state) => {
-  const old = state.find((element) => element.id == rating.id)
-  
-  const addContext = (context, state) => {
-    if (context && context.ratings) {
-      for (let i = 0; i < context.ratings.length; ++i) {
-        state = addRating(context.ratings[i], state)
-      }
-    }
-    return state
-  }
-
-  state = addContext(rating.context, state)
+  const old = state.find((elt) => elt.id == rating.id)
   if (rating.reason == "") return state
 
   return [
-    ...state.filter((elt) => elt.id != rating.id),
+    ...state.filter((elt) => elt.id !== rating.id),
     {
       ...old,
       id: rating.id,
@@ -30,14 +19,36 @@ const addRating = (rating, state) => {
       body: rating.body,
       subject: rating.subject,
       basisCount: rating.basisCount,
+      ratingCount: old && old.ratingCount ? old.ratingCount : rating.ratingCount,
+      new: old && old.new ? true : rating.new,
       date: rating.date,
+      modification_date: rating.modification_date,
       [rating.requestId]: rating[rating.requestId]
+    }
+  ]
+}
+
+const updateRatingCounts = (rating, state) => {
+  if (!rating.target_rating) return state
+
+  const target = state.find((elt) => elt.id == rating.target_rating)
+  if (!target) return state
+  return [
+    ...state.filter((elt) => elt.id !== target.id),
+    {
+      ...target,
+      ratingCount: target.ratingCount+1
     }
   ]
 }
 
 const ratings = (state = [], action) => {
   switch (action.type) {
+
+    case cst.actions.CREATE_RATING:
+      action.rating.new = true
+      state = addRating(action.rating, state)
+      return updateRatingCounts(action.rating, state)
 
     case cst.actions.ADD_RATING:
       return addRating(action.rating, state)
@@ -52,13 +63,6 @@ const ratings = (state = [], action) => {
         state,
         action.ratingId,
         { endorsmentCount: action.count }
-      )
-
-    case cst.actions.SET_RATING_RATING_COUNT:
-      return reducer_utils.update_item(
-        state,
-        action.ratingId,
-        { ratingCount: action.count }
       )
 
     case cst.actions.ADD_RATING_RESULTS:

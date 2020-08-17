@@ -22,12 +22,44 @@ body.fontLoaded {
   position: absolute;
 }
 
+.title:not(:last-child),
+.subtitle:not(:last-child) {
+  margin: 0;
+}
+
+.card-content {
+  padding: 0;
+  width: 100%;
+}
+
 p,
 label {
   font-family: 'Ubuntu';
-  text-align: justify;
+  text-align: left;
   max-width: 100%;
   line-height: 1.5em;
+}
+
+.vde.header-button {
+  font-size: x-large;
+  color: $link;
+  margin: 0;
+}
+.vde.header-button:not(:first-child) {
+  margin-left: 1rem;
+}
+.vde.header-button:not(:last-child) {
+  margin-right: 0.3rem;
+}
+
+.vde.header-icon {
+  color: $link;
+  width: 1.5rem;
+}
+
+.vde.header-button:focus,
+.vde.header-button:hover {
+  color: lighten($link, 20%);
 }
 
 .preview-item-level {

@@ -5,7 +5,7 @@ export const MSG_NO_SUBJECT = "Aucun sujet n'a encore été créé."
 export const MSG_NO_REFERENCE = "Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."
 export const MSG_NO_REASON = "Cette vue d'ensemble n'a pas encore été raisonnée."
 export const REFERENCE_LIST_TITLE = "Références"
-export const REASON_LIST_TITLE = "Raisons"
+export const REASON_LIST_TITLE = "Commentaires"
 export const USER_EMPTY_BIO = (username) => `${username} n'a pas renseigné sa bio.`
 export const USER_HAS_NO_SUBJECT = (username) => `Aucun sujet n'a encore été créé publiquement par ${username}`
 export const USER_HAS_NO_REASON = (username) => `Aucune raison n'a encore été donnée publiquement par ${username}`
@@ -48,6 +48,13 @@ export const SHOW_REFERENCES = "Afficher les références"
 export const HIDE_REFERENCES = "Masquer les références"
 export const CREATE_REASON = "Créer une raison"
 export const CREATE_ENDORSMENT = "Évaluer sur la base de cette raison"
+
+export const CREATE_BP_ENDORSMENT_BY_KIND = {
+  1: "Évaluer ce sujet.",
+  2: "Évaluer ce problème.",
+  3: "Évaluer cette solution.",
+  4: "Évaluer cette ressource."
+}
 export const ADD_CHILD = "Créer une vue enfant"
 export const EDIT_BP = "Modifier cette vue"
 export const EDIT_RATING = "Modifier cette raison"
@@ -55,3 +62,7 @@ export const LAST_ACTIVITY_BP = "Activité (vues)"
 export const NO_ACTIVITY_BP = "Aucune vue n'a encore été ajoutée à ce sujet."
 export const LAST_ACTIVITY_RATING = "Activité (raisons)"
 export const NO_ACTIVITY_RATING = "Aucune raison n'a encore été apportée à ce sujet."
+export const SEE_MORE = "Voir plus"
+export const SEE_LESS = "Voir moins"
+export const REASON_FIELD_MODAL_TITLE = "Écrivez votre propre commentaire"
+export const NEW_REASON_PLACEHOLDER = "Écrivez votre propre commentaire !"

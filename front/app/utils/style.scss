@@ -1,1 +1,15 @@
-@import "../../styles/theme.scss";
+@import "../styles/theme.scss";
+
+.card-content {
+  p.showmore {
+    color: $link;
+    font-weight: 700;
+  }
+  p.showmore:focus,
+  p.showmore:hover {
+    color: lighten($link, 20%);
+  }
+  .content {
+    padding: 5%;
+  }
+}

@@ -1,8 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
 from django.http import HttpResponse
 from django.db.models import Count
+from api.utils import get_or_none
 
-from api.models import Rating, Endorsment
+from api.models import Rating, Endorsment, BigPicture, BaseUser
 from api.serializers import RatingSerializer, RatingWithContextSerializer, EndorsmentSerializer
 from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 
@@ -45,16 +46,11 @@ class EndorsmentViewSet(ModelViewSet):
   def create(self, request):
     if request.user.id != int(request.data["author_id"]):
       return HttpResponse(json.dumps({"error": "Vous ne pouvez évaluer qu'en votre nom propre !"}), status=401)
-    args = {
-      "author": request.data["author_id"],
-      "body": request.data["reason"],
-      "target_bp": request.data.get("bigpicture", None),
-      "target_rating": request.data.get("rating", None),
-      "subject": request.data.get("subject")
-    }
-    if request.data["target_id"] is None:
-      new_reason = Rating.objects.create(**args)
-    args["target_id"] = request.data["target_id"] or new_reason.id 
+    Endorsment.objects.filter(
+      author__id=request.user.id,
+      bigpicture=request.data.get("bigpicture", None),
+      rating=request.data.get("rating", None)
+      ).delete()
     return super().create(request)
 
 class RatingWithContextViewSet(ModelViewSet):

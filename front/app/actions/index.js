@@ -111,7 +111,7 @@ export const postRating = (vote) => (
       dispatch,
       utils.removeEmptyKeys(vote),
       "ratings",
-      basics.addRating,
+      basics.createRating,
       "/",
       "POST"
     )
@@ -131,7 +131,7 @@ export const patchRating = (rating) => (
   )
 )
 
-export const deleteVote = (id) => (
+export const deleteRating = (id) => (
   (dispatch) => (
     api.deleteItem(
       dispatch,

@@ -53,12 +53,12 @@ const rightLevel = (endorsment, author, user, cancel) => (
     </figure>
     {
       user.id === author.id
-      ? <div className="button tbp-radio level-item title-button is-narrow removeendorsment">
+        ? <div className="button tbp-radio level-item title-button is-narrow removeendorsment">
           <a onClick={() => cancel(endorsment.id)}>
             <span className="icon is-small"><i className={cst.icons.DELETE_CROSS}></i></span>
           </a>
         </div>
-      : null
+        : null
     }
   </div>
 )

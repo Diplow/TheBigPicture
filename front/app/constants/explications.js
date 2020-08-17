@@ -1,12 +1,12 @@
 
 
 const EXPLICATIONS = {
-  0: "Je ne comprends pas bien ce contenu.",
-  1: "Ce contenu est néfaste.",
-  2: "Ce contenu n'est pas pertinent.",
-  3: "Ce contenu pourrait être pertinent.",
-  4: "Ce contenu est pertinent.",
-  5: "Ce contenu est excellent."
+  0: "Incompréhensible.",
+  1: "Néfaste.",
+  2: "Superflue.",
+  3: "Inégale.",
+  4: "Pertinente.",
+  5: "Excellente."
 }
 
 export default EXPLICATIONS

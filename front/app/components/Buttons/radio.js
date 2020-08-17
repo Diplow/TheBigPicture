@@ -3,12 +3,17 @@ import PropTypes from 'prop-types'
 import "./style.scss"
 
 
-const RadioButton = ({ classname, isPushed, setIsPushed, icon}) => (
+const RadioButton = ({ classname, isPushed, setIsPushed, icon, label }) => (
   <span className={`${classname} level-item is-narrow`}>
     <a
       onClick={() => setIsPushed(!isPushed)}
       className={isPushed ? " is-active" : ""}>
-      <span className="icon is-small"><i className={icon}></i></span>
+
+      {
+        typeof(icon) === "string"
+          ? <span className="icon is-small"><i className={icon}></i></span>
+          : icon
+      }
     </a>
   </span>
 )

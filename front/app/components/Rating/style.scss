@@ -1,8 +1,53 @@
 @import "../../styles/theme.scss";
 
+.textarea.vde-newrating:not(:last-child) {
+  border-radius: 0;
+}
 
-.vde.card.reason {
-  background-color: $primary-4;
+.textarea.vde-newrating:last-child {
+  margin-bottom: 1rem;
+}
+
+.level.publish-button {
+  padding: 1rem;
+}
+
+.show-reasons {
+  position: relative;
+  top: -28px;
+  margin-bottom: -30px;
+  left: 50%;
+  height: 0;
+}
+
+.level-left,
+.level-right {
+  .toolbar {
+    margin: 0 0.5rem;
+    .vde.header-button {
+      margin: 0;
+    }
+  }
+}
+
+.creating-button {
+  display: flex;
+  margin-left: 1rem;
+}
+
+
+.vde.card.subject-preview {
+  .toolbar.vde.card-header.level.is-mobile {
+    height: 3.5rem;
+    min-height: 2rem;
+
+    .level-left {
+      width: 0;
+    }
+    .right-level {
+      max-width: 100%;
+    }
+  }
 }
 
 .tbp-star {
