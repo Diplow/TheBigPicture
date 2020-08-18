@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { getEndorsments } from '../../../actions/index'
 
 import Loader from '../../../components/Loader'
-import endorsmentsSort from '../../../components/Endorsment/sort'
-import EndorsmentPreview from '../../../components/Endorsment/preview'
 import HideAndShowButton from '../../../components/Buttons/hideandshow'
 import RadioButton from '../../../components/Buttons/radio'
 import List, { getPageFormatter } from '../../../components/List'

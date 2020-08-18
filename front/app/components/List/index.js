@@ -81,6 +81,7 @@ const ListLook = (props) => {
               : null
           })
         }
+        { count == 0 && !loading && emptyMessage ? <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">{emptyMessage}</p> : null }
         { !hidden ? <Loader condition={loading}>{pagination}</Loader> : null }
         { newItem }
       </ul>

@@ -101,7 +101,7 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
   }
 
   const pinButton = (
-    <div style={{height: 0, position: "absolute", top: "12px", right: "0px"}} className="vde header-button level-item pin-icon">
+    <div style={{height: 0, position: "absolute", top: "12px", right: "46%"}} className="vde header-button level-item pin-icon">
       <PinIcon style={{color: "#E83A00", width: "1.2rem"}} className="vde header-icon is-narrow icon-button" />
     </div>
   )

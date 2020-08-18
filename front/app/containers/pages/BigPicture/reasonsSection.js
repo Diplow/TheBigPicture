@@ -59,7 +59,7 @@ const ReasonsSectionLook = (props) => {
       name={`bp-${bigPicture.id}-ratings-list`}
       items={ratings}
       container={(child) => <RatingPreview key={`previewrating-${child.id}`} ratingId={child.id} />}
-      emptyMessage={cst.labels.BP_HAS_NO_RATING}
+      emptyMessage={cst.labels.MSG_NO_REASON}
       sortFunc={ratingsSort}
       count={bigPicture.ratingCount}
       getPage={
