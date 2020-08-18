@@ -57,11 +57,10 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
 
       const lookButton = (bigPicture) => {
         if (!bigPicture) return null
-
         return (
           <LinkButton
             icon={ <LookIcon className="vde header-icon icon lookicon" /> }
-            to={`/subject/${bigPicture.subject || bigPicture.id}/bigpicture/${bigPicture.id}`}
+            to={`/subject/${bigPicture.hyperlink_id || bigPicture.subject || bigPicture.id}/bigpicture/${bigPicture.hyperlink_id || bigPicture.id}`}
             classname="vde is-narrow header-button icon-button"
           />
         )
