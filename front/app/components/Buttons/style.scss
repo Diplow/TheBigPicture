@@ -1,1 +1,7 @@
 @import "../../styles/theme.scss";
+
+.button.tbp-radio.title-button:focus,	
+.button.tbp-radio.title-button:hover {	
+  background-color: $primary-4;	
+  color: $primary-3;	
+}
