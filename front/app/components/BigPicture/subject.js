@@ -11,40 +11,36 @@ import { ReactComponent as PinIcon } from '../../images/icons/pin.svg'
 
 import NewBigPicture from './new'
 
-import { AbstractContent } from '../../utils'
+import { AbstractContent, hooks } from '../../utils'
 import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
 
 
 const SubjectPreviewLook = ({ bigPicture, user }) => {
-  const [showNewBigPicture, setShowNewBigPicture] = useState(false)
-  const [bigPictureBuffer, setBigPictureBuffer] = useState(null)
-
-  useEffect(() => {
-    if (bigPicture) {
-      setBigPictureBuffer({
-        id: bigPicture.id,
-        title: bigPicture.title,
-        body: bigPicture.body,
-        author_id: user.id,
-        kind: bigPicture.kind,
-        parent: null,
-        subject: bigPicture.subject,
-        private: bigPicture.private
-      })
-    }
-  }, [bigPicture, user])
+    const [
+    editButton,
+    newItem,
+    showNewItem,
+    setShowNewItem
+  ] = hooks.useEditionBuffer({
+    EditionWidget: NewBigPicture,
+    initItem: (bigPicture, user) => ({
+      id: bigPicture.id,
+      title: bigPicture.title,
+      body: bigPicture.body,
+      author_id: user.id,
+      kind: bigPicture.kind,
+      parent: null,
+      subject: bigPicture.subject,
+      private: bigPicture.private
+    }),
+    item: bigPicture,
+    user
+  })
 
   const header = (bigPicture) => {
     if (!bigPicture) return null
-
-
-    const editButton = (
-      <div className="vde header-button" onClick={() => setShowNewBigPicture(!showNewBigPicture)}>
-        <EditIcon className="vde header-icon is-narrow icon-button" />
-      </div>
-    )
 
     const headerLevelLeft = (bigPicture) => (
       <div className="level-left">
@@ -62,7 +58,7 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
         return (
           <LinkButton
             icon={ <LookIcon className="vde header-icon icon lookicon" /> }
-            to={`/subject/${bigPicture.subject || bigPicture.id}/bigpicture/${bigPicture.id}`}
+            to={`/bigpicture/${bigPicture.id}`}
             classname="vde header-button is-narrow icon-button"
           />
         )
@@ -89,15 +85,10 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
     return <AbstractContent text={bigPicture.body} />
   }
 
-  if (showNewBigPicture) {
+  if (showNewItem) {
     return (
       <li className="card vde subject-preview">
-        <NewBigPicture
-          bp={bigPicture}
-          newBigPicture={bigPictureBuffer}
-          setNewBigPicture={setBigPictureBuffer} 
-          setShowNewBigPicture={setShowNewBigPicture}
-        />
+        {newItem}
       </li>
     )
   }

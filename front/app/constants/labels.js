@@ -19,8 +19,10 @@ export const USERNAME = "Nom d'utilisateur"
 export const PASSWORD = "Mot de passe"
 export const INSCRIPTION_LINK = "Ou inscrivez-vous ici."
 export const CAN_NOT_ADD_BP_CHILDREN_AT_CREATION = "Vous pourrez ajouter des éléments à hiérarchiser une fois que votre vue d'ensemble sera créée."
-
+export const CREATE_BP_MODAL_TITLE = "Créer une nouvelle vue d'ensemble"
 export const CREATE_ENDORSMENT = "Évaluer sur la base de cette raison"
+
+export const NEW_REFERENCE_PLACEHOLDER = "Renseignez ici l'identifiant d'une autre vue pour y faire référence !"
 
 export const SEE_MORE = "Voir plus"
 export const SEE_LESS = "Voir moins"

@@ -3,50 +3,49 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
+import AuthorIcon from '../User/authorIcon'
 import LinkButton from '../Buttons/link'
 import NewBigPicture from './new'
 
 import { ReactComponent as LookIcon } from '../../images/icons/arrow.svg'
-import { ReactComponent as EditIcon } from '../../images/icons/edit.svg'
 
-import { AbstractContent } from '../../utils'
+import { AbstractContent, hooks } from '../../utils'
 import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
 
 
 const ChildPreviewLook = ({ bigPicture, user, key }) => {
-  const [showNewBigPicture, setShowNewBigPicture] = useState(false)
-  const [bigPictureBuffer, setBigPictureBuffer] = useState(null)
-
-  useEffect(() => {
-    if (bigPicture) {
-      setBigPictureBuffer({
-        id: bigPicture.id,
-        title: bigPicture.title,
-        body: bigPicture.body,
-        author_id: user.id,
-        kind: cst.RESOURCE,
-        parent: bigPicture.parent,
-        subject: bigPicture.subject || bigPicture.id,
-        private: bigPicture.private
-      })
-    }
-  }, [bigPicture, user])
+  const [
+    editButton,
+    newItem,
+    showNewItem,
+    setShowNewItem
+  ] = hooks.useEditionBuffer({
+    EditionWidget: NewBigPicture,
+    initItem: (bigPicture, user) => ({
+      id: bigPicture.id,
+      title: bigPicture.title,
+      body: bigPicture.body,
+      hyperlink_id: bigPicture.hyperlink_id || "",
+      author_id: user.id,
+      kind: cst.RESOURCE,
+      parent: bigPicture.parent,
+      subject: bigPicture.subject || bigPicture.id,
+      private: bigPicture.private
+    }),
+    item: bigPicture,
+    user
+  })
 
   const header = () => {
     if (!bigPicture) return null
 
     const headerLevelLeft = () => {
-
-      const editButton = (
-        <div className="vde header-button" onClick={() => setShowNewBigPicture(!showNewBigPicture)}>
-          <EditIcon className="vde header-icon is-narrow icon-button" />
-        </div>
-      )
       return (
         <div className="level-left">
           { user.id == bigPicture.author ? editButton : null }
+          { bigPicture.reverse_author ? <AuthorIcon userId={bigPicture.reverse_author} showIcon={true} clickable={true}/> : null}
           <p className="title">{bigPicture.title}</p>
         </div>
       )
@@ -59,7 +58,7 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
         return (
           <LinkButton
             icon={ <LookIcon className="vde header-icon icon lookicon" /> }
-            to={`/subject/${bigPicture.hyperlink_id || bigPicture.subject || bigPicture.id}/bigpicture/${bigPicture.hyperlink_id || bigPicture.id}`}
+            to={`/bigpicture/${bigPicture.hyperlink_id || bigPicture.id}`}
             classname="vde is-narrow header-button icon-button"
           />
         )
@@ -85,16 +84,7 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
     return <AbstractContent text={bigPicture.body} />
   }
 
-  if (showNewBigPicture) {
-    return (
-      <NewBigPicture
-        bp={bigPicture}
-        newBigPicture={bigPictureBuffer}
-        setNewBigPicture={setBigPictureBuffer} 
-        setShowNewBigPicture={setShowNewBigPicture}
-      />
-    )
-  }
+  if (showNewItem) return newItem 
 
   return (
     <li className="vde child" key={key}>

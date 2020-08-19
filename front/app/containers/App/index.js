@@ -14,7 +14,7 @@ const App = () => (
   <div>
     <NavBar />
     <div id="routes">
-      <Route exact={true} path="/subject/:subjectId/bigpicture/:bigPictureId" component={SubjectView} />
+      <Route exact={true} path="/bigpicture/:bigPictureId" component={SubjectView} />
       <Route exact={true} path="/user/:id" component={UserView} />
       <Route exact={true} path="/" component={Home}/>
     </div>

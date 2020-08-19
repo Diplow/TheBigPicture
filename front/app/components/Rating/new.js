@@ -9,25 +9,35 @@ import * as cst from '../../constants'
 import * as utils from '../../utils'
 import "./style.scss"
 
-const NewRatingLook = ({ reason, newReason, setNewReason, setShowNewReason, publish, trash }) => (
-  <div className="vde child">
-    <textarea
-      className="textarea vde-newrating"
-      name="body"
-      value={newReason.body}
-      onChange={(e) => { setNewReason({ ...newReason, [e.target.name]: e.target.value })}}
-      placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
-    <NewActionsButtons
-      publish={() => publish(newReason)}
-      trash={() => trash(newReason)}
-      discard={() => { setShowNewReason(false); setNewReason({ ...newReason, body: reason && reason.body || "" })}} />
-  </div>
-)
+const NewRatingLook = (props) => {
+  const {
+    item,
+    newItem,
+    setNewItem,
+    setShowNewItem,
+    publish,
+    trash
+  } = props;
+  return (
+    <div className="vde child">
+      <textarea
+        className="textarea vde-newrating"
+        name="body"
+        value={newItem.body}
+        onChange={(e) => { setNewItem({ ...newItem, [e.target.name]: e.target.value })}}
+        placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
+      <NewActionsButtons
+        publish={() => publish(newItem)}
+        trash={() => trash(newItem)}
+        discard={() => { setShowNewItem(false); setNewItem({ ...newItem, body: item && item.body || "" })}} />
+    </div>
+  )
+}
 
 const mapStateToProps = (state) => ({})
 const mapDispatchToProps = (dispatch) => ({
-  publish: (reason) => { reason.id ? dispatch(patchRating(reason)) : dispatch(postRating(reason)) },
-  trash: (reason) => { reason.id ? dispatch(deleteRating(reason.id)) : null }
+  publish: (item) => { item.id ? dispatch(patchRating(item)) : dispatch(postRating(item)) },
+  trash: (item) => { item.id ? dispatch(deleteRating(item.id)) : null }
 })
 
 const NewRating = connect(mapStateToProps, mapDispatchToProps)(NewRatingLook)

@@ -14,18 +14,18 @@ import "./style.scss"
 
 const NewBigPictureLook = (props) => {
   const { 
-    bp,
-    newBigPicture,
-    setNewBigPicture,
-    setShowNewBigPicture,
+    item,
+    newItem,
+    setNewItem,
+    setShowNewItem,
     publish,
     trash,
   } = props
 
-  if (!newBigPicture) return null
+  if (!newItem) return null
 
   const edit = (e) => {
-    setNewBigPicture({ ...newBigPicture, [e.target.name]: e.target.value })
+    setNewItem({ ...newItem, [e.target.name]: e.target.value })
   }
 
   const header = () => (
@@ -34,7 +34,7 @@ const NewBigPictureLook = (props) => {
         <input
           className="input vde-newrating"
           name="title"
-          value={newBigPicture.title}
+          value={newItem.title}
           onChange={edit}
           placeholder={cst.labels.NEW_BP_TITLE_PLACEHOLDER} />
       </div>
@@ -47,27 +47,41 @@ const NewBigPictureLook = (props) => {
         <textarea
           className="textarea vde-newrating"
           name="body"
-          value={newBigPicture.body}
+          value={newItem.body}
           onChange={edit}
           placeholder={cst.labels.NEW_BP_BODY_PLACEHOLDER} />
       </div>
     </div>
   )
 
+  const reference = () => (
+    <header className="card-header level is-mobile">
+      <div className="level-left">
+        <input
+          className="input vde-newrating"
+          name="hyperlink_id"
+          value={newItem.hyperlink_id}
+          onChange={edit}
+          placeholder={cst.labels.NEW_REFERENCE_PLACEHOLDER} />
+      </div>
+    </header>
+  )
+
   return (
     <div className="vde child">
       { header() }
       { content() }
+      { reference() }
       <NewActionsButtons
-        publish={() => publish(newBigPicture)}
-        trash={() => trash(newBigPicture)}
+        publish={() => publish(newItem)}
+        trash={() => trash(newItem)}
         discard={
           () => {
-            setShowNewBigPicture(false);
-            setNewBigPicture({
-              ...newBigPicture,
-              body: bp && bp.body || "",
-              title: bp && bp.title || ""
+            setShowNewItem(false);
+            setNewItem({
+              ...newItem,
+              body: item && item.body || "",
+              title: item && item.title || ""
             })
           }
         } />
@@ -77,8 +91,8 @@ const NewBigPictureLook = (props) => {
 
 const mapStateToProps = (state) => ({})
 const mapDispatchToProps = (dispatch) => ({
-  publish: (bp) => { bp.id ? dispatch(patchBigPicture(bp)) : dispatch(postBigPicture(bp)) },
-  trash: (bp) => { bp.id ? dispatch(deleteBigPicture(bp.id)) : null }
+  publish: (item) => { item.id ? dispatch(patchBigPicture(item)) : dispatch(postBigPicture(item)) },
+  trash: (item) => { item.id ? dispatch(deleteBigPicture(item.id)) : null }
 })
 
 const NewBigPicture = connect(mapStateToProps, mapDispatchToProps)(NewBigPictureLook)

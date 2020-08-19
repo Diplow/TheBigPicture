@@ -37,6 +37,7 @@ const BigPictureSectionLook = (props) => {
         title: "",
         body: "",
         author_id: user.id,
+        hyperlink_id: "",
         kind: cst.RESOURCE,
         parent: bigPicture.id,
         subject: bigPicture.subject || bigPicture.id,
@@ -48,7 +49,7 @@ const BigPictureSectionLook = (props) => {
   const lookButton = (bigPicture) => (
     <LinkButton
       icon={ <LookIcon className="vde header-icon backicon" /> }
-      to={!bigPicture.parent ? '/' : `/subject/${bigPicture.subject}/bigpicture/${bigPicture.parent}`}
+      to={!bigPicture.parent ? '/' : `/bigpicture/${bigPicture.parent}`}
       classname="vde header-button is-narrow icon-button"
     />
   )
@@ -105,9 +106,10 @@ const BigPictureSectionLook = (props) => {
         { showNewBigPicture
           ? (
             <NewBigPicture
-              newBigPicture={newBigPicture}
-              setNewBigPicture={setNewBigPicture}
-              setShowNewBigPicture={setShowNewBigPicture} />
+              item={bigPicture}
+              newItem={newBigPicture}
+              setNewItem={setNewBigPicture}
+              setShowNewItem={setShowNewBigPicture} />
           )
           : null }
         { bigPicture && !hiddenBpDetails ? analyse(bigPicture, children) : null }
@@ -118,7 +120,7 @@ const BigPictureSectionLook = (props) => {
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.get("user"),
-  children: ownProps.bigPicture && state.get("bigpictures").filter((elt) => elt.parent == ownProps.bigPicture.id),
+  children: ownProps.bigPicture && state.get("bigpictures").filter((elt) => ownProps.bigPicture.children.indexOf(elt.id) !== -1),
 })
 
 const BigPictureSection = connect(mapStateToProps)(BigPictureSectionLook)

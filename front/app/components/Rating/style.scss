@@ -20,6 +20,8 @@ p.subtitle.is-narrow.show-more {
 .level.is-mobile.show-children {
   height: 0;
   margin-bottom: 0;
+  position: relative;
+  left: calc(50% - 5rem);
 }
 
 .level.is-mobile.show-children:hover {

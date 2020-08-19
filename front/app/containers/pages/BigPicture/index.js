@@ -24,8 +24,7 @@ const BigPictureViewLook = (props) => {
   }, [])
 
   useEffect(() => {
-    if (!bigPicture)
-      getBigPicture(match.params.subjectId)
+    getBigPicture(match.params.bigPictureId)
   }, [match])
 
   return (

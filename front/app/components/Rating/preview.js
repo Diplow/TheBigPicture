@@ -22,7 +22,7 @@ import { ReactComponent as NewReasonIcon } from '../../images/icons/reference.sv
 import { ReactComponent as EditIcon } from '../../images/icons/edit.svg'
 import { ReactComponent as StarIcon } from '../../images/icons/star.svg'
 
-import { AbstractContent } from '../../utils' 
+import { AbstractContent, hooks } from '../../utils' 
 import * as utils from '../../utils'
 import * as cst from '../../constants'
 import "./style.scss"
@@ -40,27 +40,36 @@ const RatingPreviewLook = (props) => {
     getEndorsmentsPage
   } = props
 
+  const [
+    editButton,
+    editReason,
+    showEditReason,
+    setShowEditReason
+  ] = hooks.useEditionBuffer({
+    EditionWidget: NewRating,
+    initItem: (rating, user) => ({
+        id: rating.id,
+        body: rating.body,
+        target_rating: rating.target_rating,
+        target_bp: rating.target_bp,
+        author_id: user.id,
+        subject: rating.subject
+      }),
+    item: rating,
+    user
+  })
+
   const [showChildren, setShowChildren] = useState(false)
   const [showNewReason, setShowNewReason] = useState(false)
   const [showNewEndorsment,setShowNewEndorsment] = useState(false)
-  const [editReason, setEditReason] = useState(false)
   const [newReason, setNewReason] = useState(null)
   const [newEndorsment, setNewEndorsment] = useState(null)
-  const [editionBuffer, setEditionBuffer] = useState(null)
 
   useEffect(() => {
     if (rating) {
       setNewReason({
         body: "",
         target_rating: rating.id,
-        author_id: user.id,
-        subject: rating.subject
-      })
-      setEditionBuffer({
-        id: rating.id,
-        body: rating.body,
-        target_rating: rating.target_rating,
-        target_bp: rating.target_bp,
         author_id: user.id,
         subject: rating.subject
       })
@@ -107,7 +116,7 @@ const RatingPreviewLook = (props) => {
   const showChildrenButton = (
     <div className="level is-mobile show-children">
       <div
-        className="level-item show-reasons"
+        className="level-item is-narrow show-reasons"
         onClick={() => { showChildren && setShowNewReason(false); setShowChildren(!showChildren)}}>
         <MoreIcon
           style={!showChildren ? {transition: "transform 0.5s"} : {transform: "rotate(180deg)", transition: "transform 0.5s"}}
@@ -121,12 +130,6 @@ const RatingPreviewLook = (props) => {
   const starButton = (
     <div className="vde header-button" onClick={() => setShowNewEndorsment(!showNewEndorsment)}>
       <StarIcon className="vde header-icon is-narrow icon-button" />
-    </div>
-  )
-
-  const editButton = (
-    <div className="vde header-button" onClick={() => setEditReason(!editReason)}>
-      <EditIcon className="vde header-icon is-narrow icon-button" />
     </div>
   )
 
@@ -157,15 +160,7 @@ const RatingPreviewLook = (props) => {
     )
   }
 
-  if (editReason) {
-    return (
-      <NewRating
-        reason={rating}
-        newReason={editionBuffer}
-        setNewReason={setEditionBuffer}
-        setShowNewReason={setEditReason} />
-    )
-  }
+  if (showEditReason) return editReason
   return (
     <div className="vde reason">
       <li className="vde child reason">

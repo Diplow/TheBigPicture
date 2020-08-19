@@ -46,9 +46,9 @@ export const removeEmptyKeys = (obj) => {
 export const AbstractContent = ({ text }) => {
   const [show, setShow] = useState(false)
   const MAX_LENGTH_ABSTRACT = 220
+  if (!text) return null
   const TEXT_TOO_LONG = text.length > MAX_LENGTH_ABSTRACT
 
-  if (!text) return null
   let source = text
   if (!show && TEXT_TOO_LONG)
     source = `${text.substr(0, MAX_LENGTH_ABSTRACT)}...`
