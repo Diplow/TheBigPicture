@@ -18,7 +18,7 @@ import "./style.scss"
 
 
 const SubjectPreviewLook = ({ bigPicture, user }) => {
-    const [
+  const [
     editButton,
     newItem,
     showNewItem,

@@ -48,13 +48,13 @@ const RatingPreviewLook = (props) => {
   ] = hooks.useEditionBuffer({
     EditionWidget: NewRating,
     initItem: (rating, user) => ({
-        id: rating.id,
-        body: rating.body,
-        target_rating: rating.target_rating,
-        target_bp: rating.target_bp,
-        author_id: user.id,
-        subject: rating.subject
-      }),
+      id: rating.id,
+      body: rating.body,
+      target_rating: rating.target_rating,
+      target_bp: rating.target_bp,
+      author_id: user.id,
+      subject: rating.subject
+    }),
     item: rating,
     user
   })

@@ -41,15 +41,13 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
   const header = () => {
     if (!bigPicture) return null
 
-    const headerLevelLeft = () => {
-      return (
-        <div className="level-left">
-          { user.id == bigPicture.author ? editButton : null }
-          { bigPicture.reverse_author ? <AuthorIcon userId={bigPicture.reverse_author} showIcon={true} clickable={true}/> : null}
-          <p className="title">{bigPicture.title}</p>
-        </div>
-      )
-    }
+    const headerLevelLeft = () => (
+      <div className="level-left">
+        { user.id == bigPicture.author ? editButton : null }
+        { bigPicture.reverse_author ? <AuthorIcon userId={bigPicture.reverse_author} showIcon={true} clickable={true}/> : null}
+        <p className="title">{bigPicture.title}</p>
+      </div>
+    )
 
     const headerLevelRight = () => {
 
