@@ -5,7 +5,6 @@ from api.serializers.user import UserSerializer
 
 
 class BigPictureChildSerializer(serializers.ModelSerializer):
-  children = serializers.SerializerMethodField()
   author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
   hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.filter(private=False), )
   subject = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -13,9 +12,6 @@ class BigPictureChildSerializer(serializers.ModelSerializer):
   class Meta:
     model = BigPicture
     fields = "__all__"
-
-  def get_children(self, obj):
-    return [a.id for a in BigPicture.objects.filter(parent=obj.id)]
 
 
 class BigPictureSerializer(serializers.ModelSerializer):
@@ -25,7 +21,6 @@ class BigPictureSerializer(serializers.ModelSerializer):
   kind = serializers.IntegerField()
   author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
-  family = serializers.SerializerMethodField()
   children = serializers.SerializerMethodField()
   ratingCount = serializers.SerializerMethodField()
   pin = serializers.BooleanField(read_only=True)
@@ -34,14 +29,17 @@ class BigPictureSerializer(serializers.ModelSerializer):
     model = BigPicture
     fields = "__all__"
 
-  def get_family(self, obj):
-    if obj.subject.id == obj.id:
-      return [BigPictureChildSerializer(a).data for a in BigPicture.objects.filter(subject=obj.id)]
-    return None
-
   def get_ratingCount(self, obj):
     return Rating.objects.filter(target_bp=obj).count()
 
   def get_children(self, obj):
-    return [a.id for a in BigPicture.objects.filter(parent=obj.id)]
+    res = []
+    for bp in BigPicture.objects.filter(parent=obj.id):
+      if bp.hyperlink is not None:
+        bp_json = BigPictureChildSerializer(bp).data
+        bp_json["reverse_author"] = bp.hyperlink.author.id
+        res.append(bp_json)
+      else:
+        res.append(BigPictureChildSerializer(bp).data)
+    return res
 
