@@ -13,8 +13,8 @@ module.exports = function addProdMiddlewares(app, options) {
   app.use(publicPath, express.static(outputPath));
 
   // set up rate limiter: maximum of five requests per minute
-  var RateLimit = require('express-rate-limit');
-  var limiter = new RateLimit({
+  const RateLimit = require('express-rate-limit');
+  const limiter = new RateLimit({
     windowMs: 1*60*1000, // 1 minute
     max: 5
   });

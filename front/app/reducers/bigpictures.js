@@ -19,6 +19,7 @@ const addBp = (bp, state) => {
     author: bp.author_id,
     creation_date: bp.creation_date,
     modification_date: bp.modification_date,
+    ratingCount: old && old.ratingCount ? old.ratingCount : bp.ratingCount,
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,

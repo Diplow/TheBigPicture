@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
 
 import { getRatings } from '../../actions'
-
-import Context from '../Context'
 
 import List, { getPageFormatter } from '../List'
 import AuthorIcon from '../User/authorIcon'
@@ -49,9 +46,9 @@ const targetBp = (bigPicture) => {
 
   return (
     <div className="field">
-      <p className="subtitle-modal">Je pense que...</p>
-      <div class="vde card subject-preview">
-        <header class="card-header level is-mobile">
+      <p className="subtitle-modal">Je pense que la vue d'ensemble...</p>
+      <div className="vde card subject-preview">
+        <header className="card-header level is-mobile">
           <div className="level-left">
             <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
             <p className="title">{bigPicture.title}</p>
@@ -68,7 +65,7 @@ const targetRating = (rating) => {
 
   return (
     <div className="field">
-      <p className="subtitle-modal">Je pense que...</p>
+      <p className="subtitle-modal">Je pense que la raison...</p>
       <div onClick={onclick} className="vde child reason">
         <AbstractContent text={rating.body} />
       </div>

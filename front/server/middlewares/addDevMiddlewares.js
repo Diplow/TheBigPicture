@@ -23,6 +23,17 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   // artifacts, we use it instead
   const fs = middleware.fileSystem;
 
+
+  // set up rate limiter: maximum of five requests per minute
+  const RateLimit = require('express-rate-limit');
+  const limiter = new RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+  });
+
+  // apply rate limiter to all requests
+  app.use(limiter);
+
   app.get('*', (req, res) => {
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {

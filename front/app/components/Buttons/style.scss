@@ -1,7 +1,71 @@
 @import "../../styles/theme.scss";
 
-.button.tbp-radio.title-button:focus,	
-.button.tbp-radio.title-button:hover {	
-  background-color: $primary-4;	
-  color: $primary-3;	
+.button.tbp-radio.title-button:focus, 
+.button.tbp-radio.title-button:hover {  
+  background-color: $primary-4; 
+  color: $primary-3;  
+}
+
+.level.is-mobile.action-buttons {
+  padding: 0.2rem;
+  .level-right {
+    max-width: 100%;
+  }
+}
+
+.creating-button.level.is-mobile {
+  display: flex;
+  margin-left: 1rem;
+  padding: 0.4rem;
+  color: $dark;
+  border-radius: 10px;
+  height: 3rem;
+  padding: 0;
+  margin: 0.5rem;
+  max-width: 33%;
+
+  span.level-item.text {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .level-item.icon {
+    color: inherit;
+    font-size: smaller;
+    margin-right: 0.3rem;
+  }
+
+}
+
+@media only screen and (max-width: 450) {
+  .creating-button.level.is-mobile {
+    padding: 0;
+    margin: 0;
+    .level-item.icon {
+      color: inherit;
+      font-size: smaller;
+      width: 1.2rem;
+      margin-right: 0.3rem;
+    }
+  }
+}
+
+.creating-button.level:hover {
+  text-decoration: underline
+}
+
+.creating-button.level.publish {
+  background-color: $link;
+  color: $light;
+  padding: 0.4rem;
+}
+
+.creating-button.level.trash {
+  background-color: $light;
+  color: $dark;
+  padding: 0.4rem;
+}
+
+.creating-button.level.cancel {
+  background-color: transparent;
 }

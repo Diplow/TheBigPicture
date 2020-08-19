@@ -57,6 +57,13 @@ label {
   width: 1.5rem;
 }
 
+.vde.header-icon:hover {
+  stroke: $dark;
+  stroke-width: 15;
+  color: $dark;
+}
+
+
 .vde.header-button:focus,
 .vde.header-button:hover {
   color: lighten($link, 20%);

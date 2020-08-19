@@ -34,7 +34,7 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
         private: bigPicture.private
       })
     }
-  }, [bigPicture])
+  }, [bigPicture, user])
 
   const header = (bigPicture) => {
     if (!bigPicture) return null
@@ -93,21 +93,23 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
     return (
       <li className="card vde subject-preview">
         <NewBigPicture
+          bp={bigPicture}
           newBigPicture={bigPictureBuffer}
-          setNewBigPicture={setBigPictureBuffer}
-          setShowNewBigPicture={setShowNewBigPicture} />
+          setNewBigPicture={setBigPictureBuffer} 
+          setShowNewBigPicture={setShowNewBigPicture}
+        />
       </li>
     )
   }
 
   const pinButton = (
-    <div style={{height: 0, position: "absolute", top: "12px", right: "46%"}} className="vde header-button level-item pin-icon">
-      <PinIcon style={{color: "#E83A00", width: "1.2rem"}} className="vde header-icon is-narrow icon-button" />
+    <div className="vde header-button level-item pin-icon">
+      <PinIcon className="vde header-icon is-narrow icon-button" />
     </div>
   )
 
   return (
-    <div className="card subject-preview">
+    <div className={`card subject-preview ${ bigPicture.pin ? "pinned" : ""}`}>
       { bigPicture.pin ? pinButton : null }
       { header(bigPicture) }
       { content(bigPicture) }

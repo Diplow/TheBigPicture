@@ -38,21 +38,24 @@ const ReasonsSectionLook = (props) => {
         author_id: user.id,
         subject: bigPicture.subject || bigPicture.id
       })
-  }, [bigPicture])
+  }, [bigPicture, user])
 
-  const header = () => (
-    <header className="card-header level is-mobile">
-      <div className="level-left">
-        <p className="title">{cst.labels.REASON_LIST_TITLE}</p>
-        <div className="vde header-button" onClick={() => setShowNewReason(!showNewReason)}>
-          <PencilIcon className="vde header-icon is-narrow icon-button" />
+  const header = () => {
+    if (!bigPicture) return null
+    return (
+      <header className="card-header level is-mobile">
+        <div className="level-left">
+          <p className="title">{cst.labels.REASON_LIST_TITLE(bigPicture.ratingCount)}</p>
+          <div className="vde header-button" onClick={() => setShowNewReason(!showNewReason)}>
+            <PencilIcon className="vde header-icon is-narrow icon-button" />
+          </div>
         </div>
-      </div>
-      <div className="level-right">
-        <HideAndShowButton hidden={hiddenReasons} setHidden={setHiddenReasons} />
-      </div>
-    </header>
-  )
+        <div className="level-right">
+          <HideAndShowButton hidden={hiddenReasons} setHidden={setHiddenReasons} />
+        </div>
+      </header>
+    )
+  }
 
   const reasonList = (bigPicture, ratings) => (
     <List
@@ -71,7 +74,7 @@ const ReasonsSectionLook = (props) => {
   )
 
   return (
-    <div className="vde card reasons-section">
+    <div className={`vde card reasons-section ${ hiddenReasons ? "" : "is-open"}`}>
       { header() }
       { showNewReason
         ? <NewRating

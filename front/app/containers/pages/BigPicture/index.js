@@ -18,6 +18,11 @@ const BigPictureViewLook = (props) => {
     getBigPicture
   } = props
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   useEffect(() => {
     if (!bigPicture)
       getBigPicture(match.params.subjectId)

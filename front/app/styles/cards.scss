@@ -91,8 +91,14 @@ li.vde.child.reason {
 }
 
 
+.vde.card.results-section.is-open,
+.vde.card.reasons-section.is-open {
+  padding-bottom: 2rem;
+}
+
 .vde.card.results-section,
 .vde.card.reasons-section {
+
   .card-header.level.is-mobile {
     min-height: 5rem;
     .title {

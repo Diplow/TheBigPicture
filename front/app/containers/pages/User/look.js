@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
-import SubscriptionList from '../../../components/Subscription/list'
 import Loader from '../../../components/Loader'
 import UserModal from '../../../components/User/modal'
 import NewUser from '../../../components/User/new'

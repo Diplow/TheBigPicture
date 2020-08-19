@@ -3,16 +3,16 @@
 
 // Update Bulma's global variables
 $family-sans-serif: "Ubuntu", sans-serif;
-$primary-1: #1F2041;
+$primary-1: hsl(198, 0%, 15%);
 $primary-2: #281346;
-$primary-3: #f4e5d9;
+$primary-3: hsl(198, 0%, 70%);
 $primary-4: #D4D4D4;
-$primary-5: #eed7c5;
+$primary-5: hsl(48, 100%, 89%);
 
-$red: #E83A00;
-$dark: #1f2041;
-$light: #f4e5d9;
-$link: #3273dc;
+$red: hsl(9, 88%, 61%);
+$dark: hsl(198, 0%, 15%);
+$light: hsl(48, 100%, 89%);
+$link: hsl(198, 100%, 28%);
 
 $widescreen-enabled: false;
 $fullhd-enabled: false;

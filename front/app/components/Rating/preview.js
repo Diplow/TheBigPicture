@@ -74,7 +74,7 @@ const RatingPreviewLook = (props) => {
         subject: rating.subject
       })
     }
-  }, [rating])
+  }, [rating, user])
 
   const content = (rating) => {
     if (!rating) return null
@@ -102,12 +102,20 @@ const RatingPreviewLook = (props) => {
     </div>
   )
 
+  const s = rating.ratingCount > 1 ? "s" : ""
+  const verb = showChildren ? " Masquer" : "Afficher"
   const showChildrenButton = (
-    <MoreIcon
-      style={!showChildren ? {transition: "transform 0.5s"} : {transform: "rotate(180deg)", transition: "transform 0.5s"}}
-      className="show-reasons vde header-icon is-narrow icon-button"
-      onClick={() => { showChildren && setShowNewReason(false); setShowChildren(!showChildren)}}
-    />
+    <div className="level is-mobile show-children">
+      <div
+        className="level-item show-reasons"
+        onClick={() => { showChildren && setShowNewReason(false); setShowChildren(!showChildren)}}>
+        <MoreIcon
+          style={!showChildren ? {transition: "transform 0.5s"} : {transform: "rotate(180deg)", transition: "transform 0.5s"}}
+          className="vde header-icon is-narrow icon-button"
+        />
+        <p className="subtitle is-narrow show-more">{`${verb} ${rating.ratingCount} raison${s}`}</p>
+      </div>
+    </div>
   )
 
   const starButton = (
@@ -128,8 +136,8 @@ const RatingPreviewLook = (props) => {
     if (user.id === cst.GUEST_ID) {
       return (
         <LoginModal
-          active={createEndorsmentModalIsActive}
-          setActive={setCreateEndorsmentModalIsActive}
+          active={showNewEndorsment}
+          setActive={setShowNewEndorsment}
         />
       )
     }
@@ -152,13 +160,14 @@ const RatingPreviewLook = (props) => {
   if (editReason) {
     return (
       <NewRating
+        reason={rating}
         newReason={editionBuffer}
         setNewReason={setEditionBuffer}
         setShowNewReason={setEditReason} />
     )
   }
   return (
-    <div>
+    <div className="vde reason">
       <li className="vde child reason">
         <div className="card-header level is-mobile">
           <div className="level-left">
@@ -173,7 +182,7 @@ const RatingPreviewLook = (props) => {
           </div>
         </div>
       </li>
-      <li className="vde child reason">
+      <li className={`vde child reason ${!showChildren ? "is-closed" : ""}`}>
         { rating.ratingCount !== 0 ? showChildrenButton : null }
         { showNewReason
           ? <NewRating

@@ -43,7 +43,7 @@ const BigPictureSectionLook = (props) => {
         private: bigPicture.private
       })
     }
-  }, [bigPicture])
+  }, [bigPicture, user])
 
   const lookButton = (bigPicture) => (
     <LinkButton

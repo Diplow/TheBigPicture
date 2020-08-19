@@ -32,19 +32,18 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
         private: bigPicture.private
       })
     }
-  }, [bigPicture])
+  }, [bigPicture, user])
 
-  const header = (bigPicture) => {
+  const header = () => {
     if (!bigPicture) return null
 
-    const headerLevelLeft = (bigPicture) => {
+    const headerLevelLeft = () => {
 
       const editButton = (
         <div className="vde header-button" onClick={() => setShowNewBigPicture(!showNewBigPicture)}>
           <EditIcon className="vde header-icon is-narrow icon-button" />
         </div>
       )
-
       return (
         <div className="level-left">
           { user.id == bigPicture.author ? editButton : null }
@@ -53,7 +52,7 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
       )
     }
 
-    const headerLevelRight = (bigPicture) => {
+    const headerLevelRight = () => {
 
       const lookButton = (bigPicture) => {
         if (!bigPicture) return null
@@ -75,19 +74,26 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
 
     return (
       <header className="card-header level is-mobile">
-        { headerLevelLeft(bigPicture) }
-        { headerLevelRight(bigPicture) }
+        { headerLevelLeft() }
+        { headerLevelRight() }
       </header>
     )
   }
 
-  const content = (bigPicture) => {
+  const content = () => {
     if (!bigPicture) return null
     return <AbstractContent text={bigPicture.body} />
   }
 
   if (showNewBigPicture) {
-    return <NewBigPicture newBigPicture={bigPictureBuffer} setNewBigPicture={setBigPictureBuffer} setShowNewBigPicture={setShowNewBigPicture} />
+    return (
+      <NewBigPicture
+        bp={bigPicture}
+        newBigPicture={bigPictureBuffer}
+        setNewBigPicture={setBigPictureBuffer} 
+        setShowNewBigPicture={setShowNewBigPicture}
+      />
+    )
   }
 
   return (

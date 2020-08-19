@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { postBigPicture, deleteBigPicture, patchBigPicture } from '../../actions'
 import RadioButton from '../Buttons/radio'
+import NewActionsButtons from '../Buttons/newtoolbar'
 
 import { ReactComponent as PencilIcon } from '../../images/icons/pencil-solid.svg'
 import { ReactComponent as TrashIcon } from '../../images/icons/trash.svg'
@@ -13,6 +14,7 @@ import "./style.scss"
 
 const NewBigPictureLook = (props) => {
   const { 
+    bp,
     newBigPicture,
     setNewBigPicture,
     setShowNewBigPicture,
@@ -25,40 +27,6 @@ const NewBigPictureLook = (props) => {
   const edit = (e) => {
     setNewBigPicture({ ...newBigPicture, [e.target.name]: e.target.value })
   }
-
-  const publishButton =  (
-    <div
-      className="creating-button" onClick={() => {
-        publish(newBigPicture)
-        setShowNewBigPicture(false)
-      }}>
-      <PencilIcon className="level-item vde header-icon is-narrow icon-button" />
-      <span className="level-item is-narrow">Publier</span>
-    </div>
-  )
-
-  const trashButton = (
-    <div
-      className="creating-button" onClick={() => {
-        setNewBigPicture({ ...newBigPicture, title: "", body: "" })
-        trash(newBigPicture)
-        setShowNewBigPicture(false)
-      }}>
-      <TrashIcon className="level-item vde header-icon is-narrow icon-button" />
-      <span className="level-item is-narrow">Supprimer</span>
-    </div>
-  )
-
-
-  const buttons = (
-    <a className="level is-mobile publish-button">
-      <div className="level-left"/>
-      <div className="level-right">
-        { publishButton }
-        { trashButton }
-      </div>
-    </a>
-  )
 
   const header = () => (
     <header className="card-header level is-mobile">
@@ -90,7 +58,19 @@ const NewBigPictureLook = (props) => {
     <div className="vde child">
       { header() }
       { content() }
-      { buttons }
+      <NewActionsButtons
+        publish={() => publish(newBigPicture)}
+        trash={() => trash(newBigPicture)}
+        discard={
+          () => {
+            setShowNewBigPicture(false);
+            setNewBigPicture({
+              ...newBigPicture,
+              body: bp && bp.body || "",
+              title: bp && bp.title || ""
+            })
+          }
+        } />
     </div>
   )
 }

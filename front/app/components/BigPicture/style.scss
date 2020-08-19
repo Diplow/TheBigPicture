@@ -19,3 +19,23 @@
     }
   }
 }
+
+.card.subject-preview.pinned {
+  border-color: $red;
+  border-style: solid;
+  border-top-right-radius: 30px;
+}
+
+.vde.header-button.pin-icon {
+  height: 0;
+  position: absolute;
+  top: 3px;
+  right: -12px;
+
+  .vde.header-icon:hover,
+  .vde.header-icon {
+    color: $red;
+    width: 1.2rem;
+    stroke-width: 0;
+  }
+}

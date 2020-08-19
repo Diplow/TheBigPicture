@@ -42,7 +42,7 @@ const ResultsSectionLook = (props) => {
   )
 
   return (
-    <div className="vde card results-section">
+    <div className={`vde card results-section ${ hiddenEndorsments ? "" : "is-open"}`}>
       { header() }
       { bigPicture && !hiddenEndorsments ? results(bigPicture) : null }
     </div>

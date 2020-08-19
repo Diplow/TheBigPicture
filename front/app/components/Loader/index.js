@@ -6,14 +6,22 @@ import * as cst from '../../constants'
 import "./style.scss"
 
 const Loader = (props) => {
-  if (props.condition) {
+  const [loading, setLoading] = useState(false)
+
+  if (props.condition || loading) {
+    if (!loading) {
+      setLoading(true)
+      setTimeout(() => setLoading(false), props.min_loading || 0);
+    }
     return (
       <div className="container vde section section-field">
         <div className="loader" />
       </div>
     )
   }
-  return props.children
+  else {
+    return props.children
+  }
 }
 
 export default Loader

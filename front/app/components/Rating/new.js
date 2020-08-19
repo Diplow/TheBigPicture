@@ -3,49 +3,13 @@ import { connect } from 'react-redux'
 
 import { postRating, deleteRating, patchRating } from '../../actions'
 import RadioButton from '../Buttons/radio'
-
-import { ReactComponent as PencilIcon } from '../../images/icons/pencil-solid.svg'
-import { ReactComponent as TrashIcon } from '../../images/icons/trash.svg'
+import NewActionsButtons from '../Buttons/newtoolbar'
 
 import * as cst from '../../constants'
 import * as utils from '../../utils'
 import "./style.scss"
 
-const NewRatingLook = ({ newReason, setNewReason, setShowNewReason, publish, trash }) => {
-
-  const publishButton =  (
-    <div
-      className="creating-button" onClick={() => {
-        publish(newReason)
-        setShowNewReason(false)
-      }}>
-      <PencilIcon className="level-item vde header-icon is-narrow icon-button" />
-      <span className="level-item is-narrow">Publier</span>
-    </div>
-  )
-
-  const trashButton = (
-    <div
-      className="creating-button" onClick={() => {
-        setNewReason({ ...newReason, body: "" })
-        trash(newReason)
-        setShowNewReason(false)
-      }}>
-      <TrashIcon className="level-item vde header-icon is-narrow icon-button" />
-      <span className="level-item is-narrow">Supprimer</span>
-    </div>
-  )
-
-
-  const buttons = (
-    <a className="level is-mobile publish-button">
-      <div className="level-left"/>
-      <div className="level-right">
-        { publishButton }
-        { trashButton }
-      </div>
-    </a>
-  )
+const NewRatingLook = ({ reason, newReason, setNewReason, setShowNewReason, publish, trash }) => {
 
   return (
     <div className="vde child">
@@ -55,7 +19,10 @@ const NewRatingLook = ({ newReason, setNewReason, setShowNewReason, publish, tra
         value={newReason.body}
         onChange={(e) => { setNewReason({ ...newReason, [e.target.name]: e.target.value })}}
         placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
-      { buttons }
+      <NewActionsButtons
+        publish={() => publish(newReason)}
+        trash={() => trash(newReason)}
+        discard={() => { setShowNewReason(false); setNewReason({ ...newReason, body: reason && reason.body || "" })}} />
     </div>
   )
 }

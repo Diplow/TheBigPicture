@@ -12,12 +12,31 @@
   padding: 1rem;
 }
 
-.show-reasons {
+p.subtitle.is-narrow.show-more {
+  font-size: small;
+  margin-left: 1rem;
+}
+
+.level.is-mobile.show-children {
+  height: 0;
+  margin-bottom: 0;
+}
+
+.level.is-mobile.show-children:hover {
+  .level-item.show-reasons {
+    p {
+      font-weight: 600;
+    }
+    .icon-button {
+      stroke: $dark;
+      stroke-width: 15;
+      color: $dark;
+    }
+  }
+}
+.level-item.show-reasons {
   position: relative;
   top: -28px;
-  margin-bottom: -30px;
-  left: 50%;
-  height: 0;
 }
 
 .level-left,
@@ -28,11 +47,6 @@
       margin: 0;
     }
   }
-}
-
-.creating-button {
-  display: flex;
-  margin-left: 1rem;
 }
 
 
