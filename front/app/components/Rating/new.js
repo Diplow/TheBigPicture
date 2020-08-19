@@ -9,23 +9,20 @@ import * as cst from '../../constants'
 import * as utils from '../../utils'
 import "./style.scss"
 
-const NewRatingLook = ({ reason, newReason, setNewReason, setShowNewReason, publish, trash }) => {
-
-  return (
-    <div className="vde child">
-      <textarea
-        className="textarea vde-newrating"
-        name="body"
-        value={newReason.body}
-        onChange={(e) => { setNewReason({ ...newReason, [e.target.name]: e.target.value })}}
-        placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
-      <NewActionsButtons
-        publish={() => publish(newReason)}
-        trash={() => trash(newReason)}
-        discard={() => { setShowNewReason(false); setNewReason({ ...newReason, body: reason && reason.body || "" })}} />
-    </div>
-  )
-}
+const NewRatingLook = ({ reason, newReason, setNewReason, setShowNewReason, publish, trash }) => (
+  <div className="vde child">
+    <textarea
+      className="textarea vde-newrating"
+      name="body"
+      value={newReason.body}
+      onChange={(e) => { setNewReason({ ...newReason, [e.target.name]: e.target.value })}}
+      placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
+    <NewActionsButtons
+      publish={() => publish(newReason)}
+      trash={() => trash(newReason)}
+      discard={() => { setShowNewReason(false); setNewReason({ ...newReason, body: reason && reason.body || "" })}} />
+  </div>
+)
 
 const mapStateToProps = (state) => ({})
 const mapDispatchToProps = (dispatch) => ({
