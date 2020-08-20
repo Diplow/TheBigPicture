@@ -1,0 +1,25 @@
+{
+   "type":"CREATE_RATING",
+   "rating":{
+      "id":118,
+      "author":{
+         "id":1,
+         "username":"Diplo",
+         "groups":[
+
+         ],
+         "image":"http://localhost:8000/media/profile_images/judgecitizen.png",
+         "bio":"Fondateur du projet VDE, j\\'aimerai faire ma part pour faire progresser la démocratie."
+      },
+      "author_id":1,
+      "basisCount":0,
+      "ratingCount":0,
+      "date":"2020-08-17",
+      "modification_date":"2020-08-17T15:14:49.951889Z",
+      "body":"test",
+      "target_bp":26,
+      "target_rating":null,
+      "subject":26,
+      "new":true
+   }
+}

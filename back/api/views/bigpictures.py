@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from api.models import BigPicture, Rating, SUBJECT_CODE
-from api.serializers import BigPictureSerializer
+from api.serializers import BigPictureSerializer, BigPictureChildSerializer
 from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 
 from django.http import HttpResponse
@@ -12,7 +12,7 @@ import datetime
 
 class OwnSubjectViewSet(ModelViewSet):
   queryset = BigPicture.objects.filter(kind=SUBJECT_CODE).order_by('-modification_date')
-  serializer_class = BigPictureSerializer
+  serializer_class = BigPictureChildSerializer
   permission_classes = [IsAuthor]
 
   def get_queryset(self):
@@ -21,7 +21,7 @@ class OwnSubjectViewSet(ModelViewSet):
 
 class SubjectViewSet(ModelViewSet):
   queryset = BigPicture.objects.filter(kind=SUBJECT_CODE, private=False).order_by('-modification_date')
-  serializer_class = BigPictureSerializer
+  serializer_class = BigPictureChildSerializer
   permission_classes = [IsReadOnly]
 
   def get_queryset(self):

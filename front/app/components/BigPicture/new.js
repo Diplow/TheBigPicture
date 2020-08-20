@@ -1,141 +1,100 @@
-
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+
+import { postBigPicture, deleteBigPicture, patchBigPicture } from '../../actions'
+import RadioButton from '../Buttons/radio'
+import NewActionsButtons from '../Buttons/newtoolbar'
+
+import { ReactComponent as PencilIcon } from '../../images/icons/pencil-solid.svg'
+import { ReactComponent as TrashIcon } from '../../images/icons/trash.svg'
+
 import * as cst from '../../constants'
+import * as utils from '../../utils'
 import "./style.scss"
 
+const NewBigPictureLook = (props) => {
+  const { 
+    item,
+    newItem,
+    setNewItem,
+    setShowNewItem,
+    publish,
+    trash,
+  } = props
 
-const NewBigPictureLook = ({ parent, data, setData }) => {
-  const [kind, setKind] = useState(data.kind)
-  const [privacy, setPrivacy] = useState(data.private)
-
-  useEffect(() => {
-    setKind(data.kind)
-    setPrivacy(data.private)
-  }, [data])
+  if (!newItem) return null
 
   const edit = (e) => {
-    if (e.target.name == "private") {
-      if (e.target.value === "false" || e.target.value === false) {
-        setData({ ...data, [e.target.name]: false})
-      }
-      else if (e.target.value === "true" || e.target.value === true) {
-        setData({ ...data, [e.target.name]: true})
-      }
-    }
-    else {
-      setData({ ...data, [e.target.name]: e.target.value})
-    }
+    setNewItem({ ...newItem, [e.target.name]: e.target.value })
   }
 
-  return (
-    <div className="newBigPicture-modal">
-      {kindField(kind, edit, parent)}
-      {data.kind != cst.SUBJECT ? parentField(data, edit) : null}
-      {data.kind != cst.SUBJECT ? hyperLinkIdField(data, edit) : null}
-      {titleField(data, edit)}
-      {contentField(data, edit)}
-      {data.kind == cst.SUBJECT ? privacyField(privacy, edit) : null}
-      <p>{cst.labels.CAN_NOT_ADD_BP_CHILDREN_AT_CREATION}</p>
-    </div>
+  const header = () => (
+    <header className="card-header level is-mobile">
+      <div className="level-left">
+        <input
+          className="input vde-newrating"
+          name="title"
+          value={newItem.title}
+          onChange={edit}
+          placeholder={cst.labels.NEW_BP_TITLE_PLACEHOLDER} />
+      </div>
+    </header>
   )
-}
 
-const radioButton = (name, checked, value, onChange, label) => (
-  <label className="radio">
-    <input
-      type="radio"
-      name={name}
-      value={value}
-      onChange={onChange}
-      checked={checked} />
-    {label}
-  </label>
-)
-
-const kindField = (kind, edit, parent) => {
-  if (kind == cst.SUBJECT)
-    return null
-  return (
-    <div className="field">
-      <p className="subtitle-modal">Type</p>
-      <div className="control">
-        { radioButton("kind", kind == cst.PROBLEM, cst.PROBLEM, edit, "Problème") }
-        { parent != null && parent.kind != cst.RESOURCE && parent.kind != cst.SUBJECT ? radioButton("kind", kind == cst.SOLUTION, cst.SOLUTION, edit, "Solution") : null }
-        { radioButton("kind", kind == cst.RESOURCE, cst.RESOURCE, edit, "Ressource") }
+  const content = () => (
+    <div className="card-content">
+      <div style={{padding: 0}} className="content">
+        <textarea
+          className="textarea vde-newrating"
+          name="body"
+          value={newItem.body}
+          onChange={edit}
+          placeholder={cst.labels.NEW_BP_BODY_PLACEHOLDER} />
       </div>
     </div>
   )
+
+  const reference = () => (
+    <header className="card-header level is-mobile">
+      <div className="level-left">
+        <input
+          className="input vde-newrating"
+          name="hyperlink_id"
+          value={newItem.hyperlink_id}
+          onChange={edit}
+          placeholder={cst.labels.NEW_REFERENCE_PLACEHOLDER} />
+      </div>
+    </header>
+  )
+
+  return (
+    <div className="vde child">
+      { header() }
+      { content() }
+      { reference() }
+      <NewActionsButtons
+        publish={() => publish(newItem)}
+        trash={() => trash(newItem)}
+        discard={
+          () => {
+            setShowNewItem(false);
+            setNewItem({
+              ...newItem,
+              body: item && item.body || "",
+              title: item && item.title || ""
+            })
+          }
+        } />
+    </div>
+  )
 }
 
-const privacyField = (privacy, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Visibilité</p>
-    <div className="control">
-      { radioButton("private", privacy === false, false, edit, "Publique") }
-      { radioButton("private", privacy === true, true, edit, "Privé") }
-    </div>
-  </div>
-)
-
-const hyperLinkIdField = (data, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Identifiant de la référence (optionnel)</p>
-    <input
-      className="input tbp-modal"
-      type="text"
-      name="hyperlink_id"
-      value={data.hyperlink_id != undefined ? data.hyperlink_id : ""}
-      onChange={edit}
-      placeholder="Identifiant (numérique)" />
-  </div>
-)
-
-
-const parentField = (data, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Identifiant du parent</p>
-    <input
-      className="input tbp-modal"
-      type="text"
-      name="parent"
-      value={data.parent}
-      onChange={edit}
-      placeholder="Identifiant du parent (numérique)" />
-  </div>
-)
-
-
-const titleField = (data, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Titre</p>
-    <input
-      className="input tbp-modal"
-      type="text"
-      name="title"
-      value={data.title}
-      onChange={edit}
-      placeholder="Titre" />
-  </div>
-)
-
-const contentField = (data, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Contenu</p>
-    <textarea
-      className="textarea tbp-modal"
-      name="body"
-      value={data.body}
-      onChange={edit}
-      placeholder="Contenu" />
-  </div>
-)
-
-
-const mapStateToProps = (state, ownProps) => ({
-  parent: state.get("bigpictures").find((elt) => elt.id == ownProps.data.parent)
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  publish: (item) => { item.id ? dispatch(patchBigPicture(item)) : dispatch(postBigPicture(item)) },
+  trash: (item) => { item.id ? dispatch(deleteBigPicture(item.id)) : null }
 })
 
-const NewBigPicture = connect(mapStateToProps)(NewBigPictureLook)
+const NewBigPicture = connect(mapStateToProps, mapDispatchToProps)(NewBigPictureLook)
 
 export default NewBigPicture

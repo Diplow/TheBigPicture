@@ -26,7 +26,7 @@ const EditionModalLook = (props) => {
           <button className="delete" onClick={() => setActive(false)} aria-label="close"></button>
         </header>
         <section className="modal-card-body">
-          { construct }
+          { active ? construct : null }
         </section>
         <footer className="modal-card-foot">
           <div className="control">

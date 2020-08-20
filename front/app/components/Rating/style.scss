@@ -1,8 +1,69 @@
 @import "../../styles/theme.scss";
 
+.textarea.vde-newrating:not(:last-child) {
+  border-radius: 0;
+}
 
-.vde.card.reason {
-  background-color: $primary-4;
+.textarea.vde-newrating:last-child {
+  margin-bottom: 1rem;
+}
+
+.level.publish-button {
+  padding: 1rem;
+}
+
+p.subtitle.is-narrow.show-more {
+  font-size: small;
+  margin-left: 1rem;
+}
+
+.level.is-mobile.show-children {
+  height: 0;
+  margin-bottom: 0;
+  position: relative;
+  left: calc(50% - 5rem);
+}
+
+.level.is-mobile.show-children:hover {
+  .level-item.show-reasons {
+    p {
+      font-weight: 600;
+    }
+    .icon-button {
+      stroke: $dark;
+      stroke-width: 15;
+      color: $dark;
+    }
+  }
+}
+.level-item.show-reasons {
+  position: relative;
+  top: -28px;
+}
+
+.level-left,
+.level-right {
+  .toolbar {
+    margin: 0 0.5rem;
+    .vde.header-button {
+      margin: 0;
+    }
+  }
+}
+
+
+.vde.card.subject-preview {
+  .toolbar.vde.card-header.level.is-mobile {
+    height: 3.5rem;
+    min-height: 2rem;
+
+    .level-left {
+      width: 0;
+    }
+    .right-level {
+      max-width: 100%;
+    }
+  }
 }
 
 .tbp-star {

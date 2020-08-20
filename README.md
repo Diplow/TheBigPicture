@@ -25,5 +25,5 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 Load sample data:
 
 ```console
-foo@bar:~$ docker exec -it back ./manage.py load_fixtures
+foo@bar:~$ docker exec -it back python manage.py load_fixtures
 ```

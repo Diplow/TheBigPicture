@@ -17,7 +17,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user,
     visitor: state.get("user"),
-    ratings: !user ? [] : state.get("ratings").filter((rating) => rating.author == user.id)
+    ratings: !user ? [] : state.get("ratings").filter((rating) => rating.author == user.id),
+    bigPictures: state.get("bigpictures").filter((bp) => bp.author == user.id && bp.parent == null)
   }
 }
 

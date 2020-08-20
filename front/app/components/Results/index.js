@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 
 import Chart from "react-apexcharts"
 
-import RefreshButton from '../Buttons/refresh'
 import HideAndShowButton from '../Buttons/hideandshow'
 import Loader from '../Loader'
-
 
 import { ReactComponent as ResultsIcon } from '../../images/icons/barchart.svg'
 
@@ -139,7 +137,7 @@ const chart = (bigPicture) => {
     <div id="chart">
       {
         bigPicture.results.count == 0
-          ? <p className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
+          ? <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
           : <Chart options={options} series={series} type="bar" height={300} />
       }
     </div>

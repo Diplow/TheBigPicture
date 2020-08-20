@@ -11,7 +11,7 @@ import {
   getBigPictureResults,
   postRating,
   patchRating,
-  deleteVote,
+  deleteRating,
   getRating,
   getRatings,
   getOwnRatings,
@@ -193,7 +193,7 @@ describe('high level actions', () => {
     }
     const server_resp = require("../../cypress/fixtures/api/post/rating_34.json")
     const addRatingAction = {
-      type: cst.actions.ADD_RATING,
+      type: cst.actions.CREATE_RATING,
       rating: server_resp
     }
     const ratingCreatedNotif = {
@@ -256,7 +256,7 @@ describe('high level actions', () => {
     }
     fetchMock.deleteOnce('https://api.vuedensemble.org/api/ratings/34/', { status: 204 })
     testFetchActions(
-      deleteVote,
+      deleteRating,
       [ratingId],
       [deleteRatingAction, ratingDeletedNotif],
       mockStore(initStore)

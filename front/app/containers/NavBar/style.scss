@@ -7,7 +7,7 @@ div.section.vde-navbar {
   top: 0;
   z-index:10;
   height: $navsize;
-  background-color: $primary-5;
+  background-color: $light;
   width: 100%;
   padding: 1.5rem 0;
   margin-bottom: 1rem;
@@ -24,13 +24,17 @@ div.section.vde-navbar {
 .home-add-bp.level-item:hover,
 .home-add-bp.level-item:focus
 {
+  a {
+    color: $dark;
+  }
+  color: $dark;
   border-color: $dark;
   border-width: thin;
   border-style: outset;
 }
 
 .inscription-link {
-  color: blue;
+  color: $link;
 }
 
 ul {
@@ -59,7 +63,7 @@ div.level.vde-navbar {
   justify-content: flex-end;
 }
 
-.home-add-bp,
+span.home-add-bp,
 .vde.dropdown.nav-item {
   --button-size: calc(5.5rem * 0.6);
   width: var(--button-size);
@@ -72,6 +76,12 @@ div.level.vde-navbar {
   justify-content: center;
   font-size: x-large;
   cursor: pointer;
+  color: $link;
+}
+
+span.home-add-bp:hover,
+.vde.dropdown.nav-item:hover {
+  color: $dark;
 }
 
 .level.is-mobile .home-add-bp.level-item:not(:last-child) {
@@ -81,10 +91,11 @@ div.level.vde-navbar {
 
 span.home-add-bp a .icon {
   display: flex;
+  color: inherit;
 }
 
 .vde.navbar.image.is-32x32 {
-  color: $dark;
+  color: inherit;
   font-size: x-large;
   background: transparent;
 }

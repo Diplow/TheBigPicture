@@ -28,7 +28,9 @@ const ListLook = (props) => {
     buttons,
     search,
     processedRequests,
-    margin
+    margin,
+    hiddenDefault,
+    newItem
   } = props
 
   const [hidden, setHidden] = useState(!loadFirstPage)
@@ -54,9 +56,19 @@ const ListLook = (props) => {
 
   const [hiddenInitValue, _] = useState(hidden)
   const [loading, setLoading] = useState(waitingForResponse !== "")
+  const [loadingMore, setLoadingMore] = useState(waitingForResponse !== "")
+  const [hasLoaded, setHasLoaded] = useState(false)
 
   useEffect(() => {
-    setLoading(waitingForResponse !== "")
+    if (!hasLoaded) {
+      if (loading && waitingForResponse === "") {
+        setHasLoaded(true)
+      }
+      setLoading(waitingForResponse !== "")
+    }
+    if (hasLoaded) {
+      setLoadingMore(waitingForResponse !== "")
+    }
   }, [waitingForResponse])
 
   useEffect(() => {
@@ -65,46 +77,36 @@ const ListLook = (props) => {
   }, [name])
 
   return (
-    <div
-      style={margin == undefined ? {marginLeft: cst.SUBMARGIN +"%"} : {marginLeft: margin +"%"}}
-      className={title ? "container vde section section-field" : ""}>
-      {
-        title
-          ? header(buttons, user, title, hidden, setHidden, getPage, icon)
-          : null
-      }
-      {
-        !hidden && search
-          ? searchbar
-          : null
-      }
-      {
-        !hidden && count == 0 && items.length == 0 && !loading
-          ? <p className="vde subtitle vde-loadmore">{emptyMessage}</p>
-          : null
-      }
-      {
-        page.map((item, index) => {
-          const key = `${name}-${index}`
-          return !hidden
-            ? <div id={key} key={key}>{container(item)}</div>
-            : null
-        })
-      }
-      { !hidden ? <Loader condition={loading}>{pagination}</Loader> : null }
+    <div className="vde-list">
+      { buttons ? header(buttons) : null }
+      <ul
+        style={margin == undefined ? {marginLeft: cst.SUBMARGIN +"%"} : {marginLeft: margin +"%"}}
+        className="vde-list">
+        { !hidden && search ? searchbar : null }
+        {
+          !hidden && count !== 0 ? <Loader condition={page.length == 0 ? loading : false} min_loading={1000}>
+            {
+              page.map((item, index) => {
+                const key = `${name}-${index}`
+                return !hidden
+                  ? container(item, index)
+                  : null
+              })
+            }
+          </Loader> : null
+        }
+        { count == 0 && !loading && emptyMessage ? <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">{emptyMessage}</p> : null }
+        { !hidden && hasLoaded ? <Loader condition={loadingMore && page.length != 0} min_loading={1000}>{!loading ? pagination : null}</Loader> : null }
+        { newItem }
+      </ul>
     </div>
   )
 }
 
-const header = (buttons, user, title, hidden, setHidden, getPage, icon) => (
-  <div className="level is-mobile">
-    <div className="level-left">
-      <div className="level-item" onClick={ () => setHidden(!hidden) }>
-        {
-          icon ? icon : <HideAndShowButton hidden={hidden} setHidden={setHidden} />
-        }
-        <p className="vde subtitle level-item">{title}</p>
-      </div>
+const header = (buttons) => (
+  <div className="vde card-header level is-mobile">
+    <div className="level-left"></div>
+    <div className="level-right">
       { buttons && buttons.map((button) => <div key={uuid()}>{button()}</div>) }
     </div>
   </div>

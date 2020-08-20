@@ -1,57 +1,7 @@
 @import "../../../styles/theme.scss";
 
-.checkbox {
-  padding-right: 1rem;
-  :hover {
-    color: $light;
-  }
-}
-
-p.subtitle.level-item {
-    font-weight: 700;
-    padding: 0.5rem;
-    font-size: xx-large;
-}
-
-span.vde-button.is-narrow.level-item.button.tbp-radio {
-  color: $dark;
-  background-color: $primary-5;
-}
-
-.button.tbp-radio {
-  color: $dark;
-  background-color: $primary-5;
+.vde.backicon {
+  width: 100%;
+  transform: rotate(180deg);
   margin-right: 0.5rem;
-  border-width: inherit;
-}
-
-.author-icon {
-  padding-right: 0.3rem;
-}
-
-.hero {
-  .title {
-    color: $primary-1;
-  }
-  margin-top: 0.6rem;
-  background-color: $primary-4;
-  padding: 0.7rem 0;
-}
-
-@media screen and (max-width: 600px) {
-  .hero {
-    .title {
-      font-size: x-large;
-    }
-  }
-}
-
-.filter.checkbox:hover {
-  color: $light;
-}
-
-div.vde-bigpicture-page {
-  .container.vde section.section-field {
-    padding-bot: 1rem;
-  }
 }

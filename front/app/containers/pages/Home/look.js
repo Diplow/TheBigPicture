@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import React, { useEffect } from 'react'
 import * as cst from '../../../constants'
-import BigPictureList from '../../../components/BigPicture/list'
-import NewBigPicture from '../../../components/BigPicture/new'
-import BigPictureModal from '../../../components/BigPicture/modal'
+import List from '../../../components/List'
+import SubjectPreview from '../../../components/BigPicture/subject'
+import sortBigPictures from '../../../components/BigPicture/sort'
 import "./style.scss"
 
 
-const HomeLook = ({ user, getBigPictures, count }) => {
+const HomeLook = ({ user, bigPictures, getBigPictures, count }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -15,15 +15,18 @@ const HomeLook = ({ user, getBigPictures, count }) => {
 
   return (
     <div className="vde container section">
-      <BigPictureList
-        name="home-page-bps-list"
-        filter={(bp) => bp.kind == cst.SUBJECT && bp.private == false}
-        parent={null}
+      <List
+        name="home-page-subjects-list"
+        items={bigPictures}
+        container={(bigPicture) => <SubjectPreview key={`subject-${bigPicture.id}`} bigPictureId={bigPicture.id} />}
+        user={user}
+        emptyMessage={cst.labels.MSG_NO_SUBJECT}
+        sortFunc={sortBigPictures}
         count={count}
-        search={true}
         getPage={getBigPictures}
         loadFirstPage={true}
-        emptyMessage={cst.labels.MSG_NO_SUBJECT}
+        showHeader={false}
+        search={true}
         margin={0}
       />
     </div>

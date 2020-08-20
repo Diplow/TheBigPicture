@@ -22,7 +22,7 @@ export const AuthorIconLook = ({ user, showIcon, getUser, userId, clickable }) =
   )
 
   return (
-    <div>
+    <div className="author-icon">
       {
         clickable
           ? (

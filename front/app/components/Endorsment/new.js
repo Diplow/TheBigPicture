@@ -1,48 +1,95 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-import ReactMarkdown from 'react-markdown'
+import { connect } from 'react-redux'
 
-import Context from '../Context'
+import { getRatings } from '../../actions'
+
+import List, { getPageFormatter } from '../List'
+import AuthorIcon from '../User/authorIcon'
+import ratingsSort from '../Rating/sort'
 
 import * as cst from '../../constants'
+import { AbstractContent } from '../../utils'
 import * as utils from '../../utils'
 import EXPLICATIONS from '../../constants/explications'
 import "./style.scss"
 
 
-const NewEndorsment = (props) => {
+const NewEndorsmentLook = (props) => {
   const {
     data,
-    setData
+    setData,
+    rating,
+    bigpicture,
+    reason,
   } = props;
 
-  if (!data) return null
+  if (!data) return
 
   const edit = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value})
+    setData({ ...data, [e.target.name]: e.target.value })
   }
 
   return (
     <div className="newRatingModal">
-      <Context title={cst.labels.CONTEXT_TITLE} bpId={data.bigpicture} ratingId={data.rating} />
-      {starField(data, edit)}
-      {reason(data)}
+      { bigpicture ? targetBp(bigpicture) : null }
+      { rating ? targetRating(rating) : null }
+      { starField(data, edit) }
+      { reasonCard(reason) }
     </div>
   )
 }
 
-const reason = (data) => (
-  <div className="field">
-    <p className="subtitle-modal">Raison</p>
-    <div className="content">
-      <ReactMarkdown source={data.reason} />
+const targetBp = (bigPicture) => {
+  const [show, setShow] = useState(false)
+  const MAX_LENGTH_ABSTRACT = 200
+
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Je pense que la vue d'ensemble...</p>
+      <div className="vde card subject-preview">
+        <header className="card-header level is-mobile">
+          <div className="level-left">
+            <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
+            <p className="title">{bigPicture.title}</p>
+          </div>
+        </header>
+      </div>
     </div>
-  </div>
-)
+  ) 
+}
+
+const targetRating = (rating) => {
+  const [show, setShow] = useState(false)
+  const MAX_LENGTH_ABSTRACT = 200
+
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Je pense que la raison...</p>
+      <div onClick={onclick} className="vde child reason">
+        <AbstractContent text={rating.body} />
+      </div>
+    </div>
+  ) 
+}
+
+const reasonCard = (rating) => {
+  const [show, setShow] = useState(false)
+  const MAX_LENGTH_ABSTRACT = 200
+
+  return (
+    <div className="field">
+      <p className="subtitle-modal">Parce que...</p>
+      <div onClick={onclick} className="vde child reason">
+        <AbstractContent text={rating.body} />
+      </div>
+    </div>
+  ) 
+}
 
 const starField = (data, edit) => (
   <div className="field">
-    <p className="subtitle-modal">Évaluation</p>
+    <p className="subtitle-modal">Est...</p>
     { stars(data, edit) }
     <p>{EXPLICATIONS[data.value]}</p>
   </div>
@@ -76,4 +123,15 @@ const stars = (data, edit) => {
   )
 }
 
+const mapStateToProps = (state, ownProps) => ({
+  bigpicture: state.get("bigpictures").find((bp) => bp.id == ownProps.data.bigpicture),
+  rating: state.get("ratings").find((rtg) => rtg.id == ownProps.data.rating),
+  reason: state.get("ratings").find((rtg) => rtg.id == ownProps.data.target_id),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getPage: getPageFormatter(dispatch, getRatings)
+})
+
+const NewEndorsment = connect(mapStateToProps, mapDispatchToProps)(NewEndorsmentLook)
 export default NewEndorsment

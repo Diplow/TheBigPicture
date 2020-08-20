@@ -8,9 +8,9 @@ import * as cst from '../../constants'
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
-  	post: (user) => dispatch(patchUser(user))
+  post: (user) => dispatch(patchUser(user))
 })
 
-const BigPictureModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
+const UserModal = connect(mapStateToProps, mapDispatchToProps)(EditionModalLook)
 
-export default BigPictureModal
+export default UserModal

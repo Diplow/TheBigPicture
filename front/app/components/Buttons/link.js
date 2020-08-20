@@ -13,7 +13,7 @@ const LinkButton = (props) => {
   } = props
 
   return (
-    <span className={`level-item ${classname}`}>
+    <span className={classname}>
       <Link
         to={to}
         className="icon-button"
