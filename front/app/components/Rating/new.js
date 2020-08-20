@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 
-import Context from '../Context'
+import { postRating, deleteRating, patchRating } from '../../actions'
+import RadioButton from '../Buttons/radio'
+import NewActionsButtons from '../Buttons/newtoolbar'
 
 import * as cst from '../../constants'
 import * as utils from '../../utils'
 import "./style.scss"
 
-
-const NewRating = (props) => {
+const NewRatingLook = (props) => {
   const {
-    data,
-    setData
+    item,
+    newItem,
+    setNewItem,
+    setShowNewItem,
+    publish,
+    trash
   } = props;
-
-  if (!data) return null
-
-  const edit = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value})
-  }
-
   return (
-    <div className="newRatingModal">
-      <Context title={cst.labels.CONTEXT_TITLE} bpId={data.target_bp} ratingId={data.target_rating} />
-      { bodyField(data, edit) }
+    <div className="vde child">
+      <textarea
+        className="textarea vde-newrating"
+        name="body"
+        value={newItem.body}
+        onChange={(e) => { setNewItem({ ...newItem, [e.target.name]: e.target.value })}}
+        placeholder={cst.labels.NEW_REASON_PLACEHOLDER} />
+      <NewActionsButtons
+        publish={() => publish(newItem)}
+        trash={() => trash(newItem)}
+        discard={() => { setShowNewItem(false); setNewItem({ ...newItem, body: item && item.body || "" })}} />
     </div>
   )
 }
 
-const bodyField = (data, edit) => (
-  <div className="field">
-    <p className="subtitle-modal">Raison</p>
-    <textarea
-      className="textarea tbp-modal"
-      name="body"
-      value={data.body}
-      onChange={edit}
-      placeholder="Raison..." />
-  </div>
-)
+const mapStateToProps = (state) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  publish: (item) => { item.id ? dispatch(patchRating(item)) : dispatch(postRating(item)) },
+  trash: (item) => { item.id ? dispatch(deleteRating(item.id)) : null }
+})
+
+const NewRating = connect(mapStateToProps, mapDispatchToProps)(NewRatingLook)
 
 export default NewRating

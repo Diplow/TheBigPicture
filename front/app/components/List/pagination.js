@@ -84,9 +84,9 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 const LoadMore = ({ loadMore, currentPage, count, pageNb, size }) => {
   const canLoad = count == undefined || currentPage.length < count && count > pageNb*size
   return canLoad ? (
-    <a className="subtitle vde-loadmore" onClick={loadMore}>
+    <li className="subtitle vde-loadmore" onClick={loadMore}>
       Charger plus de contenus...
-    </a>
+    </li>
   ) : null
 }
 

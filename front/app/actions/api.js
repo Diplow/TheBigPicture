@@ -295,8 +295,9 @@ export const login = (credentials) => (
   (dispatch) => {
     fetch(cst.SERVER_ADDR + 'token-auth/', buildRequest(credentials, "POST"))
       .then(handleHttpError(dispatch, "login"))
-      .then((res) => res.json())
+      .then((res) => (res !== null ? res.json() : null))
       .then((json) => {
+        if (json == null) return
         localStorage.setItem('token', json.token);
         localStorage.setItem('user', JSON.stringify(json.user));
         localStorage.setItem('expiration', computeTokenTimeout())
@@ -320,16 +321,16 @@ export const handleHttpError = (dispatch, action) => (
       case 400:
         if (action == "login")
           dispatch(basics.notification(notifications.IDENTIFICATION_FAIL))
-        return res
+        return null
       case 401:
         localStorage.clear()
         dispatch(basics.logout())
         dispatch(basics.notification(notifications.SESSION_EXPIRED))
-        return res
+        return null
       case 500:
       case 503:
         dispatch(basics.notification(notifications.SERVER_ERROR_500(action)))
-        return res
+        return null
       default:
         return res
     }

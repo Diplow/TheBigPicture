@@ -11,14 +11,16 @@ const addBp = (bp, state) => {
     title: bp.title,
     kind: bp.kind,
     body: bp.body,
-    children: bp.children,
+    children: bp.children ? bp.children.map((child) => child.id) : (old && old.children || []),
     hyperlink: bp.hyperlink,
     hyperlink_id: bp.hyperlink_id,
     parent: bp.parent,
     subject: bp.subject,
     author: bp.author_id,
+    reverse_author: bp.reverse_author,
     creation_date: bp.creation_date,
     modification_date: bp.modification_date,
+    ratingCount: old && old.ratingCount ? old.ratingCount : bp.ratingCount,
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
@@ -86,17 +88,16 @@ const addChildToParent = (bp, state) => {
 }
 
 const addBigPicture = (bp, state) => {
-  const addFamily = (bp, state) => {
+  const addChildren = (bp, state) => {
     const favorite = bp.favorite
-    if (bp.family) {
-      for (let i = 0; i < bp.family.length; ++i) {
-        state = addBigPicture({ ...bp.family[i], favorite }, state)
-      }
+    const childrenCount = bp.children ? bp.children.length : 0
+    for (let i = 0; i < childrenCount; ++i) {
+      state = addBigPicture({ ...bp.children[i], favorite }, state)
     }
     return state
   }
 
-  state = addFamily(bp, state)
+  state = addChildren(bp, state)
   state = addBp(bp, state)
   state = addChildToParent(bp, state)
   state = handleHyperlink(bp, state)
@@ -160,6 +161,14 @@ const bigpictures = (state = [], action) => {
         children: element.children.filter((id) => id !== action.id) 
       }))
 
+    case cst.actions.CREATE_RATING:
+      const target = state.find((elt) => elt.id == action.rating.target_bp)
+      if (!target) return state
+      state = reducer_utils.update_item(
+        state,
+        action.rating.target_bp,
+        { ratingCount: target.ratingCount+1 }
+      )
     case cst.actions.ADD_RATING:
       if (action.rating.context && action.rating.context.subject)
         return addBigPicture(action.rating.context.subject, state)

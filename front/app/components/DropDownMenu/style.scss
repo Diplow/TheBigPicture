@@ -3,7 +3,7 @@
 /* Dropdown Menu */
 
 .vde.dropdown-menu {
-  display: inherit;
+  display: none;
   right: 0;
   left: inherit;
   width: max-content;
@@ -33,4 +33,8 @@
   background-color: transparent;
 }
 
-
+.is_active {
+  .vde.dropdown-menu {
+    display: inherit;
+  }
+}

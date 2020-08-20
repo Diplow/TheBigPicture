@@ -1,30 +1,47 @@
+
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import {
-  getBigPicture,
-  getSubjects,
-  getRatings,
-  getEndorsments
-} from '../../../actions/index'
-
-import BigPictureViewLook from './look'
-import { getPageFormatter } from '../../../components/List'
+import { getBigPicture } from '../../../actions/index'
+import BigPictureSection from './bigPictureSection'
+import ReasonsSection from './reasonsSection'
+import ResultsSection from './resultsSection'
 
 import * as cst from '../../../constants'
+import "./style.scss"
 
+
+const BigPictureViewLook = (props) => {
+  const {
+    match,
+    bigPicture,
+    getBigPicture
+  } = props
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    getBigPicture(match.params.bigPictureId)
+  }, [match])
+
+  return (
+    <div className="vde container section">
+      <BigPictureSection bigPicture={bigPicture} />
+      <ReasonsSection bigPicture={bigPicture} />
+      <ResultsSection bigPicture={bigPicture} />
+    </div>
+  )
+}
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.get("user"),
-  bigPicture: state.get("bigpictures").find((elt) => elt.id == ownProps.match.params.bpId),
-  endorsments: state.get("endorsments").filter((elt) => elt.bigPicture == ownProps.match.params.bpId)
+  bigPicture: state.get("bigpictures").find((elt) => elt.id == ownProps.match.params.bigPictureId)
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) },
-  getReferences: getPageFormatter(dispatch, getSubjects),
-  getRatingsPage: getPageFormatter(dispatch, getRatings),
-  getEndorsmentsPage: getPageFormatter(dispatch, getEndorsments),
-  getLastBps: getPageFormatter(dispatch, getSubjects)
+  getBigPicture: (bpId) => { dispatch(getBigPicture(bpId)) }
 })
 
 const BigPictureView = connect(mapStateToProps, mapDispatchToProps)(BigPictureViewLook)

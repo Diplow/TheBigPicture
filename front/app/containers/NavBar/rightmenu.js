@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { ReactComponent as SocialsIcon } from '../../images/icons/share.svg'
 import { ReactComponent as UserIcon } from '../../images/icons/user.svg'
 import { ReactComponent as DiscordIcon } from '../../images/icons/discord-color.svg'
+import { ReactComponent as FacebookIcon } from '../../images/icons/facebook.svg'
+import { ReactComponent as TwitchIcon } from '../../images/icons/twitch.svg'
 import { ReactComponent as TwitterIcon } from '../../images/icons/twitter-color.svg'
 import { ReactComponent as GithubIcon } from '../../images/icons/github-color.svg'
 import { ReactComponent as HomeIcon } from '../../images/icons/home.svg'
@@ -14,7 +16,7 @@ import { ReactComponent as PlusIcon } from '../../images/icons/plus.svg'
 import { ReactComponent as DisconnectIcon } from '../../images/icons/logout.svg'
 
 import EditionModalButton from '../../components/Buttons/modal'
-import NewBigPicture from '../../components/BigPicture/new'
+import NewBigPicture from '../../components/BigPicture/newsubject'
 import BigPictureModal from '../../components/BigPicture/modal'
 import LoginButton from '../../components/Login/button'
 import LoginModal from '../../components/Login/modal'
@@ -55,9 +57,14 @@ const socialsButton = (isActive, setIsActive) => (
     <DropdownMenu
       linksArray={[
         {
-          leftIcon: <TwitterIcon className="vde navbar menu" />,
-          name: "Twitter",
-          url: "https://twitter.com/Diplo87355132"
+          leftIcon: <TwitchIcon className="vde navbar menu" />,
+          name: "Twitch",
+          url: "https://www.twitch.tv/diplovde"
+        },
+        {
+          leftIcon: <DiscordIcon className="vde navbar menu" />,
+          name: "Discord",
+          url: "https://discord.gg/NtZHTqc"
         },
         {
           leftIcon: <GithubIcon className="vde navbar menu" />,
@@ -65,9 +72,14 @@ const socialsButton = (isActive, setIsActive) => (
           url: "https://github.com/Diplow/TheBigPicture"
         },
         {
-          leftIcon: <DiscordIcon className="vde navbar menu" />,
-          name: "Discord",
-          url: "https://discord.gg/NtZHTqc"
+          leftIcon: <FacebookIcon className="vde navbar menu" />,
+          name: "Facebook",
+          url: "https://www.facebook.com/vuedensemble.org"
+        },
+        {
+          leftIcon: <TwitterIcon className="vde navbar menu" />,
+          name: "Twitter",
+          url: "https://twitter.com/Diplo87355132"
         }
       ]} />
   </DropDownButton>
@@ -133,7 +145,7 @@ const userButton = (isActive, setIsActive, user, logout) => {
       <DropdownMenu
         linksArray={[
           {
-            leftIcon: <HomeIcon className="vde navbar menu" />,
+            leftIcon: <UserIcon className="vde navbar menu" />,
             name: cst.labels.PROFILE,
             url: `/user/${user.id}`
           },

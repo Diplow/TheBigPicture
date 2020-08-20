@@ -16,6 +16,7 @@ class RatingSerializer(serializers.ModelSerializer):
   author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
   basisCount = serializers.SerializerMethodField(read_only=True)
+  ratingCount = serializers.SerializerMethodField(read_only=True)
 
   class Meta:
     model = Rating
@@ -23,6 +24,9 @@ class RatingSerializer(serializers.ModelSerializer):
 
   def get_basisCount(self, obj):
     return obj.endorsments.all().count()
+
+  def get_ratingCount(self, obj):
+    return Rating.objects.filter(target_rating=obj).count()
 
 
 class EndorsmentSerializer(serializers.ModelSerializer):

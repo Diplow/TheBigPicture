@@ -3,15 +3,16 @@
 
 // Update Bulma's global variables
 $family-sans-serif: "Ubuntu", sans-serif;
-$primary-1: #1F2041;
+$primary-1: hsl(198, 0%, 15%);
 $primary-2: #281346;
-$primary-3: #635380;
+$primary-3: hsl(198, 0%, 70%);
 $primary-4: #D4D4D4;
-$primary-5: #f4e5d9;
+$primary-5: hsl(48, 100%, 89%);
 
-$red: #E83A00;
-$dark: #1f2041;
-$light: #f4e5d9;
+$red: hsl(9, 88%, 61%);
+$dark: hsl(198, 0%, 15%);
+$light: hsl(48, 100%, 89%);
+$link: hsl(198, 100%, 28%);
 
 $widescreen-enabled: false;
 $fullhd-enabled: false;
@@ -28,7 +29,7 @@ $input-shadow: none;
 @import "../../node_modules/bulma/sass/base/_all.sass";
 @import "../../node_modules/bulma/sass/elements/button.sass";
 @import "../../node_modules/bulma/sass/elements/container.sass";
-@import "../../node_modules/bulma/sass/elements/form.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
 @import "../../node_modules/bulma/sass/elements/title.sass";
 @import "../../node_modules/bulma/sass/components/navbar.sass";
 @import "../../node_modules/bulma/sass/layout/hero.sass";
@@ -37,3 +38,4 @@ $input-shadow: none;
 
 @import './global-styles.scss';
 @import './modals.scss';
+@import './cards.scss';

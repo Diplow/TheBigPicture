@@ -2,8 +2,8 @@
 
 
 .level-item.image.is-48x48 {
-	width: 3.3rem;
-	margin-right: 0.5rem;	
+  width: 3.3rem;
+  margin-right: 0.5rem; 
 }
 
 .login-image.clickable:hover,
@@ -11,4 +11,8 @@
   border-color: $dark;
   border-width: thin;
   border-style: outset;
+}
+
+.author-icon {
+  padding-right: 0.3rem;
 }

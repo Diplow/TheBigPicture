@@ -1,8 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
 from django.http import HttpResponse
 from django.db.models import Count
+from api.utils import get_or_none
 
-from api.models import Rating, Endorsment
+from api.models import Rating, Endorsment, BigPicture, BaseUser
 from api.serializers import RatingSerializer, RatingWithContextSerializer, EndorsmentSerializer
 from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 
@@ -42,6 +43,15 @@ class EndorsmentViewSet(ModelViewSet):
       self.queryset = self.queryset.filter(target__target_rating=rating)
     return self.queryset
 
+  def create(self, request):
+    if request.user.id != int(request.data["author_id"]):
+      return HttpResponse(json.dumps({"error": "Vous ne pouvez évaluer qu'en votre nom propre !"}), status=401)
+    Endorsment.objects.filter(
+      author__id=request.user.id,
+      bigpicture=request.data.get("bigpicture", None),
+      rating=request.data.get("rating", None)
+      ).delete()
+    return super().create(request)
 
 class RatingWithContextViewSet(ModelViewSet):
   queryset = Rating.objects.all()
