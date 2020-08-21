@@ -22,6 +22,9 @@ export const CAN_NOT_ADD_BP_CHILDREN_AT_CREATION = "Vous pourrez ajouter des él
 export const CREATE_BP_MODAL_TITLE = "Créer une nouvelle vue d'ensemble"
 export const CREATE_ENDORSMENT = "Évaluer sur la base de cette raison"
 
+export const NEW_BP_TITLE_PLACEHOLDER = "Écrivez ici le titre de votre vue."
+export const NEW_BP_ABSTRACT_PLACEHOLDER = "Écrivez ici un résumé de votre vue."
+
 export const NEW_REFERENCE_PLACEHOLDER = "Renseignez ici l'identifiant d'une autre vue pour y faire référence !"
 
 export const SEE_MORE = "Voir plus"

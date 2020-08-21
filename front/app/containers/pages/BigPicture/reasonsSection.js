@@ -11,9 +11,7 @@ import RadioButton from '../../../components/Buttons/radio'
 import List, { getPageFormatter } from '../../../components/List'
 import NewRating from '../../../components/Rating/new'
 
-import { ReactComponent as PencilIcon } from '../../../images/icons/pencil-solid.svg'
-
-import { AbstractContent } from '../../../utils'
+import { AbstractContent, hooks } from '../../../utils'
 import * as cst from '../../../constants'
 import "./style.scss"
 
@@ -26,19 +24,24 @@ const ReasonsSectionLook = (props) => {
     getPage
   } = props
 
-  const [hiddenReasons, setHiddenReasons] = useState(true)
-  const [showNewReason, setShowNewReason] = useState(false)
-  const [newReason, setNewReason] = useState(null)
+  const [
+    newButton,
+    newReason,
+    showNewReason,
+    setShowNewReason
+  ] = hooks.useNewBuffer({
+    NewWidget: NewRating,
+    initItem: (bigPicture, user) => (bigPicture ? {
+      body: "",
+      target_bp: bigPicture.id,
+      author_id: user.id,
+      subject: bigPicture.subject || bigPicture.id
+    } : null),
+    item: bigPicture,
+    user
+  })
 
-  useEffect(() => {
-    if (bigPicture)
-      setNewReason({
-        body: "",
-        target_bp: bigPicture.id,
-        author_id: user.id,
-        subject: bigPicture.subject || bigPicture.id
-      })
-  }, [bigPicture, user])
+  const [hiddenReasons, setHiddenReasons] = useState(true)
 
   const header = () => {
     if (!bigPicture) return null
@@ -46,9 +49,7 @@ const ReasonsSectionLook = (props) => {
       <header className="card-header level is-mobile">
         <div className="level-left">
           <p className="title">{cst.labels.REASON_LIST_TITLE(bigPicture.ratingCount)}</p>
-          <div className="vde header-button" onClick={() => setShowNewReason(!showNewReason)}>
-            <PencilIcon className="vde header-icon is-narrow icon-button" />
-          </div>
+          { newButton }
         </div>
         <div className="level-right">
           <HideAndShowButton hidden={hiddenReasons} setHidden={setHiddenReasons} />
@@ -76,12 +77,7 @@ const ReasonsSectionLook = (props) => {
   return (
     <div className={`vde card reasons-section ${ hiddenReasons ? "" : "is-open"}`}>
       { header() }
-      { showNewReason
-        ? <NewRating
-          newReason={newReason}
-          setNewReason={setNewReason}
-          setShowNewReason={setShowNewReason} />
-        : null }
+      { showNewReason ? newReason : null }
       { bigPicture && !hiddenReasons ? reasonList(bigPicture, ratings) : null }
     </div>
   )

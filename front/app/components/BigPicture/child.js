@@ -8,6 +8,7 @@ import LinkButton from '../Buttons/link'
 import NewBigPicture from './new'
 
 import { ReactComponent as LookIcon } from '../../images/icons/arrow.svg'
+import { ReactComponent as ReferenceIcon } from '../../images/icons/forward.svg'
 
 import { AbstractContent, hooks } from '../../utils'
 import * as utils from '../../utils'
@@ -44,8 +45,16 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
     const headerLevelLeft = () => (
       <div className="level-left">
         { user.id == bigPicture.author ? editButton : null }
-        { bigPicture.reverse_author ? <AuthorIcon userId={bigPicture.reverse_author} showIcon={true} clickable={true}/> : null}
         <p className="title">{bigPicture.title}</p>
+        {
+          bigPicture.hyperlink_id ? (
+            <LinkButton
+              icon={ <ReferenceIcon className="vde header-icon icon lookicon" /> }
+              to={`/bigpicture/${bigPicture.hyperlink_id || bigPicture.id}`}
+              classname="vde is-narrow header-button icon-button"
+            />
+          ) : null
+        }
       </div>
     )
 

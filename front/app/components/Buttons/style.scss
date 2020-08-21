@@ -61,7 +61,9 @@
 }
 
 .creating-button.level.trash {
-  background-color: $light;
+  background-color: transparent;
+  border-style: solid;
+  border-width: thin;
   color: $dark;
   padding: 0.4rem;
 }
