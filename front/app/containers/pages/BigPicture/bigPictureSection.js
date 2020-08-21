@@ -11,10 +11,9 @@ import RatingPreview from '../../../components/Rating/preview'
 import AuthorIcon from '../../../components/User/authorIcon'
 import List from '../../../components/List'
 
-import { ReactComponent as NewBigPictureIcon } from '../../../images/icons/pencil-solid.svg'
 import { ReactComponent as LookIcon } from '../../../images/icons/arrow.svg'
 
-import { AbstractContent } from '../../../utils'
+import { AbstractContent, hooks } from '../../../utils'
 
 import * as cst from '../../../constants'
 import "./style.scss"
@@ -27,24 +26,28 @@ const BigPictureSectionLook = (props) => {
     children
   } = props
 
-  const [hiddenBpDetails, setHiddenBpDetails] = useState(false)
-  const [showNewBigPicture, setShowNewBigPicture] = useState(false)
-  const [newBigPicture, setNewBigPicture] = useState(null)
+  const [
+    newButton,
+    newBigPicture,
+    showNewBigPicture,
+    setShowNewBigPicture
+  ] = hooks.useNewBuffer({
+    NewWidget: NewBigPicture,
+    initItem: (bigPicture, user) => (bigPicture ? {
+      title: "",
+      body: "",
+      author_id: user.id,
+      hyperlink_id: "",
+      kind: cst.RESOURCE,
+      parent: bigPicture.id,
+      subject: bigPicture.subject || bigPicture.id,
+      private: bigPicture.private
+    } : null),
+    item: bigPicture,
+    user
+  })
 
-  useEffect(() => {
-    if (bigPicture) {
-      setNewBigPicture({
-        title: "",
-        body: "",
-        author_id: user.id,
-        hyperlink_id: "",
-        kind: cst.RESOURCE,
-        parent: bigPicture.id,
-        subject: bigPicture.subject || bigPicture.id,
-        private: bigPicture.private
-      })
-    }
-  }, [bigPicture, user])
+  const [hiddenBpDetails, setHiddenBpDetails] = useState(false)
 
   const lookButton = (bigPicture) => (
     <LinkButton
@@ -54,18 +57,12 @@ const BigPictureSectionLook = (props) => {
     />
   )
 
-  const addChild = (    
-    <div className="vde header-button" onClick={() => { setShowNewBigPicture(!showNewBigPicture)}}>
-      <NewBigPictureIcon className="vde header-icon is-narrow icon-button" />
-    </div>
-  )
-
   const headerLevelLeft = (bigPicture) => (
     <div className="level-left">
       { lookButton(bigPicture) }
       <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
       <p style={{margin: 0}} className="title">{bigPicture.title}</p>
-      { user.id == bigPicture.author ? addChild : null }
+      { user.id == bigPicture.author ? newButton : null }
     </div>
   )
 
@@ -103,15 +100,7 @@ const BigPictureSectionLook = (props) => {
       <Loader condition={!bigPicture}>
         { bigPicture ? header(bigPicture) : null }
         { bigPicture && !hiddenBpDetails ? <AbstractContent text={bigPicture.body} /> : null }
-        { showNewBigPicture
-          ? (
-            <NewBigPicture
-              item={bigPicture}
-              newItem={newBigPicture}
-              setNewItem={setNewBigPicture}
-              setShowNewItem={setShowNewBigPicture} />
-          )
-          : null }
+        { showNewBigPicture ? newBigPicture : null }
         { bigPicture && !hiddenBpDetails ? analyse(bigPicture, children) : null }
       </Loader>
     </div>

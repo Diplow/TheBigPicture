@@ -49,7 +49,7 @@ const NewBigPictureLook = (props) => {
           name="body"
           value={newItem.body}
           onChange={edit}
-          placeholder={cst.labels.NEW_BP_BODY_PLACEHOLDER} />
+          placeholder={cst.labels.NEW_BP_ABSTRACT_PLACEHOLDER} />
       </div>
     </div>
   )
@@ -68,7 +68,7 @@ const NewBigPictureLook = (props) => {
   )
 
   return (
-    <div className="vde child">
+    <div className="vde child new-item">
       { header() }
       { content() }
       { reference() }
