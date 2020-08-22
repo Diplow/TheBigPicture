@@ -31,7 +31,7 @@ const NewEndorsmentLook = (props) => {
   }
 
   return (
-    <div className="newRatingModal">
+    <div style={{maxWidth: "100%"}} className="newRatingModal">
       { bigpicture ? targetBp(bigpicture) : null }
       { rating ? targetRating(rating) : null }
       { starField(data, edit) }
@@ -45,7 +45,7 @@ const targetBp = (bigPicture) => {
   const MAX_LENGTH_ABSTRACT = 200
 
   return (
-    <div className="field">
+    <div style={{maxWidth: "100%"}} className="field">
       <p className="subtitle-modal">Je pense que la vue d'ensemble...</p>
       <div className="vde card subject-preview">
         <header className="card-header level is-mobile">
@@ -64,7 +64,7 @@ const targetRating = (rating) => {
   const MAX_LENGTH_ABSTRACT = 200
 
   return (
-    <div className="field">
+    <div style={{maxWidth: "100%"}} className="field">
       <p className="subtitle-modal">Je pense que la raison...</p>
       <div onClick={onclick} className="vde child reason">
         <AbstractContent text={rating.body} />
@@ -78,7 +78,7 @@ const reasonCard = (rating) => {
   const MAX_LENGTH_ABSTRACT = 200
 
   return (
-    <div className="field">
+    <div style={{maxWidth: "100%"}} className="field">
       <p className="subtitle-modal">Parce que...</p>
       <div onClick={onclick} className="vde child reason">
         <AbstractContent text={rating.body} />
@@ -88,7 +88,7 @@ const reasonCard = (rating) => {
 }
 
 const starField = (data, edit) => (
-  <div className="field">
+  <div style={{maxWidth: "100%"}} className="field">
     <p className="subtitle-modal">Est...</p>
     { stars(data, edit) }
     <p>{EXPLICATIONS[data.value]}</p>

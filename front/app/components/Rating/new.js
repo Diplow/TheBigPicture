@@ -18,6 +18,7 @@ const NewRatingLook = (props) => {
     publish,
     trash
   } = props;
+  if (!newItem) return null
   return (
     <div className="vde child new-item">
       <textarea

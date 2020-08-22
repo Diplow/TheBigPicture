@@ -80,7 +80,7 @@ const ListLook = (props) => {
     <div className="vde-list">
       { buttons ? header(buttons) : null }
       <ul
-        style={margin == undefined ? {marginLeft: cst.SUBMARGIN +"%"} : {marginLeft: margin +"%"}}
+        style={margin == undefined ? {paddingLeft: cst.SUBMARGIN +"%"} : {paddingLeft: margin +"%"}}
         className="vde-list">
         { !hidden && search ? searchbar : null }
         {

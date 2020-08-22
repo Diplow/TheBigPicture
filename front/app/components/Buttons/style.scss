@@ -8,6 +8,7 @@
 
 .level.is-mobile.action-buttons {
   padding: 0.2rem;
+  width: 100%;
   .level-right {
     max-width: 100%;
   }
@@ -22,7 +23,7 @@
   height: 3rem;
   padding: 0;
   margin: 0.5rem;
-  max-width: 33%;
+  max-width: "fit-content";
 
   span.level-item.text {
     max-width: 100%;
@@ -70,4 +71,5 @@
 
 .creating-button.level.cancel {
   background-color: transparent;
+  padding: 0.4rem;
 }

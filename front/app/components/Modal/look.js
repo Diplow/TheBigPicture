@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./style.scss"
 
+import NewActionsButtons from '../Buttons/newtoolbar'
 import uuid from 'uuid/v4'
 
 
@@ -22,29 +23,17 @@ const EditionModalLook = (props) => {
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">
-          <p className="modal-card-title">{title}</p>
+          <p  style={{maxWidth: "100%"}} className="modal-card-title">{title}</p>
           <button className="delete" onClick={() => setActive(false)} aria-label="close"></button>
         </header>
         <section className="modal-card-body">
           { active ? construct : null }
         </section>
-        <footer className="modal-card-foot">
-          <div className="control">
-            <button
-              className="button is-dark"
-              onClick={() => { setActive(false); post(data) }}>
-              Publier
-            </button>
-            {
-              del != undefined
-                ? <button
-                  className="button is-dark"
-                  onClick={() => { setActive(false); del(data) }}>
-                  {data.id == undefined ? "Annuler" : "Supprimer"}
-                </button>
-                : null
-            }
-          </div>
+        <footer className="modal-card-foot" style={{padding: 0}}>
+          <NewActionsButtons
+            publish={() => { setActive(false); post(data) }}
+            trash={data.id ? () => { setActive(false); del(data) } : null}
+            discard={data.id ? null : () => { setActive(false) }} />
         </footer>
       </div>
     </div>

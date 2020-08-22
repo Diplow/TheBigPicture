@@ -59,20 +59,30 @@ const RatingPreviewLook = (props) => {
     user
   })
 
+  const [
+    newReasonButton,
+    newReason,
+    showNewReason,
+    setShowNewReason
+  ] = hooks.useNewBuffer({
+    NewWidget: NewRating,
+    initItem: (rating, user) => (rating ? {
+      body: "",
+      target_rating: rating.id,
+      author_id: user.id,
+      subject: rating.subject
+    } : null),
+    item: rating,
+    icon: NewReasonIcon,
+    user
+  })
+
   const [showChildren, setShowChildren] = useState(false)
-  const [showNewReason, setShowNewReason] = useState(false)
   const [showNewEndorsment,setShowNewEndorsment] = useState(false)
-  const [newReason, setNewReason] = useState(null)
   const [newEndorsment, setNewEndorsment] = useState(null)
 
   useEffect(() => {
     if (rating) {
-      setNewReason({
-        body: "",
-        target_rating: rating.id,
-        author_id: user.id,
-        subject: rating.subject
-      })
       setNewEndorsment({
         author_id: user.id,
         reason: rating.body,
@@ -103,12 +113,6 @@ const RatingPreviewLook = (props) => {
       }
       loadFirstPage={true}
     />
-  )
-
-  const newReasonButton = (
-    <div className="vde header-button" onClick={() => { setShowNewReason(!showNewReason)}}>
-      <NewReasonIcon className="vde header-icon is-narrow icon-button" />
-    </div>
   )
 
   const s = rating.ratingCount > 1 ? "s" : ""
@@ -179,15 +183,7 @@ const RatingPreviewLook = (props) => {
       </li>
       <li className={`vde child reason ${!showChildren ? "is-closed" : ""}`}>
         { rating.ratingCount !== 0 ? showChildrenButton : null }
-        { showNewReason
-          ? <NewRating
-            newReason={newReason}
-            setNewReason={setNewReason}
-            setShowNewReason={(bool) => {
-              setShowNewReason(bool)
-              setShowChildren(true)
-            }} />
-          : null }
+        { showNewReason ? newReason : null }
         { showChildren ? childrenList(rating, ratings) : null }
       </li>
       { endorsmentModal(rating, user) }

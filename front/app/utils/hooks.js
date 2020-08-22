@@ -16,9 +16,10 @@ export const useNewBuffer = (props) => {
     NewWidget,
     initItem,
     item,
+    icon,
     user
   } = props;
-
+  const Icon = icon || PencilIcon
   const [showNewItem, setShowNewItem] = useState(false)
   const [buffer, setBuffer] = useState(null)
 
@@ -28,9 +29,12 @@ export const useNewBuffer = (props) => {
     }
   }, [item, user])
 
+  if (!item)
+    return [null, null, null, null]
+
   const newButton = (
     <div className="vde header-button" onClick={() => setShowNewItem(!showNewItem)}>
-      <PencilIcon className="vde header-icon is-narrow icon-button" />
+      <Icon className="vde header-icon is-narrow icon-button" />
     </div>
   )
 
