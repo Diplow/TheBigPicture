@@ -48,14 +48,14 @@ const NewActionsButtons = (props) => {
   )
 
   return (
-    <a className="level is-mobile action-buttons">
+    <div className="level is-mobile action-buttons">
       <div className="level-left"/>
       <div className="level-right">
-        { discardButton }
-        { trashButton }
-        { publishButton }
+        { discard ? discardButton : null }
+        { trash ? trashButton : null }
+        { publish ? publishButton : null }
       </div>
-    </a>
+    </div>
   )
 }
 
