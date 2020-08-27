@@ -3,8 +3,18 @@ from rest_framework import serializers
 from api.models import BigPicture, BaseUser, Rating
 from api.serializers.user import UserSerializer
 
+from tagging.models import Tag
+
+
+class TagSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = Tag
+    fields = ["name"]
+
 
 class BigPictureChildSerializer(serializers.ModelSerializer):
+  author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
   hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.filter(private=False), )
   subject = serializers.PrimaryKeyRelatedField(read_only=True)

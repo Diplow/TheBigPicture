@@ -11,6 +11,7 @@ from api.views.users import UserViewSet, GroupViewSet, AuthViewSet, Subscription
 from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet
 from api.views.ratings import RatingViewSet, OwnRatingViewSet, EndorsmentViewSet, RatingWithContextViewSet
 from api.views.results import bigPictureResults, ratingResults
+from api.views.categories import CategoryViewSet
 
 from api.forms.base_user import BaseUserForm
 
@@ -21,6 +22,7 @@ router.register(r'subscriptions', SubscriptionViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'bigpictures', BigPictureViewSet)
 router.register(r'subjects', SubjectViewSet)
+router.register(r'categories', CategoryViewSet)
 router.register(r'ownsubjects', OwnSubjectViewSet)
 router.register(r'ratings', RatingViewSet)
 router.register(r'ratingswithcontext', RatingWithContextViewSet)
