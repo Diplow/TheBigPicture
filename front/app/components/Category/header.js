@@ -75,7 +75,7 @@ const CategoryHeaderLook = ({ data, user }) => {
         </div>
       </div>
       <div className="newBp-container card-content">
-      { showNewBigPicture ? newBigPicture : null }
+        { showNewBigPicture ? newBigPicture : null }
       </div>
     </div>
   )

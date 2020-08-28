@@ -30,16 +30,14 @@ const CategoryPageLook = (props) => {
 
   if (!category) return null
 
-  const getPage = (page, options, reqId) => {
-    return getBigPictures(
-      page,
-      {
-        ...options,
-        category: match.params.category
-      },
-      reqId
-    )
-  }
+  const getPage = (page, options, reqId) => getBigPictures(
+    page,
+    {
+      ...options,
+      category: match.params.category
+    },
+    reqId
+  )
 
   return (
     <div className="vde container section">

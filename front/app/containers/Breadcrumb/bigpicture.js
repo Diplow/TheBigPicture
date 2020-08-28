@@ -20,7 +20,6 @@ const shortenTitle = (title) => {
 const BigPictureBreadcrumbLook = ({ bigPicture, parent, depth }) => {
   if (!bigPicture) return null
 
-  console.log(bigPicture)
   const bpBreadCrumb = (
     <li>
       <Link to={`/bigpicture/${bigPicture.id}`}>      

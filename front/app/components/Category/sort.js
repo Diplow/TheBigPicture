@@ -1,6 +1,4 @@
 
-const sortCategories = (a, b) => {
-  return a.label > b.label ? 1 : -1
-}
+const sortCategories = (a, b) => a.label > b.label ? 1 : -1
 
 export default sortCategories

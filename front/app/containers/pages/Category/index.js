@@ -12,16 +12,14 @@ import * as cst from '../../../constants'
 const mapStateToProps = (state, ownProps) => ({
   user: state.get("user"),
   bigPictures: state.get("bigpictures").filter(
-    (bp) => {
-      return (
-        bp.kind == cst.SUBJECT
+    (bp) => (
+      bp.kind == cst.SUBJECT
         && bp.private == false
         && (
           ownProps.match.params.category == "all"
           || bp.tags.split(" ").indexOf(ownProps.match.params.category) !== -1
         )
-      )
-    }
+    )
   ),
   category: state.get("categories").find((cat) => cat.label == ownProps.match.params.category)
 })
