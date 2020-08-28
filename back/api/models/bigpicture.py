@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from tagging.registry import register
+from tagging.models import Tag
+from tagging.fields import TagField
 
 import datetime
 
@@ -26,11 +29,15 @@ class BigPicture(models.Model):
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   creation_date = models.DateField(auto_now_add=True)
   modification_date = models.DateTimeField(auto_now=True)
+  tags = TagField()
 
   def save(self, *args, **kwargs):
     if self.pin is None:
       self.pin = False
     super(BigPicture, self).save(*args, **kwargs)
+    if "tags" in kwargs.keys():
+      print("lololo")
+      Tag.objects.update_tags(self, kwargs['tags'])
     if self.subject is None:
       self.subject = self
       self.save()

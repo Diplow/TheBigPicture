@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_jwt',
     'django_registration',
+    'tagging',
     'storages',
     'api'
 ]

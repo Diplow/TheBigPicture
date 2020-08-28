@@ -11,7 +11,15 @@ const NEXTS = {
     (result) => {
       if (nextargs.author)
         dispatch(basics.setOwnSubjectCount(nextargs.author, result.count, requestId))
-      dispatch(basics.setSubjectCount(result.count, requestId))
+      else if (nextargs.category)
+        dispatch(basics.setSubjectCategoryCount(nextargs.category, result.count, requestId))
+      else
+        dispatch(basics.setSubjectCount(result.count, requestId))
+    }
+  ),
+  "getCategories": (dispatch, nextargs, requestId) => (
+    (result) => {
+      dispatch(basics.setCategoryCount(result.count, requestId))
     }
   ),
   "getBpRatings": (dispatch, nextargs, requestId) => (

@@ -13,6 +13,9 @@ export { icons }
 export { explications }
 export { notifications }
 
+// Categories
+export const ALL_CATEGORY = "all"
+
 // Server
 export const STATIC_STORAGE = "https://vde-staticfiles.s3.eu-west-3.amazonaws.com/static/icons/"
 export const SERVER_ADDR = document.domain == "localhost" ? "http://localhost:8000/api/" : "https://api.vuedensemble.org/api/"

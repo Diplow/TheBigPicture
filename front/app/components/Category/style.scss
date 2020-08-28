@@ -1,0 +1,111 @@
+@import "../../styles/theme.scss";
+
+
+a.card.category:hover,
+a.card.category:focus {
+  border-style: solid;
+  border-color: $dark;
+  background-color: $primary-3;
+}
+
+a.card.category {
+  --card-height: 256px;
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+
+  .level {
+    width: auto;
+    height: 100%;
+    .level-left {     
+      .category-image.level-item {
+        .level-item.image.is-128x128 {
+          height: var(--card-height);
+          width: var(--card-height);
+        }
+      }
+    }
+  }
+
+  .level.link {
+    height: 3rem;
+  }
+}
+
+.card-content.newBp-container {
+}
+
+div.card.category.header {
+  --header-height: 128px;
+  min-height: var(--header-height);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .level.card-content {
+    width: auto;
+    height: 100%;
+    .level-left {
+      .category-image.level-item {
+        .level-item.image.is-128x128 {
+          height: var(--header-height);
+          width: var(--header-height);
+        }
+      }
+    }
+  }
+}
+
+
+.category.title-section {
+  max-width: calc(100% - var(--card-height));
+  position: relative;
+  bottom: 50%;
+}
+
+
+@media only screen and (max-width: 450px) {
+
+  a.card.category {
+    --mobile-height: 96px ;
+    .level {
+      height: 100%;
+      .level-left {
+        .category-image.level-item {
+          .level-item.image.is-128x128 {
+            height: var(--mobile-height);
+            width: var(--mobile-height);
+          }
+        }
+      }
+    }
+  }
+
+  div.card.category.header {
+    --mobile-height: 76px ;
+
+    .level.card-content {
+      height: 100%;
+      .level-left {
+        .category-image.level-item {
+          .level-item.image.is-128x128 {
+            height: var(--mobile-height);
+            width: var(--mobile-height);
+          }
+        }
+      }
+    }
+  }
+  
+  .category.title-section {
+    max-width: calc(100% - var(--mobile-height));
+    position: relative;
+    bottom: 50%;
+  }
+
+  p.title.is-2 {
+    font-size: large;
+  }
+}

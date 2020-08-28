@@ -42,6 +42,7 @@ const ADD_ACTIONS = {
   "bigpictures": addBigPicture,
   "subjects": addBigPicture,
   "ownsubjects": addBigPicture,
+  "categories": (request, dispatch, category) => { dispatch(basics.addCategory(category)) },
   "subscriptions": (request, dispatch, subscription) => { dispatch(basics.addSubscription(subscription)) },
   "endorsments": (request, dispatch, endorsment) => { dispatch(basics.addEndorsment(endorsment)) },
   "ownratings": (request, dispatch, rating) => {dispatch(basics.addRating(rating)) },

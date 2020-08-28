@@ -16,6 +16,7 @@ Pillow = ">=7.1.0"
 boto3 = ">=1.9.38"
 django-storages = "==1.7.2"
 django-registration = "==3.1"
+django-tagging = "==0.5.0"
 
 [requires]
 python_version = "3.7"

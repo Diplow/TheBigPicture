@@ -1,6 +1,6 @@
 
 
-
+export const MSG_NO_CATEGORIES = "Aucune catégorie n'a encore été créée."
 export const MSG_NO_SUBJECT = "Aucun sujet n'a encore été créé."
 export const MSG_NO_REFERENCE = "Cette vue d'ensemble n'a encore été référencée nulle part sur VDE."
 export const MSG_NO_REASON = "Cette vue d'ensemble n'a pas encore été raisonnée."
@@ -31,3 +31,4 @@ export const SEE_MORE = "Voir plus"
 export const SEE_LESS = "Voir moins"
 export const REASON_FIELD_MODAL_TITLE = "Écrivez votre propre raison"
 export const NEW_REASON_PLACEHOLDER = "Écrivez votre propre raison !"
+export const HOME = "Accueil"

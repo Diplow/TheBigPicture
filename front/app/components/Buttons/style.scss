@@ -38,15 +38,12 @@
 
 }
 
-@media only screen and (max-width: 450) {
+@media only screen and (max-width: 450px) {
   .creating-button.level.is-mobile {
     padding: 0;
-    margin: 0;
+    margin: 0.3rem;
     .level-item.icon {
-      color: inherit;
-      font-size: smaller;
-      width: 1.2rem;
-      margin-right: 0.3rem;
+      display: none;
     }
   }
 }
