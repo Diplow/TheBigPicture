@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import React  from 'react'
 import thunk from 'redux-thunk'
 import {
+  getCategories,
   getBigPicture,
   postBigPicture,
   patchBigPicture,
@@ -53,6 +54,19 @@ const testDispatchActions = (dispatchAction, args, expectedActions, store) => {
 describe('high level actions', () => {
   afterEach(() => {
     fetchMock.restore()
+  })
+
+  it('getCategories', () => {
+    const page = 1
+    const options = {}
+    const requestId = "340ed280-8b39-4b08-aa1b-af8b597f5bc8"
+    const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_categories.json")
+    testDispatchActions(
+      getCategories,
+      [page, options, requestId],
+      [addRequestAction],
+      mockStore(initStore)
+    )
   })
 
   it('getBigPicture', () => {

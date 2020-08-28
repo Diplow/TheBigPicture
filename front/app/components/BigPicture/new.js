@@ -29,7 +29,7 @@ const NewBigPictureLook = (props) => {
   }
 
   const header = () => (
-    <header className="card-header level is-mobile">
+    <header className="level is-mobile">
       <div className="level-left">
         <input
           className="input vde-newrating"
@@ -55,7 +55,7 @@ const NewBigPictureLook = (props) => {
   )
 
   const reference = () => (
-    <header className="card-header level is-mobile">
+    <header className="level is-mobile">
       <div className="level-left">
         <input
           className="input vde-newrating"

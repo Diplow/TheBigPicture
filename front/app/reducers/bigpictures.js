@@ -24,6 +24,7 @@ const addBp = (bp, state) => {
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
+    tags: bp.tags,
     pin: bp.pin
   }
   if (bp.requestId)
@@ -109,6 +110,7 @@ const bigpictures = (state = [], action) => {
 
   switch (action.type) {
 
+    case cst.actions.CREATE_BIG_PICTURE:
     case cst.actions.ADD_BIG_PICTURE:
       return addBigPicture(action.bigpicture, state)
 

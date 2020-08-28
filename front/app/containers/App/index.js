@@ -1,7 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import Home from '../pages/Home'
+import Category from '../pages/Category'
+import Categories from '../pages/Categories'
 import SubjectView from '../pages/BigPicture'
 import UserView from '../pages/User'
 import NavBar from '../NavBar'
@@ -15,8 +16,9 @@ const App = () => (
     <NavBar />
     <div id="routes">
       <Route exact={true} path="/bigpicture/:bigPictureId" component={SubjectView} />
+      <Route exact={true} path="/categories/:category" component={Category} />
       <Route exact={true} path="/user/:id" component={UserView} />
-      <Route exact={true} path="/" component={Home}/>
+      <Route exact={true} path="/" component={Categories}/>
     </div>
     <NotificationManager />
     <Api />

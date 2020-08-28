@@ -67,6 +67,17 @@ export const setSubscriptionCount = (count, requestId) => ({
   requestId
 })
 
+export const setCategoryCount = (count, requestId) => ({
+  type: cst.actions.SET_GLOBAL_CATEGORY_COUNT,
+  count
+})
+
+export const setSubjectCategoryCount = (category, count, requestId) => ({
+  type: cst.actions.SET_CATEGORY_SUBJECT_COUNT,
+  count,
+  category
+})
+
 export const setOwnSubjectCount = (userId, count, requestId) => ({
   type: cst.actions.SET_OWN_SUBJECT_COUNT,
   count,
@@ -128,6 +139,11 @@ export const addBigPicture = (bigpicture) => ({
   bigpicture
 })
 
+export const createBigPicture = (bigpicture) => ({
+  type: cst.actions.CREATE_BIG_PICTURE,
+  bigpicture
+})
+
 // note that bpId is called "reference" in the querystring of
 // the server request. It makes sense when you are server side
 // and you understand "reference" as "who is referring to this bp"
@@ -153,6 +169,11 @@ export const addBigPictureResults = (bpId, results) => ({
 export const addUser = (user) => ({
   type: cst.actions.ADD_USER,
   user
+})
+
+export const addCategory = (category) => ({
+  type: cst.actions.ADD_CATEGORY,
+  category
 })
 
 export const addRating = (rating) => ({

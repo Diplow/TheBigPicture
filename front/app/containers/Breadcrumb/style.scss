@@ -1,0 +1,11 @@
+
+@import "../../styles/theme.scss";
+
+.breadcrumb {
+  background-color: $light;
+  padding: 0.4rem;
+ }
+
+.container.vde-breadcrumb {
+  height: 2rem;
+}

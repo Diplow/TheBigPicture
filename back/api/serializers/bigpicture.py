@@ -6,13 +6,6 @@ from api.serializers.user import UserSerializer
 from tagging.models import Tag
 
 
-class TagSerializer(serializers.ModelSerializer):
-
-  class Meta:
-    model = Tag
-    fields = ["name"]
-
-
 class BigPictureChildSerializer(serializers.ModelSerializer):
   author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author',  queryset=BaseUser.objects.all(), )
