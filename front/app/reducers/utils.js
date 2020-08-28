@@ -9,10 +9,7 @@ export const set_or_update = (fieldName, item, oldItem, defaultValue) => {
 export const add_item_to_set = (state, itemId, fieldSet, setItemId) => {
   const old = state.find((element) => element.id == itemId)
   if (!old && itemId == setItemId) {
-    return [
-      ...state,
-      { id: itemId, references: [itemId] }
-    ]
+    return state
   }
   if (!old) return state
   return [

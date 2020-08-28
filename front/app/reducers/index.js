@@ -7,6 +7,7 @@ import { combineReducers } from 'redux-immutable';
 import { connectRouter } from 'connected-react-router/immutable'
 
 import bigpicturesReducer from './bigpictures'
+import categoriesReducer from './categories'
 import notificationsReducer from './notifications'
 import userReducer from './user'
 import usersReducer from './users'
@@ -27,6 +28,7 @@ const createReducer = (history) => combineReducers({
   subscriptions: subscriptionsReducer,
   endorsments: endorsmentsReducer,
   notifications: notificationsReducer,
+  categories: categoriesReducer,
   global: globalReducer,
 });
 

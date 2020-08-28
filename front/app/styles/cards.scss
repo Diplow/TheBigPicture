@@ -74,12 +74,30 @@
 }
 
 
-li.vde.child:nth-child(even) {
+.vde.child:nth-child(even) {
   background-color: lighten($primary-5, 5%);
 }
 
-li.vde.child:nth-child(odd) {
+.vde.child:nth-child(odd) {
   background-color: darken($primary-5, 5%);
+}
+
+.left.tile.is-parent {
+  .vde.child:nth-child(even) {
+    background-color: lighten($primary-5, 5%);
+  }
+  .vde.child:nth-child(odd) {
+    background-color: darken($primary-5, 5%);
+  }
+}
+
+.right.tile.is-parent {
+  .vde.child:nth-child(odd) {
+    background-color: lighten($primary-5, 5%);
+  }
+  .vde.child:nth-child(even) {
+    background-color: darken($primary-5, 5%);
+  }
 }
 
 

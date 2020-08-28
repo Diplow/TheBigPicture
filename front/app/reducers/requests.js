@@ -41,19 +41,9 @@ const requests = (state = [], action) => {
       request = action.request
       const old = state.find((elt) => elt.id == request.id)
 
-      // If an old, already processed, request is added, just give it
-      // the state of a done request but not already processed.
-      // This way, it will not be sent to the server but the server resp
-      // will be processed again.
+      // If an old, already processed, request is added, ignore it
       if (old != null && old.state == cst.actions.REQUEST_PROCESSED) {
-        return reducer_utils.update_item(
-          state,
-          old.id,
-          {
-            requestId: request.requestId,
-            state: cst.actions.REQUEST_DONE
-          }
-        )
+        return state
       }
 
       return [

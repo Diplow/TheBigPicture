@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import React  from 'react'
 import thunk from 'redux-thunk'
 import {
+  getCategories,
   getBigPicture,
   postBigPicture,
   patchBigPicture,
@@ -55,6 +56,19 @@ describe('high level actions', () => {
     fetchMock.restore()
   })
 
+  it('getCategories', () => {
+    const page = 1
+    const options = { favorites: false }
+    const requestId = "340ed280-8b39-4b08-aa1b-af8b597f5bc8"
+    const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_categories.json")
+    testDispatchActions(
+      getCategories,
+      [page, options, requestId],
+      [addRequestAction],
+      mockStore(initStore)
+    )
+  })
+
   it('getBigPicture', () => {
     const bpId = 26
     const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_bigpicture_26.json")
@@ -76,7 +90,7 @@ describe('high level actions', () => {
     }
     const server_resp = require("../../cypress/fixtures/api/post/bp_265.json")
     const addBpAction = {
-      type: cst.actions.ADD_BIG_PICTURE,
+      type: cst.actions.CREATE_BIG_PICTURE,
       bigpicture: server_resp
     }
     const bpCreatedNotif = {

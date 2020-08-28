@@ -1,5 +1,5 @@
 {
-   "type":"ADD_BIG_PICTURE",
+   "type":"CREATE_BIG_PICTURE",
    "bigpicture":{
       "id":26,
       "hyperlink":null,

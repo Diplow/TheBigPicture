@@ -6,6 +6,36 @@ import * as cst from "../constants"
 
 /**
  *
+ * ---- CATEGORIES ----
+ * 
+ **/
+
+export const getCategories = (page, options, requestId) => (
+  (dispatch) => {
+    api.getCollection(
+      dispatch,
+      "categories",
+      page,
+      utils.removeEmptyKeys(options),
+      "getCategories",
+      requestId
+    )
+  }
+)
+
+export const getCategory = (catLabel) => (
+  (dispatch) => (
+    api.getItem(
+      dispatch, 
+      catLabel,
+      "categories",
+      []
+    )
+  )
+)
+
+/**
+ *
  * ---- BIGPICTURES ----
  * 
  **/
@@ -29,7 +59,7 @@ export const postBigPicture = (bigPicture) => (
       dispatch,
       utils.removeEmptyKeys(bigPicture),
       "bigpictures",
-      basics.addBigPicture,
+      basics.createBigPicture,
       "/",
       "POST"
     )

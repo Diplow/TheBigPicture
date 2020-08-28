@@ -52,7 +52,7 @@ const BigPictureSectionLook = (props) => {
   const lookButton = (bigPicture) => (
     <LinkButton
       icon={ <LookIcon className="vde header-icon backicon" /> }
-      to={!bigPicture.parent ? '/' : `/bigpicture/${bigPicture.parent}`}
+      to={!bigPicture.parent ? `/categories/${bigPicture.tags || cst.ALL_CATEGORY}` : `/bigpicture/${bigPicture.parent}`}
       classname="vde header-button is-narrow icon-button"
     />
   )

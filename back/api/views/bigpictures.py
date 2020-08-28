@@ -6,6 +6,8 @@ from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 from django.http import HttpResponse
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
+from tagging.models import TaggedItem
+
 import json
 import datetime
 
@@ -25,11 +27,18 @@ class SubjectViewSet(ModelViewSet):
   permission_classes = [IsReadOnly]
 
   def get_queryset(self):
+    self.queryset = self._category_filtering()
     self.queryset = self._author_filtering()
     self.queryset = self._favorites_filtering()
     self.queryset = self._reference_filtering()
     self.queryset = self.queryset.order_by('-pin', '-modification_date')
     self.queryset = self._search_filtering()
+    return self.queryset
+
+  def _category_filtering(self):
+    category = self.request.query_params.get('category', None)
+    if category is not None and category != "all":
+      return TaggedItem.objects.get_by_model(BigPicture, category)
     return self.queryset
 
   def _author_filtering(self):
