@@ -1,0 +1,17 @@
+{
+   "type":"ADD_REQUEST",
+   "request":{
+      "url":"categories/?format=json&favorites=false&page=1",
+      "body":{
+         
+      },
+      "method":"GET",
+      "next":"getCategories",
+      "requestId":"340ed280-8b39-4b08-aa1b-af8b597f5bc8",
+      "nextargs":{
+         "favorites":false,
+         "page":1
+      },
+      "id":"GET-categories-format=json-favorites=false-page=1"
+   }
+}

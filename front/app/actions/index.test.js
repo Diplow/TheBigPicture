@@ -58,7 +58,7 @@ describe('high level actions', () => {
 
   it('getCategories', () => {
     const page = 1
-    const options = {}
+    const options = { favorites: false }
     const requestId = "340ed280-8b39-4b08-aa1b-af8b597f5bc8"
     const addRequestAction = require("../../cypress/fixtures/actions/add_request/get_categories.json")
     testDispatchActions(
@@ -90,7 +90,7 @@ describe('high level actions', () => {
     }
     const server_resp = require("../../cypress/fixtures/api/post/bp_265.json")
     const addBpAction = {
-      type: cst.actions.ADD_BIG_PICTURE,
+      type: cst.actions.CREATE_BIG_PICTURE,
       bigpicture: server_resp
     }
     const bpCreatedNotif = {
