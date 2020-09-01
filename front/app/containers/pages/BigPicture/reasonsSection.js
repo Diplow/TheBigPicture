@@ -19,6 +19,7 @@ import "./style.scss"
 const ReasonsSectionLook = (props) => {
   const {
     bigPicture,
+    bpId,
     ratings,
     user,
     getPage
@@ -42,6 +43,10 @@ const ReasonsSectionLook = (props) => {
   })
 
   const [hiddenReasons, setHiddenReasons] = useState(true)
+
+  useEffect(() => {
+    setHiddenReasons(true)
+  }, [bpId])
 
   const header = () => {
     if (!bigPicture) return null
@@ -78,7 +83,7 @@ const ReasonsSectionLook = (props) => {
     <div className={`vde card reasons-section ${ hiddenReasons ? "" : "is-open"}`}>
       { header() }
       { showNewReason ? newReason : null }
-      { bigPicture && !hiddenReasons ? reasonList(bigPicture, ratings) : null }
+      { bigPicture && !hiddenReasons && bigPicture.id == bpId ? reasonList(bigPicture, ratings) : null }
     </div>
   )
 }

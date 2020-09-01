@@ -38,7 +38,7 @@ class SubjectViewSet(ModelViewSet):
   def _category_filtering(self):
     category = self.request.query_params.get('category', None)
     if category is not None and category != "all":
-      return TaggedItem.objects.get_by_model(BigPicture, category).filter(kind=SUBJECT_CODE, private=False)
+      return TaggedItem.objects.get_by_model(BigPicture, category).filter(parent=None, private=False)
     return self.queryset
 
   def _author_filtering(self):
