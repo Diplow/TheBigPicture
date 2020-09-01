@@ -6,21 +6,10 @@ from tagging.fields import TagField
 
 import datetime
 
-SUBJECT_CODE = 1
-PROBLEM_CODE = 2
-SOLUTION_CODE = 3
-RESOURCE_CODE = 4
-
 
 class BigPicture(models.Model):
   title = models.CharField(max_length=380)
   body = models.TextField(blank=True)
-  kind = models.IntegerField(choices=(
-    ("subject", SUBJECT_CODE),
-    ("problem", PROBLEM_CODE),
-    ("solution", SOLUTION_CODE),
-    ("resource", RESOURCE_CODE),
-  ))
   pin = models.BooleanField()
   private = models.BooleanField()
   hyperlink = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, related_name="references")
