@@ -109,14 +109,25 @@ const chart = (bigPicture) => {
     },
     colors: ["#6A6A6B", "#B02E0C", "#EB4511", "#C1BFB5", "#8ADD75", "#5EA34C"],
     title: {
-      text: `Nombre de votes: ${bigPicture.results.count}`,
+      text: `${bigPicture.title}`,
       align: 'left',
-      margin: 10,
+      margin: 35,
       offsetX: 0,
       offsetY: 0,
       floating: true,
       style: {
-        fontSize:  '18px',
+        fontSize:  16,
+      },
+    },
+    subtitle: {
+      text: `Nombre de votes: ${bigPicture.results.count}`,
+      align: 'left',
+      margin: 20,
+      offsetX: 5,
+      offsetY: 35,
+      floating: true,
+      style: {
+        fontSize:  14,
       },
     },
     xaxis: {
@@ -130,7 +141,7 @@ const chart = (bigPicture) => {
       horizontalAlign: 'left',
       offsetX: 0,
       color: '#f4e5d9',
-      fontSize: '16px'
+      fontSize: '16px',
     }
   }
   return (

@@ -30,7 +30,6 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
       title: bigPicture.title,
       body: bigPicture.body,
       author_id: user.id,
-      kind: bigPicture.kind,
       parent: null,
       subject: bigPicture.subject,
       private: bigPicture.private

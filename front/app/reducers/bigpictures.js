@@ -9,7 +9,6 @@ const addBp = (bp, state) => {
     ...old,
     id: bp.id,
     title: bp.title,
-    kind: bp.kind,
     body: bp.body,
     children: bp.children ? bp.children.map((child) => child.id) : (old && old.children || []),
     hyperlink: bp.hyperlink,

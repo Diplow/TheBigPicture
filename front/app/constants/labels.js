@@ -25,10 +25,17 @@ export const CREATE_ENDORSMENT = "Évaluer sur la base de cette raison"
 export const NEW_BP_TITLE_PLACEHOLDER = "Écrivez ici le titre de votre vue."
 export const NEW_BP_ABSTRACT_PLACEHOLDER = "Écrivez ici un résumé de votre vue."
 
-export const NEW_REFERENCE_PLACEHOLDER = "Renseignez ici l'identifiant d'une autre vue pour y faire référence !"
+export const NEW_REFERENCE_PLACEHOLDER = "Identifiant de la référence !"
 
 export const SEE_MORE = "Voir plus"
 export const SEE_LESS = "Voir moins"
 export const REASON_FIELD_MODAL_TITLE = "Écrivez votre propre raison"
 export const NEW_REASON_PLACEHOLDER = "Écrivez votre propre raison !"
 export const HOME = "Accueil"
+
+export const HELPER_TEXT_PARENT_FIELD = "Modifier l'identifiant du parent permet de changer la façon d'accéder à cette vue d'ensemble."
+export const HELPER_TEXT_REFERENCE_FIELD = "Modifier l'identifiant de la référence permet d'accéder à la vue d'ensemble référencée lorsqu'on clic sur la flèche pour y naviguer."
+export const HELPER_TEXT_PRIVACY_FIELD = "Une vue 'privée' ne pourra être visible que de son auteur, depuis son profil."
+
+export const SHOW_ADVANCED_OPTIONS = "Afficher les options avancées."
+export const HIDE_ADVANCED_OPTIONS = "Masquer les options avancées."

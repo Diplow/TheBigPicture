@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
   user: state.get("user"),
   bigPictures: state.get("bigpictures").filter(
     (bp) => (
-      bp.kind == cst.SUBJECT
+      !bp.parent
         && bp.private == false
         && (
           ownProps.match.params.category == "all"
