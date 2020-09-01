@@ -25,7 +25,8 @@ export const CREATE_ENDORSMENT = "Évaluer sur la base de cette raison"
 export const NEW_BP_TITLE_PLACEHOLDER = "Écrivez ici le titre de votre vue."
 export const NEW_BP_ABSTRACT_PLACEHOLDER = "Écrivez ici un résumé de votre vue."
 
-export const NEW_REFERENCE_PLACEHOLDER = "Identifiant de la référence !"
+export const NEW_REFERENCE_PLACEHOLDER = "Identifiant de la référence."
+export const NEW_PARENT_PLACEHOLDER = "Identifiant du parent."
 
 export const SEE_MORE = "Voir plus"
 export const SEE_LESS = "Voir moins"

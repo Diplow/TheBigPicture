@@ -100,7 +100,7 @@ const NewBigPictureLook = (props) => {
         name="parent"
         value={newItem.parent}
         onChange={edit}
-        placeholder="Identifiant du parent (numérique)" />
+        placeholder={cst.labels.NEW_PARENT_PLACEHOLDER} />
       <p className="helper-text">{cst.labels.HELPER_TEXT_PARENT_FIELD}</p>
     </div>
   )
