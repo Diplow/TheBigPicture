@@ -2,7 +2,7 @@
    {
       "id":397,
       "title":"dawda",
-      "kind":4,
+      
       "body":"",
       "children":[
 
@@ -25,7 +25,7 @@
    {
       "id":249,
       "title":"1. Il n\\'y a pas de lieu pour faire de la politique",
-      "kind":4,
+      
       "body":"La politique n\\'a pas d\\'infrastructures dédiées. C\\'est un peu comme si nous voulions faire du foot, mais qu\\'il n\\'y avait que des terrains de basket à notre disposition: impossible de jouer correctement.",
       "children":[
 
@@ -47,7 +47,7 @@
    {
       "id":85,
       "title":"2. Les fonctionnalités de la plateforme VDE",
-      "kind":4,
+      
       "body":"La platefome VDE s\\'organise autour de 3 fonctionnalités principales: la création d\\'analyses politiques, l\\'échange de raisons critiques autour de ces analyses et le vote. Pourquoi ces trois fonctionnalités au regard de l\\'idée phare du projet VDE, à savoir créer un pouvoir politique légitime et compétent ?",
       "children":[
 
@@ -69,7 +69,7 @@
    {
       "id":69,
       "title":"3. La roadmap VDE",
-      "kind":4,
+      
       "body":"Concrètement, quels objectifs se fixe le projet VDE pour évoluer vers sa vision ? Quelles étapes concrètes et réalisables doit il passer pour atteindre sa vision ?",
       "children":[
 
@@ -92,7 +92,7 @@
    {
       "id":26,
       "title":"Le projet VDE",
-      "kind":1,
+      
       "body":"La politique a une image terrible. C’est un repoussoir pour énormément de gens. Elle est anxiogène, antagonisante et on est de moins en moins convaincu de pouvoir changer les choses par son biais.\n\n# Réparer la politique\n\nQuand chez VDE on s’est mis à réfléchir à comment la réparer, on a eu des idées dans tous les sens: changer l’information, changer le mode de scrutin, changer les débats, changer la constitution… Cette liste pourrait continuer des heures et pour chaque idée il y aurait plein de choses intéressantes à raconter.\n\nC’est la taille de cette liste qui nous a mis la puce à l’oreille. On a l’impression que rien ne va. Ça a été notre moment “eureka”, parce que c’est clair pour nous que quand rien ne va, c’est qu’on utilise le mauvais outil. Et pour cause, si je vous demande qu’est-ce que vous utilisez pour faire de la politique, qu’est-ce que vous me répondez ?\n\nOn soupçonne que la réponse à cette question demande un peu de réflexion et on vous encourage à prendre ce temps, mais pour nous, ça démontre l’existence de ce vide à occuper. Si on vous demande ce que vous utilisez pour faire des recherches sur Internet ou pour discuter avec vos amis, la réponse est immédiate, alors pourquoi cela serait-il différent pour la politique ?\n\n# Les fondamentaux VDE\n\nC’est donc ce que veut être VDE: la réponse à cette question. **VDE veut devenir LE lieu pour faire de la politique**. Cependant il ne suffit pas de le dire, alors voici les trois grandes idées qui portent notre vision de la politique:\n\n1. Les analyses politiques sont des collections hiérarchisées de problèmes, de solutions à ces problèmes et de ressources qui les justifient.\n\n2. Ces analyses sont raisonnées publiquement par les citoyens qui expriment, par l’intermédiaire de ces raisons, ce que leur inspire cette analyse.\n\n3. Ces analyses et raisons sont évaluées publiquement par les citoyens sur la base de raisons explicites.\n\nCes idées fondamentales sont derrière l’ensemble des fonctionnalités de la plateforme VDE. Chacune de ces idées mériterait a minima un article (et elles l’auront !), mais pour cette mise en bouche, voici quelques raisons simples derrière ces idées.\n\nLa première idée structure les discours politiques et assure une certaine uniformité dans les analyses politiques de façon à ce qu’elles soient facilement comparables. Bien les hiérarchiser permet aussi de les rendre accessibles et de préciser le contenu politique (hiérarchiser des problèmes est souvent un choix politique en soi).\n\nLa deuxième idée permet d’échanger autour de ces analyses et de faire remonter leurs qualités et défauts. Combinée avec la hiérarchisation des contenus des analyses (cf première idée), cela permet aussi de gagner en clarté en raisonnant sur des points précis de l’analyse.\n\nEnfin, la dernière idée permet d’évaluer la légitimité des analyses et raisons. L’idée n’est pas tant de les comparer que d’identifier quels contenus sont pertinents du point de vue de leur représentativité (c’est à dire qu’elles sont soutenues par suffisamment de gens).\n\nN’hésitez pas à naviguer un peu sur [vuedensemble.org](/) pour vous faire une idée plus concrète de ce que donnent ces idées dans leur implémentation, par exemple en regardant la [présentation du projet VDE](/subject/26/bigPicture/26) (dont ce texte n’est qu’une introduction !).\n\n# Un peu moins de marketing et un peu plus de politique ?\n\nMaintenant que vous savez ce qu’on essaye de faire, je vous invite à vous projeter dans ce monde où la politique est pratiquée avec la plateforme VDE. Est-ce que ça ne serait pas formidable de pouvoir mettre derrière chaque proposition de nos politiques les raisonnements qui les soutiennent ? Mieux encore, de pouvoir voir les objections à ces raisons ? Mieux encore, de pouvoir soi-même proposer une objection à une idée qui nous semblerait manquer de fondements ou encore de pouvoir nous-même promouvoir l’idée qui selon nous rendrait le monde un peu meilleur ? Et si les analyses les plus fines devenaient ainsi à portée de clic et de critique du premier citoyen venu ? Et si nous arrivions à **déplacer la scène politique un peu plus loin du marketing et un peu plus près des idées** et des raisonnements ?\n\nCette vision idyllique n’est pas condamnée à rester une vision, et nous avons la ferme intention de la faire devenir réalité, mais nous ne pourrons pas le faire seuls. Si vous voulez participer à ce changement et le faire advenir, vous êtes les bienvenus. Vous inscrire sur vuedensemble.org est un excellent début, donner vos raisons de partager, ou pas, notre enthousiasme sur ce projet nous aidera grandement, et s’il y a **ce sujet qui vous tient à coeur que vous voudriez creuser et partager avec le reste du monde, pourquoi ne pas le soumettre à la raison sur VDE ?**",
       "children":[
          397,

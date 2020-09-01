@@ -5,7 +5,6 @@
       "hyperlink":null,
       "hyperlink_id":null,
       "subject":26,
-      "kind":1,
       "author":{
          "id":1,
          "username":"Diplo",
@@ -24,7 +23,6 @@
             "subject":26,
             "title":"dawda",
             "body":"",
-            "kind":4,
             "pin":false,
             "private":false,
             "creation_date":"2020-08-19",
@@ -41,7 +39,6 @@
             "subject":26,
             "title":"1. Il n\\'y a pas de lieu pour faire de la politique",
             "body":"La politique n\\'a pas d\\'infrastructures dédiées. C\\'est un peu comme si nous voulions faire du foot, mais qu\\'il n\\'y avait que des terrains de basket à notre disposition: impossible de jouer correctement.",
-            "kind":4,
             "pin":false,
             "private":false,
             "creation_date":"2020-04-28",
@@ -57,7 +54,7 @@
             "subject":26,
             "title":"2. Les fonctionnalités de la plateforme VDE",
             "body":"La platefome VDE s\\'organise autour de 3 fonctionnalités principales: la création d\\'analyses politiques, l\\'échange de raisons critiques autour de ces analyses et le vote. Pourquoi ces trois fonctionnalités au regard de l\\'idée phare du projet VDE, à savoir créer un pouvoir politique légitime et compétent ?",
-            "kind":4,
+            
             "pin":false,
             "private":false,
             "creation_date":"2020-02-17",
@@ -73,7 +70,7 @@
             "subject":26,
             "title":"3. La roadmap VDE",
             "body":"Concrètement, quels objectifs se fixe le projet VDE pour évoluer vers sa vision ? Quelles étapes concrètes et réalisables doit il passer pour atteindre sa vision ?",
-            "kind":4,
+            
             "pin":false,
             "private":false,
             "creation_date":"2020-02-17",
