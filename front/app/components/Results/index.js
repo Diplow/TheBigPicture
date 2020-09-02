@@ -33,7 +33,6 @@ const ResultsLook = (props) => {
   const [series, setSeries] = useState([])
 
   const toggleSerie = (id) => {
-    console.log("toggleserie")
     setSeriesActivated({
       ...seriesActivated,
       [id]: !seriesActivated[id]
@@ -93,7 +92,7 @@ const ResultsLook = (props) => {
     <RatingPreview key={`reason-${reason.target}`} ratingId={reason.target} count={reason.count} />
   )
 
-  const fltReasons = reasons.filter(r => r.code == seriesCode)
+  const fltReasons = reasons.filter((r) => r.code == seriesCode)
   const listReasons = (target, reasons, marg) => {
     if (!target) return null
     return (
@@ -168,18 +167,18 @@ const chart = (bigPicture, series, toggleSerie) => {
       borderColor: 'hsl(198, 0%, 15%)',
       strokeDashArray: 0, 
       column: {
-          colors: undefined,
-          opacity: 0.5
+        colors: undefined,
+        opacity: 0.5
       },
       xaxis: {
-          lines: {
-              show: true
-          }
+        lines: {
+          show: true
+        }
       },   
       yaxis: {
-          lines: {
-              show: true
-          }
+        lines: {
+          show: true
+        }
       }
     },
     toolbar: {
@@ -211,12 +210,12 @@ const chart = (bigPicture, series, toggleSerie) => {
     xaxis: {
       categories: [bigPicture.id],
       axisTicks: {
-          show: true,
-          borderType: 'solid',
-          color: 'hsl(198, 0%, 15%)',
-          height: 6,
-          offsetX: 0,
-          offsetY: 0
+        show: true,
+        borderType: 'solid',
+        color: 'hsl(198, 0%, 15%)',
+        height: 6,
+        offsetX: 0,
+        offsetY: 0
       },
       tickAmount: 4,
     },
@@ -228,46 +227,43 @@ const chart = (bigPicture, series, toggleSerie) => {
     }
   }
 
-  const legend = (series, bigPicture) => {
-    return (
-      <div className="level-item legend">
-        {
-          series.map(item => (
-            <div
-              className={`legendItem level is-mobile ${item.data.length == 0 ? "" : "is-pushed"}`}
-              onClick={() => toggleSerie(item.index)}
-              key={`legend-${item.index}`}
+  const legend = (series, bigPicture) => (
+    <div className="level-item legend">
+      {
+        series.map((item) => (
+          <div
+            className={`legendItem level is-mobile ${item.data.length == 0 ? "" : "is-pushed"}`}
+            onClick={() => toggleSerie(item.index)}
+            key={`legend-${item.index}`}
+          >
+            <span
+              style={{ backgroundColor: options.colors[item.index] }}
+              className="level-item button"
+            />
+            <span
+              className="level-item label"
             >
-              <span
-                style={{ backgroundColor: options.colors[item.index] }}
-                className="level-item button"
-              />
-              <span
-                className="level-item label"
-              >
-                {`${item.name} (${bigPicture.results[`${item.index}star`]})`}
-              </span>
-            </div>
-          ))
-        }
-      </div>
-    )
-  }
+              {`${item.name} (${bigPicture.results[`${item.index}star`]})`}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  )
 
   return (
     <Loader condition={bigPicture.results == undefined}>
-        <div className="level">
-          <div style={{minWidth: "70%"}} className="level-left">
-            <div style={{width: "100%"}} id="chart">
+      <div className="level">
+        <div style={{minWidth: "70%"}} className="level-left">
+          <div style={{width: "100%"}} id="chart">
             {
               bigPicture.results.count == 0
-                ? <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
+                ? <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
                 : <Chart options={options} series={series} type="bar" height={300} width={"100%"} />
             }
-            </div>
           </div>
-          { legend(series, bigPicture) }
-          
+        </div>
+        { legend(series, bigPicture) }
       </div>
     </Loader>
   )
