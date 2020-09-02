@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from api.models import BigPicture, Rating, SUBJECT_CODE, BaseUser, Subscription
+from api.models import BigPicture, Rating, BaseUser, Subscription
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,9 +23,9 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
 class GroupSerializer(serializers.ModelSerializer):
 
-	class Meta:
-		model = Group
-		fields = "__all__"
+    class Meta:
+        model = Group
+        fields = "__all__"
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):

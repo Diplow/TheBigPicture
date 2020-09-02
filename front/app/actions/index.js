@@ -217,6 +217,19 @@ export const getOwnRatings = (page, options, requestId) => (
   }
 )
 
+export const getReasons = (page, options, requestId) => (
+  (dispatch) => {
+    api.getCollection(
+      dispatch,
+      "reasons",
+      page,
+      utils.removeEmptyKeys(options),
+      "getReasons",
+      requestId
+    )
+  }
+)
+
 export const getRatingResults = (ratingId) => (
   (dispatch) => {
     api.get(

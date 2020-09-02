@@ -127,6 +127,14 @@ export const setBpEndorsmentCount = (bpId, count, requestId) => ({
   requestId
 })
 
+export const setBpReasonCount = (bpId, code, count, requestId) => ({
+  type: cst.actions.SET_BP_REASON_COUNT,
+  count,
+  bpId,
+  requestId,
+  code
+})
+
 export const setUserEndorsmentCount = (userId, count, requestId) => ({
   type: cst.actions.SET_USER_ENDORSMENT_COUNT,
   count,
@@ -137,6 +145,11 @@ export const setUserEndorsmentCount = (userId, count, requestId) => ({
 export const addBigPicture = (bigpicture) => ({
   type: cst.actions.ADD_BIG_PICTURE,
   bigpicture
+})
+
+export const addReason = (reason) => ({
+  type: cst.actions.ADD_REASON,
+  reason
 })
 
 export const createBigPicture = (bigpicture) => ({

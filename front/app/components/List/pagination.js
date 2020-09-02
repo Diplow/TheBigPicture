@@ -15,12 +15,12 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const [lastRequest, setLastRequest] = useState(false)
   const [waitingForResponse, setWaitingForResponse] = useState("")
 
-  const loadMore = () => {
+  const loadMore = (bool) => {
     if (getPage == null || count == 0) return
     const options = { favorites, search }
-    const newPageNb = pageNb+1
+    const newPageNb = bool ? 0 : pageNb+1
     setPageNb(newPageNb)
-    const searchRequestId = getPage(pageNb+1, options, currentSearchId)
+    const searchRequestId = getPage(newPageNb, options, currentSearchId)
     setWaitingForResponse(searchRequestId)
     setCurrentSearchId(searchRequestId)
   }
@@ -51,8 +51,8 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 
   useEffect(() => {
     setPageNb(0)
-    if (loadFirstPage && pageNb == 0) {
-      loadMore()
+    if (loadFirstPage) {
+      loadMore(true)
     }
   }, [reference])
  

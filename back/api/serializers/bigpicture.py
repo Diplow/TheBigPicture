@@ -21,7 +21,6 @@ class BigPictureSerializer(serializers.ModelSerializer):
   hyperlink = BigPictureChildSerializer(many=False, read_only=True)
   hyperlink_id = serializers.PrimaryKeyRelatedField(required=False, source='hyperlink', queryset=BigPicture.objects.filter(private=False), )
   subject = serializers.PrimaryKeyRelatedField(required=False, queryset=BigPicture.objects.all())
-  kind = serializers.IntegerField()
   author = UserSerializer(read_only=True)
   author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
   children = serializers.SerializerMethodField()

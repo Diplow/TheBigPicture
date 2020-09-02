@@ -20,7 +20,7 @@ const NewRatingLook = (props) => {
   } = props;
   if (!newItem) return null
   return (
-    <div className="vde child new-item">
+    <div className="vde new-item">
       <textarea
         className="textarea vde-newrating"
         name="body"

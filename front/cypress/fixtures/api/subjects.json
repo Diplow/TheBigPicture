@@ -8,7 +8,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":26,
-         "kind":1,
+         
          "author":{
             "id":1,
             "username":"Diplo",
@@ -30,7 +30,7 @@
                "subject":26,
                "title":"1.4.4. Discuter ces analyses.",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-09T13:19:41.446416Z",
@@ -48,7 +48,7 @@
                "subject":26,
                "title":"Exemple d'analyse politique sur l'écologie",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-21",
                "modification_date":"2020-04-05T18:44:53.947648Z",
@@ -66,7 +66,7 @@
                "subject":26,
                "title":"Comment les membres de VDE garderont-ils la main sur leur plateforme ?",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-27",
                "modification_date":"2020-04-05T18:44:53.950256Z",
@@ -84,7 +84,7 @@
                "subject":26,
                "title":"Les modalités de cette pratique politique: un domaine débattu tous les mois",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.963916Z",
@@ -102,7 +102,7 @@
                "subject":26,
                "title":"Les citoyens ne sont pas suffisamment compétents",
                "body":"",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.966352Z",
@@ -124,7 +124,7 @@
                "subject":26,
                "title":"Une démocratie directe en utilisant la plateforme VDE",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.968720Z",
@@ -142,7 +142,7 @@
                "subject":26,
                "title":"Les citoyens ne participeront pas, ou en nombre très réduit ce qui posera un problème de légitimité",
                "body":"",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.970988Z",
@@ -160,7 +160,7 @@
                "subject":26,
                "title":"Les citoyens n'ont pas le temps de faire le travail des députés",
                "body":"",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.973249Z",
@@ -178,7 +178,7 @@
                "subject":26,
                "title":"La voix du citoyen sera noyée au milieu de celle des autres, ce qui est la véritable raison du sentiment d'impuissance du citoyen",
                "body":"",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-04-05T18:44:53.975427Z",
@@ -196,7 +196,7 @@
                "subject":26,
                "title":"Une démocratie directe, est-ce possible ?",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-27",
                "modification_date":"2020-04-05T18:44:53.977876Z",
@@ -214,7 +214,7 @@
                "subject":26,
                "title":"3. La roadmap VDE",
                "body":"Concrètement, quels objectifs se fixe le projet VDE pour évoluer vers sa vision ? Quelles étapes concrètes et réalisables doit il passer pour atteindre sa vision ?",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-05-31T13:03:18.147150Z",
@@ -232,7 +232,7 @@
                "subject":26,
                "title":"Ceux qui ont peur du peuple",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-14T08:06:03.073195Z",
@@ -250,7 +250,7 @@
                "subject":26,
                "title":"La délibération des citoyens peut-elle mener à un jugement collectif plus compétent ?",
                "body":"- Mise en commun des ressources\n- Une combinaison des capacités éthiques et intelectuelles\n- Division du travail: les uns jugent une partie, les autres une autre, et tous jugent le tout\n- La sélection des meilleurs traits\n\nLa pesée des raisons permet la mise en commun des ressources informationelles\nL'échange de données, de témoignages, d'opinions, de récits qu'elle permet fait circuler l'information et enrichit le fond d'information de chacun\nElle permet la combinaison des capacités rationnelles en ce que l'argumentation et la contre argumentation peut faire surgir de nouvelles raisons, de nouveaux buts, qui n'auraient pas été identifiés par les individus isolément",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-23",
                "modification_date":"2020-04-05T18:44:53.987376Z",
@@ -268,7 +268,7 @@
                "subject":26,
                "title":"Le projet VDE",
                "body":"Le projet VDE est pensé pour résoudre ce problème.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:53.989666Z",
@@ -286,7 +286,7 @@
                "subject":26,
                "title":"Aaron Swartz : un héros contemporain (france culture)",
                "body":"[article](https://www.franceculture.fr/emissions/ce-qui-nous-arrive-sur-la-toile/aaron-swartz-un-heros-contemporain)",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:53.991967Z",
@@ -304,7 +304,7 @@
                "subject":26,
                "title":"La mafia scientifique dont vous n'avez jamais entendu parler - DBY #53",
                "body":"[lien Youtube](https://www.youtube.com/watch?v=rcgxY__YXEc)",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:53.994289Z",
@@ -322,7 +322,7 @@
                "subject":26,
                "title":"Les nouveaux chiens de garde",
                "body":"[Les 30 premières minutes sur vimeo](https://vimeo.com/306257880)\n\n\n[La page Wikipedia du documentaire](https://fr.wikipedia.org/wiki/Les_Nouveaux_Chiens_de_garde_(film))",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:53.996461Z",
@@ -340,7 +340,7 @@
                "subject":26,
                "title":"La vision du projet",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-04-05T18:44:53.998720Z",
@@ -359,7 +359,7 @@
                "subject":26,
                "title":"Aaron Swartz, ce héros",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:54.000974Z",
@@ -378,7 +378,7 @@
                "subject":26,
                "title":"L'éditorialisation n'est jamais transparente",
                "body":"",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-02-16",
                "modification_date":"2020-04-05T18:44:54.005570Z",
@@ -396,7 +396,7 @@
                "subject":26,
                "title":"2.3. Un espace de décisions",
                "body":"Toutes ces analyses et ces raisons garderaient un goût d'inachevé si VDE ne permettait pas ultimement de décider ensemble. C'est pourquoi VDE propose des outils d'organisation de la prise de décision collective, en instaurant différents temps du débat, de l'expression des idées et propositions, au débat et enfin à la délibération.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-18",
                "modification_date":"2020-05-30T23:16:03.779010Z",
@@ -414,7 +414,7 @@
                "subject":26,
                "title":"1.1 Les médias font de l'information, pas de la politique.",
                "body":"Le problème avec l'information, c'est qu'elle induit un gros déséquilibre entre le média et celui qui s'informe. Le savoir donne un tel ascendant que c'est très compliqué de se forger une opinion éclairée sans contradiction. Et les médias ne laissent en général pas la place à la contradiction, mais préfèrent miser sur \"leur crédibilité\". Ce qui est un gros problème lorsque la confiance dans les médias est au plus bas comme c'est le cas en France.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-08T21:04:08.869442Z",
@@ -436,7 +436,7 @@
                "subject":26,
                "title":"1. Il n'y a pas de lieu pour faire de la politique",
                "body":"La politique n'a pas d'infrastructures dédiées. C'est un peu comme si nous voulions faire du foot, mais qu'il n'y avait que des terrains de basket à notre disposition: impossible de jouer correctement.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-28",
                "modification_date":"2020-06-09T08:00:56.191331Z",
@@ -454,7 +454,7 @@
                "subject":26,
                "title":"1.2 Les réseaux sociaux sont faits dans l'unique but de générer des revenus publicitaires, pas de la politique.",
                "body":"Twitter et Facebook, les gros réseaux sociaux sur lesquels s'expriment régulièrement des idées politiques ne sont pas faits pour ça. Les algorithmes de recommandation de ces plateformes optimisent une seule chose: le temps que vous passez dessus, afin de maximiser leurs revenus publicitaires.\n\nPar conséquent, les contenus les plus clivants seront mis en valeur et à l'inverse, les moments de réflexion, la prudence, l'empathie et les efforts de compréhension seront dévalorisés par la plateforme. Tout ce processus n'est bien entendu pas conscient, c'est juste la conséquence de ce qu'optimise ces plateformes.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-09T08:06:59.174618Z",
@@ -474,7 +474,7 @@
                "subject":26,
                "title":"2. Les fonctionnalités de la plateforme VDE",
                "body":"La platefome VDE s'organise autour de 3 fonctionnalités principales: la création d'analyses politiques, l'échange de raisons critiques autour de ces analyses et le vote. Pourquoi ces trois fonctionnalités au regard de l'idée phare du projet VDE, à savoir créer un pouvoir politique légitime et compétent ?",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-05-30T23:09:16.326981Z",
@@ -492,7 +492,7 @@
                "subject":26,
                "title":"1.3 Reddit fait de l'actualité et du divertissement, pas de la politique.",
                "body":"Le cas [reddit.com](https://reddit.com) est particulier car c'est une plateforme qui, fonctionnellement, pourrait proposer de la politique au sens où on l'entend chez VDE. Cependant, les limites de la plateforme, qui n'est pas dévelopée pour faire de la politique, se feraient vite sentir, et l'usage qui en est fait aujourd'hui (promotion de l'actualité avec un temps de vie court, par opposition à l'effort d'analyse documentaire qui est fait chez VDE) ne va pas dans le sens d'un éveil des consciences politiques.\n\nCeci-dit, reddit est indéniablement une inspiration pour VDE, et sans le bout de chemin parcouru par cette plateforme, on ne naviguerait pas sur VDE aujourd'hui.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-08T21:04:30.268212Z",
@@ -510,7 +510,7 @@
                "subject":26,
                "title":"1.5 Le projet VDE",
                "body":"Le projet VDE, c'est une plateforme web et une communauté. Une plateforme pour partager des analyses politiques, les raisonner et prendre des décisions collectives. Et une communauté, pour décider de ce qu'elle devrait être.\n\nEn particulier les premières décisions collectives à prendre par la communauté VDE sont l'évolution de la plateforme elle-même: quelles fonctionnalités développer, retirer, modifier... Imaginez Youtube où ses utilisateurs pourraient décider démocratiquement des spécifications de son algorithme de recommandation ! Ou encore imaginez un média en ligne dont tous ses lecteurs/auditeurs/spectateurs pourraient décider ensemble de la Une, des contenus à produire, du modèle économique...",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-28",
                "modification_date":"2020-06-08T21:04:47.805324Z",
@@ -528,7 +528,7 @@
                "subject":26,
                "title":"2.1. Un espace de convictions",
                "body":"Les analyses politiques sont la base d'un pouvoir politique. C'est elles qui vont conditionner les décisions prises par ce pouvoir politique. En particulier, pour que ce pouvoir soit légitime et compétent, ses analyses doivent être reconnues et pertinentes.\n\nDans le projet VDE, une analyse politique est une collection hiérarchisée de problèmes, de solutions à ces problèmes et de ressources. Le binôme problèmes / solutions est un formalisme minimaliste pour bien cadrer les idées et se concentrer sur l'essentiel: les problèmes sont-ils les bons et les solutions apportées sont-elles les bonnes ? On ajoute à ce binôme des ressources pour permettre à chacun d'obtenir les connaissances nécessaires à la compréhension du sujet. Enfin, afin de garder le tout digeste et accessible, y compris pour un citoyen a priori ignorant du sujet, ces contenus sont hiérarchisés. Cette hiérarchisation a aussi le mérite de pouvoir identifier clairement le \"niveau\" auquel les consensus existent et le moment précis où il se brise. Et ce notamment grâce à [l'espace de raisons](/subject/26/bigPicture/87) proposé par la plateforme VDE.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:14:48.861668Z",
@@ -546,7 +546,7 @@
                "subject":26,
                "title":"1.4.5. Choisir les analyses qui nous convainquent.",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-09T13:19:54.816174Z",
@@ -564,7 +564,7 @@
                "subject":26,
                "title":"Le Baromètre de la confiance politique (CEVIPOF)",
                "body":"http://www.sciencespo.fr/cevipof/sites/sciencespo.fr.cevipof/files/CEVIPOF_confiance_10ans_CHEURFA_CHANVRIL_2019.pdf",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-08T20:58:17.888843Z",
@@ -582,7 +582,7 @@
                "subject":26,
                "title":"1.4.1. La définition VDE de la politique",
                "body":"La politique, c'est la modification des règles qui régissent notre vie commune. Par extension, tout ce qui touche à la réflexion sur ces règles est politique. En particulier, l'information lorsqu'elle permet de penser ces règles est politiques.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-06-09",
                "modification_date":"2020-06-09T13:21:01.531187Z",
@@ -604,7 +604,7 @@
                "subject":26,
                "title":"1.4 Créer un lieu dédié à la politique.",
                "body":"Un lieu dédié à la politique signifie que ce lieu est organisé dans l'unique but de faire de la politique le mieux possible. Cet objectif pose en particulier les questions du périmètre de la politique et de la qualité de la politique: qu'est-ce qui est politique, et qu'est-ce qui fait que la politique est bonne ou mauvaise ?",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-09T14:12:39.802828Z",
@@ -624,7 +624,7 @@
                "subject":26,
                "title":"Le projet VDE",
                "body":"La politique a une image terrible. C’est un repoussoir pour énormément de gens. Elle est anxiogène, antagonisante et on est de moins en moins convaincu de pouvoir changer les choses par son biais.\n\n# Réparer la politique\n\nQuand chez VDE on s’est mis à réfléchir à comment la réparer, on a eu des idées dans tous les sens: changer l’information, changer le mode de scrutin, changer les débats, changer la constitution… Cette liste pourrait continuer des heures et pour chaque idée il y aurait plein de choses intéressantes à raconter.\n\nC’est la taille de cette liste qui nous a mis la puce à l’oreille. On a l’impression que rien ne va. Ça a été notre moment “eureka”, parce que c’est clair pour nous que quand rien ne va, c’est qu’on utilise le mauvais outil. Et pour cause, si je vous demande qu’est-ce que vous utilisez pour faire de la politique, qu’est-ce que vous me répondez ?\n\nOn soupçonne que la réponse à cette question demande un peu de réflexion et on vous encourage à prendre ce temps, mais pour nous, ça démontre l’existence de ce vide à occuper. Si on vous demande ce que vous utilisez pour faire des recherches sur Internet ou pour discuter avec vos amis, la réponse est immédiate, alors pourquoi cela serait-il différent pour la politique ?\n\n# Les fondamentaux VDE\n\nC’est donc ce que veut être VDE: la réponse à cette question. **VDE veut devenir LE lieu pour faire de la politique**. Cependant il ne suffit pas de le dire, alors voici les trois grandes idées qui portent notre vision de la politique:\n\n1. Les analyses politiques sont des collections hiérarchisées de problèmes, de solutions à ces problèmes et de ressources qui les justifient.\n\n2. Ces analyses sont raisonnées publiquement par les citoyens qui expriment, par l’intermédiaire de ces raisons, ce que leur inspire cette analyse.\n\n3. Ces analyses et raisons sont évaluées publiquement par les citoyens sur la base de raisons explicites.\n\nCes idées fondamentales sont derrière l’ensemble des fonctionnalités de la plateforme VDE. Chacune de ces idées mériterait a minima un article (et elles l’auront !), mais pour cette mise en bouche, voici quelques raisons simples derrière ces idées.\n\nLa première idée structure les discours politiques et assure une certaine uniformité dans les analyses politiques de façon à ce qu’elles soient facilement comparables. Bien les hiérarchiser permet aussi de les rendre accessibles et de préciser le contenu politique (hiérarchiser des problèmes est souvent un choix politique en soi).\n\nLa deuxième idée permet d’échanger autour de ces analyses et de faire remonter leurs qualités et défauts. Combinée avec la hiérarchisation des contenus des analyses (cf première idée), cela permet aussi de gagner en clarté en raisonnant sur des points précis de l’analyse.\n\nEnfin, la dernière idée permet d’évaluer la légitimité des analyses et raisons. L’idée n’est pas tant de les comparer que d’identifier quels contenus sont pertinents du point de vue de leur représentativité (c’est à dire qu’elles sont soutenues par suffisamment de gens).\n\nN’hésitez pas à naviguer un peu sur [vuedensemble.org](/) pour vous faire une idée plus concrète de ce que donnent ces idées dans leur implémentation, par exemple en regardant la [présentation du projet VDE](/subject/26/bigPicture/26) (dont ce texte n’est qu’une introduction !).\n\n# Un peu moins de marketing et un peu plus de politique ?\n\nMaintenant que vous savez ce qu’on essaye de faire, je vous invite à vous projeter dans ce monde où la politique est pratiquée avec la plateforme VDE. Est-ce que ça ne serait pas formidable de pouvoir mettre derrière chaque proposition de nos politiques les raisonnements qui les soutiennent ? Mieux encore, de pouvoir voir les objections à ces raisons ? Mieux encore, de pouvoir soi-même proposer une objection à une idée qui nous semblerait manquer de fondements ou encore de pouvoir nous-même promouvoir l’idée qui selon nous rendrait le monde un peu meilleur ? Et si les analyses les plus fines devenaient ainsi à portée de clic et de critique du premier citoyen venu ? Et si nous arrivions à **déplacer la scène politique un peu plus loin du marketing et un peu plus près des idées** et des raisonnements ?\n\nCette vision idyllique n’est pas condamnée à rester une vision, et nous avons la ferme intention de la faire devenir réalité, mais nous ne pourrons pas le faire seuls. Si vous voulez participer à ce changement et le faire advenir, vous êtes les bienvenus. Vous inscrire sur vuedensemble.org est un excellent début, donner vos raisons de partager, ou pas, notre enthousiasme sur ce projet nous aidera grandement, et s’il y a **ce sujet qui vous tient à coeur que vous voudriez creuser et partager avec le reste du monde, pourquoi ne pas le soumettre à la raison sur VDE ?**",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-02-11",
                "modification_date":"2020-06-15T00:12:54.545059Z",
@@ -642,7 +642,7 @@
                "subject":26,
                "title":"2.2. Un espace de raisons",
                "body":"[Une fois créée son analyse politique](/subject/26/bigPicture/86), qui est entièrement à la discrétion de son auteur, on entre dans **l'espace des raisons**, dans lequel on discute les contenus.\n\nL'idée fondamentale derrière cette fonctionnalité, est que notre démocratie en général et la plateforme VDE en particulier, sont des lieux où pour emporter la conviction de leurs concitoyens, les auteurs d'analyse politique donnent les raisons qui soutiennent leur jugement.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:14:24.343077Z",
@@ -660,7 +660,7 @@
                "subject":26,
                "title":"1.4.3 Recenser des analyses politiques.",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-06-08",
                "modification_date":"2020-06-09T13:07:02.231827Z",
@@ -678,7 +678,7 @@
                "subject":26,
                "title":"1.4.2. La qualité de la politique",
                "body":"La politique étant l'art de changer les règles, la qualité de la politique se mesurera à la qualité de ces changements de règles. Ces règles ayant vocation à résoudre des problèmes, la qualité de la politique se mesure donc à la résolution des problèmes visés par ces changements de règles, ainsi qu'à l'apparition de nouveaux problèmes posés par ces changements de règles.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-06-09",
                "modification_date":"2020-06-09T13:19:31.289221Z",
@@ -704,7 +704,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":325,
-         "kind":1,
+         
          "author":{
             "id":1,
             "username":"Diplo",
@@ -726,7 +726,7 @@
                "subject":325,
                "title":"Créér un premier sujet politique",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.256488Z",
@@ -747,7 +747,7 @@
                "subject":325,
                "title":"Écrire la première version du manifeste VDE",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.258830Z",
@@ -765,7 +765,7 @@
                "subject":325,
                "title":"Identifier un héros qui illustrera la cause VDE et inspirera les gens à s'y investir.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.261378Z",
@@ -783,7 +783,7 @@
                "subject":325,
                "title":"Écrire une première version de la vision du projet VDE",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.263728Z",
@@ -801,7 +801,7 @@
                "subject":325,
                "title":"Créér la roadmap VDE",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.270907Z",
@@ -819,7 +819,7 @@
                "subject":325,
                "title":"1. La maquette",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-02T10:23:46.677734Z",
@@ -839,7 +839,7 @@
                "subject":325,
                "title":"0. Les étapes passées",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-02T10:22:53.321138Z",
@@ -857,7 +857,7 @@
                "subject":325,
                "title":"2. Le prototype",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-02T10:23:55.085149Z",
@@ -875,7 +875,7 @@
                "subject":325,
                "title":"9. L'Après",
                "body":"Pour l'instant la ligne de mire du projet VDE est la présidentielle française, donc on met toute notre énergie là dedans. Mais on aura l'occasion de rediscuter de ce qu'on fera après, promis !",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-06-03",
                "modification_date":"2020-06-03T14:11:32.533633Z",
@@ -893,7 +893,7 @@
                "subject":325,
                "title":"Identifier les adversaires de la cause VDE.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.266290Z",
@@ -911,7 +911,7 @@
                "subject":325,
                "title":"6. Campagne de financement participatif",
                "body":"Pendant la campagne, le grand enjeu sera d'élargir considérablement (de plusieurs ordres de grandeur) la communauté VDE:\n- Les philosophes de la démocratie délibérative\n- Les zététiciens\n- Les vulgarisateurs\n- Les journalistes\n- Les politiques\n- Les entrepreneurs\n- Les défenseurs d'une démocratie plus directe",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-18",
                "modification_date":"2020-06-03T14:12:59.177757Z",
@@ -929,7 +929,7 @@
                "subject":325,
                "title":"5. Version beta ouverte: préparation de la campagne de financement participatif",
                "body":"Pour préparer la campagne de financement participatif, les objectifs suivants doivent être réalisés:\n- Cadrer la campagne\n- Préparer des contenus pour la campagne\n- S'assurer que le site pourra suivre la charge",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-18",
                "modification_date":"2020-06-02T10:52:01.972738Z",
@@ -953,7 +953,7 @@
                "subject":325,
                "title":"La roadmap VDE",
                "body":"L'objectif de VDE c'est, pour le moment,  de transformer les présidentielles de 2022. Ça ressemble encore à un doux rève, mais avec le bon plan, ça pourrait devenir une réalité.\n\nEn l'occurence nous misons sur l'organisation d'un concours pour inviter ceux qui ont des analyses politiques à proposer, à le faire sur VDE. Pour le financer, nous comptons sur une campagne de financement participatif, qui devrait aussi être l'occasion de poser les bases de la communauté VDE.",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-05-31",
                "modification_date":"2020-06-08T21:59:30.405251Z",
@@ -971,7 +971,7 @@
                "subject":325,
                "title":"Créer le problème que tente de résoudre VDE et le documenter.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.268530Z",
@@ -989,7 +989,7 @@
                "subject":325,
                "title":"4. Version beta fermée: les premiers utilisateurs",
                "body":"Les objectifs de cette version beta fermée sont les suivants:\n- Rendre le site VDE viable pour le grand public\n- Impliquer des gens intéressés dans le projet\n- Faire raisonner les premiers utilisateurs sur la viabilité et l'intérêt du projet",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-03T17:08:29.459897Z",
@@ -1007,7 +1007,7 @@
                "subject":325,
                "title":"7. Le concours",
                "body":"Le concours est une façon pour VDE de pousser à la production de contenus de qualité et de faire connaître le projet. Pendant le concours et les mois qui le précèdent, les enjeux tourneront autour des contenus de VDE:\n- Qualité des contenus\n- Qualité de la navigation et du suivi des contenus\n- Modération",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-05-30",
                "modification_date":"2020-06-02T10:23:30.321807Z",
@@ -1025,7 +1025,7 @@
                "subject":325,
                "title":"8. La présidentielle française 2022",
                "body":"La présidentielle française de 2022 est la ligne de mire du projet, c'est pour elle qu'on se prépare, pour pouvoir profiter de ce moment de grande politisation du pays, et peut-être en augmenter la qualité des débats, des idées. Les grands enjeux pour VDE seront les suivants:\n- Toucher un public le plus large possible\n- Permettre de naviguer les programmes des candidats et de mettre en avant leurs raisons\n- Faire réagir les différents candidats (ou au moins les différents groupes qui les soutiennent) aux raisons adverses\n- Identifier les ressources de référence pour chaque candidat",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-05-30",
                "modification_date":"2020-06-02T10:23:36.445789Z",
@@ -1045,7 +1045,7 @@
                "subject":325,
                "title":"3. Version alpha: les premiers contenus.",
                "body":"Les objectifs de cette version alpha sont les suivants:\n- Présenter le projet VDE\n- Créer un premier sujet politique à titre d'exemple\n- Donner une roadmap indicative du projet VDE",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-02-17",
                "modification_date":"2020-06-11T18:16:25.277305Z",
@@ -1075,7 +1075,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":300,
-         "kind":1,
+         
          "author":{
             "id":9,
             "username":"Diplomate",
@@ -1097,7 +1097,7 @@
                "subject":300,
                "title":"Why do humans reason ? Par Hugo Mercier et Dan Sperber",
                "body":"http://www.dan.sperber.fr/wp-content/uploads/2011_mercier_why-do-humans-reason.pdf",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-05-24",
                "modification_date":"2020-05-24T00:07:59.861816Z",
@@ -1121,7 +1121,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":221,
-         "kind":1,
+         
          "author":{
             "id":18,
             "username":"ScienceÉtonnante",
@@ -1143,7 +1143,7 @@
                "subject":221,
                "title":"L'effet d'ancrage",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:31:01.113187Z",
@@ -1161,7 +1161,7 @@
                "subject":221,
                "title":"Les coûts irrécupérables",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:28:04.623194Z",
@@ -1179,7 +1179,7 @@
                "subject":221,
                "title":"Tous racistes ? Les biais implicites",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:30:24.215393Z",
@@ -1204,7 +1204,7 @@
                "subject":221,
                "title":"Crétin de cerveau",
                "body":"[La playlist youtube](https://www.youtube.com/playlist?list=PLxzM9a5lhAumFRpcigmGY1QLDYxb4-P2B)",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-28T14:20:11.224778Z",
@@ -1222,7 +1222,7 @@
                "subject":221,
                "title":"Pertes, dotation et références",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:28:33.915951Z",
@@ -1240,7 +1240,7 @@
                "subject":221,
                "title":"Risques, décisions et incertitudes",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:28:57.787805Z",
@@ -1258,7 +1258,7 @@
                "subject":221,
                "title":"Plaisir & Coloscopie: la loi de l'apogée / fin",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:30:52.626498Z",
@@ -1276,7 +1276,7 @@
                "subject":221,
                "title":"L'effet de Halo",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:27:21.918161Z",
@@ -1294,7 +1294,7 @@
                "subject":221,
                "title":"Alcool, hormones et décisions",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T13:29:43.024065Z",
@@ -1325,7 +1325,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":186,
-         "kind":1,
+         
          "author":{
             "id":17,
             "username":"VictorFerry",
@@ -1348,7 +1348,7 @@
                "subject":186,
                "title":"La chaîne Youtube",
                "body":"https://www.youtube.com/channel/UCcueC-4NWGuPFQKzQWn5heA",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T12:32:05.221602Z",
@@ -1366,7 +1366,7 @@
                "subject":186,
                "title":"Le site",
                "body":"http://rhetorical-craft.com/fr/",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T12:37:28.871755Z",
@@ -1384,7 +1384,7 @@
                "subject":186,
                "title":"Comment appeler à l'action ?",
                "body":"https://www.youtube.com/watch?v=641HvqJWRyk",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T16:00:15.482981Z",
@@ -1404,7 +1404,7 @@
                "subject":186,
                "title":"L'artisanat rhétorique",
                "body":"**Ce compte n'est pas tenu par Victor Ferry, c'est [moi](https://vue-d-ensemble.fr/user/9) qui ait recensé brièvement quelques uns de ses contenus pour illustrer l'usage de VDE.**\n\nContent de te voir!\n\nJe suis heureux que tu t’intéresses aux arts du discours.\n\nTu es au bon endroit pour trouver les exercices, les outils et les conseils qui te permettront de créer un mouvement autour de ta cause, de ton projet ou de ton produit.",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-28T13:05:56.710727Z",
@@ -1422,7 +1422,7 @@
                "subject":186,
                "title":"Les outils rhétoriques",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T15:38:59.679119Z",
@@ -1440,7 +1440,7 @@
                "subject":186,
                "title":"Comment faire de la politique ?",
                "body":"https://www.youtube.com/watch?v=6qkmemuvJl4&t=308s",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T12:50:22.509952Z",
@@ -1466,7 +1466,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":240,
-         "kind":1,
+         
          "author":{
             "id":19,
             "username":"Science4All",
@@ -1488,7 +1488,7 @@
                "subject":240,
                "title":"La démocratie sous l'angle de la théorie des jeux",
                "body":"[Playlist youtube](https://www.youtube.com/playlist?list=PLtzmb84AoqRSmv5o-eFNb3i9z64IuOjdX)\n\nCette série étudie la démocratie à l'aide des mathématiques de la théorie des jeux, ainsi qu'à la lumière des sciences sociales. \n\nL'épisode 33 est un récapitulatif complet de la série, et contient les références importantes de la série.",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-28T09:30:38.308402Z",
@@ -1512,7 +1512,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":220,
-         "kind":1,
+         
          "author":{
             "id":18,
             "username":"ScienceÉtonnante",
@@ -1534,7 +1534,7 @@
                "subject":220,
                "title":"Réformons l'élection présidentielle",
                "body":"https://www.youtube.com/watch?v=ZoGH7d51bvc",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-08",
                "modification_date":"2020-04-28T09:29:42.807678Z",
@@ -1558,7 +1558,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":189,
-         "kind":1,
+         
          "author":{
             "id":17,
             "username":"VictorFerry",
@@ -1580,7 +1580,7 @@
                "subject":189,
                "title":"Exemple: Si vous avez prouvé que le chômage venait du fait que les entreprises étaient trop taxées, alors vous allez proposé de baisser les taxes.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:51:51.302225Z",
@@ -1598,7 +1598,7 @@
                "subject":189,
                "title":"Convaincre autrui de l'importance de notre problème peut être très compliqué",
                "body":"Votre objectif est qu'un maximum de gens partagent votre constat, partagent votre volonté de changer les choses. Le problème, c'est qu'il est très probable que la majorité des gens à qui vous vous addresserez, peut-être n'en auront-ils pas grand chose à faire, peut-être qu'ils auront d'autres priorités, peut-être qu'ils seront sceptiques vis-à-vis de votre cause, peut-être même y seront-ils carrément opposés.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:15:57.260466Z",
@@ -1616,7 +1616,7 @@
                "subject":189,
                "title":"Exemple: Si vous avez prouvé que la disparition des espèces animales venait du fait que l'expansion de l'habitat humain prenait trop de place sur la nature, vous allez proposé l'arrêt de l'expansion périurbaine au profit d'une expansion verticale.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:53:15.773517Z",
@@ -1635,7 +1635,7 @@
                "subject":189,
                "title":"Exemple de description d'un problème: Le monde irait mieux si l'on essayait d'en faire un peu plus pour protéger les animaux sauvages.",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:21:43.763830Z",
@@ -1653,7 +1653,7 @@
                "subject":189,
                "title":"Exemple: nous sommes tous d'accord pour dire que le chômage est un problème mais nous ne sommes pas tous d'accord sur ce qui cause ce fort taux de chômage.",
                "body":"D'où vient ce fort taux de chômage ?  Est-ce que ça vient du fait que les entreprises sont trop taxées pour embaûcher ? Est-ce que ça vient du fait que les jeunes sont mal formés et mal orientés ? Est-ce que ça vient du fait qu'il est plus confortable de toucher le chômage que de travailler ? Est-ce que ça vient du fait que les entreprises préfèrent filer des dividendes à leurs actionnaires plutôt que d'investir et d'embaûcher ?",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:45:03.233144Z",
@@ -1671,7 +1671,7 @@
                "subject":189,
                "title":"Description qualitative: un casier judiciaire peut détruire une vie",
                "body":"> Trop d'Américains ont vu leur vie détruite parce qu'ils avaient un casier judiciaire à cause de leur consommation de marijuana. C'est inacceptable. Cela doit changer.\n\n> Soyons clairs, car je pense que beaucoup de personnes n'ont pas clairement compris cela : un casier judiciaire peut signifier non seulement une peine de prison, mais rend également plus difficile pour une personne de trouver un emploi, d'obtenir des aides sociales, et même d'obtenir un logement. Un casier judiciaire reste avec une personne toute sa vie. C'est une affaire sérieuse.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T16:50:58.426553Z",
@@ -1689,7 +1689,7 @@
                "subject":189,
                "title":"Description quantitative: en 40 ans, la population d'animaux sauvages a baissé de 60%",
                "body":"Le problème de cette description est que ces chiffres sont abstraits, votre auditoir ne prendra pas pleinement la mesure du problème.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:23:41.056784Z",
@@ -1707,7 +1707,7 @@
                "subject":189,
                "title":"Les quatre lieux du délibératif",
                "body":"Pour justifier sa solution, il faut puiser dans les quatre lieux du délibératif.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T15:41:28.176347Z",
@@ -1727,7 +1727,7 @@
                "subject":189,
                "title":"Étape 3: Justifier une solution",
                "body":"Une fois que votre diagnostic est posé, votre solution va aller de soi. Encore faudra-t-il la justifier, et pour se faire vous allez puiser dans les quatre lieux du délibératif.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-08T10:08:43.430434Z",
@@ -1749,7 +1749,7 @@
                "subject":189,
                "title":"Les outils rhétoriques pour convaincre",
                "body":"Le quattuor problème / cause / solution / appel à l'action est excellent pour construire un discours convaincant mais également pour évaluer les discours de politiques.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T16:10:53.363581Z",
@@ -1767,7 +1767,7 @@
                "subject":189,
                "title":"Comment faire de la politique ?",
                "body":"https://www.youtube.com/watch?v=6qkmemuvJl4&t=308s",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-27T22:05:38.302388Z",
@@ -1785,7 +1785,7 @@
                "subject":189,
                "title":"Description qualitative: le puma, cette petite bête magnifique a été déclarée éteinte en 2018",
                "body":"Là on commence à percevoir la dimension qualitative du problème. Le fait que tous ces animaux qui peuplaient notre imaginaire: les lions, les tigres, les giraffes, les panthères, les dauphins, les éléphants, ne seront bientôt plus que des souvenirs.\n\n**[Je](https://vue-d-ensemble.fr/user/9) reprends ici le script de la vidéo de Victor Ferry, mais vous comprendrez bien que la description qualitative qu'il est en train de faire va au-delà du seul titre de ce problème, et que le rendu écrit fait ici ne rend pas forcément justice à l'effet produit dans la vidéo.**",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T14:29:46.951302Z",
@@ -1803,7 +1803,7 @@
                "subject":189,
                "title":"Légalisation",
                "body":"Une fois qu'il s'est addressé à notre raison et à notre coeur, il attaque la cause du problème.\n\n> À l'heure actuelle, le gouvernement classe la marijuana comme drogue de type 1, ce qui signifie qu'elle est considérée aussi dangereuse que l'héroine. C'est absurde.\n\nEt il passe ensuite à la présentation de sa solution\n\n> À mon avis, il est grand temps que nous levions l'interdiction fédérale de la marijuana. À mon avis, les états devraient avoir le droit de réglementer la marijuana, de la même manière que les lois locales réglementent la vente d'alcool et de tabac.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T17:27:57.762063Z",
@@ -1821,7 +1821,7 @@
                "subject":189,
                "title":"Étape 4: appeler à l'action",
                "body":"Une fois que vous avez amené votre public à prendre conscience qu'il y avait un problème, une fois que vous avez identifié la cause de ce problème, et que vous avez justifié votre solution, vous devez encore donner à votre public les moyens de contribuer à la résolution du problème. \n\nVous devez proposé une action concrète qui va contribuer à faire advenir la solution. L'appel à l'action est une partie essentielle d'un discours, donc je vous propose [une vidéo spécifiquement là dessus](https://www.youtube.com/watch?v=641HvqJWRyk).",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T21:42:09.420468Z",
@@ -1839,7 +1839,7 @@
                "subject":189,
                "title":"Étape 2: identifier la cause",
                "body":"Une fois que vous avez amené votre public a prendre conscience de l'ampleur et de la gravité d'un problème, vous devez poser un diagnostic. \n\nC'est une étape fondamentale dans votre discours, car quand bien même seriez-vous parvenu à amener votre public à accepter le fait qu'il y ait un problème, rien ne dit qu'ils vont partager votre solution à ce problème.\n\nLa crédibilité de votre solution va beaucoup dépendre de la précision avec laquelle vous serez parvenu à identifier la cause du problème.\n\nVous allez devoir montrer à votre public que vous avez conscience de la diversité des diagnostics possibles mais que pour autant vous pouvez les convaincre que votre diagnostic est le bon.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-08T10:08:57.265080Z",
@@ -1857,7 +1857,7 @@
                "subject":189,
                "title":"Description quantitative: Il y a de trop nombreuses arrestations pour simple possession de marijuana, et les Noirs sont spécialement la cible de ces arrestations.",
                "body":"> En 2014, selon les dernières statistiques, il y avait 620000 arrestations pour possession de marijuana, ce qui représente une arrestation par minute. Selon un rapport de l'American Civile Liberties Union, plus de huit millions de personnes ont été arrêtées aux États-Unis entre 2001 et 2010, dont 9 sur 10 pour simple possession.\n\n> Soyons clairs sur un point: comme dans de nombreux autres domaines, il y a une dimension raciale à ce problème. Bien qu'environ la même proportion de Noirs que de Blancs consomment de la marijuana, une personne noire est presque quatre fois plus susceptible d'être arrêtée pour possession de marijuana qu'une personne blanche.",
-               "kind":2,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T16:50:32.550085Z",
@@ -1875,7 +1875,7 @@
                "subject":189,
                "title":"Légalisation",
                "body":"",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T17:28:28.833655Z",
@@ -1893,7 +1893,7 @@
                "subject":189,
                "title":"Étape 1: décrire le problème",
                "body":"La première étape de votre discours, qui peut d'ailleurs être une vidéo ou un post sur les réseaux sociaux, va donc être d'ammener votre public a prendre conscience qu'il y a un problème. \n\nPour présenter efficacement un problème, vous allez devoir le présenter dans sa dimension quantitative et qualitative. Vous allez devoir prouver qu'il s'agit d'un grand problème, d'un problème important, qui touche beaucoup de monde mais vous allez aussi devoir montrer que c'est un problème grave. que c'est un problème qui fait mal. En d'autres termes, vous allez devoir travailler sur la raison de votre public mais aussi faire appel à son coeur.",
-               "kind":3,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-08T10:09:05.812202Z",
@@ -1912,7 +1912,7 @@
                "subject":189,
                "title":"Exemple d'utilisation de ces outils: analyse d'un discours de Bernie Sanders",
                "body":"Description du problème -\n\n> En 2014, selon les dernières statistiques, il y avait 620000 arrestations pour possession de marijuana, ce qui représente une arrestation par minute. Selon un rapport de l'American Civile Liberties Union, plus de huit millions de personnes ont été arrêtées aux États-Unis entre 2001 et 2010, dont 9 sur 10 pour simple possession.\n\n> Soyons clairs sur un point: comme dans de nombreux autres domaines, il y a une dimension raciale à ce problème. Bien qu'environ la même proportion de Noirs que de Blancs consomment de la marijuana, une personne noire est presque quatre fois plus susceptible d'être arrêtée pour possession de marijuana qu'une personne blanche.\n\nUne fois cette description quantitative faite pour montrer l'ampleur du problème, il passe au niveau qualitatif pour mettre de l'humain derrière les chiffres.\n\n> Trop d'Américains ont vu leur vie détruite parce qu'ils avaient un casier judiciaire à cause de leur consommation de marijuana. C'est inacceptable. Cela doit changer.\n\n> Soyons clairs, car je pense que beaucoup de personnes n'ont pas clairement compris cela : un casier judiciaire peut signifier non seulement une peine de prison, mais rend également plus difficile pour une personne de trouver un emploi, d'obtenir des aides sociales, et même d'obtenir un logement. Un casier judiciaire reste avec une personne toute sa vie. C'est une affaire sérieuse.\n\nUne fois qu'il s'est addressé à notre raison et à notre coeur, il attaque la cause du problème.\n\n> À l'heure actuelle, le gouvernement classe la marijuana comme drogue de type 1, ce qui signifie qu'elle est considérée aussi dangereuse que l'héroine. C'est absurde.\n\nEt il passe ensuite à la présentation de sa solution\n\n> À mon avis, il est grand temps que nous levions l'interdiction fédérale de la marijuana. À mon avis, les états devraient avoir le droit de réglementer la marijuana, de la même manière que les lois locales réglementent la vente d'alcool et de tabac.\n\nIl lui reste alors à justifier sa solution, ce qu'il va faire en puisant dans le lieu de l'utile, c'est à dire qu'il va présenter les conséquences positives d'une légalisation en termes de ressources, de revenus pour la collectivité.\n\n> Les États qui choisissent d'aller de l'avant peuvent alors taxer la marijuana, tout comme ils taxent l'alcool et les cigarettes et obtenir une source importante de revenus. Le Colorado gagne actuellement environ 50 millions de dollars par an grâce à la taxation de la marijuana.\n\n> Au Colorado et dans d'autres États, une partie de ces recettes est utilisée pour lutter contre les effets de l'abus de drogues dures, comme les opiacés, qui nuisent tant à nos collectivités.\n\nBien sûr, Bernie Sanders est un professionnel de la politique, et du coup, le seul appel à l'action qu'il a à proposer, c'est \"votez pour moi\". Et c'est là que je prends mes distances par rapport aux professionnels de la politique, parce que le message ça reste toujours en définitive \"je suis la solution à tous vos problèmes\". Et ça, c'est infantilisant. Et je trouve au contraire qu'un bon discours politique, ce n'est pas un discours où l'orateur va se présenter comme la solution au problème. C'est un discours où justement, il va mettre le public en position d'acteurs, et il va lui donner des outils pour résoudre le problème.",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-06",
                "modification_date":"2020-04-06T16:47:13.412964Z",
@@ -1936,7 +1936,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":242,
-         "kind":1,
+         
          "author":{
             "id":19,
             "username":"Science4All",
@@ -1958,7 +1958,7 @@
                "subject":242,
                "title":"#DébattonsMieux",
                "body":"[Playlist youtube](https://www.youtube.com/playlist?list=PLtzmb84AoqRTFS8c7hX0IaMkmdQckZtZ6)\n\nDans cette série, je m'encourage à mieux débattre et je réfléchis à comment y arriver. \nEt j'essaie de vous amener à faire ça vous aussi.\nEt de vous amener à amener d'autres à faire ça eux aussi.\nEt pour cela, je vous invite à bien débattre de comment bien débattre.\n(Et oui, je ne serai pas à une réflexion meta près)",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T14:24:22.209567Z",
@@ -1982,7 +1982,7 @@
          "hyperlink":null,
          "hyperlink_id":null,
          "subject":239,
-         "kind":1,
+         
          "author":{
             "id":19,
             "username":"Science4All",
@@ -2004,7 +2004,7 @@
                "subject":239,
                "title":"#DébattonsMieux",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T14:25:37.544648Z",
@@ -2022,7 +2022,7 @@
                "subject":239,
                "title":"La démocratie sous l'angle de la théorie des jeux",
                "body":"",
-               "kind":4,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T14:12:36.036897Z",
@@ -2041,7 +2041,7 @@
                "subject":239,
                "title":"Science4All - Médiation scientifique et mathématique par Lê",
                "body":"[Chaîne Youtube](https://www.youtube.com/channel/UC0NCbj8CxzeCGIF6sODJ-7A)\n\nHello ! Je m'appelle Lê Nguyên Hoang (appelez-moi Lê), et j'adore les maths, la physique et les sciences en général. Science4All est ma chaîne francophone. \n\nDepuis août 2016, je travaille pour le projet Wandida à l'EPFL, une autre chaîne YouTube d'informatique / maths / physique qui cible plus les étudiants à l'université (et un peu les académiques aussi), et en novembre 2016, j'ai lancé la chaîne anglophone de vulgarisation ZettaBytes.\n\nDepuis juillet 2017, je tiens le Podcast Axiome avec Monsieur Phi.\n\nDepuis janvier 2019, je tiens le Robustly Beneficial Podcast avec Louis Faucon et El Mahdi El Mhamdi.",
-               "kind":1,
+               
                "private":false,
                "creation_date":"2020-04-09",
                "modification_date":"2020-04-09T14:07:59.422130Z",

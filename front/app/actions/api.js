@@ -27,6 +27,11 @@ const NEXTS = {
       dispatch(basics.setBpRatingCount(nextargs.bigpicture, result.count, requestId))
     }
   ),
+  "getReasons": (dispatch, nextargs, requestId) => (
+    (result) => {
+      dispatch(basics.setBpReasonCount(nextargs.bigpicture, nextargs.code, result.count, requestId))
+    }
+  ),
   "getRatingRatings": (dispatch, nextargs, requestId) => (
     (result) => {
       dispatch(basics.setRatingRatingCount(nextargs.rating, result.count, requestId))

@@ -15,6 +15,7 @@ import ratingsReducer from './ratings'
 import requestsReducer from './requests'
 import subscriptionsReducer from './subscriptions'
 import endorsmentsReducer from './endorsments'
+import reasonsReducer from './reasons'
 import globalReducer from './global'
 
 
@@ -22,6 +23,7 @@ const createReducer = (history) => combineReducers({
   router: connectRouter(history),
   bigpictures: bigpicturesReducer,
   ratings: ratingsReducer,
+  reasons: reasonsReducer,
   user: userReducer,
   users: usersReducer,
   requests: requestsReducer,

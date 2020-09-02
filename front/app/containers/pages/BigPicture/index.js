@@ -30,8 +30,8 @@ const BigPictureViewLook = (props) => {
   return (
     <div className="vde container section">
       <BigPictureSection bigPicture={bigPicture} />
-      <ReasonsSection bigPicture={bigPicture} />
-      <ResultsSection bigPicture={bigPicture} />
+      <ReasonsSection bigPicture={bigPicture} bpId={match.params.bigPictureId} />
+      <ResultsSection bigPicture={bigPicture} bpId={match.params.bigPictureId} />
     </div>
   )
 }

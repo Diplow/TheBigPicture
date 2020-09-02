@@ -20,6 +20,40 @@
   }
 }
 
+.helper-text {
+  border-left-style: inset;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: small;
+}
+
+.vde.new-item {
+  background-color: $primary-3;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.level.is-mobile.show-advanced-options {
+  height: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  left: calc(50% - 7rem);
+  width: 50%;
+}
+
+.level.is-mobile.show-advanced-options:hover {
+  .level-item {
+    p {
+      font-weight: 600;
+    }
+    .icon-button {
+      stroke: $dark;
+      stroke-width: 15;
+      color: $dark;
+    }
+  }
+}
+
 .card.subject-preview.pinned {
   border-color: $red;
   border-style: solid;
