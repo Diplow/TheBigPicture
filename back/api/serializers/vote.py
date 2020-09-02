@@ -29,6 +29,29 @@ class RatingSerializer(serializers.ModelSerializer):
     return Rating.objects.filter(target_rating=obj).count()
 
 
+class ReasonSerializer(serializers.ModelSerializer):
+  target_bp = serializers.PrimaryKeyRelatedField(source="bigpicture", required=False, read_only=True)
+  target_rating = serializers.PrimaryKeyRelatedField(source="rating", read_only=True)
+  code = serializers.SerializerMethodField(read_only=True)
+  count = serializers.SerializerMethodField(read_only=True)
+  content = RatingSerializer(source="target")
+
+  class Meta:
+    model = Endorsment
+    fields = "__all__"
+
+  def get_code(self, obj):
+    return self.context["request"].query_params.get('code', None)
+
+  def get_count(self, obj):
+    code = self.context["request"].query_params.get('code', None)
+    endorsments = Endorsment.objects.filter(target=obj.target)
+    for i in range(6):
+      if '!{ii}'.format(ii=str(i)) in code: 
+        endorsments = endorsments.exclude(value=i)
+    return endorsments.count()
+
+
 class EndorsmentSerializer(serializers.ModelSerializer):
   author = UserSerializer(read_only=True)
   target = RatingSerializer(read_only=True)
