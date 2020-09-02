@@ -4,7 +4,7 @@ from django.db.models import Count
 from api.utils import get_or_none
 
 from api.models import Rating, Endorsment, BigPicture, BaseUser
-from api.serializers import RatingSerializer, RatingWithContextSerializer, EndorsmentSerializer
+from api.serializers import RatingSerializer, RatingWithContextSerializer, EndorsmentSerializer, ReasonSerializer
 from api.permissions import IsAuthorOrReadOnly, IsAuthor, IsReadOnly
 
 import json
@@ -21,6 +21,22 @@ class OwnRatingViewSet(ModelViewSet):
       .filter(id__in=endorsments.values('target')) \
       .annotate(basisCount=Count('endorsments')) \
       .order_by('-basisCount')
+
+
+class ReasonViewSet(ModelViewSet):
+  queryset = Rating.objects.all()
+  serializer_class = ReasonSerializer
+  permission_classes = [IsReadOnly]
+
+  def get_serializer_context(self):
+    return {
+      'request': self.request
+    }
+
+  def get_queryset(self):
+    bp = self.request.query_params.get('bigpicture', None)
+    endorsments = Endorsment.objects.filter(bigpicture__id=bp).distinct('target')
+    return endorsments
 
 
 class EndorsmentViewSet(ModelViewSet):

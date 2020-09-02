@@ -27,7 +27,6 @@ const CategoryHeaderLook = ({ data, user }) => {
       author_id: user.id,
       hyperlink_id: "",
       private: false,
-      kind: cst.SUBJECT,
       tags: category.label == cst.ALL_CATEGORY ? "" : category.label
     } : null),
     item: data,

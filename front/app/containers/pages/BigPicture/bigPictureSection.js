@@ -38,7 +38,6 @@ const BigPictureSectionLook = (props) => {
       body: "",
       author_id: user.id,
       hyperlink_id: "",
-      kind: cst.RESOURCE,
       parent: bigPicture.id,
       subject: bigPicture.subject || bigPicture.id,
       private: bigPicture.private
@@ -46,6 +45,27 @@ const BigPictureSectionLook = (props) => {
     item: bigPicture,
     user
   })
+
+  const [
+    editButton,
+    editBp,
+    showEditBp,
+    setShowEditBp
+  ] = hooks.useEditionBuffer({
+    EditionWidget: NewBigPicture,
+    initItem: (bigPicture, user) => (bigPicture ? {
+      id: bigPicture.id,
+      title: bigPicture.title,
+      body: bigPicture.body,
+      author_id: bigPicture.author,
+      hyperlink_id: bigPicture.hyperlink_id,
+      parent: bigPicture.parent,
+      private: bigPicture.private
+    } : null),
+    item: bigPicture,
+    user
+  })
+
 
   const [hiddenBpDetails, setHiddenBpDetails] = useState(false)
 
@@ -61,6 +81,7 @@ const BigPictureSectionLook = (props) => {
     <div className="level-left">
       { lookButton(bigPicture) }
       <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
+      { user.id == bigPicture.author ? editButton : null }
       <p style={{margin: 0}} className="title">{bigPicture.title}</p>
       { user.id == bigPicture.author ? newButton : null }
     </div>
@@ -98,8 +119,9 @@ const BigPictureSectionLook = (props) => {
   return (
     <div className="vde card subject-preview">
       <Loader condition={!bigPicture}>
-        { bigPicture ? header(bigPicture) : null }
-        { bigPicture && !hiddenBpDetails ? <AbstractContent text={bigPicture.body} /> : null }
+        { showEditBp ? editBp : null }
+        { !showEditBp && bigPicture ? header(bigPicture) : null }
+        { !showEditBp && bigPicture && !hiddenBpDetails ? <AbstractContent text={bigPicture.body} /> : null }
         { showNewBigPicture ? newBigPicture : null }
         { bigPicture && !hiddenBpDetails ? analyse(bigPicture, children) : null }
       </Loader>

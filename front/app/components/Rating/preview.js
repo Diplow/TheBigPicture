@@ -33,6 +33,7 @@ const RatingPreviewLook = (props) => {
     rating,
     ratings,
     endorsments,
+    count,
     user,
     ratingId,
     getRatingContext,
@@ -94,6 +95,8 @@ const RatingPreviewLook = (props) => {
       })
     }
   }, [rating, user])
+
+  if (!rating) return null
 
   const content = (rating) => {
     if (!rating) return null
@@ -170,6 +173,7 @@ const RatingPreviewLook = (props) => {
       <li className="vde child reason">
         <div className="card-header level is-mobile">
           <div className="level-left">
+            { count !== undefined ? <p className="score">{count}</p> : null}
             { content(rating) }
           </div>
           <div className="level-right">

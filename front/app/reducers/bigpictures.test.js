@@ -9,7 +9,6 @@ describe('bigpictures reducer', () => {
   const bp = {
     "id":26,
     "title":"Le projet VDE",
-    "kind":1,
     "body":"",
     "children":[],
     "hyperlink":null,
@@ -165,7 +164,6 @@ describe('bigpictures reducer', () => {
             "hyperlink":null,
             "hyperlink_id":null,
             "subject":26,
-            "kind":1,
             "author":{
               "id":1,
               "username":"Diplo",

@@ -45,6 +45,9 @@ const updateRatingCounts = (rating, state) => {
 const ratings = (state = [], action) => {
   switch (action.type) {
 
+    case cst.actions.ADD_REASON:
+      return addRating(action.reason.content, state)
+
     case cst.actions.CREATE_RATING:
       action.rating.new = true
       state = addRating(action.rating, state)

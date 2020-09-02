@@ -30,7 +30,6 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
       body: bigPicture.body,
       hyperlink_id: bigPicture.hyperlink_id || "",
       author_id: user.id,
-      kind: cst.RESOURCE,
       parent: bigPicture.parent,
       subject: bigPicture.subject || bigPicture.id,
       private: bigPicture.private

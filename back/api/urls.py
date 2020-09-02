@@ -9,7 +9,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from api.views.users import UserViewSet, GroupViewSet, AuthViewSet, SubscriptionViewSet, unfollow
 from api.views.bigpictures import BigPictureViewSet, SubjectViewSet, OwnSubjectViewSet
-from api.views.ratings import RatingViewSet, OwnRatingViewSet, EndorsmentViewSet, RatingWithContextViewSet
+from api.views.ratings import RatingViewSet, OwnRatingViewSet, EndorsmentViewSet, RatingWithContextViewSet, ReasonViewSet
 from api.views.results import bigPictureResults, ratingResults
 from api.views.categories import CategoryViewSet
 
@@ -28,6 +28,7 @@ router.register(r'ratings', RatingViewSet)
 router.register(r'ratingswithcontext', RatingWithContextViewSet)
 router.register(r'endorsments', EndorsmentViewSet)
 router.register(r'ownratings', OwnRatingViewSet)
+router.register(r'reasons', ReasonViewSet)
 
 urlpatterns = [
     path('api/bigpictures/<int:pk>/results/', bigPictureResults),

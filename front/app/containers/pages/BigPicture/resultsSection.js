@@ -20,11 +20,16 @@ import "./style.scss"
 const ResultsSectionLook = (props) => {
   const {
     bigPicture,
+    bpId,
     user,
     getPage
   } = props
 
   const [hiddenEndorsments, setHiddenEndorsments] = useState(true)
+
+  useEffect(() => {
+    setHiddenEndorsments(true)
+  }, [bpId])
 
   const header = () => (
     <header className="card-header level is-mobile">
@@ -44,7 +49,7 @@ const ResultsSectionLook = (props) => {
   return (
     <div className={`vde card results-section ${ hiddenEndorsments ? "" : "is-open"}`}>
       { header() }
-      { bigPicture && !hiddenEndorsments ? results(bigPicture) : null }
+      { bigPicture && !hiddenEndorsments && bigPicture.id == bpId ? results(bigPicture) : null }
     </div>
   )
 }

@@ -40,7 +40,6 @@
         "path": "/api/bigpictures/",
         "verb": "post",
         "data": {
-            "kind": 4,
             "author_id": 1,
             "parent": {
                 "_meta": "response",
@@ -60,7 +59,6 @@
         "path": "/api/bigpictures/",
         "verb": "post",
         "data": {
-            "kind": 4,
             "author_id": 1,
             "parent": {
                 "_meta": "response",
@@ -75,7 +73,7 @@
         "response": "thegrandson"
     },
     {
-        "name": "Diplo patches the kind field",
+        "name": "Diplo patches the title",
         "action": "send_api",
         "path": {
             "_meta": "str_replace",
@@ -87,7 +85,7 @@
         },
         "verb": "patch",
         "data": {
-            "kind": 3
+            "title": "nouveau titre"
         },
         "expectation": {
             "status": 200,
@@ -96,7 +94,7 @@
                     "_meta": "response",
                     "bp_projet_vde_son1": "id"
                 },
-                "kind": 3
+                "title": "nouveau titre"
             }
         },
         "response": "bp_projet_patched"
@@ -107,7 +105,6 @@
         "path": "/api/bigpictures/",
         "verb": "post",
         "data": {
-            "kind": 1,
             "author_id": 1,
             "title": "The other subject",
             "body": "blabla.",

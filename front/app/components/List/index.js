@@ -73,7 +73,7 @@ const ListLook = (props) => {
 
   useEffect(() => {
     // if the reference change, reset the hidden param to its initial value
-    setHidden(hiddenInitValue)
+    setHidden(!loadFirstPage)
   }, [name])
 
   return (
