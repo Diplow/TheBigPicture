@@ -1,0 +1,89 @@
+
+@import "../../styles/theme.scss";
+
+p.score {
+  font-size: xx-large;
+  padding-left: 1rem;
+}
+
+.vde.results.reason {
+  border-radius: 0;
+
+  .vde.child.reason {
+    border-radius: 0;
+  }
+}
+
+.vde.results.reason:last-child {
+  border-radius: 10px;
+
+  .vde.child.reason {
+    border-radius: 10px;
+  }
+}
+
+div.legend {
+  padding-left: 1rem;
+
+  display: block;
+
+  .legendItem.level {
+    display: -webkit-box;
+    margin: 0.3rem;
+    padding: 0;
+
+    .level-item.button {
+      border-style: hidden;
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
+    }
+
+    .level-item.label {
+      display: flex;
+      width: fit-content;
+      font-size: medium;
+      font-weight: 400;
+      color: lighten($dark, 40%);
+    }
+
+  }
+
+  .legendItem.level.is-pushed {
+
+    .level-item.button {
+      border-style: inset;
+      border-width: medium;
+      border-color: $dark;
+     }
+
+    .level-item.label {
+      width: fit-content;
+      font-size: medium;
+      font-weight: 400;
+      color: $dark;
+    }
+  }
+
+  .legendItem.level.is-pushed:hover {
+    .level-item.label {
+      color: lighten($dark, 20%);
+    }
+
+    .level-item.button {
+      border-style: inset;
+      border-width: thin;
+     }
+  }
+
+  .legendItem.level:hover {
+    .level-item.button {
+      border-style: inset;
+      border-width: thin;
+      border-color: $dark;
+     }
+    .level-item.label {
+      color: lighten($dark, 20%);
+    }
+  }
+}

@@ -20,6 +20,7 @@ const addBp = (bp, state) => {
     creation_date: bp.creation_date,
     modification_date: bp.modification_date,
     ratingCount: old && old.ratingCount ? old.ratingCount : bp.ratingCount,
+    reasonCount: old && old.reasonCount ? old.reasonCount : bp.reasonCount,
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
@@ -134,6 +135,20 @@ const bigpictures = (state = [], action) => {
         action.bpId,
         { ratingCount: action.count }
       )
+
+    case cst.actions.SET_BP_REASON_COUNT:
+      const old = state.find((element) => element.id == action.bpId)
+      if (!old) return state
+      return [
+        ...state.filter((element) => element.id != action.bpId),
+        {
+          ...old,
+          reasonCount: {
+            ...old.reasonCount,
+            [action.code]: action.count
+          }
+        }
+      ]
 
     case cst.actions.SET_SUBJECT_RATING_COUNT:
       return reducer_utils.update_item(
