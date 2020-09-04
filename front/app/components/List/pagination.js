@@ -18,7 +18,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
   const loadMore = (bool) => {
     if (getPage == null || count == 0) return
     const options = { favorites, search }
-    const newPageNb = bool ? 0 : pageNb+1
+    const newPageNb = bool ? 1 : pageNb+1
     setPageNb(newPageNb)
     const searchRequestId = getPage(newPageNb, options, currentSearchId)
     setWaitingForResponse(searchRequestId)
@@ -27,7 +27,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
 
   useEffect(() => {
     if (!hidden && pageNb == 0 && !loadFirstPage)
-      loadMore()
+      loadMore(false)
   }, [hidden])
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const createPagination = (user, items, count, getPage, size, loadFirstPage, sort
  
   return [
     <LoadMore
-      loadMore={loadMore}
+      loadMore={() => loadMore(false)}
       currentPage={currentPage}
       count={count}
       pageNb={pageNb}
