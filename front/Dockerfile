@@ -8,7 +8,9 @@ WORKDIR /opt/tbp/front/
 # where available (npm@5+)
 COPY package*.json ./
 
+
 RUN rm -rf node_modules
+RUN node --max-old-space-size=750
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
