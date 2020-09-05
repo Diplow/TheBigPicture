@@ -1,7 +1,7 @@
 {
    "type":"ADD_REQUEST",
    "request":{
-      "url":"bigpictures/26/results/",
+      "url":"bigpictures/26/results/?format=json&bigpictureId=26&cachebypass=d5b94980-f6ee-4af5-a717-bed38d1c4468",
       "body":{
 
       },
@@ -9,8 +9,9 @@
       "next":"getBigPictureResults",
       "mustprocess":false,
       "nextargs":{
+         "cachebypass": "d5b94980-f6ee-4af5-a717-bed38d1c4468",
          "bigpictureId":26
       },
-      "id":"GET-bigpictures-26-results--format=json-bigpictureId=26-d5b94980-f6ee-4af5-a717-bed38d1c4468"
+      "id":"GET-bigpictures-26-results--format=json-bigpictureId=26-cachebypass=d5b94980-f6ee-4af5-a717-bed38d1c4468"
    }
 }

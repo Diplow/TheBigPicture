@@ -5,9 +5,38 @@
         "data": {
             "id": 1,
             "username": "Diplo",
+            "is_staff": true,
             "password": "vuedensemble",
             "image": "http://localhost:8000/media/profile_images/default_user_image.png"
         }
+    },
+    {
+        "name": "Diplo logs in",
+        "action": "login",
+        "data": {
+            "username": "Diplo",
+            "password": "vuedensemble"
+        }
+    },
+    {
+        "name": "Diplo creates category 'all'",
+        "action": "send_api",
+        "verb": "post",
+        "path": "/api/categories/",
+        "data": {
+            "label": "all",
+            "title": "En vrac !",
+            "description": "whatever"
+        },
+        "expectation": {
+            "status": 201,
+            "response": {
+                "label": "all",
+                "title": "En vrac !",
+                "description": "whatever"
+            }
+        },
+        "response": "categoryAll"
     },
     {
         "name": "Create author Test1",

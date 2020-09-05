@@ -1,9 +1,8 @@
 
 from rest_framework import serializers
-from api.models import BigPicture, BaseUser, Rating
+from api.models import BigPicture, BaseUser, Rating, Category
 from api.serializers.user import UserSerializer
-
-from tagging.models import Tag
+from api.serializers.category import CategorySerializer
 
 
 class BigPictureChildSerializer(serializers.ModelSerializer):
@@ -26,10 +25,17 @@ class BigPictureSerializer(serializers.ModelSerializer):
   children = serializers.SerializerMethodField()
   ratingCount = serializers.SerializerMethodField()
   pin = serializers.BooleanField(read_only=True)
+  category = serializers.SerializerMethodField()
 
   class Meta:
     model = BigPicture
     fields = "__all__"
+
+  def get_category(self, obj):
+    try:
+      return CategorySerializer(Category.objects.get(label=obj.subject.tags)).data
+    except:
+      return CategorySerializer(Category.objects.get(label="all")).data
 
   def get_ratingCount(self, obj):
     return Rating.objects.filter(target_bp=obj).count()
