@@ -21,7 +21,6 @@ const shortenTitle = (title) => {
 
 const BigPictureBreadcrumbLook = ({ bigPicture, bigPictureId, parent, depth, getBp }) => {
   useEffect(() => {
-    console.log("breadcrumb", bigPictureId, bigPicture)
     if (!bigPicture) {
       getBp(bigPictureId)
     }

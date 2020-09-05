@@ -1,7 +1,7 @@
 {
    "type":"ADD_REQUEST",
    "request":{
-      "url":"ratings/?format=json&favorites=false&rating=34&page=1",
+      "url":"ratings/?format=json&favorites=false&rating=34&cachebypass=d5b94980-f6ee-4af5-a717-bed38d1c4468&page=1",
       "body":{
 
       },
@@ -11,8 +11,9 @@
       "nextargs":{
          "favorites":false,
          "rating":34,
-         "page":1
+         "page":1,
+         "cachebypass": "d5b94980-f6ee-4af5-a717-bed38d1c4468"
       },
-      "id":"GET-ratings-format=json-favorites=false-rating=34-page=1"
+      "id":"GET-ratings-format=json-favorites=false-rating=34-cachebypass=d5b94980-f6ee-4af5-a717-bed38d1c4468-page=1"
    }
 }

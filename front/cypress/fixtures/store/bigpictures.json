@@ -20,6 +20,8 @@
 
       ],
       "private":false,
+      "reasonCount": 0,
+      "ratingCount": 0,
       "pin":false
    },
    {
@@ -42,6 +44,8 @@
 
       ],
       "private":false,
+      "reasonCount": 0,
+      "ratingCount": 0,
       "pin":false
    },
    {
@@ -64,6 +68,8 @@
 
       ],
       "private":false,
+      "reasonCount": 0,
+      "ratingCount": 0,
       "pin":false
    },
    {
@@ -87,6 +93,8 @@
 
       ],
       "private":false,
+      "reasonCount": 0,
+      "ratingCount": 0,
       "pin":false
    },
    {
@@ -113,6 +121,7 @@
 
       ],
       "private":false,
+      "reasonCount": 0,
       "pin":true
    }
 ]
