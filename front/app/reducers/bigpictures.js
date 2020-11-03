@@ -19,8 +19,10 @@ const addBp = (bp, state) => {
     reverse_author: bp.reverse_author,
     creation_date: bp.creation_date,
     modification_date: bp.modification_date,
-    ratingCount: old && old.ratingCount ? old.ratingCount : bp.ratingCount,
-    reasonCount: old && old.reasonCount ? old.reasonCount : bp.reasonCount,
+    ratingCount: old && old.ratingCount ? old.ratingCount : (bp.ratingCount || 0),
+    reasonCount: old && old.reasonCount ? old.reasonCount : (bp.reasonCount || {}),
+    evalCount: old && old.evalCount ? old.evalCount : (bp.evalCount || 0),
+    referenceCount: old && old.referenceCount ? old.referenceCount : (bp.referenceCount || undefined),
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
     private: bp.private,
@@ -29,12 +31,6 @@ const addBp = (bp, state) => {
   }
   if (bp.requestId)
     res[bp.requestId] = bp[bp.requestId]
-  if (old && old.referenceCount)
-    res.referenceCount = old.referenceCount
-  if (old && old.ratingCount)
-    res.ratingCount = old.ratingCount
-  if (old && old.endorsmentCount)
-    res.endorsmentCount = old.endorsmentCount
   return [
     ...state.filter((element) => element.id != bp.id),
     res
@@ -167,7 +163,7 @@ const bigpictures = (state = [], action) => {
       return reducer_utils.update_item(
         state,
         action.bpId,
-        { endorsmentCount: action.count }
+        { evalCount: action.count }
       )
 
     case cst.actions.DELETE_BIG_PICTURE:

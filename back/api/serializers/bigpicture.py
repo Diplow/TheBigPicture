@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from api.models import BigPicture, BaseUser, Rating
+from api.models import BigPicture, BaseUser, Rating, Endorsment
 from api.serializers.user import UserSerializer
 
 from tagging.models import Tag
@@ -25,6 +25,7 @@ class BigPictureSerializer(serializers.ModelSerializer):
   author_id = serializers.PrimaryKeyRelatedField(source='author', queryset=BaseUser.objects.all(), )
   children = serializers.SerializerMethodField()
   ratingCount = serializers.SerializerMethodField()
+  evalCount = serializers.SerializerMethodField()
   pin = serializers.BooleanField(read_only=True)
 
   class Meta:
@@ -33,6 +34,9 @@ class BigPictureSerializer(serializers.ModelSerializer):
 
   def get_ratingCount(self, obj):
     return Rating.objects.filter(target_bp=obj).count()
+
+  def get_evalCount(self, obj):
+    return Endorsment.objects.filter(target__target_bp=obj).count()
 
   def get_children(self, obj):
     res = []

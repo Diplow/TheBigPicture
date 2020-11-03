@@ -38,13 +38,15 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
     user
   })
 
+  const [showBody, setShowBody] = useState(false)
+
   const header = () => {
     if (!bigPicture) return null
 
     const headerLevelLeft = () => (
       <div className="level-left">
         { user.id == bigPicture.author ? editButton : null }
-        <p className="title">{bigPicture.title}</p>
+        <p onClick={() => setShowBody(!showBody)} className="title">{bigPicture.title}</p>
         {
           bigPicture.hyperlink_id ? (
             <LinkButton
@@ -95,7 +97,7 @@ const ChildPreviewLook = ({ bigPicture, user, key }) => {
   return (
     <li className="vde child" key={key}>
       { header(bigPicture) }
-      { content(bigPicture) }
+      { showBody ? content(bigPicture) : null }
     </li>
   )
 }

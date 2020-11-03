@@ -31,10 +31,10 @@ const ResultsSectionLook = (props) => {
     setHiddenEndorsments(true)
   }, [bpId])
 
-  const header = () => (
+  const header = (count) => (
     <header className="card-header level is-mobile">
       <div className="level-left">
-        <p className="title">{cst.labels.RESULTS_TITLE}</p>
+        <p className="title">{cst.labels.RESULTS_TITLE(count)}</p>
       </div>
       <div className="level-right">
         <HideAndShowButton hidden={hiddenEndorsments} setHidden={setHiddenEndorsments} />
@@ -48,7 +48,7 @@ const ResultsSectionLook = (props) => {
 
   return (
     <div className={`vde card results-section ${ hiddenEndorsments ? "" : "is-open"}`}>
-      { header() }
+      { bigPicture ? header(bigPicture.evalCount) : null }
       { bigPicture && !hiddenEndorsments && bigPicture.id == bpId ? results(bigPicture) : null }
     </div>
   )

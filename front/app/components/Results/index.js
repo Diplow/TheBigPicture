@@ -121,7 +121,7 @@ const ResultsLook = (props) => {
       className={showHeader ? "container vde section section-field" : ""}>
       { target && showHeader ? header(hidden, setHidden) : null }
       { target && !hidden ? chart(target, series, toggleSerie) : null }
-      { target && !hidden && seriesCode ? listReasons(target, reasons, marg) : null }
+      { target && !hidden && seriesCode && target.results && target.results.count !== 0 ? listReasons(target, reasons, marg) : null }
     </div>
   )
 }
@@ -185,28 +185,6 @@ const chart = (bigPicture, series, toggleSerie) => {
       show: false,
     },
     colors: ["#6A6A6B", "#B02E0C", "#EB4511", "#C1BFB5", "#8ADD75", "#5EA34C"],
-    title: {
-      text: `${bigPicture.title}`,
-      align: 'left',
-      margin: 35,
-      offsetX: 0,
-      offsetY: 0,
-      floating: true,
-      style: {
-        fontSize:  16,
-      },
-    },
-    subtitle: {
-      text: `Nombre de votes: ${bigPicture.results.count}`,
-      align: 'left',
-      margin: 20,
-      offsetX: 5,
-      offsetY: 35,
-      floating: true,
-      style: {
-        fontSize:  14,
-      },
-    },
     xaxis: {
       categories: [bigPicture.id],
       axisTicks: {
@@ -251,20 +229,44 @@ const chart = (bigPicture, series, toggleSerie) => {
     </div>
   )
 
+  const emptyResultsMessage = () => (
+    <div className="card-content">
+      <div className="content">
+        <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">{ cst.labels.MSG_NO_EVAL }</p>
+      </div>
+    </div>
+  )
+
+  const helperTextChart = () => (
+    <div className="card-content">
+      <div style={{ paddingBottom: 0, marginBottom: 0 }} className="content">
+        <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">{ cst.labels.HELPER_TEXT_RESULTS(bigPicture.title) }</p>
+      </div>
+    </div>
+  )
+
+  const helperTextList = () => (
+    <div className="card-content">
+      <div style={{ paddingBottom: 0, marginBottom: 0, paddingTop: 0, marginTop: 0 }} className="content">
+        <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">{ cst.labels.HELPER_TEXT_REASON_LIST }</p>
+      </div>
+    </div>
+  )
+  if (bigPicture.results && bigPicture.results.count == 0)
+    return emptyResultsMessage()
+
   return (
     <Loader condition={bigPicture.results == undefined}>
+      { helperTextChart() }
       <div className="level">
         <div style={{minWidth: "70%"}} className="level-left">
           <div style={{width: "100%"}} id="chart">
-            {
-              bigPicture.results.count == 0
-                ? <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">Personne n'a encore évalué ce contenu.</p>
-                : <Chart options={options} series={series} type="bar" height={300} width={"100%"} />
-            }
+            <Chart options={options} series={series} type="bar" height={300} width={"100%"} />
           </div>
         </div>
         { legend(series, bigPicture) }
       </div>
+      { helperTextList() }
     </Loader>
   )
 }

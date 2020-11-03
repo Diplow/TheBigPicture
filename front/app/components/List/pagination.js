@@ -139,17 +139,18 @@ const SearchBar = (props) => {
         <span className="icon is-small"><i className="fas fa-search"></i></span>
       </div>
       {
-        user.id !== cst.GUEST_ID
-          ? <div
-            className={`level-item button tbp-radio title-button favorites-button is-narrow ${favorites ? "is-active" : ""}`}
-            onClick={() => {
-              onClick({ favorites: !favorites })
-              setFavorites(!favorites)}
-            }>
-            <span className="icon is-small"><i className="fas fa-heart"></i></span>
-          </div>
-          : null
+      //   user.id !== cst.GUEST_ID
+      //     ? <div
+      //       className={`level-item button tbp-radio title-button favorites-button is-narrow ${favorites ? "is-active" : ""}`}
+      //       onClick={() => {
+      //         onClick({ favorites: !favorites })
+      //         setFavorites(!favorites)}
+      //       }>
+      //       <span className="icon is-small"><i className="fas fa-heart"></i></span>
+      //     </div>
+      //     : null
       }
+
     </div>
   )
 }
