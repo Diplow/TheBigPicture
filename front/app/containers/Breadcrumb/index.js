@@ -23,6 +23,7 @@ const BreadcrumbLook = ({ bigPicture, subject, bigPictureId, categoryLabel, user
   </nav>
 )
 
+
 const mapStateToProps = (state, ownProps) => {
   const bigPicture = state.get("bigpictures").find((elt) => elt.id == ownProps.bigPictureId)
   return {

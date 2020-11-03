@@ -228,7 +228,7 @@ const formatOptions = (options) => {
 export const get = (dispatch, endpoint, options, next, must_process) => {
   const mustprocess = must_process || false // get requests dont get processed by default
   const opts = formatOptions(options)
-  const url = endpoint
+  const url = `${endpoint}?${opts.join('&')}`
   const method = "GET"
   const body = {}
   dispatch(basics.make({
@@ -238,7 +238,7 @@ export const get = (dispatch, endpoint, options, next, must_process) => {
     next,
     mustprocess,
     nextargs: options,
-    id: [method].concat(endpoint.split('/')).concat(opts).concat([uuid()]).join('-')
+    id: [method].concat(endpoint.split('/')).concat(opts).join('-')
   }))
 }
 

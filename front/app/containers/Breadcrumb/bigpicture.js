@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import { getBigPicture } from '../../actions'
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 import * as cst from '../../constants'
 import './style.scss'
 

@@ -21,6 +21,8 @@ class BigPictureViewTestCase(TestCase):
     def step(self, action):
         if (action["action"] == "login"):
             self.client.login(**action["data"])
+        elif (action["action"] == "logout"):
+            self.client.logout()
         elif (action["action"] == "create_user"):
             self.create_user(action["data"])
         elif (action["action"] == "send_api"):

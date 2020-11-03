@@ -2,6 +2,7 @@ import * as basics from "./basics"
 import * as api from './api'
 import * as utils from '../utils'
 import * as cst from "../constants"
+import uuid from 'uuid/v4'
 
 
 /**
@@ -120,7 +121,7 @@ export const getBigPictureResults = (bigpictureId) => (
     api.get(
       dispatch,
       `bigpictures/${bigpictureId}/results/`,
-      { bigpictureId },
+      { bigpictureId, cachebypass: uuid() },
       "getBigPictureResults",
       false
     )
@@ -197,7 +198,7 @@ export const getRatings = (page, options, requestId) => {
       dispatch,
       "ratings",
       page,
-      utils.removeEmptyKeys(options),
+      utils.removeEmptyKeys({ ...options, cachebypass: uuid() }),
       requestName,
       requestId
     )
@@ -223,7 +224,7 @@ export const getReasons = (page, options, requestId) => (
       dispatch,
       "reasons",
       page,
-      utils.removeEmptyKeys(options),
+      utils.removeEmptyKeys({ ...options, cachebypass: uuid() }),
       "getReasons",
       requestId
     )
@@ -235,7 +236,7 @@ export const getRatingResults = (ratingId) => (
     api.get(
       dispatch,
       `ratings/${ratingId}/results/`,
-      { ratingId },
+      { ratingId, cachebypass: uuid() },
       "getRatingResults",
       false
     )

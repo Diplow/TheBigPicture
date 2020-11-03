@@ -15,6 +15,8 @@ describe('bigpictures reducer', () => {
     "hyperlink_id":null,
     "parent":null,
     "subject":26,
+    "reasonCount": 0,
+    "ratingCount": 0,
     "author":1,
     "creation_date":"2020-02-11",
     "modification_date":"2020-06-03T20:44:54.052648Z",
@@ -157,6 +159,7 @@ describe('bigpictures reducer', () => {
         },
         author_id: 1,
         basisCount: 0,
+        reasonCount: 0,
         context: {
           ratings: [],
           subject: {
