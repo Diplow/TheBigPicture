@@ -1,9 +1,10 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+import { getBigPicture } from '../../actions'
 import * as cst from '../../constants'
 import './style.scss'
 
@@ -61,6 +62,10 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const BigPictureBreadcrumb = connect(mapStateToProps)(BigPictureBreadcrumbLook)
+const mapDispatchToProps = (dispatch) => ({
+  getBp: (bpId) => { dispatch(getBigPicture(bpId)) }
+})
+
+const BigPictureBreadcrumb = connect(mapStateToProps, mapDispatchToProps)(BigPictureBreadcrumbLook)
 
 export default BigPictureBreadcrumb
