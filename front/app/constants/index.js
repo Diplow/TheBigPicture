@@ -5,6 +5,7 @@ import * as actions from './actions'
 import * as labels from './labels'
 import * as alt_labels from './alt_labels'
 import * as icons from './icons'
+import * as tutorial from './tutorial'
 
 export { actions }
 export { labels }
@@ -12,6 +13,7 @@ export { alt_labels }
 export { icons }
 export { explications }
 export { notifications }
+export { tutorial }
 
 // Categories
 export const ALL_CATEGORY = "all"

@@ -237,27 +237,11 @@ const chart = (bigPicture, series, toggleSerie) => {
     </div>
   )
 
-  const helperTextChart = () => (
-    <div className="card-content">
-      <div style={{ paddingBottom: 0, marginBottom: 0 }} className="content">
-        <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">{ cst.labels.HELPER_TEXT_RESULTS(bigPicture.title) }</p>
-      </div>
-    </div>
-  )
-
-  const helperTextList = () => (
-    <div className="card-content">
-      <div style={{ paddingBottom: 0, marginBottom: 0, paddingTop: 0, marginTop: 0 }} className="content">
-        <p style={{ color:"inherit" }} className="vde subtitle vde-loadmore">{ cst.labels.HELPER_TEXT_REASON_LIST }</p>
-      </div>
-    </div>
-  )
   if (bigPicture.results && bigPicture.results.count == 0)
     return emptyResultsMessage()
 
   return (
     <Loader condition={bigPicture.results == undefined}>
-      { helperTextChart() }
       <div className="level">
         <div style={{minWidth: "70%"}} className="level-left">
           <div style={{width: "100%"}} id="chart">
@@ -266,7 +250,6 @@ const chart = (bigPicture, series, toggleSerie) => {
         </div>
         { legend(series, bigPicture) }
       </div>
-      { helperTextList() }
     </Loader>
   )
 }

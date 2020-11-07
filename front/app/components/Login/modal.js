@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import { login } from '../../actions/api'
+
+import NewActionsButtons from '../Buttons/newtoolbar'
 import * as cst from '../../constants'
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -48,10 +50,16 @@ const LoginModalLook = ({ active, setActive, login }) => {
           </form>
         </section>
         <footer className="modal-card-foot">
-          <div
-            className="button is-dark"
-            onClick={onClick}>
-            S'authentifier
+          <div className="level is-mobile action-buttons">
+            <div className="level-left"/>
+            <div className="level-right">
+              <div className="creating-button level cancel is-mobile" onClick={() => setActive(false)}>
+                <span className="level-item text is-narrow">Annuler</span>
+              </div>
+              <div className="creating-button level publish is-mobile" onClick={onClick}>
+                <span className="level-item text is-narrow">S'authentifier</span>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
