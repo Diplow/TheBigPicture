@@ -1,0 +1,32 @@
+
+@import "../../styles/theme.scss";
+
+.card.vde-tuto {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+
+  .card-content {
+    .content {
+      .subtitle,
+      .title {
+        color: $primary-5;
+      }
+
+      .title {
+        margin-bottom: 1rem;
+      }
+
+      .subtitle.vde-hide {
+        color: $primary-3;
+      }
+      .subtitle.vde-hide:hover {
+        color: lighten($primary-3, 10%);
+      }
+
+      padding: 0;
+    }
+  }
+}

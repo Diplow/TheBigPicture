@@ -20,8 +20,9 @@
 
       ],
       "private":false,
-      "reasonCount": 0,
+      "reasonCount": {},
       "ratingCount": 0,
+      "evalCount": 0,
       "pin":false
    },
    {
@@ -44,8 +45,9 @@
 
       ],
       "private":false,
-      "reasonCount": 0,
+      "reasonCount": {},
       "ratingCount": 0,
+      "evalCount": 0,
       "pin":false
    },
    {
@@ -68,8 +70,9 @@
 
       ],
       "private":false,
-      "reasonCount": 0,
+      "reasonCount": {},
       "ratingCount": 0,
+      "evalCount": 0,
       "pin":false
    },
    {
@@ -93,8 +96,9 @@
 
       ],
       "private":false,
-      "reasonCount": 0,
+      "reasonCount": {},
       "ratingCount": 0,
+      "evalCount": 0,
       "pin":false
    },
    {
@@ -121,7 +125,8 @@
 
       ],
       "private":false,
-      "reasonCount": 0,
+      "reasonCount": {},
+      "evalCount": 1,
       "pin":true
    }
 ]

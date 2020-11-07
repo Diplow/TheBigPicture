@@ -38,13 +38,15 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
     user
   })
 
+  const [showBody, setShowBody] = useState(false)
+
   const header = (bigPicture) => {
     if (!bigPicture) return null
 
     const headerLevelLeft = (bigPicture) => (
       <div className="level-left">
         <AuthorIcon userId={bigPicture.author} showIcon={true} clickable={true}/>
-        <p className="title">{bigPicture.title}</p>
+        <p onClick={() => setShowBody(!showBody)} className="title">{bigPicture.title}</p>
         { user.id == bigPicture.author ? editButton : null }
       </div>
     )
@@ -102,7 +104,7 @@ const SubjectPreviewLook = ({ bigPicture, user }) => {
     <div className={`card subject-preview ${ bigPicture.pin ? "pinned" : ""}`}>
       { bigPicture.pin ? pinButton : null }
       { header(bigPicture) }
-      { content(bigPicture) }
+      { showBody ? content(bigPicture) : null }
     </div>
   )
 }

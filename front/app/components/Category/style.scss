@@ -8,6 +8,20 @@ a.card.category:focus {
   background-color: $primary-3;
 }
 
+div.card.category.welcome {
+  background-color: transparent;
+  .card-content .content {
+    p.title,
+    p.subtitle {
+      color: $primary-5;
+    }
+
+    padding: 0.5rem;
+  }
+}
+
+
+div.card.category,
 a.card.category {
   --card-height: 256px;
   width: 100%;
