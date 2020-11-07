@@ -76,6 +76,17 @@ const ListLook = (props) => {
     setHidden(!loadFirstPage)
   }, [name])
 
+  const emptyListMessage = () => (
+    <div className="card-content">
+      <div className="content">
+        <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">{emptyMessage}</p>
+      </div>
+    </div>
+  )
+
+  if (count == 0 && !loading && emptyMessage)
+    return emptyListMessage()
+
   return (
     <div className="vde-list">
       { buttons ? header(buttons) : null }
@@ -95,7 +106,6 @@ const ListLook = (props) => {
             }
           </Loader> : null
         }
-        { count == 0 && !loading && emptyMessage ? <p style={{ color:"inherit" }}className="vde subtitle vde-loadmore">{emptyMessage}</p> : null }
         { !hidden && hasLoaded ? <Loader condition={loadingMore && page.length != 0} min_loading={1000}>{!loading ? pagination : null}</Loader> : null }
         { newItem }
       </ul>

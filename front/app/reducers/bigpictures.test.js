@@ -15,8 +15,9 @@ describe('bigpictures reducer', () => {
     "hyperlink_id":null,
     "parent":null,
     "subject":26,
-    "reasonCount": 0,
     "ratingCount": 0,
+    "reasonCount": {},
+    "evalCount": 1,
     "author":1,
     "creation_date":"2020-02-11",
     "modification_date":"2020-06-03T20:44:54.052648Z",
@@ -59,7 +60,7 @@ describe('bigpictures reducer', () => {
       }
     }
     const initStore = [bp]
-    const afterStore = [{ ...bp, results: action.results }]
+    const afterStore = [{ ...bp, results: action.results, evalCount: 1 }]
     expect(reducer(initStore, action)).toEqual(afterStore)
   })
 
@@ -97,7 +98,7 @@ describe('bigpictures reducer', () => {
       requestId: 'GET-bigpictures-26-results--format=json-bigpictureId=26-60c07c9b-ca5a-421e-922b-4e99c28adda0'
     }
     const initStore = [bp]
-    const afterStore = [{ ...bp, endorsmentCount: action.count }]
+    const afterStore = [{ ...bp, evalCount: action.count }]
     expect(reducer(initStore, action)).toEqual(afterStore)
   })
 
@@ -159,7 +160,8 @@ describe('bigpictures reducer', () => {
         },
         author_id: 1,
         basisCount: 0,
-        reasonCount: 0,
+        reasonCount: {},
+        evalCount: 1,
         context: {
           ratings: [],
           subject: {
@@ -186,6 +188,7 @@ describe('bigpictures reducer', () => {
             "modification_date":"2020-06-03T20:44:54.052648Z",
             "26b5e24a-2e6c-419e-8391-6567d77bead2":10,
             "referenceCount":1,
+            "evalCount": 1,
             "parent":null
           }
         },

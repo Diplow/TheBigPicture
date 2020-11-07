@@ -8,11 +8,11 @@ import "./style.scss"
 const Loader = (props) => {
   const [loading, setLoading] = useState(false)
 
-  if (props.condition || loading) {
-    if (!loading) {
-      setLoading(true)
-      setTimeout(() => setLoading(false), props.min_loading || 0);
-    }
+  useEffect(() => {
+    setLoading(props.condition)
+  }, [props.condition])
+
+  if (props.condition) {
     return (
       <div className="container vde section section-field">
         <div className="loader" />

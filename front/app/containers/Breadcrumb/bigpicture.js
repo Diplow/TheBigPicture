@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import { getBigPicture } from '../../actions'
-
 import * as cst from '../../constants'
 import './style.scss'
 
@@ -18,10 +17,9 @@ const shortenTitle = (title) => {
   return title
 }
 
-
 const BigPictureBreadcrumbLook = ({ bigPicture, bigPictureId, parent, depth, getBp }) => {
   useEffect(() => {
-    if (!bigPicture) {
+    if (!bigPicture && bigPictureId) {
       getBp(bigPictureId)
     }
   }, [])
