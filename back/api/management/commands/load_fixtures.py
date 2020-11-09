@@ -19,5 +19,5 @@ class Command(BaseCommand):
 
         self.stdout.write('')
         self.stdout.write(self.style.SUCCESS('You can log in with:'))
-        self.stdout.write(self.style.SUCCESS(f'Username: {DEFAULT_USERNAME}'))
-        self.stdout.write(self.style.SUCCESS(f'Password: {DEFAULT_PASSWORD}'))
+        self.stdout.write(self.style.SUCCESS("Username: {username}".format(username=DEFAULT_USERNAME)))
+        self.stdout.write(self.style.SUCCESS("Password: {password}".format(password=DEFAULT_PASSWORD)))
