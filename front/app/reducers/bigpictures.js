@@ -20,6 +20,7 @@ const addBp = (bp, state) => {
     modification_date: bp.modification_date,
     ratingCount: old && old.ratingCount ? old.ratingCount : (bp.ratingCount || 0),
     reasonCount: old && old.reasonCount ? old.reasonCount : (bp.reasonCount || {}),
+    tags: old && old.tags ? old.tags : "",
     evalCount: old && old.evalCount ? old.evalCount : (bp.evalCount || 0),
     favorite: reducer_utils.set_or_update("favorite", bp, old, false),
     references: reducer_utils.set_or_update("references", bp, old, []),
