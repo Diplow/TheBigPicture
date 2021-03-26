@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@svgr/cli": "^5.4.0",
-    "apexcharts": "^3.18.1",
+    "apexcharts": "^3.24.0",
     "babel-eslint": "^10.1.0",
     "bulma": "^0.7.4",
     "bulma-divider": "^0.2.0",
